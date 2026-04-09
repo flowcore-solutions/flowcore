@@ -45,7 +45,7 @@ export default function ApplicationDiagram({
   return (
     <div
       className={`grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-10 items-start ${
-        reversed ? "lg:[grid-template-columns:3fr_2fr]" : ""
+        reversed ? "lg:grid-cols-[3fr_2fr]" : ""
       }`}
     >
       {reversed ? (

@@ -13,7 +13,7 @@ import ApplicationsCTA from "@/components/sections/applications/ApplicationsCTA"
 export const metadata: Metadata = {
   title: "Applications — Industrial Pump System Solutions",
   description:
-    "See how Berlington pump systems are engineered into Water Treatment Plants, HVAC systems, and industrial processing circuits. Interactive technical diagrams with pump specifications.",
+    "See how Berlington pump systems are engineered into Water Treatment Plants, HVAC systems, agricultural irrigation, and industrial processing circuits. Interactive technical diagrams with pump specifications.",
 };
 
 export default function ApplicationsPage() {
