@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ── Typography ─────────────────────────────── */
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui;
+
+  /* ── Primary Blue Palette ───────────────────── */
+  --color-primary-blue: #1e5bb8;
+  --color-deep-blue: #0f3d91;
+  --color-light-blue: #4da3ff;
+
+  /* ── Secondary Green Palette ────────────────── */
+  --color-primary-green: #6cc24a;
+  --color-dark-green: #2fa84f;
+  --color-light-green: #a6e46b;
+
+  /* ── Neutrals ───────────────────────────────── */
+  --color-white: #ffffff;
+  --color-section-bg: #f8fafc;
+  --color-border: #e5e7eb;
+  --color-text-dark: #0f172a;
+  --color-text-light: #64748b;
+
+  /* ── Industrial Shadows ─────────────────────── */
+  --shadow-card: 0 4px 32px 0 rgba(15, 61, 145, 0.10);
+  --shadow-card-hover: 0 20px 60px 0 rgba(15, 61, 145, 0.22);
+  --shadow-green: 0 4px 24px 0 rgba(108, 194, 74, 0.30);
+
+  /* ── Spacing Rhythm (8pt grid) ──────────────── */
+  --spacing-section: 6rem;     /* 96px — py-24 equivalent */
+  --spacing-component: 3rem;   /* 48px — between components */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  /* Standard 16px baseline — clamp() functions on components handle display scaling */
+  html {
+    font-size: 16px;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    @apply bg-white text-text-dark antialiased;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv03";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-deep-blue font-bold;
+    /* -0.02em: Poppins at display sizes needs a tighter kern for premium feel */
+    letter-spacing: -0.02em;
+  }
+
+  /* Smooth box-sizing reset */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── Section utility: hero underlap ─────────────────────────────────────────
+   Pages whose heroes intentionally extend behind the fixed Navbar
+   use this negative margin to pull up by the exact nav height (pt-24 = 96px).
+*/
+@layer utilities {
+  .hero-underlap {
+    margin-top: -6rem; /* -96px — cancels the layout.tsx pt-24 offset */
+    padding-top: 6rem; /* restores inner spacing so content isn't clipped */
+  }
+}
+
+/* ── Green flow-line animation (Applications page SVG diagrams) ──────────── */
+@keyframes flowPulse {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.flow-line {
+  stroke-dasharray: 8 4;
+  animation: flowPulse 1.5s linear infinite;
+}
+
+/* ── 3D card perspective helper ──────────────────────────────────────────── */
+@layer utilities {
+  .perspective-800 {
+    perspective: 800px;
+  }
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden; /* Safari */
+  }
 }
