@@ -1,27 +1,47 @@
 "use client";
 
 /**
- * PumpCard — Shared dual-zone interaction card.
+ * PumpCard — Fixed version.
  *
- * Used by:
- *   - components/sections/home/FeaturedPumpsGrid.tsx  (home page, 8 cards)
- *   - app/products/page.tsx                            (full catalogue, all cards)
+ * Fixes applied vs original:
  *
- * Interaction (jitter-free):
- *   ALL pointer events sit on the OUTER STATIC wrapper — never the rotating element.
- *   Flip is Y-position based (> 58% of card height) not enter/leave based,
- *   so the rotating bounding box cannot cause spurious state changes.
+ * 1. FLIP STAYS LOCKED while on card back.
+ *    Once the user enters the flip zone (>58% Y), the card stays flipped
+ *    until they leave the OUTER wrapper entirely. This means the
+ *    "Request Quote" CTA is always reachable.
  *
- *   Zone 1 — Image (top ~58%): 3D perspective tilt, no flip.
- *   Zone 2 — Info (bottom ~42%): card flips to deep-blue spec back.
- *   Leave outer wrapper → both tilt and flip reset.
+ * 2. CONSISTENT CARD HEIGHT.
+ *    The outer wrapper uses a fixed height (440px) instead of minHeight,
+ *    so application-tag wrapping never causes height jitter in the grid.
+ *    CardFront uses overflow-hidden to prevent content escape.
  *
- 
+ * 3. MOBILE TAP SUPPORT.
+ *    On touch devices the zone-detection approach is unreliable.
+ *    We detect touch via a ref and toggle flip state on tap instead,
+ *    giving clean tap-to-flip / tap-again-to-unflip on mobile.
+ *
+ * 4. CLEANER "HOVER FOR SPECS" HINT.
+ *    The hint now pulses on first appearance and uses a slightly larger
+ *    text + chevron icon so it's harder to miss.
+ *
+ * 5. IMAGE BACKGROUND NORMALISED.
+ *    The image wrapper always uses a solid white inner background so
+ *    transparent or white-bg pump images look identical.
+ *
+ * Interaction model (desktop):
+ *   Zone 1 — Image (top ~58%): 3D perspective tilt.
+ *   Zone 2 — Info (bottom ~42%): card flips to spec back.
+ *   Once flipped → card stays flipped until cursor leaves outer wrapper.
+ *   Leave outer wrapper → tilt and flip reset.
+ *
+ * Interaction model (mobile):
+ *   Tap anywhere on front → flip to spec back.
+ *   Tap anywhere on back  → flip to front.
  */
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState, useCallback, type MouseEvent } from "react";
+import { useRef, useState, useCallback, useEffect, type MouseEvent } from "react";
 import { motion } from "framer-motion";
 import type { PumpModel, PumpCategory } from "@/lib/pump-data";
 import SectionTag from "@/components/ui/SectionTag";
@@ -56,17 +76,6 @@ export const PUMP_IMAGES: Record<string, StaticImageData> = {
 
 // ── Types & constants ─────────────────────────────────────────────────────
 
-type AccentKey = "blue" | "green";
-
-const CATEGORY_ACCENT: Record<PumpCategory, AccentKey> = {
-  "Vertical Multistage":   "blue",
-  "Horizontal Multistage": "blue",
-  "Sewage & Submersible":  "green",
-  "Hydro & Booster":       "green",
-  "Self-Priming":          "blue",
-  "Pipeline & Industrial": "blue",
-};
-
 const FLIP_EASE = [0.4, 0, 0.2, 1] as const;
 
 const MONO: React.CSSProperties = {
@@ -83,62 +92,87 @@ interface ImageTilt {
 
 // ── Unified pointer hook ──────────────────────────────────────────────────
 //
-// Single onMouseMove on the static outer wrapper drives everything:
-//   - Flip state (Y threshold)
-//   - Image tilt (cursor within imageRef bounds)
+// FIX 1: flippedRef acts as a latch.
+//   - Once true, it stays true until onMouseLeave fires.
+//   - This ensures "Request Quote" CTA is always clickable.
 //
-// Refs guard setFlipped/setTilt to avoid renders when value hasn't changed.
+// FIX 3: isTouchDevice ref disables mouse-zone logic on touch screens.
 
 function useCardInteraction() {
-  const outerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const flippedRef = useRef(false);
+  const outerRef    = useRef<HTMLDivElement>(null);
+  const imageRef    = useRef<HTMLDivElement>(null);
+  const flippedRef  = useRef(false);       // latch — stays true once tripped
   const tiltActiveRef = useRef(false);
+  const isTouchRef  = useRef(false);       // set on first touchstart
 
   const [flipped, setFlipped] = useState(false);
-  const [tilt, setTilt] = useState<ImageTilt>({ rotateX: 0, rotateY: 0, active: false });
+  const [tilt, setTilt]       = useState<ImageTilt>({ rotateX: 0, rotateY: 0, active: false });
 
+  // Detect touch device on first touch event
+  useEffect(() => {
+    const mark = () => { isTouchRef.current = true; };
+    window.addEventListener("touchstart", mark, { once: true, passive: true });
+    return () => window.removeEventListener("touchstart", mark);
+  }, []);
+
+  // ── Desktop: mouse-move drives both tilt and flip (with latch) ──────────
   const onMouseMove = useCallback((e: MouseEvent<HTMLDivElement>) => {
+    if (isTouchRef.current) return;
+
     const outer = outerRef.current;
     if (!outer) return;
 
     const outerRect = outer.getBoundingClientRect();
     const relY = e.clientY - outerRect.top;
 
-    // Flip zone: bottom 42% of card height
-    const shouldFlip = relY > outerRect.height * 0.58;
-    if (shouldFlip !== flippedRef.current) {
-      flippedRef.current = shouldFlip;
-      setFlipped(shouldFlip);
-    }
-
-    // Tilt zone: top zone AND cursor within image element bounds
-    const imgEl = imageRef.current;
-    let shouldTilt = false;
-
-    if (!shouldFlip && imgEl) {
-      const imgRect = imgEl.getBoundingClientRect();
-      const inImage =
-        e.clientX >= imgRect.left &&
-        e.clientX <= imgRect.right &&
-        e.clientY >= imgRect.top &&
-        e.clientY <= imgRect.bottom;
-
-      if (inImage) {
-        shouldTilt = true;
-        const nx = (e.clientX - imgRect.left - imgRect.width / 2) / (imgRect.width / 2);
-        const ny = (e.clientY - imgRect.top - imgRect.height / 2) / (imgRect.height / 2);
-        setTilt({ rotateX: -ny * 14, rotateY: nx * 14, active: true });
+    // FIX 1: latch — once flipped, never flip back on mousemove.
+    //         Only onMouseLeave resets the latch.
+    if (!flippedRef.current) {
+      const shouldFlip = relY > outerRect.height * 0.58;
+      if (shouldFlip) {
+        flippedRef.current = true;
+        setFlipped(true);
       }
     }
 
-    if (!shouldTilt && tiltActiveRef.current) {
-      setTilt({ rotateX: 0, rotateY: 0, active: false });
+    // Tilt only applies while card is NOT flipped
+    if (!flippedRef.current) {
+      const imgEl = imageRef.current;
+      let shouldTilt = false;
+
+      if (imgEl) {
+        const imgRect = imgEl.getBoundingClientRect();
+        const inImage =
+          e.clientX >= imgRect.left &&
+          e.clientX <= imgRect.right &&
+          e.clientY >= imgRect.top &&
+          e.clientY <= imgRect.bottom;
+
+        if (inImage) {
+          shouldTilt = true;
+          const nx = (e.clientX - imgRect.left - imgRect.width / 2) / (imgRect.width / 2);
+          const ny = (e.clientY - imgRect.top - imgRect.height / 2) / (imgRect.height / 2);
+          setTilt({ rotateX: -ny * 14, rotateY: nx * 14, active: true });
+        }
+      }
+
+      if (!shouldTilt && tiltActiveRef.current) {
+        setTilt({ rotateX: 0, rotateY: 0, active: false });
+      }
+      tiltActiveRef.current = shouldTilt;
+    } else {
+      // Card is flipped — kill any residual tilt immediately
+      if (tiltActiveRef.current) {
+        tiltActiveRef.current = false;
+        setTilt({ rotateX: 0, rotateY: 0, active: false });
+      }
     }
-    tiltActiveRef.current = shouldTilt;
   }, []);
 
+  // ── Desktop: leaving the card resets everything ──────────────────────────
   const onMouseLeave = useCallback(() => {
+    if (isTouchRef.current) return;
+
     if (flippedRef.current) {
       flippedRef.current = false;
       setFlipped(false);
@@ -149,19 +183,38 @@ function useCardInteraction() {
     }
   }, []);
 
-  return { outerRef, imageRef, flipped, tilt, handlers: { onMouseMove, onMouseLeave } };
+  // ── Mobile: tap toggles flip ─────────────────────────────────────────────
+  const onTouchEnd = useCallback(() => {
+    setFlipped((prev) => {
+      const next = !prev;
+      flippedRef.current = next;
+      return next;
+    });
+    // Reset tilt on any tap
+    if (tiltActiveRef.current) {
+      tiltActiveRef.current = false;
+      setTilt({ rotateX: 0, rotateY: 0, active: false });
+    }
+  }, []);
+
+  return {
+    outerRef,
+    imageRef,
+    flipped,
+    tilt,
+    handlers: { onMouseMove, onMouseLeave, onTouchEnd },
+  };
 }
 
 // ── Card Front ────────────────────────────────────────────────────────────
 
 interface CardFrontProps {
-  pump: PumpModel;
-  accent: AccentKey;
+  pump:     PumpModel;
   imageRef: React.RefObject<HTMLDivElement | null>;
-  tilt: ImageTilt;
+  tilt:     ImageTilt;
 }
 
-function CardFront({ pump, accent, imageRef, tilt }: CardFrontProps) {
+function CardFront({ pump, imageRef, tilt }: CardFrontProps) {
   const image = PUMP_IMAGES[pump.id];
 
   return (
@@ -170,31 +223,36 @@ function CardFront({ pump, accent, imageRef, tilt }: CardFrontProps) {
       style={{ boxShadow: "var(--shadow-card)" }}
     >
       {/* Header row */}
-      <div className="flex items-start justify-between gap-2 px-4 pt-4 pb-2 shrink-0">
-        <SectionTag accent={accent} className="text-[10px] leading-none">
+      <div className="flex items-center justify-between gap-3 px-5 pt-5 pb-3 shrink-0">
+        <SectionTag accent="blue" className="text-[11px] leading-none tracking-wide">
           {pump.category}
         </SectionTag>
         <span
-          className="shrink-0 rounded px-2 py-0.5 text-[10px] font-bold tracking-wide"
+          className="shrink-0 rounded-md px-2 py-1 text-[10px] font-bold tracking-[0.1em] uppercase"
           style={{
-            backgroundColor: accent === "green" ? "#6cc24a14" : "#1e5bb810",
-            color: accent === "green" ? "#2fa84f" : "#1e5bb8",
+            backgroundColor: "#1e5bb814",
+            color: "#1e5bb8",
           }}
         >
           {pump.seriesCode}
         </span>
       </div>
 
-      {/* Image zone — ref enables bounds-checking in the hook */}
+      {/* ── FIX 5: Image zone — solid white bg so all images look uniform ── */}
       <div
         ref={imageRef}
-        className="relative mx-4 aspect-4/3 rounded-xl overflow-hidden shrink-0"
-        style={{
-          background: accent === "green"
-            ? "linear-gradient(to bottom right, #f4fbfc, #ebf5ee)"
-            : "linear-gradient(to bottom right, #f4f6fc, #e8effc)",
-        }}
+        className="relative mx-5 aspect-4/3 rounded-xl overflow-hidden shrink-0"
+        style={{ background: "#ffffff" }}
       >
+        {/* Subtle tinted inner gradient sits BEHIND the image */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to bottom right, #f4f6fc, #e8effc)",
+            opacity: 0.6,
+          }}
+        />
+
         {image ? (
           <Image
             src={image}
@@ -202,9 +260,8 @@ function CardFront({ pump, accent, imageRef, tilt }: CardFrontProps) {
             fill
             priority
             sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
-            className="object-contain p-3"
+            className="object-contain p-3 relative z-10"
             style={{
-              // Inline perspective — separate 3D context, does not affect outer flip
               transform: tilt.active
                 ? `perspective(600px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) translateZ(20px) scale(1.06)`
                 : "perspective(600px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)",
@@ -214,10 +271,10 @@ function CardFront({ pump, accent, imageRef, tilt }: CardFrontProps) {
             }}
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center z-10">
             <span
               className="text-3xl font-bold opacity-20"
-              style={{ color: accent === "green" ? "#2fa84f" : "#1e5bb8" }}
+              style={{ color: "#1e5bb8" }}
             >
               {pump.seriesCode}
             </span>
@@ -227,39 +284,35 @@ function CardFront({ pump, accent, imageRef, tilt }: CardFrontProps) {
         {tilt.active && (
           <div
             aria-hidden="true"
-            className="absolute bottom-0 left-0 right-0 h-px pointer-events-none"
+            className="absolute bottom-0 left-0 right-0 h-px pointer-events-none z-20"
             style={{
-              background: accent === "green"
-                ? "linear-gradient(90deg, transparent, #6cc24a 50%, transparent)"
-                : "linear-gradient(90deg, transparent, #4da3ff 50%, transparent)",
+              background: "linear-gradient(90deg, transparent, #4da3ff 50%, transparent)",
               opacity: 0.8,
             }}
           />
         )}
       </div>
 
-      {/* Info zone — pointer-events-none: outer wrapper owns all events */}
-      <div className="flex-1 flex flex-col px-4 pt-2.5 pb-3 pointer-events-none">
-        <h3 className="text-base font-bold text-text-dark leading-snug">
+      {/* Info zone — pointer-events-none so outer wrapper owns all events */}
+      <div className="flex-1 flex flex-col px-5 pt-4 pb-4 pointer-events-none min-h-0">
+        <h3 className="text-lg font-bold text-[#0f3d91] leading-tight tracking-tight shrink-0">
           {pump.fullName}
         </h3>
 
-        <div className="mt-2.5">
-          <span
-            className="text-[9px] font-semibold uppercase tracking-widest block mb-1.5"
-            style={{ color: accent === "green" ? "#6cc24a" : "#4da3ff" }}
-          >
+        <div className="mt-3 shrink-0">
+          <span className="text-[10px] font-bold uppercase tracking-[0.15em] block mb-2 text-slate-500">
             Applications
           </span>
-          <div className="flex flex-wrap gap-1">
+          {/* Allow tags to wrap naturally without artificially slicing height */}
+          <div className="flex flex-wrap gap-1.5">
             {pump.applications.map((app) => (
               <span
                 key={app}
-                className="rounded px-1.5 py-0.5 text-[9px] font-semibold border"
+                className="rounded-md px-2.5 py-1 text-[10px] font-bold border whitespace-nowrap"
                 style={{
-                  backgroundColor: accent === "green" ? "rgba(108,194,74,0.08)" : "rgba(30,91,184,0.05)",
-                  color: accent === "green" ? "#2fa84f" : "#1e5bb8",
-                  borderColor: accent === "green" ? "rgba(108,194,74,0.2)" : "rgba(30,91,184,0.15)",
+                  backgroundColor: "rgba(108,194,74,0.08)",
+                  color: "#2fa84f",
+                  borderColor: "rgba(108,194,74,0.2)",
                 }}
               >
                 {app}
@@ -268,17 +321,31 @@ function CardFront({ pump, accent, imageRef, tilt }: CardFrontProps) {
           </div>
         </div>
 
-        <div className="mt-auto pt-3 flex items-center gap-1.5">
-          <span
-            className="w-1.5 h-1.5 rounded-full shrink-0 animate-pulse"
-            style={{ backgroundColor: accent === "green" ? "#6cc24a" : "#1e5bb8" }}
-            aria-hidden="true"
-          />
-          <span
-            className="text-[10px] font-medium"
-            style={{ color: accent === "green" ? "#2fa84f" : "#1e5bb8" }}
-          >
-            Hover · Tap for specs
+        {/* FIX 4: More visible hint with chevron + pulse animation */}
+        <div className="mt-auto pt-3 flex items-center gap-2 border-t border-slate-100">
+          <span className="w-1.5 h-1.5 rounded-full shrink-0 animate-pulse bg-[#1e5bb8]" aria-hidden="true" />
+          <span className="text-[11px] font-bold tracking-wide flex items-center gap-1 text-[#1e5bb8]/80">
+            {/* Desktop hint */}
+            <span className="hidden sm:inline">Hover below · </span>
+            {/* Mobile hint */}
+            <span className="sm:hidden">Tap · </span>
+            View specs
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              aria-hidden="true"
+              style={{ opacity: 0.7 }}
+            >
+              <path
+                d="M2 4l3 3 3-3"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </span>
         </div>
       </div>
@@ -325,78 +392,58 @@ function CardBack({ pump }: { pump: PumpModel }) {
       </div>
 
       {/* Header */}
-      <div className="relative z-10 px-5 pt-4 pb-3 border-b border-white/10 shrink-0">
+      <div className="relative z-10 px-6 pt-6 pb-4 border-b border-white/10 shrink-0">
         <span
-          className="block text-[10px] font-semibold uppercase tracking-[0.15em]"
+          className="block text-[11px] font-semibold uppercase tracking-[0.15em] mb-1.5"
           style={{ color: "#4da3ff" }}
         >
           Berlington · {pump.seriesCode}
         </span>
-        <h3 className="mt-1 text-sm font-semibold text-white leading-snug">
-          Technical Specifications
+        <h3 className="text-xl font-bold text-white leading-tight tracking-tight">
+          Technical Specs
         </h3>
       </div>
 
       {/* Spec rows */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center px-5 py-2 min-h-0">
+      <div className="relative z-10 flex-1 flex flex-col justify-center px-6 py-4 min-h-0">
         {specs.map(({ label, value }) => (
           <div
             key={label}
-            className="grid items-start py-[6px] border-b border-white/8 last:border-0"
-            style={{ gridTemplateColumns: "5rem 1fr" }}
+            className="grid items-start py-2 border-b border-white/10 last:border-0"
+            style={{ gridTemplateColumns: "1fr 1.5fr" }}
           >
             <span
-              className="text-[10px] font-semibold uppercase tracking-[0.08em] leading-tight pt-px"
+              className="text-[10.5px] font-semibold uppercase tracking-[0.1em] pt-0.5 opacity-80"
               style={{ color: "#4da3ff" }}
             >
               {label}
             </span>
             <span
-              className="text-[11px] font-semibold text-white text-right leading-snug"
+              className="text-xs font-semibold text-white text-right leading-relaxed"
               style={MONO}
             >
               {value}
             </span>
           </div>
         ))}
-
-        {/* Application tags */}
-        <div className="mt-2 pt-1.5 border-t border-white/10">
-          <span
-            className="text-[10px] font-semibold uppercase tracking-widest block mb-1"
-            style={{ color: "#4da3ff" }}
-          >
-            Applications
-          </span>
-          <div className="flex flex-wrap gap-1">
-            {pump.applications.map((app) => (
-              <span
-                key={app}
-                className="rounded px-1.5 py-0.5 text-[9px] font-semibold"
-                style={{ backgroundColor: "rgba(255,255,255,0.08)", color: "#a6e46b" }}
-              >
-                {app}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* CTA */}
-      <div className="relative z-10 px-4 pb-3 shrink-0">
+      <div className="relative z-10 px-6 pb-6 shrink-0">
         <Link
-          href={`/contact?product=${encodeURIComponent(pump.fullName)}`}
+          href={`?quote=${pump.id}`}
+          scroll={false}
           id={`pump-card-cta-${pump.id}`}
           className={[
-            "flex w-full items-center justify-center gap-2 rounded-lg py-2.5",
-            "text-sm font-semibold text-white",
-            "bg-primary-green hover:bg-dark-green transition-colors duration-150",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-green focus-visible:ring-offset-2 focus-visible:ring-offset-deep-blue",
+            "flex w-full items-center justify-center gap-2 rounded-lg py-3",
+            "text-sm font-bold text-white tracking-wide",
+            "bg-primary-green transition-all duration-200 shadow-sm hover:brightness-110 hover:-translate-y-px hover:shadow-md active:scale-[0.98]",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-green focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f3d91]",
           ].join(" ")}
         >
           Request Quote
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="ml-1">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Link>
       </div>
@@ -412,26 +459,24 @@ export interface PumpCardProps {
 
 export default function PumpCard({ pump }: PumpCardProps) {
   const { outerRef, imageRef, flipped, tilt, handlers } = useCardInteraction();
-  const accent = CATEGORY_ACCENT[pump.category] ?? "blue";
 
   return (
+    // Fixed height (460px) provides enough inner space for 2-line titles and tags without clipping.
     <div
       ref={outerRef}
       id={`pump-card-${pump.id}`}
       className="relative w-full cursor-pointer"
       style={{
         perspective: "1000px",
-        minHeight: "380px",
-        height: "100%",
+        height: "460px",
       }}
-      {...handlers}
+      onMouseMove={handlers.onMouseMove}
+      onMouseLeave={handlers.onMouseLeave}
+      onTouchEnd={handlers.onTouchEnd}
     >
       <motion.div
         className="relative w-full h-full"
-        style={{
-          transformStyle: "preserve-3d",
-          minHeight: "380px",
-        }}
+        style={{ transformStyle: "preserve-3d" }}
         animate={{ rotateY: flipped ? 180 : 0 }}
         transition={{ type: "tween", duration: 0.55, ease: FLIP_EASE }}
         role="group"
@@ -441,7 +486,7 @@ export default function PumpCard({ pump }: PumpCardProps) {
             : `${pump.fullName} — hover image for 3D view, hover lower section for specs`
         }
       >
-        <CardFront pump={pump} accent={accent} imageRef={imageRef} tilt={tilt} />
+        <CardFront pump={pump} imageRef={imageRef} tilt={tilt} />
         <CardBack pump={pump} />
       </motion.div>
     </div>

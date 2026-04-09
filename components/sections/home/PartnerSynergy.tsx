@@ -36,7 +36,7 @@ export default function PartnerSynergy() {
         </div>
 
         {/* The Synergy Block */}
-        <div className="relative rounded-[2rem] overflow-hidden lg:min-h-[480px] flex flex-col lg:flex-row lg:items-stretch shadow-[0_20px_80px_-15px_rgba(15,61,145,0.15)] group">
+        <div className="relative rounded-4xl overflow-hidden lg:min-h-[480px] flex flex-col lg:flex-row lg:items-stretch shadow-[0_20px_80px_-15px_rgba(15,61,145,0.15)] group">
           
           {/* Berlington Side (Deep Blue) */}
           <div className="relative w-full lg:w-1/2 p-10 sm:p-14 lg:p-16 flex flex-col justify-between transition-transform duration-700 ease-out lg:group-hover:scale-[1.01] z-10" style={{ backgroundColor: "#0F3D91" }}>
@@ -77,7 +77,7 @@ export default function PartnerSynergy() {
           </div>
 
           {/* Flowchar Side (White/Green) */}
-          <div className="relative w-full lg:w-1/2 p-10 sm:p-14 lg:p-16 flex flex-col justify-between bg-white lg:rounded-r-[2rem] transition-transform duration-700 ease-out lg:group-hover:scale-[1.01] z-0 shadow-[-10px_0_30px_rgba(0,0,0,0.05)]">
+          <div className="relative w-full lg:w-1/2 p-10 sm:p-14 lg:p-16 flex flex-col justify-between bg-white lg:rounded-r-4xl transition-transform duration-700 ease-out lg:group-hover:scale-[1.01] z-0 shadow-[-10px_0_30px_rgba(0,0,0,0.05)]">
             <PrecisionReveal variant="fadeSlideRight" className="relative z-10 flex flex-col h-full">
               <div>
                 <div className="flex items-center gap-4 mb-12">
