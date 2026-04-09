@@ -16,6 +16,7 @@ import HeroSection from "@/components/sections/home/HeroSection";
 import FeaturedPumpsGrid from "@/components/sections/home/FeaturedPumpsGrid";
 import PartnerSynergy from "@/components/sections/home/PartnerSynergy";
 import ApplicationShowcase from "@/components/sections/home/ApplicationShowcase";
+import TechnicalServices from "@/components/sections/home/TechnicalServices";
 
 export const metadata: Metadata = {
   title: "FlowCore Solutions — Industrial Pump Systems & Water Treatment",
@@ -31,6 +32,7 @@ export default function HomePage() {
       <FeaturedPumpsGrid />
       <PartnerSynergy />  
       <ApplicationShowcase/>
+      <TechnicalServices />
     </>
   );
 }

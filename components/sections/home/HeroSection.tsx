@@ -34,7 +34,7 @@ export default function HeroSection() {
           <div className="absolute inset-0 bg-deep-blue/70" />
 
           {/* GRADIENT BLEND */}
-          <div className="absolute inset-0 bg-gradient-to-r from-deep-blue/80 via-deep-blue/60 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-r from-deep-blue/80 via-deep-blue/60 to-transparent" />
         </div>
 
         {/* RIGHT SIDE (GREEN) */}
@@ -45,7 +45,7 @@ export default function HeroSection() {
           }}
         >
           {/* Gradient for softness */}
-          <div className="absolute inset-0 bg-gradient-to-l from-primary-green via-primary-green/95 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-l from-primary-green via-primary-green/95 to-transparent" />
 
           {/* Animated rings */}
           <div className="absolute inset-0 opacity-20">

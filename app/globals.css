@@ -42,6 +42,11 @@
     font-feature-settings: "ss01", "ss02", "cv01", "cv03";
   }
 
+  ::selection {
+    background-color: var(--color-primary-green);
+    color: var(--color-primary-blue);
+  }
+
   h1,
   h2,
   h3,

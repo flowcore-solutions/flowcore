@@ -156,13 +156,19 @@ export default function Navbar() {
       <div className="fixed top-4 left-0 right-0 z-50 px-6 pointer-events-none">
         <motion.nav
           layout
-          className={`mx-auto max-w-7xl rounded-[2rem] pointer-events-auto transition-all duration-500 ${
+          className={`relative mx-auto max-w-7xl rounded-[2rem] pointer-events-auto transition-all duration-500 ${
             scrolled
-              ? "bg-white/70 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] py-2.5 scale-[0.98]"
+              ? "bg-white/80 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] py-2.5 scale-[0.98]"
               : "bg-white shadow-lg py-4"
           }`}
         >
-          <div className="flex items-center justify-between px-8">
+          {/* Ambient Scroll Blobs (Always Visible) */}
+          <div className="absolute inset-0 rounded-[2rem] overflow-hidden pointer-events-none">
+            <div className="absolute top-1/2 -translate-y-1/2 -left-20 w-[24rem] h-[24rem] bg-[#6CC24A]/25 blur-[60px] rounded-full" />
+            <div className="absolute top-1/2 -translate-y-1/2 -right-20 w-[30rem] h-[30rem] bg-[#1E5BB8]/15 blur-[70px] rounded-full" />
+          </div>
+
+          <div className="relative z-10 flex items-center justify-between px-8">
             <Link href="/">
               <BrandIdentity />
             </Link>

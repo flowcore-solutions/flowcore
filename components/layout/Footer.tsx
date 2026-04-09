@@ -1,234 +1,180 @@
-/**
- * Footer — 3-column industrial layout.
- *
- * Column 1: Brand — FlowCore logo + tagline + social SVGs
- * Column 2: Quick links — mirrors Navbar
- * Column 3: Contact snippet — HQ address, phone, email
- * Bottom bar: Copyright in Deep Blue (#0F3D91)
- *
- * Server Component — no interactivity.
- * Imported and rendered in app/layout.tsx below <main>.
- */
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
-import { getHeadquarters } from "@/lib/location-data";
-import flowcoreLogo from "@/app/assets/logos/flowcore-logo.png";
-
-// ── Nav links (matches Navbar.tsx) ────────────────────────────────────────
+import flowcoreLogoHorizontal from "@/app/assets/logos/flowcore-logo-horizontal.png";
 
 const FOOTER_LINKS = [
-  { href: "/",             label: "Home" },
-  { href: "/products",     label: "Products" },
+  { href: "/", label: "Home" },
+  { href: "/products", label: "Products" },
   { href: "/applications", label: "Applications" },
-  { href: "/about",        label: "About Us" },
-  { href: "/contact",      label: "Contact" },
-] as const;
+  { href: "/about", label: "About Us" },
+  { href: "/contact", label: "Contact" },
+];
 
-// ── Inline SVG Social Icons ───────────────────────────────────────────────
-
-function LinkedInIcon() {
+function BrandIdentity() {
   return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M7 10v7M7 7v.01" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
-      <path d="M11 17v-4a2 2 0 014 0v4M11 13v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <div className="bg-white rounded-2xl p-5 sm:p-6 inline-flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/20 relative group overflow-hidden">
+      {/* Subtle hover gleam effect inside the white container */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-[#6CC24A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <Image
+        src={flowcoreLogoHorizontal}
+        alt="Flowcore Solutions"
+        width={220}
+        height={70}
+        className="w-48 lg:w-56 object-contain relative z-10 transition-transform duration-500 group-hover:scale-[1.02]"
+      />
+    </div>
   );
 }
-
-function WhatsAppIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        d="M20.5 3.5A12 12 0 003.5 20.5L2 22l1.5-5.5A12 12 0 1020.5 3.5z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M9 10.5c.5 1 1.5 2.5 3 3.5 0 0 1.5-.5 2-.5s1 .5 1 1-.5 2-2 2-5-2.5-6.5-7c0 0 .5-1.5 1.5-1.5s.5 0 1 1.5z"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-// ── Component ─────────────────────────────────────────────────────────────
 
 export default function Footer() {
-  const hq = getHeadquarters();
   const year = new Date().getFullYear();
 
   return (
-    <footer id="site-footer" aria-label="FlowCore Solutions footer">
-      {/* ── Main footer body ── */}
-      <div className="border-t border-border bg-section-bg">
-        <div className="mx-auto max-w-6xl px-6 py-14">
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
-            {/* ── Column 1: Brand ── */}
-            <div className="flex flex-col gap-5">
-              <Link
-                href="/"
-                id="footer-logo"
-                aria-label="FlowCore Solutions — Home"
-                className="block w-fit rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-blue"
-              >
-                <Image
-                  src={flowcoreLogo}
-                  alt="FlowCore Solutions"
-                  width={130}
-                  height={40}
-                  className="h-10 w-auto object-contain"
-                />
+    <footer className="bg-[#0F3D91] text-white relative border-t-4 border-[#1E5BB8]">
+      {/* Dynamic Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Engineering Grid */}
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)`,
+            backgroundSize: "48px 48px"
+          }}
+        />
+        {/* Radial Vignette to focus the center and darken edges */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_transparent_0%,_#0F3D91_100%)] opacity-80" />
+      </div>
+      
+      {/* MAIN FOOTER */}
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 pt-24 pb-16">
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-8 justify-between">
+          
+          {/* ── BRAND COLUMN ── */}
+          <div className="flex-1 lg:max-w-xl">
+            <div className="flex flex-col sm:flex-row items-center sm:items-center gap-8">
+              <Link href="/" className="shrink-0 block outline-none focus-visible:ring-4 focus-visible:ring-white rounded-2xl transition-transform hover:-translate-y-1">
+                <BrandIdentity />
               </Link>
 
-              <p className="text-sm leading-relaxed text-text-light max-w-xs">
-                Engineering fluid systems for a sustainable future — authorised
-                distributor of Berlington pump systems and Flowchar water
-                treatment chemicals across India.
-              </p>
-
-              {/* Social links */}
-              <div className="flex items-center gap-3">
-                <a
-                  href="https://linkedin.com"
-                  id="footer-social-linkedin"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="FlowCore Solutions on LinkedIn"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-text-light transition-colors hover:border-primary-blue hover:text-primary-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-blue"
-                >
-                  <LinkedInIcon />
-                </a>
-                <a
-                  href={`https://wa.me/${hq.phone?.replace(/\D/g, "") ?? ""}`}
-                  id="footer-social-whatsapp"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Contact FlowCore on WhatsApp"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-text-light transition-colors hover:border-primary-green hover:text-primary-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-green"
-                >
-                  <WhatsAppIcon />
-                </a>
+              <div className="flex flex-col space-y-4 items-center sm:items-start text-center sm:text-left">
+                <p className="text-base sm:text-lg font-medium text-white/90 leading-relaxed max-w-[320px]">
+                  Industrial pump systems and water treatment solutions engineered
+                  for maximum efficiency, durability, and long-term performance.
+                </p>
+                <div className="inline-flex items-center justify-center gap-2.5 border border-white/20 bg-white/5 rounded-full px-4 py-1.5 backdrop-blur-sm shadow-inner">
+                   <span className="shrink-0 w-2.5 h-2.5 rounded-full bg-[#6CC24A]" />
+                   <span className="text-[10px] font-black uppercase tracking-[0.15em] text-[#4DA3FF] leading-none pt-[1px]">Engineered For Reliability</span>
+                </div>
               </div>
             </div>
+          </div>
 
-            {/* ── Column 2: Quick Links ── */}
-            <nav aria-label="Footer navigation">
-              <p className="mb-5 text-[11px] font-bold uppercase tracking-widest text-text-light">
-                Quick Links
-              </p>
-              <ul className="flex flex-col gap-3" role="list">
+          {/* Desktop Separator Line */}
+          <div className="hidden lg:block w-px bg-gradient-to-b from-white/20 to-transparent self-stretch mx-4" />
+
+          {/* ── RIGHT COLUMNS: Navigation & Contact ── */}
+          <div className="flex-1 flex flex-col sm:flex-row gap-16 justify-end lg:pr-8">
+            
+            {/* ── LINKS COLUMN ── */}
+            <div className="min-w-[160px]">
+              <h4 className="text-[11px] font-black tracking-[0.25em] text-white/40 mb-8 uppercase flex items-center gap-3">
+                <span className="w-8 h-px bg-white/20" /> Navigation
+              </h4>
+
+              <ul className="space-y-4">
                 {FOOTER_LINKS.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      id={`footer-link-${link.href.replace("/", "") || "home"}`}
-                      className="flex items-center gap-2 text-sm text-text-light transition-colors hover:text-text-dark focus-visible:outline-none focus-visible:underline"
+                      className="group flex items-center gap-3 text-sm font-semibold text-white/80 hover:text-white transition-colors"
                     >
-                      <span
-                        className="w-1 h-1 rounded-full shrink-0"
-                        style={{ backgroundColor: "#1e5bb840" }}
-                        aria-hidden="true"
-                      />
-                      {link.label}
+                      <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:bg-[#1E5BB8] group-hover:border-[#4DA3FF] group-hover:shadow-[0_0_12px_rgba(30,91,184,0.6)]">
+                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="transition-transform duration-300 group-hover:translate-x-0.5 text-white/70 group-hover:text-white">
+                          <path d="M5 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                      <span className="transition-transform duration-300 group-hover:translate-x-1">{link.label}</span>
                     </Link>
                   </li>
                 ))}
               </ul>
-            </nav>
+            </div>
 
-            {/* ── Column 3: Contact Snippet ── */}
-            <address className="not-italic flex flex-col gap-5">
-              <p className="text-[11px] font-bold uppercase tracking-widest text-text-light">
-                Headquarters
-              </p>
+            {/* ── CONTACT COLUMN ── */}
+            <div className="min-w-[260px]">
+              <h4 className="text-[11px] font-black tracking-[0.25em] text-white/40 mb-8 uppercase flex items-center gap-3">
+                <span className="w-8 h-px bg-white/20" /> Headquarters
+              </h4>
 
-              <div className="flex flex-col gap-1">
-                <p className="text-sm font-semibold text-text-dark">
-                  {hq.city}, {hq.state}
-                </p>
-                <p className="text-xs leading-relaxed text-text-light">
-                  {hq.address}
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-2.5">
-                {hq.phone && (
-                  <a
-                    href={`tel:${hq.phone.replace(/\s/g, "")}`}
-                    id="footer-phone"
-                    className="flex items-center gap-2.5 text-xs text-text-light transition-colors hover:text-text-dark"
-                  >
-                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                      <path d="M2 3h4l1.5 3.5-2 1.2c.9 1.8 2.3 3.2 4 4l1.2-2L14 11v4a1 1 0 01-1 1C6 16 0 10 0 3a1 1 0 011-1h1z" fill="currentColor" fillOpacity="0.5" />
+              <div className="space-y-6">
+                <div className="flex gap-4">
+                  <div className="mt-1 w-9 h-9 rounded-lg bg-[#1E5BB8]/30 border border-[#4DA3FF]/20 flex items-center justify-center shrink-0">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4DA3FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
                     </svg>
-                    {hq.phone}
-                  </a>
-                )}
+                  </div>
+                  <div>
+                    <p className="font-bold text-white mb-1.5 text-sm uppercase tracking-wider">
+                      Bangalore, Karnataka
+                    </p>
+                    <p className="text-sm leading-relaxed text-white/70">
+                      No. 65/1A, Cheluva Complex, <br />
+                      Kottigepalya, Magadi Main Road, <br />
+                      Vishwaneedam Post
+                    </p>
+                  </div>
+                </div>
 
-                {hq.email && (
-                  <a
-                    href={`mailto:${hq.email}`}
-                    id="footer-email"
-                    className="flex items-center gap-2.5 text-xs text-text-light transition-colors hover:text-text-dark"
-                  >
-                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                      <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" strokeOpacity="0.5" strokeWidth="1.2" />
-                      <path d="M1 5l7 5 7-5" stroke="currentColor" strokeOpacity="0.5" strokeWidth="1.2" />
-                    </svg>
-                    {hq.email}
+                <div className="pt-2 space-y-3">
+                  <a href="tel:+918618885283" className="group flex items-center gap-4 bg-white/5 hover:bg-[#6CC24A]/10 border border-white/10 hover:border-[#6CC24A]/50 rounded-xl p-3 transition-all duration-300">
+                    <div className="w-10 h-10 rounded-lg bg-white/10 group-hover:bg-[#6CC24A] flex items-center justify-center transition-colors duration-300">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black tracking-widest text-[#6CC24A] uppercase mb-0.5 opacity-80 group-hover:opacity-100 transition-opacity">Direct Line</p>
+                      <span className="font-bold text-white text-sm tracking-wide">+91 8618885283</span>
+                    </div>
                   </a>
-                )}
 
-                <Link
-                  href="/contact"
-                  id="footer-contact-cta"
-                  className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold text-primary-green hover:text-dark-green transition-colors"
-                >
-                  Submit an Inquiry
-                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
+                  <a href="mailto:flowcoresolutionsblr@gmail.com" className="group flex items-center gap-4 bg-white/5 hover:bg-[#1E5BB8]/30 border border-white/10 hover:border-[#4DA3FF]/50 rounded-xl p-3 transition-all duration-300">
+                    <div className="w-10 h-10 rounded-lg bg-white/10 group-hover:bg-[#1E5BB8] flex items-center justify-center transition-colors duration-300">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white">
+                        <rect x="2" y="4" width="20" height="16" rx="2" />
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                      </svg>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-black tracking-widest text-[#4DA3FF] uppercase mb-0.5 opacity-80 group-hover:opacity-100 transition-opacity">Email Us</p>
+                      <span className="font-semibold text-white/90 group-hover:text-white text-xs truncate block" style={{ wordBreak: 'break-all' }}>flowcoresolutionsblr@gmail.com</span>
+                    </div>
+                  </a>
+                </div>
               </div>
-            </address>
+            </div>
+            
           </div>
         </div>
       </div>
 
-      {/* ── Bottom copyright bar ── */}
-      <div
-        className="flex items-center justify-between px-6 py-4"
-        style={{ backgroundColor: "#0f3d91" }}
-      >
-        <div className="mx-auto max-w-6xl w-full flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-white/60">
-            © {year} FlowCore Solutions. All rights reserved.
+      {/* ── BOTTOM BAR ── */}
+      <div className="relative z-10 bg-[#061A40] border-t border-white/5 py-6">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-semibold">
+          <p className="text-white/60">
+            © {year} Flowcore Solutions. <span className="text-white/40 font-normal ml-1">All rights reserved.</span>
           </p>
-          <p className="text-xs text-white/40">
-            Authorised distributor of Berlington Industrial Pumps · Flowchar Water Treatment
-          </p>
+          <div className="text-white/80 flex items-center flex-wrap justify-center gap-3">
+            <span className="bg-white/5 px-3 py-1.5 rounded-md border border-white/10 font-medium">Berlington Industrial Pumps</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#6CC24A]"></span>
+            <span className="bg-white/5 px-3 py-1.5 rounded-md border border-white/10 font-medium">Flowchar WTP Chemicals</span>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
+

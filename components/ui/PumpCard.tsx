@@ -43,7 +43,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState, useCallback, useEffect, type MouseEvent } from "react";
 import { motion } from "framer-motion";
-import type { PumpModel, PumpCategory } from "@/lib/pump-data";
+import type { PumpModel } from "@/lib/pump-data";
 import SectionTag from "@/components/ui/SectionTag";
 import type { StaticImageData } from "next/image";
 
@@ -228,7 +228,7 @@ function CardFront({ pump, imageRef, tilt }: CardFrontProps) {
           {pump.category}
         </SectionTag>
         <span
-          className="shrink-0 rounded-md px-2 py-1 text-[10px] font-bold tracking-[0.1em] uppercase"
+          className="shrink-0 rounded-md px-2 py-1 text-[10px] font-bold tracking-widest uppercase"
           style={{
             backgroundColor: "#1e5bb814",
             color: "#1e5bb8",
@@ -294,12 +294,12 @@ function CardFront({ pump, imageRef, tilt }: CardFrontProps) {
       </div>
 
       {/* Info zone — pointer-events-none so outer wrapper owns all events */}
-      <div className="flex-1 flex flex-col px-5 pt-4 pb-4 pointer-events-none min-h-0">
-        <h3 className="text-lg font-bold text-[#0f3d91] leading-tight tracking-tight shrink-0">
+      <div className="flex-1 flex flex-col px-5 pt-3 pb-3 pointer-events-none min-h-0">
+        <h3 className="text-lg font-bold text-primary-blue leading-tight tracking-tight shrink-0">
           {pump.fullName}
         </h3>
 
-        <div className="mt-3 shrink-0">
+        <div className="mt-2 shrink-0">
           <span className="text-[10px] font-bold uppercase tracking-[0.15em] block mb-2 text-slate-500">
             Applications
           </span>
@@ -323,8 +323,8 @@ function CardFront({ pump, imageRef, tilt }: CardFrontProps) {
 
         {/* FIX 4: More visible hint with chevron + pulse animation */}
         <div className="mt-auto pt-3 flex items-center gap-2 border-t border-slate-100">
-          <span className="w-1.5 h-1.5 rounded-full shrink-0 animate-pulse bg-[#1e5bb8]" aria-hidden="true" />
-          <span className="text-[11px] font-bold tracking-wide flex items-center gap-1 text-[#1e5bb8]/80">
+          <span className="w-1.5 h-1.5 rounded-full shrink-0 animate-pulse bg-light-blue" aria-hidden="true" />
+          <span className="text-[11px] font-bold tracking-wide flex items-center gap-1 text-light-blue/80">
             {/* Desktop hint */}
             <span className="hidden sm:inline">Hover below · </span>
             {/* Mobile hint */}
@@ -392,7 +392,7 @@ function CardBack({ pump }: { pump: PumpModel }) {
       </div>
 
       {/* Header */}
-      <div className="relative z-10 px-6 pt-6 pb-4 border-b border-white/10 shrink-0">
+      <div className="relative z-10 px-6 pt-5 pb-3 border-b border-white/10 shrink-0">
         <span
           className="block text-[11px] font-semibold uppercase tracking-[0.15em] mb-1.5"
           style={{ color: "#4da3ff" }}
@@ -405,7 +405,7 @@ function CardBack({ pump }: { pump: PumpModel }) {
       </div>
 
       {/* Spec rows */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center px-6 py-4 min-h-0">
+      <div className="relative z-10 flex-1 flex flex-col justify-center px-6 py-1 min-h-0">
         {specs.map(({ label, value }) => (
           <div
             key={label}
@@ -413,7 +413,7 @@ function CardBack({ pump }: { pump: PumpModel }) {
             style={{ gridTemplateColumns: "1fr 1.5fr" }}
           >
             <span
-              className="text-[10.5px] font-semibold uppercase tracking-[0.1em] pt-0.5 opacity-80"
+              className="text-[10.5px] font-semibold uppercase tracking-widest pt-0.5 opacity-80"
               style={{ color: "#4da3ff" }}
             >
               {label}
@@ -429,7 +429,7 @@ function CardBack({ pump }: { pump: PumpModel }) {
       </div>
 
       {/* CTA */}
-      <div className="relative z-10 px-6 pb-6 shrink-0">
+      <div className="relative z-10 px-6 pb-5 shrink-0">
         <Link
           href={`?quote=${pump.id}`}
           scroll={false}
@@ -438,7 +438,7 @@ function CardBack({ pump }: { pump: PumpModel }) {
             "flex w-full items-center justify-center gap-2 rounded-lg py-3",
             "text-sm font-bold text-white tracking-wide",
             "bg-primary-green transition-all duration-200 shadow-sm hover:brightness-110 hover:-translate-y-px hover:shadow-md active:scale-[0.98]",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-green focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f3d91]",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-green focus-visible:ring-offset-2 focus-visible:ring-offset-primary-blue",
           ].join(" ")}
         >
           Request Quote
@@ -461,14 +461,14 @@ export default function PumpCard({ pump }: PumpCardProps) {
   const { outerRef, imageRef, flipped, tilt, handlers } = useCardInteraction();
 
   return (
-    // Fixed height (460px) provides enough inner space for 2-line titles and tags without clipping.
+    // Fixed height (420px) provides enough inner space for titles and tags while removing dead height.
     <div
       ref={outerRef}
       id={`pump-card-${pump.id}`}
       className="relative w-full cursor-pointer"
       style={{
         perspective: "1000px",
-        height: "460px",
+        height: "420px",
       }}
       onMouseMove={handlers.onMouseMove}
       onMouseLeave={handlers.onMouseLeave}
