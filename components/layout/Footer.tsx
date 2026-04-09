@@ -16,7 +16,7 @@ function BrandIdentity() {
   return (
     <div className="bg-white rounded-2xl p-5 sm:p-6 inline-flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/20 relative group overflow-hidden">
       {/* Subtle hover gleam effect inside the white container */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-[#6CC24A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-linear-to-tr from-[#6CC24A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       <Image
         src={flowcoreLogoHorizontal}
         alt="Flowcore Solutions"
@@ -44,7 +44,7 @@ export default function Footer() {
           }}
         />
         {/* Radial Vignette to focus the center and darken edges */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_transparent_0%,_#0F3D91_100%)] opacity-80" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,transparent_0%,#0F3D91_100%)] opacity-80" />
       </div>
       
       {/* MAIN FOOTER */}
@@ -65,14 +65,14 @@ export default function Footer() {
                 </p>
                 <div className="inline-flex items-center justify-center gap-2.5 border border-white/20 bg-white/5 rounded-full px-4 py-1.5 backdrop-blur-sm shadow-inner">
                    <span className="shrink-0 w-2.5 h-2.5 rounded-full bg-[#6CC24A]" />
-                   <span className="text-[10px] font-black uppercase tracking-[0.15em] text-[#4DA3FF] leading-none pt-[1px]">Engineered For Reliability</span>
+                   <span className="text-[10px] font-black uppercase tracking-[0.15em] text-[#4DA3FF] leading-none pt-px">Engineered For Reliability</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Desktop Separator Line */}
-          <div className="hidden lg:block w-px bg-gradient-to-b from-white/20 to-transparent self-stretch mx-4" />
+          <div className="hidden lg:block w-px bg-linear-to-b from-white/20 to-transparent self-stretch mx-4" />
 
           {/* ── RIGHT COLUMNS: Navigation & Contact ── */}
           <div className="flex-1 flex flex-col sm:flex-row gap-16 justify-end lg:pr-8">
