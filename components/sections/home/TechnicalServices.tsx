@@ -35,7 +35,15 @@ export default function TechnicalServices() {
   };
 
   return (
-    <section className="relative w-full bg-white py-24 lg:py-32 overflow-hidden">
+    <section className="relative w-full py-24 lg:py-32 overflow-hidden" style={{ backgroundColor: "#f8fafc" }}>
+      {/* Subtle background industrial lines — fixed to viewport for perfect continuity */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-[0.03]" 
+        style={{ 
+          backgroundImage: `repeating-linear-gradient(45deg, #0F172A 0, #0F172A 1px, transparent 1px, transparent 20px)`,
+          backgroundAttachment: "fixed" 
+        }} 
+      />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={staggerContainer}

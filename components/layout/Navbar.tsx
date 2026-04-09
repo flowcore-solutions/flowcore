@@ -18,9 +18,9 @@ interface NavLink {
 
 const NAV_LINKS: readonly NavLink[] = [
   { href: "/", label: "Home", indicator: "blue" },
-  { href: "/products", label: "Products", indicator: "blue" },
-  { href: "/applications", label: "Applications", indicator: "blue" },
   { href: "/about", label: "About", indicator: "green" },
+  { href: "/applications", label: "Applications", indicator: "blue" },
+  { href: "/products", label: "Products", indicator: "blue" },
   { href: "/contact", label: "Contact", indicator: "green" },
 ] as const;
 

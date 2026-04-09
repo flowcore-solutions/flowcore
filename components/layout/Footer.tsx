@@ -32,7 +32,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0F3D91] text-white relative border-t-4 border-[#1E5BB8]">
+    <footer className="bg-[#0F3D91] text-white relative">
       {/* Dynamic Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Engineering Grid */}

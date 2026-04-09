@@ -111,10 +111,13 @@ export default function FeaturedPumpsGrid() {
 
       {/* ── CARDS ZONE — bg-section-bg ── */}
       <div className="relative bg-section-bg pb-24 overflow-hidden">
-        {/* Subtle background industrial diagonal lines */}
+        {/* Subtle background industrial industrial diagonal lines — fixed to viewport for perfect continuity */}
         <div 
           className="absolute inset-0 pointer-events-none opacity-[0.03]" 
-          style={{ backgroundImage: `repeating-linear-gradient(45deg, #0F172A 0, #0F172A 1px, transparent 1px, transparent 20px)` }} 
+          style={{ 
+            backgroundImage: `repeating-linear-gradient(45deg, #0F172A 0, #0F172A 1px, transparent 1px, transparent 20px)`,
+            backgroundAttachment: "fixed" 
+          }} 
         />
         
         <div className="relative mx-auto max-w-7xl px-8 z-10">

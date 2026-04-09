@@ -63,11 +63,14 @@ const VERTICALS = [
 
 export default function ApplicationShowcase() {
   return (
-    <section className="relative py-28 bg-section-bg border-b border-border overflow-hidden">
+    <section className="relative py-28 bg-section-bg overflow-hidden">
       {/* Subtle background industrial diagonal lines matching PartnerSynergy */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-[0.03]" 
-        style={{ backgroundImage: `repeating-linear-gradient(45deg, #0F172A 0, #0F172A 1px, transparent 1px, transparent 20px)` }} 
+        style={{ 
+          backgroundImage: `repeating-linear-gradient(45deg, #0F172A 0, #0F172A 1px, transparent 1px, transparent 20px)`,
+          backgroundAttachment: "fixed"
+        }} 
       />
 
       <div className="relative mx-auto max-w-7xl px-8 z-10">

@@ -27,7 +27,6 @@ export default function ApplicationsPage() {
             key={env.id}
             env={env}
             index={i}
-            isLast={i === APPLICATION_ENVIRONMENTS.length - 1}
           />
         ))}
       </main>

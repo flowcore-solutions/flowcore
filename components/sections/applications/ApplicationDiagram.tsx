@@ -9,12 +9,14 @@ import EnvironmentInfo from "./EnvironmentInfo";
 
 interface ApplicationDiagramProps {
   env: ApplicationEnvironment;
+  index: number;
   /** Reverse layout: diagram on left, text on right */
   reversed?: boolean;
 }
 
 export default function ApplicationDiagram({
   env,
+  index,
   reversed = false,
 }: ApplicationDiagramProps) {
   const [activeNode, setActiveNode] = useState<DiagramNode | null>(null);
@@ -44,18 +46,18 @@ export default function ApplicationDiagram({
 
   return (
     <div
-      className={`grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-10 items-start ${
+      className={`grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-8 items-stretch ${
         reversed ? "lg:grid-cols-[3fr_2fr]" : ""
       }`}
     >
       {reversed ? (
         <>
           {diagramContent}
-          <EnvironmentInfo env={env} activeNode={activeNode} />
+          <EnvironmentInfo env={env} activeNode={activeNode} index={index} />
         </>
       ) : (
         <>
-          <EnvironmentInfo env={env} activeNode={activeNode} />
+          <EnvironmentInfo env={env} activeNode={activeNode} index={index} />
           {diagramContent}
         </>
       )}
