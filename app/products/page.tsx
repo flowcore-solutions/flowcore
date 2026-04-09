@@ -4,7 +4,6 @@
  * Products Page (/products)
  *
  * Layout: Sidebar filter (desktop) + horizontal chip row (mobile) + AnimatePresence grid.
- * ProductCard (3D flip) is extracted to components/sections/products/ProductCard.tsx.
  */
 
 import { useState, useMemo, type ReactNode } from "react";
@@ -16,7 +15,7 @@ import {
 } from "@/lib/pump-data";
 import SectionTag from "@/components/ui/SectionTag";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
-import ProductCard from "@/components/sections/products/ProductCard";
+import PumpCard from "@/components/ui/PumpCard";
 
 // ── Category meta for sidebar chips ──────────────────────────────────────
 
@@ -255,7 +254,7 @@ export default function ProductsPage() {
                     exit={{ opacity: 0, scale: 0.94 }}
                     transition={{ duration: 0.25, ease: PRECISION_EASE }}
                   >
-                    <ProductCard pump={pump} />
+                    <PumpCard pump={pump} />
                   </motion.div>
                 ))}
               </AnimatePresence>

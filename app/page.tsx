@@ -12,8 +12,10 @@
 
 import type { Metadata } from "next";
 import HeroSection from "@/components/sections/home/HeroSection";
-import StatsBar from "@/components/sections/home/StatsBar";
+// import StatsBar from "@/components/sections/home/StatsBar";
 import FeaturedPumpsGrid from "@/components/sections/home/FeaturedPumpsGrid";
+import PartnerSynergy from "@/components/sections/home/PartnerSynergy";
+import ApplicationShowcase from "@/components/sections/home/ApplicationShowcase";
 
 export const metadata: Metadata = {
   title: "FlowCore Solutions — Industrial Pump Systems & Water Treatment",
@@ -25,8 +27,10 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <StatsBar />
+      {/* <StatsBar /> */}
       <FeaturedPumpsGrid />
+      <PartnerSynergy />  
+      <ApplicationShowcase/>
     </>
   );
 }
