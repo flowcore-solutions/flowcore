@@ -58,7 +58,7 @@ export default function PartnerSynergy() {
                   </span>
                 </div>
                 <div className="relative h-20 w-64 mb-8 brightness-0 invert">
-                  <Image src={berlingtonLogo} alt="Berlington Pumps" fill className="object-contain object-left" />
+                  <Image src={berlingtonLogo} alt="Berlington Pumps — ISO-certified industrial pump manufacturer, hardware partner of FlowCore Solutions" fill sizes="256px" className="object-contain object-left" />
                 </div>
                 <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tight">Precision Engineering</h3>
                 <p className="text-[#4DA3FF] font-medium leading-relaxed max-w-[90%]">
@@ -90,7 +90,7 @@ export default function PartnerSynergy() {
                   </span>
                 </div>
                 <div className="relative h-20 w-64 mb-8">
-                  <Image src={flowcharLogo} alt="Flowchar Solutions" fill className="object-contain object-left" />
+                  <Image src={flowcharLogo} alt="Flowchar — ISO-certified water treatment chemicals: scale inhibitors, biocides, and coagulants, chemistry partner of FlowCore Solutions" fill sizes="256px" className="object-contain object-left" />
                 </div>
                 <h3 className="text-3xl font-black text-deep-blue mb-4 uppercase tracking-tight">Lifespan Optimization</h3>
                 <p className="text-text-light font-medium leading-relaxed max-w-[90%]">

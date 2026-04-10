@@ -46,9 +46,10 @@ function BrandIdentity() {
     <div className="flex items-center gap-3">
       <Image
         src={flowcoreLogo}
-        alt="Flowcore Logo"
+        alt="FlowCore Solutions logo — Industrial Pump Systems & Water Treatment"
         width={54}
         height={54}
+        priority
         className="w-12 lg:w-14 drop-shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
       />
       <div className="leading-none">

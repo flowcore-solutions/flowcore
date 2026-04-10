@@ -17,7 +17,7 @@ export default function AboutHero() {
   return (
     <header
       id="about-hero"
-      className="relative bg-section-bg overflow-hidden"
+      className="hero-underlap relative bg-section-bg overflow-hidden"
       aria-label="About FlowCore Solutions"
     >
       {/* Engineering grid — exact pattern from Applications page */}
@@ -75,21 +75,20 @@ export default function AboutHero() {
                 className="font-black text-deep-blue leading-[1.05] tracking-tight"
                 style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)" }}
               >
-                The Bridge Between
+                Industrial Fluid
                 <br />
-                <span className="text-primary-blue">Hardware</span>
+                <span className="text-primary-blue">Systems</span>
                 {" & "}
-                <span className="text-primary-green">Chemistry</span>
+                <span className="text-primary-green">Engineering</span>
               </h1>
             </PrecisionReveal>
 
             <PrecisionReveal variant="fadeSlideLeft" delay={0.21}>
               <p className="mt-8 text-base sm:text-lg leading-relaxed text-text-light font-medium max-w-xl">
                 FlowCore Solutions acts as the strategic engineering bridge
-                between high-performance pump manufacturing and specialized
+                between high-performance <Link href="/products" className="text-primary-blue hover:underline">pump manufacturing</Link> and specialized
                 water chemistry — delivering complete fluid infrastructure
-                solutions across municipal, commercial, and heavy industrial
-                sectors.
+                solutions across <Link href="/applications" className="text-primary-green hover:underline">municipal, commercial, and heavy industrial sectors</Link>.
               </p>
             </PrecisionReveal>
           </div>

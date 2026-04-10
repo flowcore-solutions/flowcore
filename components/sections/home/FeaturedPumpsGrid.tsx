@@ -163,7 +163,7 @@ export default function FeaturedPumpsGrid() {
                 variant="riseUp"
                 delay={(i % 4) * 0.07}
               >
-                <PumpCard pump={pump} />
+                <PumpCard pump={pump} priority={i < 4} />
               </PrecisionReveal>
             ))}
           </div>

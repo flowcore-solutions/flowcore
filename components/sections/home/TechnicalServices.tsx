@@ -58,7 +58,7 @@ export default function TechnicalServices() {
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary-blue mb-3 block">
                 Engineering Support
               </span>
-              <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 mb-4">
+              <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-deep-blue mb-4">
                 Request a System Audit
               </h2>
               <p className="text-slate-600 text-lg max-w-lg leading-relaxed">

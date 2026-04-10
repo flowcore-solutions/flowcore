@@ -19,7 +19,7 @@ function BrandIdentity() {
       <div className="absolute inset-0 bg-linear-to-tr from-[#6CC24A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       <Image
         src={flowcoreLogoHorizontal}
-        alt="Flowcore Solutions"
+        alt="FlowCore Solutions — Industrial Pump Systems & Water Treatment, Bengaluru India"
         width={220}
         height={70}
         className="w-48 lg:w-56 object-contain relative z-10 transition-transform duration-500 group-hover:scale-[1.02]"

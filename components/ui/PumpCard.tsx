@@ -155,9 +155,10 @@ interface CardFrontProps {
   pump:     PumpModel;
   imageRef: React.RefObject<HTMLDivElement | null>;
   tilt:     ImageTilt;
+  priority?: boolean;
 }
 
-function CardFront({ pump, imageRef, tilt }: CardFrontProps) {
+function CardFront({ pump, imageRef, tilt, priority = false }: CardFrontProps) {
   const image = PUMP_IMAGES[pump.id];
 
   const imageTransform = tilt.active
@@ -223,9 +224,9 @@ function CardFront({ pump, imageRef, tilt }: CardFrontProps) {
         {image ? (
           <Image
             src={image}
-            alt={`${pump.fullName} — Berlington`}
+            alt={`${pump.fullName} — Berlington ${pump.category} pump, ${pump.material}, flow rate ${pump.flowRate}, max head ${pump.maxHead}`}
             fill
-            priority
+            priority={priority}
             sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
             className="object-contain p-4 relative z-10"
             style={{
@@ -399,9 +400,10 @@ function CardBack({ pump }: { pump: PumpModel }) {
 
 export interface PumpCardProps {
   pump: PumpModel;
+  priority?: boolean;
 }
 
-export default function PumpCard({ pump }: PumpCardProps) {
+export default function PumpCard({ pump, priority = false }: PumpCardProps) {
   const { outerRef, imageRef, flipped, tilt, handlers } = useCardInteraction();
 
   return (
@@ -426,7 +428,7 @@ export default function PumpCard({ pump }: PumpCardProps) {
             : `${pump.fullName} — hover for specs`
         }
       >
-        <CardFront pump={pump} imageRef={imageRef} tilt={tilt} />
+        <CardFront pump={pump} imageRef={imageRef} tilt={tilt} priority={priority} />
         <CardBack pump={pump} />
       </motion.div>
     </div>

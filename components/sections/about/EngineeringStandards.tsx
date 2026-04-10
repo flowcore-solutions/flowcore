@@ -8,6 +8,7 @@
  * the hero and applications page.
  */
 
+import Link from "next/link";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 import SectionTag from "@/components/ui/SectionTag";
 
@@ -201,6 +202,19 @@ export default function EngineeringStandards() {
             <StandardCard key={std.id} std={std} index={i} />
           ))}
         </div>
+
+        {/* Internal link to Products — E-E-A-T: connect standards to physical product range */}
+        <PrecisionReveal variant="riseUp" delay={0.2} className="mt-10 flex justify-center">
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-2 rounded-lg border border-border bg-white px-6 py-3 text-sm font-bold text-deep-blue transition-all duration-150 hover:border-primary-blue hover:text-primary-blue hover:shadow-md"
+          >
+            View the Full Berlington Product Range
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
+        </PrecisionReveal>
       </div>
     </section>
   );

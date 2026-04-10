@@ -11,9 +11,10 @@ const BlueBackground = () => (
   <>
     <Image
       src={berlingtonPumpsSet}
-      alt="Industrial Pumps"
+      alt="Berlington industrial pump range — vertical multistage, submersible, and centrifugal pumps for water treatment and HVAC"
       fill
       priority
+      sizes="100vw"
       className="object-cover scale-105 opacity-25"
     />
     <div className="absolute inset-0 bg-deep-blue/70" />
@@ -79,9 +80,9 @@ export default function HeroSection() {
             className="text-white font-bold uppercase mb-4 lg:mb-6 leading-[1.15]"
             style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
           >
-            Engineering <br />
-            <span className="text-light-blue">Water</span> <br />
-            Infrastructure
+            Industrial <br />
+            <span className="text-light-blue">Pump</span> <br />
+            Systems
           </motion.h1>
 
           <motion.p
@@ -90,7 +91,7 @@ export default function HeroSection() {
             transition={{ delay: 0.2 }}
             className="hidden sm:block text-white/90 max-w-md mb-6 lg:mb-10 text-sm lg:text-lg leading-relaxed"
           >
-            High-performance centrifugal and stainless steel pumps designed for consistent fluid movement in harsh industrial environments.
+            High-performance centrifugal and stainless steel pump systems engineered for reliable pressure, circulation, and fluid transfer in demanding industrial environments.
           </motion.p>
 
           {/* CTA */}

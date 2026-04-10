@@ -9,14 +9,12 @@ import EnvironmentInfo from "./EnvironmentInfo";
 
 interface ApplicationDiagramProps {
   env: ApplicationEnvironment;
-  index: number;
   /** Reverse layout: diagram on left, text on right */
   reversed?: boolean;
 }
 
 export default function ApplicationDiagram({
   env,
-  index,
   reversed = false,
 }: ApplicationDiagramProps) {
   const [activeNode, setActiveNode] = useState<DiagramNode | null>(null);
