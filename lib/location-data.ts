@@ -29,66 +29,18 @@ export type OfficeLocation = {
 
 export const OFFICE_LOCATIONS: readonly OfficeLocation[] = [
   {
-    id: "chennai-hq",
-    city: "Chennai",
-    state: "Tamil Nadu",
-    country: "India",
-    type: "headquarters",
-    address: "FlowCore Solutions, Industrial Zone, Anna Salai, Chennai – 600 002",
-    phone: "+91 44 0000 0000",
-    email: "info@flowcoresolutions.in",
-    coordinates: { lat: 13.0827, lng: 80.2707 },
-  },
-  {
-    id: "mumbai",
-    city: "Mumbai",
-    state: "Maharashtra",
-    country: "India",
-    type: "branch",
-    address: "Andheri East, MIDC Industrial Area, Mumbai – 400 093",
-    phone: "+91 22 0000 0000",
-    email: "mumbai@flowcoresolutions.in",
-    coordinates: { lat: 19.076, lng: 72.8777 },
-  },
-  {
-    id: "delhi",
-    city: "New Delhi",
-    state: "Delhi",
-    country: "India",
-    type: "branch",
-    address: "Okhla Industrial Estate Phase III, New Delhi – 110 020",
-    phone: "+91 11 0000 0000",
-    email: "delhi@flowcoresolutions.in",
-    coordinates: { lat: 28.6139, lng: 77.209 },
-  },
-  {
-    id: "hyderabad",
-    city: "Hyderabad",
-    state: "Telangana",
-    country: "India",
-    type: "distribution",
-    address: "IDA Jeedimetla, Hyderabad – 500 055",
-    coordinates: { lat: 17.385, lng: 78.4867 },
-  },
-  {
     id: "bangalore",
     city: "Bengaluru",
     state: "Karnataka",
     country: "India",
-    type: "distribution",
-    address: "Peenya Industrial Area, Bengaluru – 560 058",
+    type: "headquarters",
+    address: "No. 65/1A, Cheluva Complex, Kottigepalya, Magadi Main Road, Vishwaneedam Post, Bangalore – 560 091",
+    phone: "8618885283",
+    email: "flowcoresolutionsblr@gmail.com",
     coordinates: { lat: 12.9716, lng: 77.5946 },
   },
-  {
-    id: "kolkata",
-    city: "Kolkata",
-    state: "West Bengal",
-    country: "India",
-    type: "distribution",
-    address: "Sector V, Salt Lake, Kolkata – 700 091",
-    coordinates: { lat: 22.5726, lng: 88.3639 },
-  },
 ];
+
 
 // ── Derived helpers ───────────────────────────────────────────────────
 

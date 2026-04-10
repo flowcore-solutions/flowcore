@@ -161,7 +161,7 @@ export default function ExpertiseTimeline() {
     <section
       id="expertise-timeline"
       aria-labelledby="timeline-heading"
-      className="py-24 bg-white"
+      className="py-12 lg:py-20 bg-white"
     >
       <div className="mx-auto max-w-6xl px-6">
         {/* Section header */}

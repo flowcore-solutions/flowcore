@@ -63,7 +63,7 @@ const VERTICALS = [
 
 export default function ApplicationShowcase() {
   return (
-    <section className="relative py-28 bg-section-bg overflow-hidden">
+    <section className="relative py-12 lg:py-20 bg-section-bg overflow-hidden">
       {/* Subtle background industrial diagonal lines matching PartnerSynergy */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-[0.03]" 

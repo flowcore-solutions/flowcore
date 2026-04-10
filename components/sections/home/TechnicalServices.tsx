@@ -35,7 +35,7 @@ export default function TechnicalServices() {
   };
 
   return (
-    <section className="relative w-full py-24 lg:py-32 overflow-hidden" style={{ backgroundColor: "#f8fafc" }}>
+    <section className="relative w-full py-12 lg:py-20 overflow-hidden" style={{ backgroundColor: "#f8fafc" }}>
       {/* Subtle background industrial lines — fixed to viewport for perfect continuity */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-[0.03]" 

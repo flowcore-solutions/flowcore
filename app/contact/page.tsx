@@ -4,141 +4,134 @@
  * Contact Page (/contact)
  *
  * Structure:
- *  Header — Global Presence title
- *  Body   — Two-column: Location cards (60%) + Inquiry Form (40%)
+ *  Header  — Breadcrumb + "Get in Touch" title
+ *  Body    — Two-column: ContactPanel (left) + InquiryForm (right)
  *
- * Location cards: HQ is visually distinguished (Deep Blue bg).
- * Branch cards hover to green border + green shadow.
- * Distribution nodes shown as a compact list below the main cards.
- *
+ * ContactPanel: full-height info block with the Bengaluru office card,
+ *   clickable phone/email actions, and a response-time badge.
  * Form: Controlled React state, HTML5 validation, inline success state.
- * No redirect. No external form library. No external map SDK.
  */
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState, type FormEvent, type ChangeEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   OFFICE_LOCATIONS,
-  getLocationsByType,
   type OfficeLocation,
 } from "@/lib/location-data";
 import { PUMP_CATALOG } from "@/lib/pump-data";
 import SectionTag from "@/components/ui/SectionTag";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
-import flowcoreLogo from "@/app/assets/logos/flowcore-logo.png";
 
 const PRECISION_EASE = [0.25, 0, 0, 1] as const;
 
 // ── Location Card ─────────────────────────────────────────────────────────
 
-function LocationCard({ loc }: { loc: OfficeLocation }) {
-  const isHQ = loc.type === "headquarters";
+// ── Contact Info Panel (replaces the small LocationCard) ─────────────────
 
+function ContactPanel({ loc }: { loc: OfficeLocation }) {
   return (
-    <article
-      id={`location-card-${loc.id}`}
-      className={[
-        "rounded-xl p-6 flex flex-col gap-4 transition-all duration-200",
-        isHQ
-          ? "bg-deep-blue text-white"
-          : "bg-section-bg border border-border hover:border-primary-green hover:[box-shadow:var(--shadow-green)]",
-      ].join(" ")}
-    >
-      {/* Type badge + dot */}
-      <div className="flex items-center gap-2">
-        <span
-          className="w-2 h-2 rounded-full shrink-0"
-          style={{ backgroundColor: isHQ ? "#6cc24a" : "#1e5bb860" }}
-        />
-        <span
-          className={[
-            "text-[10px] font-bold uppercase tracking-widest",
-            isHQ ? "text-primary-green" : "text-text-light",
-          ].join(" ")}
-        >
-          {loc.type === "headquarters"
-            ? "Headquarters"
-            : loc.type === "branch"
-            ? "Regional Branch"
-            : "Distribution Centre"}
-        </span>
-      </div>
-
-      {/* City */}
-      <div>
-        <h3
-          className={[
-            "text-lg font-bold leading-tight",
-            isHQ ? "text-white" : "text-deep-blue",
-          ].join(" ")}
-        >
-          {loc.city}
-        </h3>
-        <p
-          className={[
-            "text-xs mt-0.5",
-            isHQ ? "text-white/60" : "text-text-light",
-          ].join(" ")}
-        >
-          {loc.state}, {loc.country}
-        </p>
-      </div>
-
-      {/* Address */}
-      <p
-        className={[
-          "text-xs leading-relaxed",
-          isHQ ? "text-white/70" : "text-text-light",
-        ].join(" ")}
+    <div className="flex flex-col h-full">
+      {/* Top: location identity block */}
+      <div
+        className="rounded-2xl p-8 flex flex-col gap-6 relative overflow-hidden"
+        style={{
+          background: "linear-gradient(135deg, #0f3d91 0%, #1e5bb8 60%, #0f3d91 100%)",
+          boxShadow: "0 8px 32px rgba(15,61,145,0.25)",
+        }}
       >
-        {loc.address}
-      </p>
+        {/* Blueprint grid overlay inside card */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none rounded-2xl"
+          style={{
+            backgroundImage: `repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 1px, transparent 18px)`,
+            opacity: 0.04,
+          }}
+        />
 
-      {/* Contact details */}
-      {(loc.phone || loc.email) && (
-        <div className="flex flex-col gap-1.5 pt-2 border-t border-white/10">
-          {loc.phone && (
-            <a
-              href={`tel:${loc.phone.replace(/\s/g, "")}`}
-              className={[
-                "flex items-center gap-2 text-xs font-medium transition-colors",
-                isHQ
-                  ? "text-white/80 hover:text-white"
-                  : "text-text-dark hover:text-primary-blue",
-              ].join(" ")}
-            >
-              {/* Phone icon */}
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M2 3h4l1.5 3.5-2 1.2c.9 1.8 2.3 3.2 4 4l1.2-2L14 11v4a1 1 0 01-1 1C6 16 0 10 0 3a1 1 0 011-1h1z" fill="currentColor" fillOpacity="0.7" />
-              </svg>
-              {loc.phone}
-            </a>
-          )}
-          {loc.email && (
-            <a
-              href={`mailto:${loc.email}`}
-              className={[
-                "flex items-center gap-2 text-xs font-medium transition-colors",
-                isHQ
-                  ? "text-white/80 hover:text-white"
-                  : "text-text-dark hover:text-primary-blue",
-              ].join(" ")}
-            >
-              {/* Email icon */}
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" strokeOpacity="0.7" strokeWidth="1.2" />
-                <path d="M1 5l7 5 7-5" stroke="currentColor" strokeOpacity="0.7" strokeWidth="1.2" />
-              </svg>
-              {loc.email}
-            </a>
-          )}
+        {/* Green pulse indicator */}
+        <div className="flex items-center gap-2.5 relative">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-green opacity-60" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary-green" />
+          </span>
+          <span className="text-[10px] font-black uppercase tracking-[0.25em] text-primary-green">
+            Office — Bengaluru
+          </span>
         </div>
-      )}
-    </article>
+
+        {/* City heading */}
+        <div className="relative">
+          <h2 className="text-3xl font-black text-white leading-tight">{loc.city}</h2>
+          <p className="text-sm text-white/60 mt-1 font-medium">{loc.state}, {loc.country}</p>
+        </div>
+
+        {/* Address */}
+        <div className="relative border-t border-white/10 pt-5 flex gap-3">
+          <svg className="shrink-0 mt-0.5 opacity-50" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="white"/>
+          </svg>
+          <p className="text-sm text-white/75 leading-relaxed">{loc.address}</p>
+        </div>
+      </div>
+
+      {/* Bottom: direct contact actions */}
+      <div className="mt-4 grid grid-cols-1 gap-3 flex-1">
+        {loc.phone && (
+          <a
+            href={`tel:${loc.phone.replace(/\s/g, "")}`}
+            className="group flex items-center gap-4 rounded-xl border border-border bg-white px-5 py-4 transition-all duration-150 hover:border-primary-blue hover:shadow-md"
+            style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.05)" }}
+          >
+            <div
+              className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary-blue"
+              style={{ backgroundColor: "#1e5bb812" }}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 3h4l1.5 3.5-2 1.2c.9 1.8 2.3 3.2 4 4l1.2-2L14 11v4a1 1 0 01-1 1C6 16 0 10 0 3a1 1 0 011-1h1z" fill="#1e5bb8" className="group-hover:fill-white transition-colors" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-text-light mb-0.5">Mobile</p>
+              <p className="text-sm font-bold text-deep-blue">{loc.phone}</p>
+            </div>
+            <svg className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity shrink-0" width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="#1e5bb8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+        )}
+
+        {loc.email && (
+          <a
+            href={`mailto:${loc.email}`}
+            className="group flex items-center gap-4 rounded-xl border border-border bg-white px-5 py-4 transition-all duration-150 hover:border-primary-blue hover:shadow-md"
+            style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.05)" }}
+          >
+            <div
+              className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary-blue"
+              style={{ backgroundColor: "#1e5bb812" }}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <rect x="1" y="3" width="14" height="10" rx="1.5" fill="#1e5bb8" fillOpacity="0.12" stroke="#1e5bb8" strokeWidth="1.2" className="group-hover:fill-white group-hover:stroke-white group-hover:fill-opacity-30 transition-all" />
+                <path d="M1 5l7 5 7-5" stroke="#1e5bb8" strokeWidth="1.2" className="group-hover:stroke-white transition-colors" />
+              </svg>
+            </div>
+            <div className="min-w-0">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-text-light mb-0.5">Email</p>
+              <p className="text-sm font-bold text-deep-blue truncate">{loc.email}</p>
+            </div>
+            <svg className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity shrink-0" width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="#1e5bb8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+        )}
+
+      </div>
+    </div>
   );
 }
+
 
 // ── Inquiry Form ──────────────────────────────────────────────────────────
 
@@ -297,7 +290,7 @@ function InquiryForm() {
                   autoComplete="name"
                   value={form.fullName}
                   onChange={handleChange}
-                  placeholder="Rajesh Kumar"
+                  placeholder="e.g. Arjun Singh"
                   className={inputClass(!!errors.fullName)}
                   aria-describedby={errors.fullName ? "fullName-error" : undefined}
                 />
@@ -377,19 +370,7 @@ function InquiryForm() {
               </select>
             </div>
 
-            {/* Application */}
-            <div>
-              <FieldLabel htmlFor="application">Application / Use Case</FieldLabel>
-              <input
-                id="application"
-                name="application"
-                type="text"
-                value={form.application}
-                onChange={handleChange}
-                placeholder="e.g. Municipality WTP, HVAC chilled water loop"
-                className={inputClass()}
-              />
-            </div>
+
 
             {/* Message */}
             <div>
@@ -446,88 +427,85 @@ function InquiryForm() {
 
 export default function ContactPage() {
   const hq = OFFICE_LOCATIONS.find((l) => l.type === "headquarters");
-  const branches = getLocationsByType("branch");
-  const distribution = getLocationsByType("distribution");
 
   return (
-    <div className="bg-white">
+    <div
+      className="relative min-h-screen"
+      style={{ backgroundColor: "#f8fafc" }}
+    >
+      {/* Global blueprint grid */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-0"
+        style={{
+          backgroundImage: `repeating-linear-gradient(45deg, #0F172A 0, #0F172A 1px, transparent 1px, transparent 20px)`,
+          opacity: 0.025,
+        }}
+      />
+
       {/* ── Page Header ── */}
-      <header className="bg-section-bg border-b border-border">
-        <div className="mx-auto max-w-6xl px-6 py-16">
+      <header className="relative z-10">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+
+          {/* Breadcrumb */}
           <PrecisionReveal variant="fadeSlideLeft">
-            <SectionTag>Global Presence</SectionTag>
+            <nav className="flex items-center gap-2 mb-10" aria-label="Breadcrumb">
+              <Link
+                href="/"
+                className="text-[10px] font-black uppercase tracking-[0.2em] text-text-light hover:text-primary-blue transition-colors"
+              >
+                Home
+              </Link>
+              <span className="text-[10px] text-border">/</span>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary-green" />
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-deep-blue">
+                  Contact
+                </span>
+              </div>
+            </nav>
           </PrecisionReveal>
-          <PrecisionReveal variant="fadeSlideLeft" delay={0.07}>
-            <h1
-              className="mt-4 font-bold text-deep-blue"
-              style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
-            >
-              Find FlowCore Near You
-            </h1>
-          </PrecisionReveal>
-          <PrecisionReveal variant="fadeSlideLeft" delay={0.14}>
-            <p className="mt-3 max-w-lg text-sm leading-relaxed text-text-light">
-              Our headquarters and regional branches serve the pan-India
-              industrial market. Contact us directly or submit an engineering
-              inquiry below.
-            </p>
-          </PrecisionReveal>
+
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+            <div className="max-w-2xl">
+              <PrecisionReveal variant="fadeSlideLeft" delay={0.07}>
+                <SectionTag>Contact Us</SectionTag>
+              </PrecisionReveal>
+
+              <PrecisionReveal variant="fadeSlideLeft" delay={0.14}>
+                <h1
+                  className="mt-4 font-black text-deep-blue leading-[1.05] tracking-tight"
+                  style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
+                >
+                  Get in Touch
+                </h1>
+              </PrecisionReveal>
+
+              <PrecisionReveal variant="fadeSlideLeft" delay={0.21}>
+                <p className="mt-6 text-base leading-relaxed text-text-light font-medium max-w-lg">
+                  Reach out to our Bengaluru office for pan-India industrial
+                  solutions. Contact us directly or submit an engineering
+                  inquiry below.
+                </p>
+              </PrecisionReveal>
+            </div>
+          </div>
         </div>
       </header>
 
       {/* ── Body ── */}
-      <div className="mx-auto max-w-6xl px-6 py-14">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr]">
-          {/* LEFT — Location cards */}
-          <div className="flex flex-col gap-8">
-            {/* HQ */}
-            {hq && (
-              <PrecisionReveal variant="fadeSlideLeft">
-                <LocationCard loc={hq} />
-              </PrecisionReveal>
-            )}
+      <div className="relative z-10 mx-auto max-w-6xl px-6 py-14">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-start">
 
-            {/* Branches */}
-            <div>
-              <p className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-text-light">
-                Regional Branches
-              </p>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {branches.map((loc, i) => (
-                  <PrecisionReveal key={loc.id} variant="riseUp" delay={i * 0.07}>
-                    <LocationCard loc={loc} />
-                  </PrecisionReveal>
-                ))}
-              </div>
-            </div>
+          {/* LEFT — Rich contact panel */}
+          {hq && (
+            <PrecisionReveal variant="fadeSlideLeft">
+              <ContactPanel loc={hq} />
+            </PrecisionReveal>
+          )}
 
-            {/* Distribution nodes — compact list */}
-            {distribution.length > 0 && (
-              <PrecisionReveal variant="fadeSlideLeft" delay={0.14}>
-                <div className="rounded-xl border border-border bg-section-bg p-5">
-                  <p className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-text-light">
-                    Distribution Centres
-                  </p>
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                    {distribution.map((loc) => (
-                      <div key={loc.id} className="flex flex-col gap-0.5">
-                        <span className="flex items-center gap-1.5 text-xs font-semibold text-text-dark">
-                          <span className="w-1.5 h-1.5 rounded-full shrink-0 bg-primary-blue/40" />
-                          {loc.city}
-                        </span>
-                        <span className="text-[11px] text-text-light pl-3">
-                          {loc.state}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </PrecisionReveal>
-            )}
-          </div>
-
-          {/* RIGHT — Inquiry Form */}
-          <PrecisionReveal variant="fadeSlideRight" className="lg:sticky lg:top-28 lg:self-start">
+          {/* RIGHT — Inquiry Form (sticky) */}
+          <PrecisionReveal variant="fadeSlideRight" className="lg:sticky lg:top-28">
             <InquiryForm />
           </PrecisionReveal>
         </div>

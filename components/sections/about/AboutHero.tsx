@@ -36,7 +36,7 @@ export default function AboutHero() {
         className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-blue/30 to-transparent"
       />
 
-      <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-24">
+      <div className="relative mx-auto max-w-6xl px-6 py-12 lg:py-16">
 
         {/* Breadcrumb */}
         <PrecisionReveal variant="fadeSlideLeft">

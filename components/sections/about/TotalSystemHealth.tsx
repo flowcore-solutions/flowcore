@@ -99,7 +99,7 @@ export default function TotalSystemHealth() {
     <section
       id="about-system-health"
       aria-labelledby="system-health-heading"
-      className="relative bg-section-bg py-24 overflow-hidden"
+      className="relative bg-section-bg py-12 lg:py-20 overflow-hidden"
     >
       {/* Background grid */}
       <div

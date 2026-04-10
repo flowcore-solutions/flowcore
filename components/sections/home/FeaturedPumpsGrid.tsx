@@ -58,7 +58,7 @@ export default function FeaturedPumpsGrid() {
           }}
         />
 
-        <div className="relative mx-auto max-w-7xl px-8 pt-16 pb-24">
+        <div className="relative mx-auto max-w-7xl px-8 pt-12 pb-16 lg:pb-20">
           {/* Section label — border-left eyebrow matching HeroSection */}
           <PrecisionReveal variant="fadeSlideLeft" className="mb-5">
             <span className="inline-flex items-center gap-2 border-l-2 border-primary-green pl-4 text-sm font-bold uppercase tracking-[0.2em] text-primary-green">
@@ -109,8 +109,8 @@ export default function FeaturedPumpsGrid() {
         </div>
       </div>
 
-      {/* ── CARDS ZONE — bg-section-bg ── */}
-      <div className="relative bg-section-bg pb-24 overflow-hidden">
+      {/* ── CARDS ZONE ── */}
+      <div className="relative bg-section-bg pb-12 lg:pb-16">
         {/* Subtle background industrial industrial diagonal lines — fixed to viewport for perfect continuity */}
         <div 
           className="absolute inset-0 pointer-events-none opacity-[0.03]" 
@@ -121,7 +121,42 @@ export default function FeaturedPumpsGrid() {
         />
         
         <div className="relative mx-auto max-w-7xl px-8 z-10">
-          <div className="grid grid-cols-2 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-8">
+          {/* Mobile: 2-row independently swipeable snap carousels */}
+          <div className="flex flex-col gap-4 sm:hidden pt-4">
+            {[0, 1].map((rowIndex) => {
+              const rowItems = FEATURED_PUMPS.filter((_, i) => i % 2 === rowIndex);
+              if (rowItems.length === 0) return null;
+              return (
+                <div
+                  key={`mobile-row-${rowIndex}`}
+                  className="flex gap-4 overflow-x-auto overscroll-x-contain"
+                  style={{
+                    scrollSnapType: "x mandatory",
+                    WebkitOverflowScrolling: "touch",
+                    scrollbarWidth: "none",
+                    paddingLeft: "2rem",
+                    paddingRight: "3rem",
+                    paddingBottom: "1rem",
+                    marginLeft: "-2rem",
+                    marginRight: "-2rem",
+                  }}
+                >
+                  {rowItems.map((pump) => (
+                    <div
+                      key={pump.id}
+                      className="shrink-0"
+                      style={{ width: "72vw", scrollSnapAlign: "start" }}
+                    >
+                      <PumpCard pump={pump} />
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop: staggered reveal grid */}
+          <div className="hidden sm:grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4 pt-8">
             {FEATURED_PUMPS.map((pump, i) => (
               <PrecisionReveal
                 key={pump.id}

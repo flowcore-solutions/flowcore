@@ -10,7 +10,7 @@ import flowcharLogo from "@/app/assets/logos/flowchar-logo.png";
 
 export default function PartnerSynergy() {
   return (
-    <section className="relative py-20 overflow-hidden bg-section-bg">
+    <section className="relative py-12 lg:py-16 overflow-hidden bg-section-bg">
       {/* Subtle background industrial lines — fixed to viewport for perfect continuity */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-[0.03]" 
