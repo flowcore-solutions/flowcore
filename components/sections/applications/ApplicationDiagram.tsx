@@ -53,11 +53,11 @@ export default function ApplicationDiagram({
       {reversed ? (
         <>
           {diagramContent}
-          <EnvironmentInfo env={env} activeNode={activeNode} index={index} />
+          <EnvironmentInfo env={env} activeNode={activeNode} />
         </>
       ) : (
         <>
-          <EnvironmentInfo env={env} activeNode={activeNode} index={index} />
+          <EnvironmentInfo env={env} activeNode={activeNode} />
           {diagramContent}
         </>
       )}

@@ -2,7 +2,7 @@
 // Defines the three industrial environments shown on the Applications page,
 // including the SVG diagram node positions and pump model associations.
 
-import type { PumpModel } from "./pump-data";
+
 
 /**
  * A positioned node in an SVG application diagram.

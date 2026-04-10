@@ -16,6 +16,7 @@ const poppins = Poppins({
 
 // ── Site Metadata ─────────────────────────────────────────────────────────
 export const metadata: Metadata = {
+  applicationName: "FlowCore",
   title: {
     default: "FlowCore Solutions — Industrial Pump Systems & Water Treatment",
     template: "%s | FlowCore Solutions",
@@ -37,6 +38,9 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "FlowCore Solutions",
     locale: "en_IN",
+  },
+  appleWebApp: {
+    title: "FlowCore",
   },
 };
 

@@ -8,10 +8,9 @@ const LIGHT_BLUE   = "#4da3ff";
 interface EnvironmentInfoProps {
   env: ApplicationEnvironment;
   activeNode: DiagramNode | null;
-  index: number;
 }
 
-export default function EnvironmentInfo({ env, activeNode, index }: EnvironmentInfoProps) {
+export default function EnvironmentInfo({ env, activeNode }: EnvironmentInfoProps) {
   // Use professional Deep Blue theme for all panels as per user request
   const isBlue = true;
 

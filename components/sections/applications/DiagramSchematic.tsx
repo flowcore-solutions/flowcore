@@ -251,7 +251,7 @@ export default function DiagramSchematic({
         ))}
 
         {/* ── Flow arrowheads at elbow midpoints ── */}
-        {pipes.map((p, i) => {
+        {pipes.map((p) => {
           const midX  = p.midX;
           const fromY = p.fromY;
           return (

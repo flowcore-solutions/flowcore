@@ -8,7 +8,7 @@
  * Grid: AnimatePresence popLayout with stagger.
  */
 
-import { useState, useMemo, useRef, useEffect, type ReactNode } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import {

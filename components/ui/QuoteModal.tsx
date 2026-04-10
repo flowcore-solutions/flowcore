@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { PUMP_CATALOG, getPumpById, PUMP_CATEGORIES } from "@/lib/pump-data";
@@ -138,12 +138,15 @@ export default function QuoteModal() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [success, setSuccess] = useState(false);
   
-  // Sync URL parameter to state when opened
-  useEffect(() => {
+  // Track last quoteId for manual sync during render (standard React pattern for prop-to-state sync)
+  const [prevQuoteId, setPrevQuoteId] = useState<string | null>(null);
+
+  if (quoteId !== prevQuoteId) {
+    setPrevQuoteId(quoteId);
     if (quoteId && !selectedIds.includes(quoteId) && getPumpById(quoteId)) {
       setSelectedIds(prev => Array.from(new Set([...prev, quoteId])));
     }
-  }, [quoteId, selectedIds]); // Include 'selectedIds' to satisfy deps while minimizing extra runs
+  }
   
   // Reset form on close
   useEffect(() => {
@@ -152,12 +155,12 @@ export default function QuoteModal() {
     }
   }, [isOpen]);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     // Preserve other search params if any
     const params = new URLSearchParams(searchParams.toString());
     params.delete('quote');
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
-  };
+  }, [pathname, router, searchParams]);
   
   // Close on Escape key
   useEffect(() => {
@@ -166,7 +169,7 @@ export default function QuoteModal() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]); // Only react to isOpen changes if needed, actually closeModal handles the current router state
+  }, [isOpen, closeModal]); // Missing closeModal dependency added
 
   // Prevent background scroll when modal open
   useEffect(() => {
@@ -243,7 +246,7 @@ export default function QuoteModal() {
                        </svg>
                      </div>
                      <h3 className="text-xl font-bold text-slate-900 mb-2">Request Received</h3>
-                     <p className="text-slate-600 text-sm">We'll be in touch with you shortly.</p>
+                     <p className="text-slate-600 text-sm">We&apos;ll be in touch with you shortly.</p>
                    </motion.div>
                  ) : (
                    <form onSubmit={handleSubmit} className="space-y-6">
