@@ -20,7 +20,7 @@ export default function ApplicationDiagram({
   const [activeNode, setActiveNode] = useState<DiagramNode | null>(null);
 
   const diagramContent = (
-    <div className="relative">
+    <div className={`relative order-1 ${reversed ? "lg:order-1" : "lg:order-2"}`}>
       <DiagramSchematic
         env={env}
         activeNodeId={activeNode?.id ?? null}
@@ -42,23 +42,20 @@ export default function ApplicationDiagram({
     </div>
   );
 
+  const infoContent = (
+    <div className={`order-2 ${reversed ? "lg:order-2" : "lg:order-1"}`}>
+      <EnvironmentInfo env={env} activeNode={activeNode} />
+    </div>
+  );
+
   return (
     <div
-      className={`grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-8 items-stretch ${
-        reversed ? "lg:grid-cols-[3fr_2fr]" : ""
+      className={`grid grid-cols-1 items-stretch gap-8 ${
+        reversed ? "lg:grid-cols-[3fr_2fr]" : "lg:grid-cols-[2fr_3fr]"
       }`}
     >
-      {reversed ? (
-        <>
-          {diagramContent}
-          <EnvironmentInfo env={env} activeNode={activeNode} />
-        </>
-      ) : (
-        <>
-          <EnvironmentInfo env={env} activeNode={activeNode} />
-          {diagramContent}
-        </>
-      )}
+      {diagramContent}
+      {infoContent}
     </div>
   );
 }

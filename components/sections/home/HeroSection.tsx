@@ -46,7 +46,7 @@ const GreenBackground = () => (
 
 export default function HeroSection() {
   return (
-    <section className="hero-underlap relative w-full h-screen overflow-hidden">
+    <section className="hero-underlap hero-viewport relative w-full overflow-hidden bg-deep-blue">
       
       {/* ── BACKGROUND LAYERS ── */}
       <div className="absolute inset-0">
@@ -59,10 +59,10 @@ export default function HeroSection() {
       </div>
 
       {/* ── CONTENT ── */}
-      <div className="relative z-10 flex flex-col lg:flex-row w-full h-full">
+      <div className="relative z-10 flex h-full w-full flex-col lg:flex-row">
         
         {/* LEFT / TOP */}
-        <div className="w-full h-[55%] lg:h-full lg:w-[55%] flex flex-col justify-center px-8 sm:px-16 lg:px-24 xl:px-32">
+        <div className="flex h-[52%] w-full flex-col justify-start px-8 pt-8 sm:h-[55%] sm:justify-center sm:pt-0 sm:px-16 lg:h-full lg:w-[55%] lg:px-24 xl:px-32">
           
           <motion.span
             initial={{ opacity: 0, x: -20 }}
@@ -132,7 +132,7 @@ export default function HeroSection() {
         </div>
 
         {/* RIGHT / BOTTOM */}
-        <div className="flex-1 lg:flex-none lg:flex-1 flex flex-col justify-center px-8 sm:px-16 lg:px-20 pb-10 lg:pb-0">
+        <div className="flex flex-1 flex-col justify-start px-8 pb-10 pt-8 sm:justify-center sm:px-16 sm:pt-0  lg:flex-1 lg:px-20 lg:pb-0">
           
           <motion.span
             initial={{ opacity: 0, x: 20 }}

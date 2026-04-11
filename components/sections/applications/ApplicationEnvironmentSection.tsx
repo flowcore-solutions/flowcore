@@ -40,7 +40,7 @@ export default function ApplicationEnvironmentSection({
         <PrecisionReveal
           variant={isEven ? "fadeSlideLeft" : "fadeSlideRight"}
         >
-          <ApplicationDiagram env={env} index={index} reversed={!isEven} />
+          <ApplicationDiagram env={env} reversed={!isEven} />
         </PrecisionReveal>
       </div>
     </section>

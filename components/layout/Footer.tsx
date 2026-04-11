@@ -48,7 +48,7 @@ export default function Footer() {
       </div>
       
       {/* MAIN FOOTER */}
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 pt-24 pb-16">
+      <div className="relative z-10 max-w-350  mx-auto px-6 sm:px-8 pt-24 pb-16">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-8 justify-between">
           
           {/* ── BRAND COLUMN ── */}
@@ -78,7 +78,7 @@ export default function Footer() {
           <div className="flex-1 flex flex-col sm:flex-row gap-16 justify-end lg:pr-8">
             
             {/* ── LINKS COLUMN ── */}
-            <div className="min-w-[160px]">
+            <div className="min-w-40">
               <h4 className="text-[11px] font-black tracking-[0.25em] text-white/40 mb-8 uppercase flex items-center gap-3">
                 <span className="w-8 h-px bg-white/20" /> Navigation
               </h4>
@@ -103,7 +103,7 @@ export default function Footer() {
             </div>
 
             {/* ── CONTACT COLUMN ── */}
-            <div className="min-w-[260px]">
+            <div className="min-w-65">
               <h4 className="text-[11px] font-black tracking-[0.25em] text-white/40 mb-8 uppercase flex items-center gap-3">
                 <span className="w-8 h-px bg-white/20" /> Headquarters
               </h4>
@@ -163,11 +163,11 @@ export default function Footer() {
 
       {/* ── BOTTOM BAR ── */}
       <div className="relative z-10 bg-[#061A40] border-t border-white/5 py-6">
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-semibold">
+        <div className="max-w-350  mx-auto px-6 sm:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-semibold">
           <p className="text-white/60">
             © {year} Flowcore Solutions. <span className="text-white/40 font-normal ml-1">All rights reserved.</span>
           </p>
-          <div className="text-white/80 flex items-center flex-wrap justify-center gap-3">
+          <div className="hidden lg:flex items-center flex-wrap justify-center gap-3 text-white/80">
             <span className="bg-white/5 px-3 py-1.5 rounded-md border border-white/10 font-medium">Berlington Industrial Pumps</span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#6CC24A]"></span>
             <span className="bg-white/5 px-3 py-1.5 rounded-md border border-white/10 font-medium">Flowchar WTP Chemicals</span>
@@ -177,4 +177,3 @@ export default function Footer() {
     </footer>
   );
 }
-

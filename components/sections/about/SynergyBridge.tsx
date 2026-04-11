@@ -43,13 +43,22 @@ function CapabilitiesList({
   accent: "blue" | "green";
 }) {
   const dotColor = accent === "blue" ? "#4da3ff" : "#6cc24a";
+  const itemTextClass = accent === "blue" ? "text-white/82" : "text-text-light";
   return (
     <ul className="space-y-3" role="list">
       {items.map((item) => (
-        <li key={item} className="flex items-start gap-3 text-sm text-text-light leading-snug">
+        <li
+          key={item}
+          className={`flex items-start gap-3 text-sm leading-snug ${itemTextClass}`}
+        >
           <span
             className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
-            style={{ backgroundColor: `${dotColor}18` }}
+            style={{
+              backgroundColor:
+                accent === "blue" ? "rgba(77, 163, 255, 0.22)" : `${dotColor}18`,
+              boxShadow:
+                accent === "blue" ? "0 0 0 1px rgba(77, 163, 255, 0.14)" : "none",
+            }}
           >
             <svg width="8" height="8" viewBox="0 0 8 8" fill="none" aria-hidden="true">
               <path
@@ -117,7 +126,7 @@ export default function SynergyBridge() {
 
         {/* The three-panel bridge layout */}
         <PrecisionReveal variant="riseUp" delay={0.21}>
-          <div className="relative flex flex-col lg:flex-row gap-0 rounded-2xl overflow-hidden shadow-[0_20px_80px_-15px_rgba(15,61,145,0.18)] group">
+          <div className="group relative flex flex-col gap-0 overflow-hidden rounded-2xl shadow-[0_14px_34px_-24px_rgba(15,61,145,0.12)] lg:flex-row lg:shadow-[0_20px_80px_-15px_rgba(15,61,145,0.18)]">
 
             {/* ── Panel 1: Berlington (Deep Blue) ── */}
             <div
@@ -155,7 +164,7 @@ export default function SynergyBridge() {
                 <h3 className="text-xl font-black text-white mb-3 uppercase tracking-tight">
                   Precision Hardware
                 </h3>
-                <p className="text-light-blue/80 text-sm leading-relaxed mb-8 max-w-xs">
+                <p className="mb-8 max-w-xs text-sm leading-relaxed text-white/78">
                   ISO-certified vertical multistage, horizontal split-case,
                   submersible, and self-priming pump systems engineered for
                   continuous industrial duty.
@@ -182,7 +191,7 @@ export default function SynergyBridge() {
             </div>
 
             {/* ── Panel 2: FlowCore Bridge (White centre) ── */}
-            <div className="relative flex flex-col items-center justify-center bg-white px-6 py-10 lg:py-0 lg:w-48 shrink-0 z-10 shadow-[0_0_40px_rgba(15,61,145,0.12)]">
+            <div className="relative z-10 flex shrink-0 flex-col items-center justify-center bg-white px-6 py-10 lg:w-48 lg:py-0 lg:shadow-[0_0_40px_rgba(15,61,145,0.12)]">
               <div className="relative mb-6 h-16 w-36 lg:w-28 xl:w-36">
                 <Image
                   src={flowcoreLogo}
@@ -211,7 +220,7 @@ export default function SynergyBridge() {
                 </svg>
               </div>
 
-              <p className="mt-5 text-[10px] font-black uppercase tracking-[0.2em] text-text-light text-center leading-relaxed">
+              <p className="mt-5 text-center text-[10px] font-black uppercase leading-relaxed tracking-[0.2em] text-deep-blue/75">
                 The Engineering
                 <br />
                 Bridge
@@ -219,10 +228,10 @@ export default function SynergyBridge() {
 
               {/* Connector arrows — desktop only */}
               <div className="hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3">
-                <div className="w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-r-[10px] border-r-border" />
+                <div className="w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-r-10 border-r-border" />
               </div>
               <div className="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-3">
-                <div className="w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[10px] border-l-border" />
+                <div className="w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-10 border-l-border" />
               </div>
             </div>
 

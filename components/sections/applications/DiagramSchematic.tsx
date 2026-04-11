@@ -170,6 +170,7 @@ export default function DiagramSchematic({
         role="img"
         aria-label={`${env.name} pump system schematic`}
         xmlns="http://www.w3.org/2000/svg"
+        onClick={onNodeLeave}
       >
         <defs>
           {/* Fine dot grid — engineering drawing aesthetic */}
@@ -300,7 +301,19 @@ export default function DiagramSchematic({
             <g
               key={node.id}
               transform={`translate(${node.x}, ${node.y})`}
-              style={{ cursor: "pointer" }}
+              style={{
+                cursor: "pointer",
+                outline: "none",
+                WebkitTapHighlightColor: "transparent",
+              }}
+              onClick={(event) => {
+                event.stopPropagation();
+                if (isActive) {
+                  onNodeLeave();
+                  return;
+                }
+                onNodeEnter(node);
+              }}
               onMouseEnter={() => onNodeEnter(node)}
               onMouseLeave={onNodeLeave}
               aria-label={node.label}
@@ -308,6 +321,17 @@ export default function DiagramSchematic({
               tabIndex={0}
               onFocus={() => onNodeEnter(node)}
               onBlur={onNodeLeave}
+              onKeyDown={(event) => {
+                if (event.key !== "Enter" && event.key !== " ") {
+                  return;
+                }
+                event.preventDefault();
+                if (isActive) {
+                  onNodeLeave();
+                  return;
+                }
+                onNodeEnter(node);
+              }}
               filter={isActive ? `url(#${activeGlowId})` : `url(#${glowId})`}
             >
               {/* Active pulse ring */}
