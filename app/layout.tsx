@@ -100,7 +100,7 @@ const organizationSchema = {
     "FlowCore Solutions is the critical engineering bridge between Berlington industrial pump hardware and Flowchar water treatment chemistry. Specializing in ISO-certified pump selection, MEP specification support, and Total System Health lifecycle servicing across India.",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "No. 65/1A, Cheluva Complex, Kottigepalya, Magadi Main Road, Vishwaneedam Post",
+    streetAddress: "1st Floor, Cheluva Complex, In front of Kottigepalya Bus Stop, Magadi Main Road, Kottingepalya",
     addressLocality: "Bengaluru",
     addressRegion: "Karnataka",
     postalCode: "560091",

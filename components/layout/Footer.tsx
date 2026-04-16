@@ -83,14 +83,14 @@ export default function Footer() {
                 <span className="w-8 h-px bg-white/20" /> Navigation
               </h4>
 
-              <ul className="space-y-4">
+              <ul className="flex flex-wrap gap-3 sm:block sm:space-y-4">
                 {FOOTER_LINKS.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="group flex items-center gap-3 text-sm font-semibold text-white/80 hover:text-white transition-colors"
+                      className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-white/80 transition-colors hover:text-white hover:bg-[#1E5BB8]/20 hover:border-[#4DA3FF]/40 sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0"
                     >
-                      <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:bg-[#1E5BB8] group-hover:border-[#4DA3FF] group-hover:shadow-[0_0_12px_rgba(30,91,184,0.6)]">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-all duration-300 group-hover:border-[#4DA3FF] group-hover:bg-[#1E5BB8] group-hover:shadow-[0_0_12px_rgba(30,91,184,0.6)] sm:h-7 sm:w-7">
                         <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="transition-transform duration-300 group-hover:translate-x-0.5 text-white/70 group-hover:text-white">
                           <path d="M5 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
@@ -121,9 +121,9 @@ export default function Footer() {
                       Bangalore, Karnataka
                     </p>
                     <p className="text-sm leading-relaxed text-white/70">
-                      No. 65/1A, Cheluva Complex, <br />
-                      Kottigepalya, Magadi Main Road, <br />
-                      Vishwaneedam Post
+                      1st Floor, Cheluva Complex <br />
+                      In front of Kottigepalya Bus Stop <br />
+                      Magadi Main Road, Kottingepalya
                     </p>
                   </div>
                 </div>

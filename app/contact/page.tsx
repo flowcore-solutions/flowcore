@@ -51,7 +51,7 @@ const localBusinessSchema = {
     "FlowCore Solutions provides industrial pump systems, water treatment chemicals, MEP specification support, and lifecycle pump servicing from our Bengaluru headquarters.",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "No. 65/1A, Cheluva Complex, Kottigepalya, Magadi Main Road, Vishwaneedam Post",
+    streetAddress: "1st Floor, Cheluva Complex, In front of Kottigepalya Bus Stop, Magadi Main Road, Kottingepalya",
     addressLocality: "Bengaluru",
     addressRegion: "Karnataka",
     postalCode: "560091",

@@ -1,12 +1,12 @@
 // FlowCore office and distribution location data.
 // Consumed by the Contact page's LocationCards and SVG India map.
 // Coordinates (lat/lng) are approximate and used only for SVG dot positioning
-// — not for any real geolocation or mapping SDK.
+// - not for any real geolocation or mapping SDK.
 
 export type LocationType = "headquarters" | "branch" | "distribution";
 
 export type OfficeLocation = {
-  /** Unique slug — used as React key */
+  /** Unique slug - used as React key */
   id: string;
   city: string;
   state: string;
@@ -34,19 +34,17 @@ export const OFFICE_LOCATIONS: readonly OfficeLocation[] = [
     state: "Karnataka",
     country: "India",
     type: "headquarters",
-    address: "No. 65/1A, Cheluva Complex, Kottigepalya, Magadi Main Road, Vishwaneedam Post, Bangalore – 560 091",
+    address:
+      "1st Floor, Cheluva Complex, In front of Kottigepalya Bus Stop, Magadi Main Road, Kottingepalya, Bengaluru - 560091",
     phone: "8618885283",
     email: "flowcoresolutionsblr@gmail.com",
     coordinates: { lat: 12.9716, lng: 77.5946 },
   },
 ];
 
-
-// ── Derived helpers ───────────────────────────────────────────────────
-
 /**
  * Returns the single headquarters location.
- * Throws if no HQ is found — this is a configuration invariant.
+ * Throws if no HQ is found - this is a configuration invariant.
  */
 export function getHeadquarters(): OfficeLocation {
   const hq = OFFICE_LOCATIONS.find((loc) => loc.type === "headquarters");
@@ -72,8 +70,8 @@ export function getLocationsByType(
  * suitable for plotting on an SVG map of India.
  *
  * Bounds used (approximate India bounding box):
- *   Lat: 6.5°N – 37.5°N
- *   Lng: 68°E – 97.5°E
+ *   Lat: 6.5N - 37.5N
+ *   Lng: 68E - 97.5E
  *
  * Returns values in the range [0, 100] (percentage of SVG dimensions).
  */

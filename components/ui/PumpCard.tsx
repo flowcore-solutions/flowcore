@@ -170,7 +170,7 @@ function CardFront({ pump, imageRef, tilt, priority = false }: CardFrontProps) {
     : "transform 400ms cubic-bezier(0.25,0,0,1), filter 400ms cubic-bezier(0.25,0,0,1)";
 
   const imageFilter = tilt.active
-    ? "drop-shadow(0 20px 28px rgba(30,91,184,0.35)) drop-shadow(0 8px 12px rgba(0,0,0,0.18))"
+    ? "drop-shadow(0 18px 24px rgba(0,0,0,0.16)) drop-shadow(0 8px 12px rgba(0,0,0,0.12))"
     : "drop-shadow(0 2px 6px rgba(0,0,0,0.08))";
 
   return (
@@ -244,16 +244,6 @@ function CardFront({ pump, imageRef, tilt, priority = false }: CardFrontProps) {
         )}
 
         {/* Active tilt — blue scan line glow at bottom edge */}
-        {tilt.active && (
-          <div
-            aria-hidden="true"
-            className="absolute bottom-0 left-0 right-0 h-0.5 pointer-events-none z-20"
-            style={{
-              background: "linear-gradient(90deg, transparent, #4da3ff 40%, #1e5bb8 50%, #4da3ff 60%, transparent)",
-              boxShadow: "0 0 12px 2px rgba(77,163,255,0.5)",
-            }}
-          />
-        )}
       </div>
 
       {/* ── Footer: pump name + hover cue ── */}
@@ -262,20 +252,25 @@ function CardFront({ pump, imageRef, tilt, priority = false }: CardFrontProps) {
           <h3 className="text-[15px] font-black text-deep-blue leading-tight tracking-tight">
             {pump.fullName}
           </h3>
-          <div className="flex flex-wrap gap-1 mt-2">
-            {pump.applications.slice(0, 3).map((app) => (
-              <span
-                key={app}
-                className="rounded px-2 py-0.5 text-[9px] font-bold border whitespace-nowrap"
-                style={{
-                  backgroundColor: "rgba(108,194,74,0.07)",
-                  color: "#2fa84f",
-                  borderColor: "rgba(108,194,74,0.18)",
-                }}
-              >
-                {app}
-              </span>
-            ))}
+          <div className="mt-3">
+            <p className="mb-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-slate-500">
+              Applications
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {pump.applications.slice(0, 3).map((app) => (
+                <span
+                  key={app}
+                  className="rounded-full border px-2.5 py-1 text-[9px] font-bold leading-none"
+                  style={{
+                    backgroundColor: "rgba(108,194,74,0.08)",
+                    color: "#2fa84f",
+                    borderColor: "rgba(108,194,74,0.18)",
+                  }}
+                >
+                  {app}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -312,24 +307,19 @@ function CardBack({ pump }: { pump: PumpModel }) {
       className="backface-hidden absolute inset-0 flex flex-col rounded-2xl overflow-hidden"
       style={{ transform: "rotateY(180deg)", backgroundColor: "#0f3d91" }}
     >
-      {/* Engineering grid overlay */}
+      {/* Diagonal blueprint overlay keeps the face technical without
+          competing with the horizontal specification dividers. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)
-          `,
-          backgroundSize: "20px 20px",
-        }}
-      />
-      {/* Diagonal accent lines */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage: `repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 24px)`,
+          backgroundImage: `repeating-linear-gradient(
+            135deg,
+            rgba(255,255,255,0.045) 0,
+            rgba(255,255,255,0.045) 1px,
+            transparent 1px,
+            transparent 20px
+          )`,
         }}
       />
 

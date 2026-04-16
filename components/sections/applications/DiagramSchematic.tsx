@@ -33,6 +33,10 @@ interface DiagramSchematicProps {
   onNodeLeave: () => void;
 }
 
+function isHoverPointer(pointerType: string) {
+  return pointerType === "mouse";
+}
+
 function getLabelAnchor(x: number): {
   anchor: "start" | "middle" | "end";
   textX: number;
@@ -306,6 +310,17 @@ export default function DiagramSchematic({
                 outline: "none",
                 WebkitTapHighlightColor: "transparent",
               }}
+              onPointerUp={(event) => {
+                event.stopPropagation();
+                if (isHoverPointer(event.pointerType)) {
+                  return;
+                }
+                if (isActive) {
+                  onNodeLeave();
+                  return;
+                }
+                onNodeEnter(node);
+              }}
               onClick={(event) => {
                 event.stopPropagation();
                 if (isActive) {
@@ -314,8 +329,18 @@ export default function DiagramSchematic({
                 }
                 onNodeEnter(node);
               }}
-              onMouseEnter={() => onNodeEnter(node)}
-              onMouseLeave={onNodeLeave}
+              onPointerEnter={(event) => {
+                if (!isHoverPointer(event.pointerType)) {
+                  return;
+                }
+                onNodeEnter(node);
+              }}
+              onPointerLeave={(event) => {
+                if (!isHoverPointer(event.pointerType)) {
+                  return;
+                }
+                onNodeLeave();
+              }}
               aria-label={node.label}
               role="button"
               tabIndex={0}

@@ -51,7 +51,10 @@ export default function PumpTooltip({ node, anchorX, anchorY }: PumpTooltipProps
   const pump = getPumpById(node.pumpModelId);
   const image = PUMP_IMAGES[node.pumpModelId];
 
-  const leftPct = Math.min(anchorX + 4, 58);
+  const openLeft = anchorX >= 55;
+  const leftPct = openLeft
+    ? Math.max(anchorX - 38, 2)
+    : Math.min(anchorX + 4, 58);
   const topPct = Math.max(anchorY - 36, 2);
 
   return (
@@ -66,7 +69,7 @@ export default function PumpTooltip({ node, anchorX, anchorY }: PumpTooltipProps
         left: `${leftPct}%`,
         top: `${topPct}%`,
         zIndex: 20,
-        width: "220px",
+        width: "min(220px, calc(100vw - 4rem))",
         boxShadow: "var(--shadow-card-hover)",
       }}
       className="rounded-xl border border-border bg-white overflow-hidden pointer-events-none"

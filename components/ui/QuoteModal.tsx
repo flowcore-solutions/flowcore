@@ -2,10 +2,8 @@
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useState, useRef, useCallback } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { PUMP_CATALOG, getPumpById, PUMP_CATEGORIES } from "@/lib/pump-data";
-import { PUMP_IMAGES } from "@/components/ui/PumpCard"; 
 
 // Custom Multi-select for pumps
 function MultiSelect({ 
@@ -132,7 +130,6 @@ export default function QuoteModal() {
   
   const quoteId = searchParams.get('quote');
   const isOpen = !!quoteId;
-  const primaryPump = quoteId ? getPumpById(quoteId) : undefined;
   
   // Local form states
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -193,14 +190,14 @@ export default function QuoteModal() {
   return (
     <AnimatePresence>
       {isOpen && (
-         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+         <div className="fixed inset-0 z-50 flex items-end justify-center p-2 sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-title">
            {/* Backdrop */}
            <motion.div 
              initial={{ opacity: 0 }} 
              animate={{ opacity: 1 }} 
              exit={{ opacity: 0 }} 
              transition={{ duration: 0.2 }}
-             className="absolute inset-0 bg-[#0F172A]/70 backdrop-blur-sm"
+             className="absolute inset-0 bg-black/45 backdrop-blur-[3px]"
              onClick={closeModal}
            />
            
@@ -210,13 +207,13 @@ export default function QuoteModal() {
              animate={{ opacity: 1, scale: 1, y: 0 }} 
              exit={{ opacity: 0, scale: 0.95, y: 15 }} 
              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-             className="relative w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row z-10"
-             style={{ maxHeight: "calc(100vh - 40px)" }}
+             className="relative z-10 w-full max-w-2xl overflow-hidden rounded-[28px] bg-white shadow-[0_28px_90px_rgba(15,23,42,0.24)] md:rounded-[32px]"
+             style={{ maxHeight: "calc(100dvh - 16px)" }}
            >
              {/* Close button */}
              <button 
                onClick={closeModal}
-               className="absolute top-4 right-4 z-20 w-9 h-9 flex items-center justify-center bg-white/60 hover:bg-white backdrop-blur rounded-full text-slate-500 hover:text-slate-900 transition-colors shadow-sm"
+               className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-slate-200/80 bg-white/90 text-slate-500 shadow-sm transition-colors hover:bg-white hover:text-slate-900"
                aria-label="Close modal"
              >
                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -224,12 +221,11 @@ export default function QuoteModal() {
                </svg>
              </button>
 
-             {/* LEFT PANE - Form */}
-             <div className="w-full md:w-3/5 p-8 md:p-12 overflow-y-auto flex flex-col justify-center bg-white order-2 md:order-1 relative">
-               <div className="max-w-md w-full mx-auto md:mx-0">
-                 <div className="mb-8">
-                   <h2 id="modal-title" className="text-3xl font-bold text-slate-900 tracking-tight mb-2">Request a Quote</h2>
-                   <p className="text-slate-500 text-sm leading-relaxed">
+             <div className="flex w-full flex-col justify-center overflow-y-auto bg-white p-5 sm:p-7 md:p-10">
+               <div className="mx-auto w-full max-w-none">
+                 <div className="mb-6 sm:mb-8">
+                   <h2 id="modal-title" className="mb-2 pr-12 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Request a Quote</h2>
+                   <p className="text-sm leading-relaxed text-slate-500">
                      Our engineering team will review your requirements and respond shortly with pricing, availability, and technical documentation.
                    </p>
                  </div>
@@ -238,7 +234,7 @@ export default function QuoteModal() {
                    <motion.div 
                      initial={{ opacity: 0, y: 10 }} 
                      animate={{ opacity: 1, y: 0 }} 
-                     className="bg-[#f0fcf3] border border-[#d3f4dd] rounded-xl p-8 text-center"
+                     className="rounded-2xl border border-[#d3f4dd] bg-[#f0fcf3] p-6 text-center sm:p-8"
                    >
                      <div className="w-16 h-16 bg-[#d3f4dd] text-[#2fa84f] rounded-full flex items-center justify-center mx-auto mb-5">
                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
@@ -249,7 +245,7 @@ export default function QuoteModal() {
                      <p className="text-slate-600 text-sm">We&apos;ll be in touch with you shortly.</p>
                    </motion.div>
                  ) : (
-                   <form onSubmit={handleSubmit} className="space-y-6">
+                   <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
                      <div>
                        <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-2 tracking-wide">NAME / COMPANY NAME</label>
                        <input 
@@ -301,83 +297,6 @@ export default function QuoteModal() {
                  )}
                </div>
              </div>
-
-             {/* RIGHT PANE - Showcase */}
-             {primaryPump ? (
-               <div className="w-full md:w-2/5 bg-[#F8FAFC] border-b md:border-b-0 md:border-l border-slate-200 relative order-1 md:order-2 flex flex-col justify-center min-h-[220px] md:min-h-0 shrink-0">
-                 {/* Engineered Grid Background */}
-                 <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 opacity-[0.2]"
-                    style={{
-                      backgroundImage: `
-                        linear-gradient(#0F3D91 1px, transparent 1px),
-                        linear-gradient(90deg, #0F3D91 1px, transparent 1px)
-                      `,
-                      backgroundSize: "20px 20px",
-                    }}
-                  />
-                 <div className="relative z-10 px-8 py-10 flex flex-col items-center text-center h-full justify-center">
-                    <div className="mb-4">
-                      <span className="text-[10px] uppercase font-bold tracking-widest text-[#1E5BB8] bg-[#f0f4f9] px-3 py-1.5 rounded-full border border-[#d6e2f5]">
-                        {primaryPump.category}
-                      </span>
-                    </div>
-                    
-                    <div className="relative w-44 h-44 md:w-64 md:h-64 mb-6">
-                      {PUMP_IMAGES[primaryPump.id] ? (
-                        <Image 
-                          src={PUMP_IMAGES[primaryPump.id]} 
-                          alt={primaryPump.fullName}
-                          fill
-                          className="object-contain drop-shadow-2xl"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center text-slate-300 text-4xl font-black">
-                          {primaryPump.seriesCode}
-                        </div>
-                      )}
-                    </div>
-                    
-                    <h3 className="text-2xl font-bold text-slate-900 tracking-tight leading-tight mb-4">
-                       {primaryPump.fullName}
-                    </h3>
-                    <div className="flex gap-4 justify-center mt-2 border-t border-slate-200/60 pt-5 w-full max-w-[260px]">
-                      <div className="text-center flex-1">
-                        <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Flow Rate</div>
-                        <div className="text-sm text-slate-800 font-semibold tabular-nums">{primaryPump.flowRate}</div>
-                      </div>
-                      <div className="w-px bg-slate-200"></div>
-                      <div className="text-center flex-1">
-                        <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Max Head</div>
-                        <div className="text-sm text-slate-800 font-semibold tabular-nums">{primaryPump.maxHead}</div>
-                      </div>
-                    </div>
-                 </div>
-               </div>
-             ) : (
-               <div className="w-full md:w-2/5 bg-[#F8FAFC] border-b md:border-b-0 md:border-l border-slate-200 relative order-1 md:order-2 flex flex-col justify-center items-center p-8 min-h-[200px] shrink-0">
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 opacity-[0.2]"
-                    style={{
-                      backgroundImage: `
-                        linear-gradient(#0F3D91 1px, transparent 1px),
-                        linear-gradient(90deg, #0F3D91 1px, transparent 1px)
-                      `,
-                      backgroundSize: "20px 20px",
-                    }}
-                  />
-                  <div className="relative z-10 w-24 h-24 mb-6 opacity-20 text-[#0F3D91]">
-                     <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-                       <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2"/>
-                       <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                     </svg>
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 relative z-10 mb-2">Build Your Solution</h3>
-                  <p className="text-sm text-slate-500 text-center relative z-10 max-w-xs">Select pump models on the left to include them in your quote request.</p>
-               </div>
-             )}
            </motion.div>
          </div>
       )}
