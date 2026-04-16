@@ -70,7 +70,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5, ease: EASE }}
             className="mb-3 lg:mb-5 border-l-2 border-light-blue pl-3 lg:pl-4 text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-[0.2em] text-light-blue"
           >
-            Industrial Pump Solutions
+            Authorized Berlington Pump Dealer in Karnataka
           </motion.span>
 
           <motion.h1
@@ -80,9 +80,8 @@ export default function HeroSection() {
             className="text-white font-bold uppercase mb-4 lg:mb-6 leading-[1.15]"
             style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
           >
-            Industrial <br />
-            <span className="text-light-blue">Pump</span> <br />
-            Systems
+            Berlington <br />
+            <span className="text-light-blue">Pumps</span>
           </motion.h1>
 
           <motion.p
@@ -91,7 +90,7 @@ export default function HeroSection() {
             transition={{ delay: 0.2 }}
             className="hidden sm:block text-white/90 max-w-md mb-6 lg:mb-10 text-sm lg:text-lg leading-relaxed"
           >
-            High-performance centrifugal and stainless steel pump systems engineered for reliable pressure, circulation, and fluid transfer in demanding industrial environments.
+            High-performance Berlington centrifugal and stainless steel pump systems engineered for reliable pressure, HVAC, WTP, and fire fighting applications in Bangalore, Karnataka.
           </motion.p>
 
           {/* CTA */}
@@ -101,15 +100,15 @@ export default function HeroSection() {
             transition={{ delay: 0.3 }}
             className="flex flex-row gap-3 lg:gap-4 mt-2 sm:mt-0"
           >
-            <Link href="/products" className="w-auto">
+            <Link href="/berlington-pumps-bangalore" className="w-auto">
               <button className="bg-white text-deep-blue px-6 py-3 lg:px-8 lg:py-4 rounded-xl text-sm lg:text-base font-bold transition-all hover:scale-105 hover:shadow-xl text-center">
-                Explore Products →
+                Explore Berlington Models →
               </button>
             </Link>
 
-            <Link href="/applications" className="w-auto hidden sm:block">
+            <Link href="/industrial-pumps-bangalore" className="w-auto hidden sm:block">
               <button className="border border-white/40 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-xl backdrop-blur-sm hover:border-white transition-all text-center text-sm lg:text-base">
-                Applications
+                Industrial Applications
               </button>
             </Link>
           </motion.div>
@@ -164,7 +163,7 @@ export default function HeroSection() {
              transition={{ delay: 0.3 }}
              className="mt-2 sm:mt-0"
           >
-            <Link href="/contact" className="w-auto">
+            <Link href="/water-treatment-chemicals-bangalore" className="w-auto">
               <button className="bg-deep-blue text-white px-6 py-3 lg:px-8 lg:py-4 rounded-xl text-sm lg:text-base font-bold transition-all hover:scale-105 hover:shadow-xl text-center">
                 Learn More →
               </button>

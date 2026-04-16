@@ -6,8 +6,11 @@ import flowcoreLogoHorizontal from "@/app/assets/logos/flowcore-logo-horizontal.
 
 const FOOTER_LINKS = [
   { href: "/", label: "Home" },
+  { href: "/berlington-pumps-bangalore", label: "Berlington Pumps" },
+  { href: "/industrial-pumps-bangalore", label: "Industrial Pumps" },
+  { href: "/fire-fighting-pumps-bangalore", label: "Fire Fighting Pumps" },
+  { href: "/water-treatment-chemicals-bangalore", label: "WTP Chemicals" },
   { href: "/products", label: "Products" },
-  { href: "/applications", label: "Applications" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
 ];
@@ -60,8 +63,7 @@ export default function Footer() {
 
               <div className="flex flex-col space-y-4 items-center sm:items-start text-center sm:text-left">
                 <p className="text-base sm:text-lg font-medium text-white/90 leading-relaxed max-w-[320px]">
-                  Industrial pump systems and water treatment solutions engineered
-                  for maximum efficiency, durability, and long-term performance.
+                  Authorized Berlington Pumps dealer in Bangalore, Karnataka. Supplying reliable industrial pump systems and offering comprehensive service and maintenance.
                 </p>
                 <div className="inline-flex items-center justify-center gap-2.5 border border-white/20 bg-white/5 rounded-full px-4 py-1.5 backdrop-blur-sm shadow-inner">
                    <span className="shrink-0 w-2.5 h-2.5 rounded-full bg-[#6CC24A]" />
@@ -123,7 +125,9 @@ export default function Footer() {
                     <p className="text-sm leading-relaxed text-white/70">
                       1st Floor, Cheluva Complex <br />
                       In front of Kottigepalya Bus Stop <br />
-                      Magadi Main Road, Kottingepalya
+                      Magadi Main Road, Kottingepalya <br />
+                      Bangalore, Karnataka 560091 <br />
+                      <span className="text-[#6CC24A] font-bold mt-2 inline-block">Serving all across Karnataka</span>
                     </p>
                   </div>
                 </div>

@@ -72,11 +72,11 @@ export default function FeaturedPumpsGrid() {
                 id="featured-pumps-heading"
                 className="font-bold text-white leading-tight uppercase"
                 style={{
-                  fontSize: "clamp(2rem, 3.5vw, 3rem)",
+                  fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
                   letterSpacing: "-0.02em",
                 }}
               >
-                Featured Products
+                Berlington Industrial Models
               </h2>
             </PrecisionReveal>
 

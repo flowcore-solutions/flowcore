@@ -19,25 +19,25 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://flowcore.in"),
   applicationName: "FlowCore Solutions",
   title: {
-    default: "FlowCore Solutions — Industrial Pump Systems & Water Treatment India",
+    default: "FlowCore Solutions — Industrial Pump Systems & Water Treatment in Bangalore",
     template: "%s | FlowCore Solutions",
   },
   description:
-    "FlowCore Solutions is the engineering bridge between Berlington industrial pumps and Flowchar water treatment chemicals. ISO-certified pump selection, MEP specification support, and Total System Health lifecycle servicing across India.",
+    "FlowCore Solutions is the authorized Berlington Pumps dealer in Bangalore, offering industrial pump systems, MEP specification support, and servicing in Karnataka.",
   keywords: [
-    "industrial pumps India",
-    "Berlington pumps distributor",
-    "Flowchar water treatment chemicals",
+    "industrial pumps Bangalore",
+    "Berlington pumps distributor Bangalore",
+    "Flowchar water treatment chemicals Karnataka",
     "vertical multistage pumps",
     "AISI 316 stainless steel pumps",
     "WTP engineering solutions",
     "HVAC pump systems",
-    "sewage submersible pumps",
-    "MEP specification support",
-    "pump repair services India",
+    "sewage submersible pumps Karnataka",
+    "MEP specification support Bangalore",
+    "pump repair services Bangalore",
     "water treatment plant chemicals",
     "industrial fluid infrastructure",
-    "centrifugal pump supplier Bengaluru",
+    "centrifugal pump supplier Bangalore",
     "scale inhibitors biocides coagulants",
   ],
   alternates: {
@@ -59,23 +59,23 @@ export const metadata: Metadata = {
     siteName: "FlowCore Solutions",
     locale: "en_IN",
     url: "https://flowcore.in",
-    title: "FlowCore Solutions — Industrial Pump Systems & Water Treatment India",
+    title: "FlowCore Solutions — Industrial Pump Systems & Water Treatment in Bangalore",
     description:
-      "The engineering bridge between Berlington fluid hardware and Flowchar chemistry. ISO-certified pump systems, MEP support, and 24/7 lifecycle servicing.",
+      "Authorized Berlington Pumps dealer in Bangalore. ISO-certified pump systems, MEP support, and 24/7 lifecycle servicing across Karnataka.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "FlowCore Solutions — Industrial Fluid Infrastructure & Water Treatment India",
+        alt: "FlowCore Solutions — Industrial Fluid Infrastructure & Water Treatment Bangalore",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "FlowCore Solutions — Industrial Pump Systems & Water Treatment India",
+    title: "FlowCore Solutions — Industrial Pump Systems & Water Treatment in Bangalore",
     description:
-      "ISO-certified Berlington pumps and Flowchar water treatment. MEP support and Total System Health lifecycle servicing.",
+      "Authorized Berlington Pumps dealer in Bangalore providing ISO-certified pump systems and Flowchar water treatment in Karnataka.",
     images: ["/og-image.png"],
   },
   appleWebApp: {
@@ -97,11 +97,11 @@ const organizationSchema = {
     height: 630,
   },
   description:
-    "FlowCore Solutions is the critical engineering bridge between Berlington industrial pump hardware and Flowchar water treatment chemistry. Specializing in ISO-certified pump selection, MEP specification support, and Total System Health lifecycle servicing across India.",
+    "FlowCore Solutions is the authorized Berlington Pumps dealer in Bangalore. Specializing in ISO-certified pump selection, MEP specification support, and Total System Health lifecycle servicing across Karnataka.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "1st Floor, Cheluva Complex, In front of Kottigepalya Bus Stop, Magadi Main Road, Kottingepalya",
-    addressLocality: "Bengaluru",
+    addressLocality: "Bangalore",
     addressRegion: "Karnataka",
     postalCode: "560091",
     addressCountry: "IN",
@@ -110,8 +110,8 @@ const organizationSchema = {
   email: "flowcoresolutionsblr@gmail.com",
   foundingDate: "2020",
   areaServed: {
-    "@type": "Country",
-    name: "India",
+    "@type": "State",
+    name: "Karnataka",
   },
   knowsAbout: [
     "Industrial Pump Systems",
@@ -138,7 +138,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-IN" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth">
       <body
         className={`${poppins.variable} font-sans antialiased bg-white text-text-dark`}
       >
