@@ -80,9 +80,9 @@ export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="bg-white rounded-[2rem] p-8 flex items-center justify-center border border-border h-[400px] lg:h-[650px] relative overflow-hidden group"
+              className="bg-white rounded-4xl p-8 flex items-center justify-center border border-border h-[400px] lg:h-[650px] relative overflow-hidden group"
             >
-               <div className="absolute inset-0 bg-gradient-to-tr from-white to-section-bg" />
+               <div className="absolute inset-0 bg-linear-to-tr from-white to-section-bg" />
                <motion.div
                  whileHover={{ scale: 1.05 }}
                  transition={{ duration: 0.6, ease: "easeOut" }}
