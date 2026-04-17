@@ -8,10 +8,7 @@
  */
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
-
-const PRECISION_EASE = [0.25, 0, 0, 1] as const;
 
 export default function AboutHero() {
   return (
@@ -33,7 +30,7 @@ export default function AboutHero() {
       {/* Subtle horizontal rule accent */}
       <div
         aria-hidden="true"
-        className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-blue/30 to-transparent"
+        className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-primary-blue/30 to-transparent"
       />
 
       <div className="relative mx-auto max-w-6xl px-6 py-12 lg:py-16">
@@ -65,7 +62,7 @@ export default function AboutHero() {
           {/* Left — Primary headline */}
           <div className="max-w-2xl">
             <PrecisionReveal variant="fadeSlideLeft" delay={0.07}>
-              <span className="inline-flex items-center pl-3 border-l-2 border-primary-green text-[10px] font-black uppercase tracking-[0.2em] text-primary-green mb-6 block">
+              <span className="block items-center pl-3 border-l-2 border-primary-green text-[10px] font-black uppercase tracking-[0.2em] text-primary-green mb-6 block">
                 Engineering Infrastructure Partnership
               </span>
             </PrecisionReveal>
@@ -102,12 +99,10 @@ export default function AboutHero() {
                 { value: "5+", label: "Key Verticals", accent: "green" },
                 { value: "Total", label: "System Health", accent: "green" },
               ].map((stat) => (
-                <motion.div
+                <div
                   key={stat.label}
-                  className="rounded-xl border border-border bg-white p-4"
+                  className="rounded-xl border border-border bg-white p-4 transition-all duration-300 hover:-translate-y-0.5"
                   style={{ boxShadow: "var(--shadow-card)" }}
-                  whileHover={{ y: -2 }}
-                  transition={{ duration: 0.2, ease: PRECISION_EASE }}
                 >
                   <div
                     className="text-2xl font-black leading-none mb-1"
@@ -120,7 +115,7 @@ export default function AboutHero() {
                   <div className="text-[10px] font-bold uppercase tracking-widest text-text-light">
                     {stat.label}
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </PrecisionReveal>

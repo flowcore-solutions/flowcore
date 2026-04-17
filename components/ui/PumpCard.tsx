@@ -18,7 +18,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState, useCallback, useEffect, type MouseEvent } from "react";
-import { motion } from "framer-motion";
 import type { PumpModel } from "@/lib/pump-data";
 import type { StaticImageData } from "next/image";
 
@@ -406,11 +405,13 @@ export default function PumpCard({ pump, priority = false }: PumpCardProps) {
       onMouseLeave={handlers.onMouseLeave}
       onTouchEnd={handlers.onTouchEnd}
     >
-      <motion.div
-        className="relative w-full h-full"
-        style={{ transformStyle: "preserve-3d" }}
-        animate={{ rotateY: flipped ? 180 : 0 }}
-        transition={{ type: "tween", duration: 0.5, ease: FLIP_EASE }}
+      <div
+        className="relative w-full h-full transition-transform duration-500"
+        style={{ 
+          transformStyle: "preserve-3d",
+          transform: `rotateY(${flipped ? 180 : 0}deg)`,
+          transitionTimingFunction: `cubic-bezier(${FLIP_EASE.join(',')})`
+        }}
         role="group"
         aria-label={
           flipped
@@ -420,7 +421,7 @@ export default function PumpCard({ pump, priority = false }: PumpCardProps) {
       >
         <CardFront pump={pump} imageRef={imageRef} tilt={tilt} priority={priority} />
         <CardBack pump={pump} />
-      </motion.div>
+      </div>
     </div>
   );
 }

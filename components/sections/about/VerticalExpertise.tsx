@@ -1,4 +1,3 @@
-"use client";
 
 /**
  * VerticalExpertise — Five-vertical matrix displayed as a spec-sheet grid.

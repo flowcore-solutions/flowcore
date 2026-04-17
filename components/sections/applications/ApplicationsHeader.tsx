@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 
 const PAGE_HEADER = {
@@ -77,20 +74,15 @@ export default function ApplicationsHeader() {
               <div className="absolute -inset-2 rounded-2xl bg-primary-green/5 blur-xl transition-all duration-500 group-hover:bg-primary-green/10" />
               <div className="relative flex items-center gap-4 rounded-xl border border-border/60 bg-white p-5 shadow-sm">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-border/40 bg-section-bg">
-                  <motion.svg
+                  <svg
                     width="20"
                     height="20"
                     viewBox="0 0 16 16"
                     fill="none"
-                    animate={{ x: [0, 4, 0], y: [0, 4, 0] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
+                    className="animate-float-cursor"
                   >
                     <path d="M4 2l8 6-4 1-2 4-2-11z" fill="#6cc24a" />
-                  </motion.svg>
+                  </svg>
                 </div>
 
                 <div className="flex flex-col gap-0.5">

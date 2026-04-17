@@ -387,9 +387,9 @@ export const waterChemicalsLandingConfig: LandingConfig = {
   hideBreadcrumb: true,
   hero: {
     eyebrow: "WATER TREATMENT CHEMICALS · KARNATAKA",
-    title: "Water Treatment Chemical Supplier in Bangalore, Karnataka",
+    title: "Water Treatment Plant Chemicals Supplier in Bangalore, Karnataka",
     body:
-      "FlowCore Solutions supplies water treatment chemicals for WTP, ETP, STP, cooling towers, boilers, and RO systems in Bangalore. We support Karnataka clients with application-led chemical selection, dosing guidance, and dependable local supply.",
+      "FlowCore Solutions provides a complete range of chemicals for Water Treatment Plants (WTP), STP, ETP, and RO systems in Bangalore. We support Karnataka industries with application-led chemical supply, dosing guidance, and dependable local delivery.",
     theme: "teal",
     primaryCta: { label: "View Chemical Range", href: "/contact" },
     secondaryCta: { label: "Get a Quote", href: "/contact" },

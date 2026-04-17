@@ -1,4 +1,3 @@
-"use client";
 
 /**
  * SynergyBridge — The strategic partnership architecture diagram.

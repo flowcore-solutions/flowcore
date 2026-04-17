@@ -114,4 +114,41 @@
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
   }
+
+  /* ── GPU-Accelerated CSS Reveal Utilities ── */
+  @keyframes revealSlideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes revealSlideLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes revealSlideRight {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes revealScale {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .reveal-initial {
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .animate-reveal-up { animation: revealSlideUp 0.35s cubic-bezier(0.25, 0, 0, 1) forwards; }
+  .animate-reveal-left { animation: revealSlideLeft 0.4s cubic-bezier(0.25, 0, 0, 1) forwards; }
+  .animate-reveal-right { animation: revealSlideRight 0.4s cubic-bezier(0.25, 0, 0, 1) forwards; }
+  .animate-reveal-scale { animation: revealScale 0.3s cubic-bezier(0.25, 0, 0, 1) forwards; }
+
+  @keyframes floatCursor {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(4px, 4px); }
+  }
+  .animate-float-cursor { animation: floatCursor 2s ease-in-out infinite; }
 }

@@ -8,7 +8,6 @@
 
 import Link from "next/link";
 import { useState, type FormEvent, type ChangeEvent } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import {
   OFFICE_LOCATIONS,
   type OfficeLocation,
@@ -16,8 +15,6 @@ import {
 import { PUMP_CATALOG } from "@/lib/pump-data";
 import SectionTag from "@/components/ui/SectionTag";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
-
-const PRECISION_EASE = [0.25, 0, 0, 1] as const;
 
 // ── Contact Info Panel ────────────────────────────────────────────────────
 
@@ -216,15 +213,11 @@ function InquiryForm() {
 
   return (
     <div className="rounded-2xl border border-border bg-white p-6 lg:p-8" style={{ boxShadow: "var(--shadow-card)" }}>
-      <AnimatePresence mode="wait">
         {submitted ? (
           /* ── Success State ── */
-          <motion.div
+          <div
             key="success"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, ease: PRECISION_EASE }}
-            className="flex flex-col items-center text-center py-10 gap-5"
+            className="flex flex-col items-center text-center py-10 gap-5 animate-reveal-up"
           >
             <div
               className="flex h-16 w-16 items-center justify-center rounded-full"
@@ -248,18 +241,15 @@ function InquiryForm() {
             >
               Submit another inquiry
             </button>
-          </motion.div>
+          </div>
         ) : (
           /* ── Form ── */
-          <motion.form
+          <form
             key="form"
             id="inquiry-form"
             onSubmit={handleSubmit}
             noValidate
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2, ease: PRECISION_EASE }}
-            className="flex flex-col gap-5"
+            className="flex flex-col gap-5 animate-reveal-up"
             aria-label="Industrial inquiry form"
           >
             <div>
@@ -404,9 +394,8 @@ function InquiryForm() {
                 </>
               )}
             </button>
-          </motion.form>
+          </form>
         )}
-      </AnimatePresence>
     </div>
   );
 }

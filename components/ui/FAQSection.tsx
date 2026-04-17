@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 import SectionTag from "@/components/ui/SectionTag";
 
@@ -51,24 +50,20 @@ function FAQAccordion({ faq, isOpen, onToggle }: { faq: FAQItem; isOpen: boolean
         </div>
       </button>
       
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="pb-6 md:pb-8 px-6 md:px-8 pl-[44px] md:pl-[52px]">
-              <div className="w-8 h-px bg-border mb-4" />
-              <p className="text-sm md:text-base text-text-light leading-relaxed font-medium max-w-3xl">
-                {faq.answer}
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div 
+        className={`grid transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="pb-6 md:pb-8 px-6 md:px-8 pl-[44px] md:pl-[52px]">
+            <div className="w-8 h-px bg-border mb-4" />
+            <p className="text-sm md:text-base text-text-light leading-relaxed font-medium max-w-3xl">
+              {faq.answer}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

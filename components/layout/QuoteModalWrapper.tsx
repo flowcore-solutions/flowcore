@@ -1,7 +1,11 @@
 "use client";
 
 import { Suspense } from "react";
-import QuoteModal from "@/components/ui/QuoteModal";
+import dynamic from "next/dynamic";
+
+const QuoteModal = dynamic(() => import("@/components/ui/QuoteModal"), {
+  ssr: false,
+});
 
 export default function QuoteModalWrapper() {
   return (

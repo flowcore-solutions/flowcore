@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import type { ApplicationEnvironment, DiagramNode } from "@/lib/application-data";
 import DiagramSchematic from "./DiagramSchematic";
 import PumpTooltip from "./PumpTooltip";
@@ -29,16 +28,14 @@ export default function ApplicationDiagram({
       />
 
       {/* Hover tooltip */}
-      <AnimatePresence>
-        {activeNode && (
-          <PumpTooltip
-            key={activeNode.id}
-            node={activeNode}
-            anchorX={activeNode.x}
-            anchorY={activeNode.y}
-          />
-        )}
-      </AnimatePresence>
+      {activeNode && (
+        <PumpTooltip
+          key={activeNode.id}
+          node={activeNode}
+          anchorX={activeNode.x}
+          anchorY={activeNode.y}
+        />
+      )}
     </div>
   );
 

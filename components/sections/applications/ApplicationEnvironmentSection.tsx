@@ -1,7 +1,8 @@
-"use client";
-
+import dynamic from "next/dynamic";
 import type { ApplicationEnvironment } from "@/lib/application-data";
-import ApplicationDiagram from "./ApplicationDiagram";
+const ApplicationDiagram = dynamic(() => import("./ApplicationDiagram"), {
+  ssr: true,
+});
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 
 interface ApplicationEnvironmentSectionProps {

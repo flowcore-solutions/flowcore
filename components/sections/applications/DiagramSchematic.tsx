@@ -174,7 +174,7 @@ export default function DiagramSchematic({
         role="img"
         aria-label={`${env.name} pump system schematic`}
         xmlns="http://www.w3.org/2000/svg"
-        onClick={onNodeLeave}
+        onPointerDown={onNodeLeave}
       >
         <defs>
           {/* Fine dot grid — engineering drawing aesthetic */}
@@ -310,35 +310,28 @@ export default function DiagramSchematic({
                 outline: "none",
                 WebkitTapHighlightColor: "transparent",
               }}
-              onPointerUp={(event) => {
+              onPointerDown={(event) => {
                 event.stopPropagation();
+                // preventDefault() here kills the browser's 300ms tap-to-click delay 
+                // and prevents the simulated "hover" state on hold.
+                event.preventDefault(); 
+                
                 if (isHoverPointer(event.pointerType)) {
-                  return;
+                  return; // Mouse users handled by enter/leave
                 }
+                
                 if (isActive) {
                   onNodeLeave();
-                  return;
+                } else {
+                  onNodeEnter(node);
                 }
-                onNodeEnter(node);
-              }}
-              onClick={(event) => {
-                event.stopPropagation();
-                if (isActive) {
-                  onNodeLeave();
-                  return;
-                }
-                onNodeEnter(node);
               }}
               onPointerEnter={(event) => {
-                if (!isHoverPointer(event.pointerType)) {
-                  return;
-                }
+                if (!isHoverPointer(event.pointerType)) return;
                 onNodeEnter(node);
               }}
               onPointerLeave={(event) => {
-                if (!isHoverPointer(event.pointerType)) {
-                  return;
-                }
+                if (!isHoverPointer(event.pointerType)) return;
                 onNodeLeave();
               }}
               aria-label={node.label}

@@ -11,12 +11,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 import GreenCTAButton from "@/components/ui/GreenCTAButton";
 import berlingtonPumpsSet from "@/app/assets/pumps/Berlington-Pumps-Set.png";
-
-const PRECISION_EASE = [0.25, 0, 0, 1] as const;
 
 // ── Inline SVG icons ──────────────────────────────────────────────────────
 
@@ -184,16 +181,12 @@ export default function TotalSystemHealth() {
 
               {/* Percentage indicator */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2">
-                <motion.div
-                  className="font-black text-white text-center"
+                <div
+                  className="font-black text-white text-center animate-reveal-scale"
                   style={{ fontSize: "clamp(3.5rem, 8vw, 5rem)", lineHeight: 1 }}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, ease: PRECISION_EASE }}
                 >
                   65%
-                </motion.div>
+                </div>
                 <div className="text-[11px] font-black uppercase tracking-[0.25em] text-light-blue text-center">
                   Solution Focus on
                   <br />

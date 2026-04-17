@@ -1,4 +1,3 @@
-"use client";
 
 /**
  * ExpertiseTimeline — Industrial vertical-line motif.

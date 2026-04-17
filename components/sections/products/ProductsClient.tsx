@@ -6,7 +6,6 @@
  */
 
 import { useState, useMemo, useRef, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import {
   PUMP_CATALOG,
@@ -34,7 +33,6 @@ const CATEGORY_META: Record<PumpCategory, CategoryMeta> = {
   "Pipeline & Industrial": { accent: "blue",  shortLabel: "ZS / NISO / LD",     icon: "⌖" },
 };
 
-const PRECISION_EASE = [0.25, 0, 0, 1] as const;
 const GRID_BG = `repeating-linear-gradient(45deg, #0F172A 0, #0F172A 1px, transparent 1px, transparent 20px)`;
 
 // ── Sidebar filter tab ────────────────────────────────────────────────────
@@ -346,10 +344,8 @@ export default function ProductsClient() {
           <main id="products-grid" className="flex-1 min-w-0">
 
             {/* Result bar */}
-            <motion.div
-              layout
+            <div
               className="mb-6 flex items-center justify-between"
-              transition={{ duration: 0.2, ease: PRECISION_EASE }}
             >
               <p className="text-[13px] text-text-light font-medium">
                 Showing{" "}
@@ -373,7 +369,7 @@ export default function ProductsClient() {
                   Clear filter
                 </button>
               )}
-            </motion.div>
+            </div>
 
             {/* Mobile: 2-row independently swipeable snap carousels */}
             <div ref={mobileCarouselRef} className="flex flex-col gap-4 sm:hidden">
@@ -409,30 +405,20 @@ export default function ProductsClient() {
               })}
             </div>
 
-            {/* Desktop: animated grid */}
-            <motion.div
-              layout
+            {/* Desktop: standard grid */}
+            <div
               className="hidden sm:grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
             >
-              <AnimatePresence mode="popLayout">
-                {filtered.map((pump, i) => (
-                  <motion.div
-                    key={pump.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.95, y: 8 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.94 }}
-                    transition={{
-                      duration: 0.28,
-                      delay: i * 0.03,
-                      ease: PRECISION_EASE,
-                    }}
-                  >
-                    <PumpCard pump={pump} />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
+              {filtered.map((pump, i) => (
+                <div
+                  key={`${activeCategory}-${pump.id}`}
+                  className="animate-reveal-up"
+                  style={{ animationDelay: `${i * 0.03}s` }}
+                >
+                  <PumpCard pump={pump} />
+                </div>
+              ))}
+            </div>
 
             {/* Empty state */}
             {filtered.length === 0 && (

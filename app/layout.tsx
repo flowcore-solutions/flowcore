@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import QuoteModalWrapper from "@/components/layout/QuoteModalWrapper";
+import RevealObserver from "@/components/ui/RevealObserver";
 
 // ── Font ──────────────────────────────────────────────────────────────────
 // Loaded once at the root — CSS variable injected on <body>.
@@ -154,6 +155,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
+        <RevealObserver />
 
         {/* Floating Island Navbar — fixed, renders above page content */}
         <Navbar />

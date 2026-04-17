@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import type { DiagramNode } from "@/lib/application-data";
 import { getPumpById } from "@/lib/pump-data";
 import type { StaticImageData } from "next/image";
+
 
 import cdlCdlf from "@/app/assets/pumps/cdl-cdlf.png";
 import wq from "@/app/assets/pumps/wq.png";
@@ -34,7 +34,6 @@ const PUMP_IMAGES: Record<string, StaticImageData> = {
   stp,
 };
 
-const PRECISION_EASE = [0.25, 0, 0, 1] as const;
 const GREEN = "#6cc24a";
 const DEEP_BLUE = "#0f3d91";
 const PRIMARY_BLUE = "#1e5bb8";
@@ -58,12 +57,8 @@ export default function PumpTooltip({ node, anchorX, anchorY }: PumpTooltipProps
   const topPct = Math.max(anchorY - 36, 2);
 
   return (
-    <motion.div
+    <div
       role="tooltip"
-      initial={{ opacity: 0, scale: 0.94, y: 6 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.94, y: 4 }}
-      transition={{ duration: 0.2, ease: PRECISION_EASE }}
       style={{
         position: "absolute",
         left: `${leftPct}%`,
@@ -72,7 +67,7 @@ export default function PumpTooltip({ node, anchorX, anchorY }: PumpTooltipProps
         width: "min(220px, calc(100vw - 4rem))",
         boxShadow: "var(--shadow-card-hover)",
       }}
-      className="rounded-xl border border-border bg-white overflow-hidden pointer-events-none"
+      className="rounded-xl border border-border bg-white overflow-hidden pointer-events-none animate-reveal-up"
     >
       <div
         className="flex items-center gap-2 px-3 py-2"
@@ -141,6 +136,6 @@ export default function PumpTooltip({ node, anchorX, anchorY }: PumpTooltipProps
           ))}
         </div>
       )}
-    </motion.div>
+    </div>
   );
 }

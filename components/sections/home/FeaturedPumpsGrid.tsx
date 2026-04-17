@@ -1,4 +1,3 @@
-"use client";
 
 /**
  * FeaturedPumpsGrid — Home page preview: 8 pumps + catalogue CTA.

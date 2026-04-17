@@ -1,4 +1,3 @@
-"use client";
 
 /**
  * EngineeringStandards — Displays ISO certs and material specs

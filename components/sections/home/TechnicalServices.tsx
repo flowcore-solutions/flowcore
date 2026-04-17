@@ -1,20 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, type Variants } from "framer-motion";
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] } },
-};
-
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-};
+import PrecisionReveal from "@/components/ui/PrecisionReveal";
 
 const REQUIREMENTS = [
   "New Installation",
@@ -45,15 +32,9 @@ export default function TechnicalServices() {
         }} 
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-24"
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-24">
           {/* LEFT PANE: Form */}
-          <motion.div variants={fadeUp} className="flex flex-col justify-center">
+          <PrecisionReveal variant="riseUp" className="flex flex-col justify-center">
             <div className="mb-8">
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary-blue mb-3 block">
                 Engineering Support
@@ -138,10 +119,10 @@ export default function TechnicalServices() {
                 </button>
               </div>
             </form>
-          </motion.div>
+          </PrecisionReveal>
 
           {/* RIGHT PANE: Trust Panel */}
-          <motion.div variants={fadeUp} className="relative w-full h-full">
+          <PrecisionReveal variant="riseUp" delay={0.2} className="relative w-full h-full">
             {/* Background decorative square */}
             <div className="absolute -inset-4 bg-slate-50 rounded-3xl -z-10 hidden sm:block"></div>
             <div className="h-full w-full rounded-2xl bg-[#0F3D91] p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl flex flex-col justify-between">
@@ -212,8 +193,8 @@ export default function TechnicalServices() {
                 </div>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </PrecisionReveal>
+        </div>
       </div>
     </section>
   );

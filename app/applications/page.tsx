@@ -5,10 +5,19 @@
  */
 
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { APPLICATION_ENVIRONMENTS } from "@/lib/application-data";
 import ApplicationsHeader from "@/components/sections/applications/ApplicationsHeader";
-import ApplicationEnvironmentSection from "@/components/sections/applications/ApplicationEnvironmentSection";
-import ApplicationsCTA from "@/components/sections/applications/ApplicationsCTA";
+
+const ApplicationEnvironmentSection = dynamic(() => import("@/components/sections/applications/ApplicationEnvironmentSection"), {
+  ssr: true,
+});
+const ApplicationsCTA = dynamic(() => import("@/components/sections/applications/ApplicationsCTA"), {
+  ssr: true,
+});
+const FAQSection = dynamic(() => import("@/components/ui/FAQSection"), {
+  ssr: true,
+});
 
 export const metadata: Metadata = {
   title: "Industrial Pump Applications — WTP, HVAC & Sewage Treatment | FlowCore",
@@ -106,7 +115,6 @@ const faqSchema = {
   ],
 };
 
-import FAQSection from "@/components/ui/FAQSection";
 
 const APPLICATIONS_FAQS = [
   {
