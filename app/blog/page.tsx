@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllBlogPosts } from "@/lib/blog-data";
+import ApplicationsCTA from "@/components/sections/applications/ApplicationsCTA";
 
 export const metadata: Metadata = {
   title: "FlowCore Blog | Industrial Pump Insights for Bangalore",
@@ -39,65 +40,70 @@ export default function BlogIndexPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <main className="bg-[#F8FAFC] py-16 md:py-20">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="max-w-3xl">
+      <main className="hero-underlap relative bg-section-bg pt-8 pb-20 overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: `repeating-linear-gradient(45deg, #0F172A 0, #0F172A 1px, transparent 1px, transparent 20px)`,
+            opacity: 0.025,
+          }}
+        />
+        <div className="relative mx-auto max-w-7xl px-6">
+          <div className="max-w-3xl mb-16">
             <span className="border-l-2 border-[#1E5BB8] pl-3 text-xs font-bold uppercase tracking-[0.3em] text-[#1E5BB8]">
               Knowledge Hub
             </span>
-            <h1 className="mt-5 text-4xl font-black tracking-tight text-[#0F172A] md:text-5xl">
+            <h1 className="mt-5 text-4xl font-black tracking-tight text-[#0F172A] md:text-5xl lg:text-6xl">
               Industrial Pump Insights for Bangalore Buyers
             </h1>
-            <p className="mt-5 text-lg leading-8 text-[#475569]">
+            <p className="mt-6 text-xl leading-8 text-[#475569]">
               Application guides, buying advice, and Berlington pump content
               built around high-intent searches in Bangalore and Karnataka.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {posts.map((post) => (
-              <article
-                key={post.slug}
-                className="rounded-3xl border border-[#1E5BB8]/10 bg-white p-8 shadow-[0_22px_60px_-36px_rgba(15,61,145,0.35)]"
-              >
-                <div className="flex items-center justify-between gap-4 text-sm text-[#64748B]">
-                  <span>{post.readingTime}</span>
-                  <span>{post.updatedAt}</span>
-                </div>
-                <h2 className="mt-5 text-2xl font-bold text-[#0F172A]">
-                  <Link href={`/blog/${post.slug}`} className="hover:text-[#1E5BB8]">
-                    {post.title}
-                  </Link>
-                </h2>
-                <p className="mt-4 text-base leading-7 text-[#475569]">
-                  {post.excerpt}
-                </p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Link
-                    href="/berlington-pumps-bangalore"
-                    className="rounded-full border border-[#1E5BB8]/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#1E5BB8]"
+          <div className="flex flex-col gap-12">
+            {/* Main Content Area */}
+            <div className="w-full">
+
+
+              <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                {posts.map((post) => (
+                  <article
+                    key={post.slug}
+                    className="flex flex-col justify-between rounded-3xl border border-gray-100 bg-white p-8 shadow-lg hover:shadow-[0_20px_50px_-12px_rgba(30,91,184,0.1)] transition-all group overflow-hidden relative"
                   >
-                    Berlington Landing Page
-                  </Link>
-                  <Link
-                    href="/contact"
-                    className="rounded-full border border-[#6CC24A]/20 bg-[#6CC24A]/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#275B17]"
-                  >
-                    Contact Engineering Team
-                  </Link>
-                </div>
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-[#1E5BB8] hover:underline"
-                >
-                  Read article
-                  <span aria-hidden="true">&rarr;</span>
-                </Link>
-              </article>
-            ))}
+                    <div className="absolute top-0 left-0 w-full h-1 bg-[#1E5BB8] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                    <div>
+                      <div className="flex items-center justify-between gap-4 text-[11px] font-black uppercase tracking-widest text-[#64748B] mb-4">
+                        <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#1E5BB8]" /> {post.readingTime}</span>
+                        <span>{post.updatedAt}</span>
+                      </div>
+                      <Link href={`/blog/${post.slug}`}>
+                        <h3 className="text-xl font-bold tracking-tight text-[#0F172A] group-hover:text-[#1E5BB8] transition-colors mb-3 leading-snug">
+                          {post.title}
+                        </h3>
+                      </Link>
+                      <p className="text-base text-[#475569] leading-relaxed mb-6">
+                        {post.excerpt}
+                      </p>
+                    </div>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="inline-flex w-fit items-center gap-2 text-xs font-black uppercase tracking-widest text-[#1E5BB8] group-hover:text-[#2FA84F] transition-all mt-auto pt-5 border-t border-gray-100"
+                    >
+                      Read article <span className="group-hover:translate-x-1 transition-transform" aria-hidden="true">&rarr;</span>
+                    </Link>
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </main>
+
+      <ApplicationsCTA />
     </>
   );
 }

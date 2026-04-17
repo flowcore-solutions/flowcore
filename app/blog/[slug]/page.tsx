@@ -137,9 +137,17 @@ export default async function BlogPostPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <main className="bg-[#F8FAFC] py-16 md:py-20">
-        <article className="mx-auto max-w-4xl px-6">
-          <div className="rounded-[32px] bg-white px-6 py-10 shadow-[0_30px_90px_-50px_rgba(15,61,145,0.45)] md:px-10">
+      <main className="hero-underlap relative bg-section-bg py-16 md:py-20 overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: `repeating-linear-gradient(45deg, #0F172A 0, #0F172A 1px, transparent 1px, transparent 20px)`,
+            opacity: 0.025,
+          }}
+        />
+        <article className="relative mx-auto max-w-4xl px-6">
+          <div className="rounded-[32px] bg-white px-6 py-10 border border-gray-100 md:px-10">
             <div className="text-sm text-[#64748B]">
               <Link href="/blog" className="font-semibold text-[#1E5BB8] hover:underline">
                 Blog
@@ -219,24 +227,33 @@ export default async function BlogPostPage({
               ))}
             </div>
 
-            <section className="mt-16 rounded-[28px] bg-[#0F172A] p-8 text-white">
-              <h2 className="text-2xl font-bold">{post.ctaTitle}</h2>
-              <p className="mt-4 max-w-3xl text-base leading-7 text-white/78">
-                {post.ctaBody}
-              </p>
-              <div className="mt-6 flex flex-wrap gap-4">
-                <Link
-                  href="/contact"
-                  className="rounded-xl bg-[#1E5BB8] px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:scale-[1.02]"
-                >
-                  Talk to FlowCore
-                </Link>
-                <Link
-                  href="/products"
-                  className="rounded-xl border border-white/20 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white"
-                >
-                  View pump models
-                </Link>
+            <section className="mt-16 rounded-[28px] bg-[#1E5BB8] p-8 md:p-10 text-white relative overflow-hidden">
+              <div
+                className="pointer-events-none absolute inset-0 opacity-10"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(45deg, #ffffff 0, #ffffff 1px, transparent 1px, transparent 20px)",
+                }}
+              />
+              <div className="relative z-10">
+                <h2 className="text-2xl font-black md:text-3xl tracking-tight text-white">{post.ctaTitle}</h2>
+                <p className="mt-4 max-w-3xl text-sm md:text-base leading-7 text-blue-100">
+                  {post.ctaBody}
+                </p>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <Link
+                    href="/contact"
+                    className="rounded-xl bg-[#6CC24A] px-6 py-3.5 text-xs font-black uppercase tracking-widest text-[#0F172A] transition-all hover:bg-[#5BB039] hover:scale-[1.02] shadow-[0_10px_30px_-10px_rgba(108,194,74,0.5)]"
+                  >
+                    Talk to FlowCore
+                  </Link>
+                  <Link
+                    href="/products"
+                    className="rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 text-xs font-black uppercase tracking-widest text-white transition-all hover:bg-white/20"
+                  >
+                    View pump models
+                  </Link>
+                </div>
               </div>
             </section>
           </div>

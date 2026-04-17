@@ -1,21 +1,26 @@
 {
-  "name": "FlowCore Solutions ",
+  "id": "/",
+  "name": "FlowCore Solutions",
   "short_name": "FlowCore",
+  "description": "Authorized Berlington Pumps dealer and water treatment chemical supplier in Bangalore, Karnataka.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A192F",
+  "theme_color": "#1E5BB8",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     },
     {
       "src": "/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
-  ],
-  "theme_color": "#2fa84f",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  ]
 }

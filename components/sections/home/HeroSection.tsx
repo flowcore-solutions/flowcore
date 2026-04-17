@@ -51,10 +51,10 @@ export default function HeroSection() {
       
       {/* ── BACKGROUND LAYERS ── */}
       <div className="absolute inset-0">
-        <div className="hero-bg-blue absolute inset-0 bg-deep-blue">
+        <div className="absolute inset-0 bg-deep-blue [clip-path:polygon(0_0,100%_0,100%_64%,0_52%)] lg:[clip-path:polygon(0_0,60%_0,55%_100%,0_100%)]">
           <BlueBackground />
         </div>
-        <div className="hero-bg-green absolute inset-0 bg-primary-green">
+        <div className="absolute inset-0 bg-primary-green [clip-path:polygon(0_52%,100%_64%,100%_100%,0_100%)] lg:[clip-path:polygon(55%_0,100%_0,100%_100%,50%_100%)]">
           <GreenBackground />
         </div>
       </div>
@@ -68,7 +68,7 @@ export default function HeroSection() {
           <motion.span
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, ease: EASE }}
+            transition={{ duration: 0.4, ease: EASE }}
             className="mb-3 lg:mb-5 border-l-2 border-light-blue pl-3 lg:pl-4 text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-[0.2em] text-light-blue"
           >
             Authorized Berlington Pump Dealer in Karnataka
@@ -77,7 +77,7 @@ export default function HeroSection() {
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.05, duration: 0.4 }}
             className="text-white font-bold uppercase mb-4 lg:mb-6 leading-[1.15]"
             style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
           >
@@ -88,7 +88,7 @@ export default function HeroSection() {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.15, duration: 0.4 }}
             className="hidden sm:block text-white/90 max-w-md mb-6 lg:mb-10 text-sm lg:text-lg leading-relaxed"
           >
             High-performance Berlington centrifugal and stainless steel pump systems engineered for reliable pressure, HVAC, WTP, and fire fighting applications in Bangalore, Karnataka.
@@ -98,7 +98,7 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.25, duration: 0.4 }}
             className="flex flex-row gap-3 lg:gap-4 mt-2 sm:mt-0"
           >
             <Link href="/berlington-pumps-bangalore" className="w-auto">
@@ -137,6 +137,7 @@ export default function HeroSection() {
           <motion.span
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, ease: EASE }}
             className="mb-3 lg:mb-5 border-l-2 border-deep-blue pl-3 lg:pl-4 text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-[0.2em] text-deep-blue"
           >
             WTP Chemical Solutions
@@ -145,7 +146,7 @@ export default function HeroSection() {
           <motion.h2
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.1, duration: 0.4 }}
             className="font-bold uppercase mb-4 lg:mb-6 leading-[1.15]"
             style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
           >
@@ -154,14 +155,19 @@ export default function HeroSection() {
             Optimized
           </motion.h2>
 
-          <p className="hidden sm:block text-white max-w-md mb-6 lg:mb-10 text-sm lg:text-lg leading-relaxed">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.4, ease: EASE }}
+            className="hidden sm:block text-white max-w-md mb-6 lg:mb-10 text-sm lg:text-lg leading-relaxed"
+          >
             Specialized water treatment solutions engineered for system longevity, ensuring consistent flow and high-level operational efficiency.
-          </p>
+          </motion.p>
 
           <motion.div
              initial={{ opacity: 0, y: 10 }}
              animate={{ opacity: 1, y: 0 }}
-             transition={{ delay: 0.3 }}
+             transition={{ delay: 0.3, duration: 0.4 }}
              className="mt-2 sm:mt-0"
           >
             <Link href="/water-treatment-chemicals-bangalore" className="w-auto">
@@ -181,20 +187,6 @@ export default function HeroSection() {
 
       {/* animation */}
       <style jsx global>{`
-        .hero-bg-blue {
-          clip-path: polygon(0 0, 100% 0, 100% 64%, 0 52%);
-        }
-        .hero-bg-green {
-          clip-path: polygon(0 52%, 100% 64%, 100% 100%, 0 100%);
-        }
-        @media (min-width: 1024px) {
-          .hero-bg-blue {
-            clip-path: polygon(0 0, 60% 0, 55% 100%, 0 100%);
-          }
-          .hero-bg-green {
-            clip-path: polygon(55% 0, 100% 0, 100% 100%, 50% 100%);
-          }
-        }
         @keyframes pulse {
           0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(1); }
           50% { opacity: 0.08; transform: translate(-50%, -50%) scale(1.05); }
