@@ -47,16 +47,8 @@ export default function FeaturedPumpsGrid() {
           }}
         />
 
-        {/* Green accent line at top (mirrors StatsBar bottom line) */}
-        <div
-          aria-hidden="true"
-          className="absolute top-0 left-0 right-0 h-px"
-          style={{
-            background:
-              "linear-gradient(90deg, transparent, #6cc24a 30%, #6cc24a 70%, transparent)",
-            opacity: 0.35,
-          }}
-        />
+        {/* Removed redundant green accent line for cleaner transition */}
+
 
         <div className="relative mx-auto max-w-7xl px-8 pt-12 pb-16 lg:pb-20">
           {/* Section label — border-left eyebrow matching HeroSection */}

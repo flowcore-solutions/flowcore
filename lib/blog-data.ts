@@ -197,7 +197,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
         ],
       },
       {
-        heading: "Burlington pump use cases buyers actually ask about",
+        heading: "Berlington pump use cases buyers actually ask about",
         paragraphs: [
           "The most common buyer conversations are not about abstract specifications. They are about practical use cases such as boosting pressure in a campus utility block, supporting an HVAC circulation loop, handling treated water for a commercial plant room, or planning standby support for a fire fighting package.",
           "That is why FlowCore Solutions structures recommendations around use cases first and model selection second. The result is a more useful discussion for EPC teams, builders, consultants, and facility engineers based in Bangalore.",

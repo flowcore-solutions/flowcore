@@ -14,11 +14,12 @@ const BlueBackground = () => (
       alt="Berlington industrial pump range — vertical multistage, submersible, and centrifugal pumps for water treatment and HVAC"
       fill
       priority
-      sizes="100vw"
-      className="object-cover scale-105 opacity-25"
+      fetchPriority="high"
+      quality={60}
+      sizes="(max-width: 768px) 100vw, 60vw"
+      className="object-cover opacity-30"
     />
-    <div className="absolute inset-0 bg-deep-blue/70" />
-    <div className="absolute inset-0 bg-linear-to-r from-deep-blue/80 via-deep-blue/60 to-transparent" />
+    <div className="absolute inset-0 bg-deep-blue/85" />
   </>
 );
 
