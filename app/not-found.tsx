@@ -53,7 +53,7 @@ export default function NotFound() {
         </h2>
 
         <p className="mt-5 text-[15px] sm:text-base text-text-light font-medium leading-relaxed max-w-md">
-          The industrial pipeline you are looking for has been moved, removed, or is temporarily offline. Let's redirect your flow back to stable infrastructure.
+          The industrial pipeline you are looking for has been moved, removed, or is temporarily offline. Let&apos;s redirect your flow back to stable infrastructure.
         </p>
 
         {/* ── Call to Actions ── */}

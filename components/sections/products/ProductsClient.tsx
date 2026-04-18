@@ -151,6 +151,13 @@ function AllProductsTab({
 
 export default function ProductsClient() {
   const [activeCategory, setActiveCategory] = useState<PumpCategory | null>(null);
+  const [renderedCount, setRenderedCount] = useState(6);
+
+  const handleCategorySelect = (cat: PumpCategory | null) => {
+    setActiveCategory(cat);
+    setRenderedCount(6);
+  };
+
   const mobileCarouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -169,12 +176,6 @@ export default function ProductsClient() {
         : PUMP_CATALOG.filter((p) => p.category === activeCategory),
     [activeCategory]
   );
-
-  const [renderedCount, setRenderedCount] = useState(6);
-
-  useEffect(() => {
-    setRenderedCount(6);
-  }, [activeCategory]);
 
   useEffect(() => {
     if (renderedCount < filtered.length) {
@@ -303,7 +304,7 @@ export default function ProductsClient() {
                 <AllProductsTab
                   count={PUMP_CATALOG.length}
                   active={activeCategory === null}
-                  onClick={() => setActiveCategory(null)}
+                  onClick={() => handleCategorySelect(null)}
                 />
                 {PUMP_CATEGORIES.map((cat) => (
                   <FilterTab
@@ -313,7 +314,7 @@ export default function ProductsClient() {
                     meta={CATEGORY_META[cat]}
                     active={activeCategory === cat}
                     onClick={() =>
-                      setActiveCategory(activeCategory === cat ? null : cat)
+                      handleCategorySelect(activeCategory === cat ? null : cat)
                     }
                   />
                 ))}
@@ -325,7 +326,7 @@ export default function ProductsClient() {
             {/* Mobile horizontal chip scroll */}
             <div className="flex gap-2 overflow-x-auto pb-2 lg:hidden">
               <button
-                onClick={() => setActiveCategory(null)}
+                onClick={() => handleCategorySelect(null)}
                 className={[
                   "shrink-0 rounded-full border px-4 py-1.5 text-xs font-black whitespace-nowrap transition-colors duration-150",
                   activeCategory === null
@@ -344,7 +345,7 @@ export default function ProductsClient() {
                 return (
                   <button
                     key={cat}
-                    onClick={() => setActiveCategory(isActive ? null : cat)}
+                    onClick={() => handleCategorySelect(isActive ? null : cat)}
                     className={[
                       "shrink-0 rounded-full border px-4 py-1.5 text-xs font-bold whitespace-nowrap transition-colors duration-150",
                       isActive ? activeC : "bg-white text-text-dark border-border",
@@ -377,7 +378,7 @@ export default function ProductsClient() {
               </p>
               {activeCategory && (
                 <button
-                  onClick={() => setActiveCategory(null)}
+                  onClick={() => handleCategorySelect(null)}
                   className="text-[11px] font-bold text-text-light hover:text-primary-blue transition-colors flex items-center gap-1"
                 >
                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
@@ -450,7 +451,7 @@ export default function ProductsClient() {
                 <p className="mt-2 text-sm text-text-light max-w-xs">
                   Try a different category or{" "}
                   <button
-                    onClick={() => setActiveCategory(null)}
+                    onClick={() => handleCategorySelect(null)}
                     className="text-primary-blue font-bold underline underline-offset-2"
                   >
                     view all products

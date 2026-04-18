@@ -375,7 +375,7 @@ function CardBack({ pump }: { pump: PumpModel }) {
           href={`?quote=${pump.id}`}
           scroll={false}
           id={`pump-card-cta-${pump.id}`}
-          className="flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-[13px] font-black text-[#0f172a] tracking-wide bg-primary-green transition-all duration-200 hover:brightness-110 hover:-translate-y-px hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-green focus-visible:ring-offset-2 focus-visible:ring-offset-deep-blue active:scale-[0.98]"
+          className="flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-[13px] font-black text-text-dark tracking-wide bg-primary-green transition-all duration-200 hover:brightness-110 hover:-translate-y-px hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-green focus-visible:ring-offset-2 focus-visible:ring-offset-deep-blue active:scale-[0.98]"
         >
           Request Quote
           <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
