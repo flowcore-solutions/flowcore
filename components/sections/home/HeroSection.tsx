@@ -60,7 +60,7 @@ export default function HeroSection() {
         {/* LEFT / TOP */}
         <div className="flex h-[52%] w-full flex-col justify-center px-8 sm:h-[55%] sm:px-16 lg:h-full lg:w-[55%] lg:justify-start lg:px-24 xl:px-36 lg:pt-6 xl:pt-8">
           <span
-            className="animate-reveal-right opacity-0 mb-3 lg:mb-5 border-l-2 border-light-blue pl-3 lg:pl-4 text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-[0.2em] text-light-blue"
+            className="animate-reveal-right opacity-0 mb-3 lg:mb-5 border-l-2 border-light-blue pl-3 lg:pl-4 -ml-[14px] lg:-ml-[18px] text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-[0.2em] text-light-blue"
           >
             Authorized Berlington Pump Dealer in Karnataka
           </span>
@@ -71,11 +71,11 @@ export default function HeroSection() {
           >
             Berlington <br />
             <span className="text-light-blue">Pumps</span> <br/>
-            In Banglore
+            In Bangalore
           </h1>
 
           <p
-            className="animate-reveal-fade opacity-0 hidden sm:block text-white/90 max-w-md mb-6 lg:mb-10 text-sm lg:text-lg leading-relaxed"
+            className="animate-reveal-up opacity-0 hidden sm:block text-white/90 max-w-md mb-6 lg:mb-10 text-sm lg:text-lg leading-relaxed"
             style={{ animationDelay: "0.2s" }}
           >
             High-performance Berlington centrifugal and stainless steel pump systems engineered for reliable pressure, HVAC, WTP, and fire fighting applications in Bangalore, Karnataka.
@@ -114,13 +114,13 @@ export default function HeroSection() {
         <div className="flex flex-1 flex-col justify-center px-8 sm:px-16 lg:flex-1 lg:justify-start lg:px-20 lg:pt-6 xl:pt-8">
           
           <span
-            className="animate-reveal-left opacity-0 mb-3 lg:mb-5 border-l-2 border-deep-blue pl-3 lg:pl-4 text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-[0.2em] text-deep-blue"
+            className="animate-reveal-left opacity-0 mb-3 lg:mb-5 border-l-2 border-deep-blue pl-3 lg:pl-4 -ml-[14px] lg:-ml-[18px] text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-[0.2em] text-deep-blue"
           >
             Water Treatment Chemicals
           </span>
 
           <h2
-            className="animate-reveal-fade opacity-0 font-bold uppercase mb-4 lg:mb-6 leading-[1.15]"
+            className="animate-reveal-up opacity-0 font-bold uppercase mb-4 lg:mb-6 leading-[1.15]"
             style={{ fontSize: "clamp(2rem, 5vw, 4rem)", animationDelay: "0.15s" }}
           >
             Industrial
@@ -130,7 +130,7 @@ export default function HeroSection() {
           </h2>
 
           <p
-            className="animate-reveal-fade opacity-0 hidden sm:block text-white max-w-md mb-6 lg:mb-10 text-sm lg:text-lg leading-relaxed"
+            className="animate-reveal-up opacity-0 hidden sm:block text-white max-w-md mb-6 lg:mb-10 text-sm lg:text-lg leading-relaxed"
             style={{ animationDelay: "0.25s" }}
           >
             Authorised supplier of high-grade chemicals for Water Treatment Plants (WTP), STP, and RO systems in Bangalore, ensuring system longevity and consistent treatment performance.

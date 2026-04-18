@@ -12,28 +12,36 @@ const NavbarDesktopLinks = dynamic(() => import("./NavbarDesktopLinks"), {
 export default function Navbar() {
   return (
     <>
-      {/* Client islands for interactivity (Scroll & Mobile) */}
-      <NavbarClientWrapper />
+      {/* Client islands moved inside nav to fix flow layout issue */}
       
-      <div className="pointer-events-none fixed left-0 right-0 top-4 z-50 px-6">
+      <div className="pointer-events-none fixed left-0 right-0 top-3 sm:top-4 z-50 px-4 sm:px-6">
         <nav
           id="main-navbar"
-          className="pointer-events-auto relative mx-auto max-w-7xl rounded-4xl bg-white py-4 shadow-lg transition-all duration-500"
+          className="pointer-events-auto relative mx-auto max-w-7xl rounded-[2rem] sm:rounded-4xl bg-white/95 py-3 sm:py-4 shadow-[0_8px_32px_rgba(15,23,42,0.08)] backdrop-blur-md transition-all duration-500"
         >
           {/* Decorative background blobs */}
-          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-4xl">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[2rem] sm:rounded-4xl">
             <div className="absolute -left-20 top-1/2 h-96 w-[24rem] -translate-y-1/2 rounded-full bg-[#6CC24A]/25 blur-[60px]" />
             <div className="absolute -right-20 top-1/2 h-120 w-120 -translate-y-1/2 rounded-full bg-[#1E5BB8]/15 blur-[70px]" />
           </div>
 
           <div className="relative z-10 flex items-center justify-between px-5 sm:px-8">
-            <Link href="/">
-              <NavbarBrand />
-            </Link>
+            
+            {/* BRANDING: Left aligned on mobile and desktop */}
+            <div className="flex shrink-0 justify-start md:flex-1">
+              <Link href="/">
+                <NavbarBrand />
+              </Link>
+            </div>
 
-            <NavbarDesktopLinks />
+            {/* DESKTOP ONLY: Centered links */}
+            <div className="hidden md:flex md:flex-auto md:justify-center">
+              <NavbarDesktopLinks />
+            </div>
 
-            <div className="flex items-center gap-4">
+            {/* RIGHT SIDE: Mobile Menu & Desktop CTA */}
+            <div className="flex flex-1 justify-end items-center gap-4">
+              {/* Desktop CTA */}
               <Link href="/contact" className="hidden lg:block">
                 <button className="relative overflow-hidden rounded-full bg-deep-blue px-8 py-3 text-sm font-black uppercase tracking-widest text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_30px_rgba(15,23,42,0.4)]">
                   <span className="relative z-10">Get a Quote</span>
@@ -41,8 +49,12 @@ export default function Navbar() {
                 </button>
               </Link>
 
-              {/* Handled inside NavbarClientWrapper for md:hidden */}
+              {/* Mobile Menu Icon */}
+              <div className="flex md:hidden">
+                <NavbarClientWrapper />
+              </div>
             </div>
+
           </div>
         </nav>
       </div>
