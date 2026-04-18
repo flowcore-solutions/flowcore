@@ -226,8 +226,10 @@ function CardFront({ pump, imageRef, tilt, priority = false }: CardFrontProps) {
             alt={`${pump.fullName} — Berlington ${pump.category} pump, ${pump.material}, flow rate ${pump.flowRate}, max head ${pump.maxHead}`}
             fill
             priority={priority}
-            sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+            sizes="(max-width: 768px) 120px, (max-width: 1280px) 160px, 180px"
             className="object-contain p-4 relative z-10"
+            quality={60}
+            placeholder="blur"
             style={{
               transform:  imageTransform,
               filter:     imageFilter,
@@ -248,9 +250,9 @@ function CardFront({ pump, imageRef, tilt, priority = false }: CardFrontProps) {
       {/* ── Footer: pump name + hover cue ── */}
       <div className="flex-1 flex flex-col justify-between px-4 pt-3 pb-4 min-h-0 pointer-events-none">
         <div>
-          <h3 className="text-[15px] font-black text-deep-blue leading-tight tracking-tight">
+          <h2 className="text-[15px] font-black text-deep-blue leading-tight tracking-tight">
             {pump.fullName}
-          </h3>
+          </h2>
           <div className="mt-3">
             <p className="mb-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-slate-500">
               Applications
@@ -339,9 +341,9 @@ function CardBack({ pump }: { pump: PumpModel }) {
         >
           Berlington · {pump.seriesCode}
         </span>
-        <h3 className="text-[15px] font-black text-white leading-tight tracking-tight">
+        <h2 className="text-[15px] font-black text-white leading-tight tracking-tight">
           Technical Specs
-        </h3>
+        </h2>
       </div>
 
       <div className="relative z-10 flex-1 flex flex-col justify-center px-4 py-1 min-h-0">
@@ -373,7 +375,7 @@ function CardBack({ pump }: { pump: PumpModel }) {
           href={`?quote=${pump.id}`}
           scroll={false}
           id={`pump-card-cta-${pump.id}`}
-          className="flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-[13px] font-black text-white tracking-wide bg-primary-green transition-all duration-200 hover:brightness-110 hover:-translate-y-px hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-green focus-visible:ring-offset-2 focus-visible:ring-offset-deep-blue active:scale-[0.98]"
+          className="flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-[13px] font-black text-[#0f172a] tracking-wide bg-primary-green transition-all duration-200 hover:brightness-110 hover:-translate-y-px hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-green focus-visible:ring-offset-2 focus-visible:ring-offset-deep-blue active:scale-[0.98]"
         >
           Request Quote
           <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">

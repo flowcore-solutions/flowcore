@@ -170,6 +170,23 @@ export default function ProductsClient() {
     [activeCategory]
   );
 
+  const [renderedCount, setRenderedCount] = useState(6);
+
+  useEffect(() => {
+    setRenderedCount(6);
+  }, [activeCategory]);
+
+  useEffect(() => {
+    if (renderedCount < filtered.length) {
+      const timer = setTimeout(() => {
+        setRenderedCount(prev => Math.min(prev + 6, filtered.length));
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [renderedCount, filtered.length]);
+
+  const displayedPumps = filtered.slice(0, renderedCount);
+
   const countForCategory = (cat: PumpCategory) =>
     PUMP_CATALOG.filter((p) => p.category === cat).length;
 
@@ -374,7 +391,7 @@ export default function ProductsClient() {
             {/* Mobile: 2-row independently swipeable snap carousels */}
             <div ref={mobileCarouselRef} className="flex flex-col gap-4 sm:hidden">
               {[0, 1].map((rowIndex) => {
-                const rowItems = filtered.filter((_, i) => i % 2 === rowIndex);
+                const rowItems = displayedPumps.filter((_, i) => i % 2 === rowIndex);
                 if (rowItems.length === 0) return null;
                 return (
                   <div
@@ -409,13 +426,13 @@ export default function ProductsClient() {
             <div
               className="hidden sm:grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
             >
-              {filtered.map((pump, i) => (
+              {displayedPumps.map((pump, i) => (
                 <div
                   key={`${activeCategory}-${pump.id}`}
                   className="animate-reveal-up"
                   style={{ animationDelay: `${i * 0.03}s` }}
                 >
-                  <PumpCard pump={pump} />
+                  <PumpCard pump={pump} priority={i === 0 && activeCategory === null} />
                 </div>
               ))}
             </div>

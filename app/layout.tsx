@@ -141,11 +141,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link
-          rel="preload"
-          as="image"
-          href="/_next/static/media/Berlington-Pumps-Set.webp"
-        />
       </head>
       <body
         className={`${poppins.variable} font-sans antialiased bg-white text-text-dark`}
