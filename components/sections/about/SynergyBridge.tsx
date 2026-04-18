@@ -10,9 +10,9 @@
 import Image from "next/image";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 import SectionTag from "@/components/ui/SectionTag";
-import berlingtonLogo from "@/app/assets/logos/berlington-logo.png";
-import flowcharLogo from "@/app/assets/logos/flowchar-logo.png";
-import flowcoreLogo from "@/app/assets/logos/flowcore-logo-horizontal.png";
+import berlingtonLogo from "@/app/assets/logos/berlington-logo.svg";
+import flowcharLogo from "@/app/assets/logos/flowchar-logo.svg";
+import flowcoreLogo from "@/app/assets/logos/flowcore-logo-horizontal.svg";
 
 // ── Data ──────────────────────────────────────────────────────────────────
 
@@ -125,7 +125,7 @@ export default function SynergyBridge() {
 
         {/* The three-panel bridge layout */}
         <PrecisionReveal variant="riseUp" delay={0.21}>
-          <div className="group relative flex flex-col gap-0 overflow-hidden rounded-2xl shadow-[0_14px_34px_-24px_rgba(15,61,145,0.12)] lg:flex-row lg:shadow-[0_20px_80px_-15px_rgba(15,61,145,0.18)]">
+          <div className="group relative flex flex-col gap-0 overflow-hidden rounded-2xl shadow-[0_20px_80px_-15px_rgba(15,61,145,0.15)] ring-1 ring-deep-blue/10 lg:flex-row">
 
             {/* ── Panel 1: Berlington (Deep Blue) ── */}
             <div
@@ -151,7 +151,7 @@ export default function SynergyBridge() {
                   </span>
                 </div>
 
-                <div className="relative h-12 w-52 mb-6 brightness-0 invert">
+                <div className="relative h-20 w-64 lg:h-24 lg:w-72 mb-8 brightness-0 invert">
                   <Image
                     src={berlingtonLogo}
                     alt="Berlington Industrial Pumps"
@@ -190,8 +190,8 @@ export default function SynergyBridge() {
             </div>
 
             {/* ── Panel 2: FlowCore Bridge (White centre) ── */}
-            <div className="relative z-10 flex shrink-0 flex-col items-center justify-center bg-white px-6 py-10 lg:w-48 lg:py-0 lg:shadow-[0_0_40px_rgba(15,61,145,0.12)]">
-              <div className="relative mb-6 h-16 w-36 lg:w-28 xl:w-36">
+            <div className="relative z-10 flex shrink-0 flex-col items-center justify-center bg-white px-6 py-10 lg:w-48 lg:py-0 ">
+              <div className="relative mb-8 h-24 w-44 lg:w-36 xl:w-48">
                 <Image
                   src={flowcoreLogo}
                   alt="FlowCore Solutions"
@@ -235,7 +235,7 @@ export default function SynergyBridge() {
             </div>
 
             {/* ── Panel 3: Flowchar (White / Green accent) ── */}
-            <div className="relative flex-1 p-8 lg:p-10 flex flex-col bg-white">
+            <div className="relative flex-1 p-8 lg:p-10 flex flex-col bg-section-bg">
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-8">
                   <span className="w-7 h-7 rounded-full bg-primary-green flex items-center justify-center text-white font-bold text-[10px]">
@@ -246,7 +246,7 @@ export default function SynergyBridge() {
                   </span>
                 </div>
 
-                <div className="relative h-12 w-36 mb-6">
+                <div className="relative h-20 w-48 lg:h-24 lg:w-56 mb-8">
                   <Image
                     src={flowcharLogo}
                     alt="Flowchar Water Treatment"

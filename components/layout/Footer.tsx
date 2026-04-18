@@ -1,7 +1,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import flowcoreLogoHorizontal from "@/app/assets/logos/flowcore-logo-horizontal.png";
+import flowcoreLogoHorizontal from "@/app/assets/logos/flowcore-logo-horizontal.svg";
 
 const FOOTER_LINKS = [
   { href: "/", label: "Home" },

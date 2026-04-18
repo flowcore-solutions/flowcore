@@ -4,8 +4,8 @@ import SectionTag from "@/components/ui/SectionTag";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 
 // Assets
-import berlingtonLogo from "@/app/assets/logos/berlington-logo.png";
-import flowcharLogo from "@/app/assets/logos/flowchar-logo.png";
+import berlingtonLogo from "@/app/assets/logos/berlington-logo.svg";
+import flowcharLogo from "@/app/assets/logos/flowchar-logo.svg";
 
 export default function PartnerSynergy() {
   return (
@@ -56,8 +56,8 @@ export default function PartnerSynergy() {
                     Industrial Pump Partner
                   </span>
                 </div>
-                <div className="relative h-20 w-64 mb-8 brightness-0 invert">
-                  <Image src={berlingtonLogo} alt="Berlington Pumps — ISO-certified industrial pump manufacturer, hardware partner of FlowCore Solutions" fill sizes="256px" className="object-contain object-left" />
+                <div className="relative h-28 w-80 xl:h-32 xl:w-96 mb-8 brightness-0 invert">
+                  <Image src={berlingtonLogo} alt="Berlington Pumps — ISO-certified industrial pump manufacturer, hardware partner of FlowCore Solutions" fill sizes="384px" className="object-contain object-left" />
                 </div>
                 <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tight">Precision Engineering</h3>
                 <p className="text-[#4DA3FF] font-medium leading-relaxed max-w-[90%]">
@@ -88,8 +88,8 @@ export default function PartnerSynergy() {
                     Water Treatment Chemical Partner
                   </span>
                 </div>
-                <div className="relative h-20 w-64 mb-8">
-                  <Image src={flowcharLogo} alt="Flowchar — ISO-certified water treatment chemicals: scale inhibitors, biocides, and coagulants, chemistry partner of FlowCore Solutions" fill sizes="256px" className="object-contain object-left" />
+                <div className="relative h-28 w-80 xl:h-32 xl:w-96 mb-8">
+                  <Image src={flowcharLogo} alt="Flowchar — ISO-certified water treatment chemicals: scale inhibitors, biocides, and coagulants, chemistry partner of FlowCore Solutions" fill sizes="384px" className="object-contain object-left" />
                 </div>
                 <h3 className="text-3xl font-black text-deep-blue mb-4 uppercase tracking-tight">Lifespan Optimization</h3>
                 <p className="text-text-light font-medium leading-relaxed max-w-[90%]">

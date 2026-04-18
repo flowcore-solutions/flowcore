@@ -62,7 +62,7 @@ export default function AboutHero() {
           {/* Left — Primary headline */}
           <div className="max-w-2xl">
             <PrecisionReveal variant="fadeSlideLeft" delay={0.07}>
-              <span className="block items-center pl-3 border-l-2 border-primary-green text-[10px] font-black uppercase tracking-[0.2em] text-primary-green mb-6 block">
+              <span className="block pl-3 border-l-2 border-primary-green text-[10px] font-black uppercase tracking-[0.2em] text-primary-green mb-6">
                 Engineering Infrastructure Partnership
               </span>
             </PrecisionReveal>

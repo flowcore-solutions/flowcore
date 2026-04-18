@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import flowcoreLogo from "@/app/assets/logos/flowcore-logo.png";
+import flowcoreLogo from "@/app/assets/logos/flowcore-logo.svg";
 
 export default function NavbarBrand() {
   return (
