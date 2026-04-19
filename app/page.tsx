@@ -46,7 +46,7 @@ export function generateMetadata(): Metadata {
     },
     openGraph: {
       type: "website",
-      url: "https://flowcore.in",
+      url: "https://flowcoresolutions.in",
       title: "FlowCore Solutions | Authorized Berlington Pumps Dealer in Bangalore",
       description: "FlowCore Solutions is the authorized Berlington Pumps dealer and service provider in Bangalore. Specializing in industrial pump systems, WTP, and HVAC applications across Karnataka.",
       images: [
@@ -70,10 +70,10 @@ export function generateMetadata(): Metadata {
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "@id": "https://flowcore.in/#organization",
+  "@id": "https://flowcoresolutions.in/#organization",
   "name": "FlowCore Solutions",
   "brand": "Berlington Pumps",
-  "url": "https://flowcore.in",
+  "url": "https://flowcoresolutions.in",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "1st Floor, Cheluva Complex, In front of Kottigepalya Bus Stop, Magadi Main Road, Kottingepalya",

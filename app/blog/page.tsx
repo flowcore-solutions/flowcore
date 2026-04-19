@@ -20,13 +20,13 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://flowcore.in",
+      item: "https://flowcoresolutions.in",
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Blog",
-      item: "https://flowcore.in/blog",
+      item: "https://flowcoresolutions.in/blog",
     },
   ],
 };

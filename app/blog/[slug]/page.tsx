@@ -32,7 +32,7 @@ export async function generateMetadata({
     openGraph: {
       title: post.seoTitle,
       description: post.metaDescription,
-      url: `https://flowcore.in/blog/${post.slug}`,
+      url: `https://flowcoresolutions.in/blog/${post.slug}`,
       type: "article",
     },
     twitter: {
@@ -63,19 +63,19 @@ export default async function BlogPostPage({
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://flowcore.in",
+        item: "https://flowcoresolutions.in",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Blog",
-        item: "https://flowcore.in/blog",
+        item: "https://flowcoresolutions.in/blog",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: post.title,
-        item: `https://flowcore.in/blog/${post.slug}`,
+        item: `https://flowcoresolutions.in/blog/${post.slug}`,
       },
     ],
   };
@@ -87,7 +87,7 @@ export default async function BlogPostPage({
     description: post.metaDescription,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
-    mainEntityOfPage: `https://flowcore.in/blog/${post.slug}`,
+    mainEntityOfPage: `https://flowcoresolutions.in/blog/${post.slug}`,
     author: {
       "@type": "Organization",
       name: "FlowCore Solutions",
@@ -97,7 +97,7 @@ export default async function BlogPostPage({
       name: "FlowCore Solutions",
       logo: {
         "@type": "ImageObject",
-        url: "https://flowcore.in/og-image.png",
+        url: "https://flowcoresolutions.in/og-image.png",
       },
     },
     about: [

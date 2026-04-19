@@ -29,7 +29,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    sitemap: 'https://flowcore.in/sitemap.xml',
-    host: 'https://flowcore.in',
+    sitemap: 'https://flowcoresolutions.in/sitemap.xml',
+    host: 'https://flowcoresolutions.in',
   };
 }

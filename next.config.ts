@@ -1,6 +1,21 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'flowcore-site.vercel.app',
+          },
+        ],
+        destination: 'https://flowcoresolutions.in/:path*',
+        permanent: true,
+      },
+    ];
+  },
   images: {
     // Enable modern image formats — Next.js will serve WebP/AVIF to supported browsers
     formats: ["image/avif", "image/webp"],

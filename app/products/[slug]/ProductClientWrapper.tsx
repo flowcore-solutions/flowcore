@@ -16,7 +16,7 @@ export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
     "@context": "https://schema.org/",
     "@type": "Product",
     name: pump.fullName,
-    image: `https://flowcore.in${pump.imagePath}`,
+    image: `https://flowcoresolutions.in${pump.imagePath}`,
     description: `Berlington ${pump.fullName} industrial pump. Flow rate: ${pump.flowRate}, Max head: ${pump.maxHead}. Supplied in Bangalore by FlowCore Solutions.`,
     brand: {
       "@type": "Brand",
@@ -25,7 +25,7 @@ export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
     category: pump.category,
     offers: {
       "@type": "Offer",
-      url: `https://flowcore.in/products/${pump.id}`,
+      url: `https://flowcoresolutions.in/products/${pump.id}`,
       priceCurrency: "INR",
       availability: "https://schema.org/InStock",
       seller: {

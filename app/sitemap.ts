@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { getAllBlogPosts } from "@/lib/blog-data";
 import { PUMP_CATALOG } from "@/lib/pump-data";
 
-const BASE_URL = 'https://flowcore.in';
+const BASE_URL = 'https://flowcoresolutions.in';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

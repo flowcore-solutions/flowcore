@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: "Contact FlowCore Solutions — Industrial Pump & Water Treatment Inquiry",
     description:
       "Reach our Bengaluru engineering team for Berlington pump selection, Flowchar chemical treatment, MEP support, and 24/7 infrastructure servicing. Submit your technical inquiry today.",
-    url: "https://flowcore.in/contact",
+    url: "https://flowcoresolutions.in/contact",
     images: [
       {
         url: "/og-image.png",
@@ -42,9 +42,9 @@ export const metadata: Metadata = {
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "@id": "https://flowcore.in/#localbusiness",
+  "@id": "https://flowcoresolutions.in/#localbusiness",
   name: "FlowCore Solutions",
-  url: "https://flowcore.in",
+  url: "https://flowcoresolutions.in",
   telephone: "+918618885283",
   email: "flowcoresolutionsblr@gmail.com",
   description:
@@ -90,13 +90,13 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://flowcore.in",
+      item: "https://flowcoresolutions.in",
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Contact",
-      item: "https://flowcore.in/contact",
+      item: "https://flowcoresolutions.in/contact",
     },
   ],
 };

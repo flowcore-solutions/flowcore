@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "About FlowCore Solutions — Industrial Fluid Infrastructure Specialists",
     description:
       "The strategic engineering partner connecting Berlington hardware and Flowchar chemistry. ISO-certified pump systems, MEP support, chemical synergy audits, and 24/7 lifecycle maintenance.",
-    url: "https://flowcore.in/about",
+    url: "https://flowcoresolutions.in/about",
     images: [
       {
         url: "/og-image.png",
@@ -57,13 +57,13 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://flowcore.in",
+      item: "https://flowcoresolutions.in",
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "About",
-      item: "https://flowcore.in/about",
+      item: "https://flowcoresolutions.in/about",
     },
   ],
 };
@@ -71,16 +71,16 @@ const breadcrumbSchema = {
 const aboutPageSchema = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  "@id": "https://flowcore.in/about#webpage",
+  "@id": "https://flowcoresolutions.in/about#webpage",
   name: "About FlowCore Solutions",
   description:
     "FlowCore Solutions is the engineering bridge between Berlington industrial pump hardware and Flowchar water treatment chemistry. We provide ISO-certified pump selection, MEP specification support, and Total System Health lifecycle servicing.",
-  url: "https://flowcore.in/about",
+  url: "https://flowcoresolutions.in/about",
   isPartOf: {
-    "@id": "https://flowcore.in/#organization",
+    "@id": "https://flowcoresolutions.in/#organization",
   },
   about: {
-    "@id": "https://flowcore.in/#organization",
+    "@id": "https://flowcoresolutions.in/#organization",
   },
 };
 

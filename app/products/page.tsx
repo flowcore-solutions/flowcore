@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: "Berlington Pump Catalogue — FlowCore Solutions",
     description:
       "16 ISO-certified pump series for water treatment, HVAC, irrigation, and industrial processing. AISI 304/316 stainless steel construction. Browse specs and request a quote.",
-    url: "https://flowcore.in/products",
+    url: "https://flowcoresolutions.in/products",
     images: [
       {
         url: "/og-image.png",
@@ -45,7 +45,7 @@ const productCollectionSchema = {
   name: "Berlington Industrial Pump Catalogue",
   description:
     "ISO-certified industrial pump series distributed by FlowCore Solutions including vertical multistage, horizontal multistage, submersible, hydro booster, self-priming, and pipeline pumps.",
-  url: "https://flowcore.in/products",
+  url: "https://flowcoresolutions.in/products",
   numberOfItems: 16,
   itemListElement: [
     {
@@ -54,7 +54,7 @@ const productCollectionSchema = {
       name: "CDL / CDLF Series — Vertical Multistage Pump",
       description:
         "Stainless steel vertical multistage pump. Flow rate 0.4–240 m³/h, max head 305 m. Suitable for WTP, HVAC, pressure boosting, and fire fighting.",
-      url: "https://flowcore.in/products",
+      url: "https://flowcoresolutions.in/products",
     },
     {
       "@type": "ListItem",
@@ -62,7 +62,7 @@ const productCollectionSchema = {
       name: "CHL / CHLF Series — Horizontal Multistage Pump",
       description:
         "Horizontal multistage pump for clean water applications. Flow rate 0.5–20 m³/h, max head 88 m. Ideal for WTP and pressure boosting.",
-      url: "https://flowcore.in/products",
+      url: "https://flowcoresolutions.in/products",
     },
     {
       "@type": "ListItem",
@@ -70,7 +70,7 @@ const productCollectionSchema = {
       name: "WQ Submersible Sewage Pump",
       description:
         "Heavy-duty submersible sewage pump. Flow rate 3–1800 m³/h, max head 66 m. For sewage treatment and industrial wastewater.",
-      url: "https://flowcore.in/products",
+      url: "https://flowcoresolutions.in/products",
     },
     {
       "@type": "ListItem",
@@ -78,7 +78,7 @@ const productCollectionSchema = {
       name: "NISO End-Suction Centrifugal Pump",
       description:
         "Large-capacity end-suction centrifugal pump. Flow rate 3–1200 m³/h, max head 160 m. For WTP, HVAC, fire fighting, and industrial use.",
-      url: "https://flowcore.in/products",
+      url: "https://flowcoresolutions.in/products",
     },
   ],
 };
@@ -91,13 +91,13 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://flowcore.in",
+      item: "https://flowcoresolutions.in",
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Products",
-      item: "https://flowcore.in/products",
+      item: "https://flowcoresolutions.in/products",
     },
   ],
 };

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "Industrial Pump Applications — WTP, HVAC & Sewage Systems | FlowCore",
     description:
       "Technical integration diagrams for Berlington pumps in water treatment, HVAC, sewage, fire fighting, and industrial applications. ISO-certified systems with Flowchar chemical treatment synergy.",
-    url: "https://flowcore.in/applications",
+    url: "https://flowcoresolutions.in/applications",
     images: [
       {
         url: "/og-image.png",
@@ -57,13 +57,13 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://flowcore.in",
+      item: "https://flowcoresolutions.in",
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Applications",
-      item: "https://flowcore.in/applications",
+      item: "https://flowcoresolutions.in/applications",
     },
   ],
 };

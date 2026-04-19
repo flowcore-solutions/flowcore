@@ -17,7 +17,7 @@ const poppins = Poppins({
 
 // ── Site Metadata ─────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  metadataBase: new URL("https://flowcore.in"),
+  metadataBase: new URL("https://flowcoresolutions.in"),
   applicationName: "FlowCore Solutions",
   title: {
     default: "FlowCore Solutions — Industrial Pump Systems & Water Treatment in Bangalore",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "FlowCore Solutions",
     locale: "en_IN",
-    url: "https://flowcore.in",
+    url: "https://flowcoresolutions.in",
     title: "FlowCore Solutions — Industrial Pump Systems & Water Treatment in Bangalore",
     description:
       "Authorized Berlington Pumps dealer in Bangalore. ISO-certified pump systems, MEP support, and 24/7 lifecycle servicing across Karnataka.",
@@ -88,12 +88,12 @@ export const metadata: Metadata = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "@id": "https://flowcore.in/#organization",
+  "@id": "https://flowcoresolutions.in/#organization",
   name: "FlowCore Solutions",
-  url: "https://flowcore.in",
+  url: "https://flowcoresolutions.in",
   logo: {
     "@type": "ImageObject",
-    url: "https://flowcore.in/og-image.png",
+    url: "https://flowcoresolutions.in/og-image.png",
     width: 1200,
     height: 630,
   },
@@ -126,7 +126,7 @@ const organizationSchema = {
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Berlington Pump Catalogue",
-    url: "https://flowcore.in/products",
+    url: "https://flowcoresolutions.in/products",
   },
   sameAs: [],
 };
