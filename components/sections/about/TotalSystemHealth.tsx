@@ -111,43 +111,45 @@ export default function TotalSystemHealth() {
       <div className="relative mx-auto max-w-6xl px-6">
 
         {/* Header */}
-        <PrecisionReveal variant="fadeSlideLeft" className="mb-3">
-          <span className="inline-flex items-center pl-3 border-l-2 border-primary-green text-[10px] font-black uppercase tracking-[0.2em] text-primary-green">
-            Life-Cycle Support Mandate
-          </span>
-        </PrecisionReveal>
+        <div className="mb-14">
+          <PrecisionReveal variant="fadeSlideLeft" className="mb-3">
+            <span className="inline-flex items-center pl-3 border-l-2 border-primary-green text-[10px] font-black uppercase tracking-[0.2em] text-primary-green">
+              Life-Cycle Support Mandate
+            </span>
+          </PrecisionReveal>
 
-        <PrecisionReveal variant="fadeSlideLeft" delay={0.07}>
-          <h2
-            id="system-health-heading"
-            className="font-black text-deep-blue leading-[1.05] tracking-tight mb-4"
-            style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)" }}
-          >
-            Our Partnership Doesn&apos;t End
-            <br />
-            <span className="text-primary-green">at Delivery.</span>
-          </h2>
-        </PrecisionReveal>
+          <PrecisionReveal variant="fadeSlideLeft" delay={0.07}>
+            <h2
+              id="system-health-heading"
+              className="font-black text-deep-blue leading-[1.05] tracking-tight mb-4"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)" }}
+            >
+              Our Partnership Doesn&apos;t End
+              <br />
+              <span className="text-primary-green">at Delivery.</span>
+            </h2>
+          </PrecisionReveal>
 
-        <PrecisionReveal variant="fadeSlideLeft" delay={0.14}>
-          <p className="mb-14 max-w-2xl text-base leading-relaxed text-text-light font-medium">
-            FlowCore maintains a{" "}
-            <strong className="text-text-dark font-bold">
-              &quot;Total System Health&quot;
-            </strong>{" "}
-            mandate. Every installed Berlington system is backed by ongoing maintenance,
-            chemical programme audits, and rapid-response repair services — ensuring
-            maximum uptime and infrastructure longevity.
-          </p>
-        </PrecisionReveal>
+          <PrecisionReveal variant="fadeSlideLeft" delay={0.14}>
+            <p className="max-w-2xl text-base leading-relaxed text-text-light font-medium">
+              FlowCore maintains a{" "}
+              <strong className="text-text-dark font-bold">
+                &quot;Total System Health&quot;
+              </strong>{" "}
+              mandate. Every installed Berlington system is backed by ongoing maintenance,
+              chemical programme audits, and rapid-response repair services — ensuring
+              maximum uptime and infrastructure longevity.
+            </p>
+          </PrecisionReveal>
+        </div>
 
         {/* Two-column layout: Hero visual | Pillars grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-10 items-start">
 
           {/* ── Left: pump visual hero block ── */}
-          <PrecisionReveal variant="fadeSlideLeft" delay={0.21}>
+          <PrecisionReveal variant="fadeSlideLeft" delay={0.2}>
             <div
-              className="relative rounded-2xl overflow-hidden min-h-[480px] flex flex-col justify-end"
+              className="relative rounded-2xl overflow-hidden min-h-[480px] flex flex-col justify-end group/hero"
               style={{ backgroundColor: "#0F3D91" }}
             >
               {/* Tech grid */}
@@ -165,7 +167,7 @@ export default function TotalSystemHealth() {
                   src={berlingtonPumpsSet}
                   alt="Berlington industrial pump systems"
                   fill
-                  className="object-cover object-center"
+                  className="object-cover object-center transition-transform duration-700 group-hover/hero:scale-105"
                   style={{ opacity: 0.22, mixBlendMode: "luminosity" }}
                 />
               </div>
@@ -179,23 +181,27 @@ export default function TotalSystemHealth() {
                 </span>
               </div>
 
-              {/* Percentage indicator */}
+              {/* Percentage indicator — FIXED: Now using PrecisionReveal properly */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2">
-                <div
-                  className="font-black text-white text-center animate-reveal-scale"
-                  style={{ fontSize: "clamp(3.5rem, 8vw, 5rem)", lineHeight: 1 }}
-                >
-                  65%
-                </div>
-                <div className="text-[11px] font-black uppercase tracking-[0.25em] text-light-blue text-center">
-                  Solution Focus on
-                  <br />
-                  Pump Infrastructure
-                </div>
+                <PrecisionReveal variant="precisionScale" delay={0.4}>
+                  <div
+                    className="font-black text-white text-center"
+                    style={{ fontSize: "clamp(3.5rem, 8vw, 5.2rem)", lineHeight: 1 }}
+                  >
+                    65%
+                  </div>
+                </PrecisionReveal>
+                <PrecisionReveal variant="riseUp" delay={0.5}>
+                  <div className="text-[11px] font-black uppercase tracking-[0.25em] text-light-blue text-center">
+                    Solution Focus on
+                    <br />
+                    Pump Infrastructure
+                  </div>
+                </PrecisionReveal>
               </div>
 
               {/* Bottom content */}
-              <div className="relative z-10 p-8">
+              <div className="relative z-10 p-8 pt-0">
                 <div className="border-t border-white/10 pt-6">
                   <div className="grid grid-cols-2 gap-6">
                     <div>
@@ -219,7 +225,7 @@ export default function TotalSystemHealth() {
           {/* ── Right: 4 pillars ── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {PILLARS.map((pillar, i) => (
-              <PrecisionReveal key={pillar.id} variant="riseUp" delay={0.21 + i * 0.07}>
+              <PrecisionReveal key={pillar.id} variant="riseUp" delay={0.25 + i * 0.06}>
                 <article
                   id={`pillar-${pillar.id}`}
                   className="rounded-xl border border-border p-6 bg-white [box-shadow:var(--shadow-card)] transition-all duration-300 hover:border-primary-blue hover:[box-shadow:var(--shadow-card-hover)] h-full flex flex-col"
@@ -246,18 +252,18 @@ export default function TotalSystemHealth() {
         </div>
 
         {/* Bottom CTA inline */}
-        <PrecisionReveal variant="riseUp" delay={0.56}>
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-6 rounded-xl border border-border bg-section-bg p-6">
+        <PrecisionReveal variant="riseUp" delay={0.5}>
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl border border-border bg-white p-8 [box-shadow:var(--shadow-card)]">
             <div>
-              <p className="font-bold text-text-dark text-sm mb-1">
-                Ready to establish a Total System Health partnership?
+              <p className="font-bold text-deep-blue text-base mb-1">
+                Establish a Total System Health Partnership
               </p>
-              <p className="text-xs text-text-light">
-                Our engineers will assess your current infrastructure and propose a tailored maintenance programme.
+              <p className="text-xs text-text-light font-medium">
+                Assess current infrastructure lifecycle metrics and establish a tailored maintenance mandate.
               </p>
             </div>
-            <Link href="/contact" id="system-health-cta" className="shrink-0">
-              <GreenCTAButton size="md">Get Engineering Consultation</GreenCTAButton>
+            <Link href="/contact" id="system-health-cta-link" className="shrink-0 w-full sm:w-auto">
+              <GreenCTAButton size="md" className="w-full">Get Engineering Consultation</GreenCTAButton>
             </Link>
           </div>
         </PrecisionReveal>

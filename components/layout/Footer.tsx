@@ -21,7 +21,7 @@ function BrandIdentity() {
       <div className="absolute inset-0 bg-linear-to-tr from-[#6CC24A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       <Image
         src={flowcoreLogoHorizontal}
-        alt="FlowCore Solutions — Industrial Pump Systems & Water Treatment, Bengaluru India"
+        alt="FlowCore Solutions — Industrial Pump Systems & Water Treatment"
         width={220}
         height={70}
         className="w-48 lg:w-56 object-contain relative z-10 transition-transform duration-500 group-hover:scale-[1.02]"
@@ -45,12 +45,12 @@ export default function Footer() {
             backgroundSize: "48px 48px"
           }}
         />
-        {/* Radial Vignette to focus the center and darken edges */}
+        {/* Radial Vignette */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,transparent_0%,#0F3D91_100%)] opacity-80" />
       </div>
       
       {/* MAIN FOOTER */}
-      <div className="relative z-10 max-w-350  mx-auto px-6 sm:px-8 pt-24 pb-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 pt-24 pb-16">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-8 justify-between">
           
           {/* ── BRAND COLUMN ── */}
@@ -62,7 +62,7 @@ export default function Footer() {
 
               <div className="flex flex-col space-y-4 items-center sm:items-start text-center sm:text-left">
                 <p className="text-base sm:text-lg font-medium text-white/90 leading-relaxed max-w-[320px]">
-                  Authorized Berlington Pumps dealer in Bangalore, Karnataka. Supplying reliable industrial pump systems and offering comprehensive service and maintenance.
+                  Authorized Berlington Pumps dealer in Bangalore, Karnataka. Supplying reliable industrial pump systems and comprehensive technical solutions.
                 </p>
                 <div className="inline-flex items-center justify-center gap-2.5 border border-white/20 bg-white/5 rounded-full px-4 py-1.5 backdrop-blur-sm shadow-inner">
                    <span className="shrink-0 w-2.5 h-2.5 rounded-full bg-[#6CC24A]" />
@@ -117,16 +117,15 @@ export default function Footer() {
                       <circle cx="12" cy="10" r="3" />
                     </svg>
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="font-bold text-white mb-1.5 text-sm uppercase tracking-wider">
-                      Bangalore, Karnataka
+                      Bangalore Office
                     </p>
-                    <p className="text-sm leading-relaxed text-white/70">
+                    <p className="text-xs sm:text-sm leading-relaxed text-white/70">
                       1st Floor, Cheluva Complex <br />
-                      In front of Kottigepalya Bus Stop <br />
                       Magadi Main Road, Kottingepalya <br />
                       Bangalore, Karnataka 560091 <br />
-                      <span className="text-[#6CC24A] font-bold mt-2 inline-block">Serving all across Karnataka</span>
+                      <span className="text-[#6CC24A] font-black mt-2 inline-block tracking-widest uppercase text-[10px]">Serving All Karnataka</span>
                     </p>
                   </div>
                 </div>
@@ -165,15 +164,15 @@ export default function Footer() {
       </div>
 
       {/* ── BOTTOM BAR ── */}
-      <div className="relative z-10 bg-[#061A40] border-t border-white/5 py-6">
-        <div className="max-w-350  mx-auto px-6 sm:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-semibold">
+      <div className="relative z-10 bg-[#061A40] border-t border-white/5 py-8">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 flex flex-col md:flex-row justify-between items-center gap-6 text-xs font-semibold">
           <p className="text-white/60">
-            © {year} Flowcore Solutions. <span className="text-white/40 font-normal ml-1">All rights reserved.</span>
+            © {year} FlowCore Solutions. <span className="text-white/20 font-normal ml-1">Fluid Infrastructure Engineering.</span>
           </p>
-          <div className="hidden lg:flex items-center flex-wrap justify-center gap-3 text-white/80">
-            <span className="bg-white/5 px-3 py-1.5 rounded-md border border-white/10 font-medium">Berlington Industrial Pumps</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#6CC24A]"></span>
-            <span className="bg-white/5 px-3 py-1.5 rounded-md border border-white/10 font-medium">Flowchar WTP Chemicals</span>
+          <div className="hidden lg:flex items-center flex-wrap justify-center gap-4 text-white/80">
+            <span className="bg-white/5 px-4 py-2 rounded-lg border border-white/10 font-black tracking-widest uppercase text-[9px]">Berlington Industrial Pumps</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-primary-green"></div>
+            <span className="bg-white/5 px-4 py-2 rounded-lg border border-white/10 font-black tracking-widest uppercase text-[9px]">Flowchar WTP Chemicals</span>
           </div>
         </div>
       </div>

@@ -32,7 +32,7 @@ const FAQSection = dynamic(() => import("@/components/ui/FAQSection"), {
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Berlington Pumps Bangalore | FlowCore",
+    title: "FlowCore Solutions | Berlington Pumps Bangalore",
     description: "FlowCore Solutions is the authorized Berlington Pumps dealer and service provider in Bangalore. Specializing in industrial pump systems, WTP, and HVAC applications across Karnataka.",
     keywords: [
       "Berlington pumps Bangalore",

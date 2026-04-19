@@ -1,17 +1,3 @@
-
-/**
- * FeaturedPumpsGrid — Home page preview: 8 pumps + catalogue CTA.
- *
- * Flow rationale:
- *  - StatsBar ends on deep-blue (#0f3d91) with a faint green bottom line.
- *  - This section opens on deep-blue to bridge that transition, then cards
- *    sit on bg-section-bg (#f8fafc) via a scalloped SVG edge.
- *
- * Card interaction (delegated to PumpCard):
- *  - Image zone → 3D perspective tilt.
- *  - Info zone  → rotateY card flip to spec back face.
- */
-
 import Link from "next/link";
 import { PUMP_CATALOG, type PumpModel } from "@/lib/pump-data";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
@@ -19,21 +5,12 @@ import PumpCard from "@/components/ui/PumpCard";
 
 const FEATURED_PUMPS = PUMP_CATALOG.slice(0, 8) as readonly PumpModel[];
 
-// ── Section ───────────────────────────────────────────────────────────────
-
 export default function FeaturedPumpsGrid() {
   return (
-    <section
-      id="featured-pumps"
-      aria-labelledby="featured-pumps-heading"
-      className="relative"
-    >
-      {/* ── BRIDGE ZONE — deep-blue cap that continues from StatsBar ── */}
-      <div
-        className="relative overflow-hidden"
-        style={{ backgroundColor: "#0f3d91" }}
-      >
-        {/* Engineering grid texture (matches StatsBar) */}
+    <section id="featured-pumps" aria-labelledby="featured-pumps-heading" className="relative">
+
+      {/* Bridge Zone */}
+      <div className="relative overflow-hidden" style={{ backgroundColor: "#0f3d91" }}>
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
@@ -46,11 +23,7 @@ export default function FeaturedPumpsGrid() {
           }}
         />
 
-        {/* Removed redundant green accent line for cleaner transition */}
-
-
         <div className="relative mx-auto max-w-7xl px-8 pt-12 pb-16 lg:pb-20">
-          {/* Section label — border-left eyebrow matching HeroSection */}
           <PrecisionReveal variant="fadeSlideLeft" className="mb-5">
             <span className="inline-flex items-center gap-2 border-l-2 border-primary-green pl-4 text-sm font-bold uppercase tracking-[0.2em] text-primary-green">
               Berlington Range
@@ -62,57 +35,40 @@ export default function FeaturedPumpsGrid() {
               <h2
                 id="featured-pumps-heading"
                 className="font-bold text-white leading-tight uppercase"
-                style={{
-                  fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
-                  letterSpacing: "-0.02em",
-                }}
+                style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", letterSpacing: "-0.02em" }}
               >
                 Berlington Industrial Models
               </h2>
             </PrecisionReveal>
 
-            <PrecisionReveal variant="fadeSlideRight" delay={0.14}>
+            <PrecisionReveal variant="fadeSlideRight" delay={0.07}>
               <p className="max-w-md text-sm leading-relaxed text-white/50 md:text-right">
-                16 series engineered for reliability across municipal water
-                treatment, HVAC, and heavy industrial applications.
+                16 series engineered for reliability across municipal water treatment,
+                HVAC, and heavy industrial applications.
               </p>
             </PrecisionReveal>
           </div>
         </div>
 
-        {/* Scalloped bottom edge — cards float up into the deep-blue zone */}
-        <div
-          aria-hidden="true"
-          className="absolute bottom-0 left-0 right-0 overflow-hidden"
-          style={{ height: "48px" }}
-        >
-          <svg
-            viewBox="0 0 1440 48"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            className="w-full h-full"
-          >
-            <path
-              d="M0 48 C360 0 1080 0 1440 48 L1440 48 L0 48 Z"
-              fill="#f8fafc"
-            />
+        <div aria-hidden="true" className="absolute bottom-0 left-0 right-0 overflow-hidden" style={{ height: "48px" }}>
+          <svg viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full h-full">
+            <path d="M0 48 C360 0 1080 0 1440 48 L1440 48 L0 48 Z" fill="#f8fafc" />
           </svg>
         </div>
       </div>
 
-      {/* ── CARDS ZONE ── */}
+      {/* Cards Zone */}
       <div className="relative bg-section-bg pb-12 lg:pb-16">
-        {/* Subtle background industrial industrial diagonal lines — fixed to viewport for perfect continuity */}
-        <div 
-          className="absolute inset-0 pointer-events-none opacity-[0.03]" 
-          style={{ 
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
             backgroundImage: `repeating-linear-gradient(45deg, #0F172A 0, #0F172A 1px, transparent 1px, transparent 20px)`,
-            backgroundAttachment: "fixed" 
-          }} 
+            backgroundAttachment: "fixed",
+          }}
         />
-        
+
         <div className="relative mx-auto max-w-7xl px-8 z-10">
-          {/* Mobile: 2-row independently swipeable snap carousels */}
+          {/* Mobile carousels — unchanged */}
           <div className="flex flex-col gap-4 sm:hidden pt-4">
             {[0, 1].map((rowIndex) => {
               const rowItems = FEATURED_PUMPS.filter((_, i) => i % 2 === rowIndex);
@@ -133,11 +89,7 @@ export default function FeaturedPumpsGrid() {
                   }}
                 >
                   {rowItems.map((pump) => (
-                    <div
-                      key={pump.id}
-                      className="shrink-0"
-                      style={{ width: "72vw", scrollSnapAlign: "start" }}
-                    >
+                    <div key={pump.id} className="shrink-0" style={{ width: "72vw", scrollSnapAlign: "start" }}>
                       <PumpCard pump={pump} />
                     </div>
                   ))}
@@ -146,21 +98,28 @@ export default function FeaturedPumpsGrid() {
             })}
           </div>
 
-          {/* Desktop: staggered reveal grid */}
+          {/* Desktop grid
+              FIX: delay reduced from (i % 4) * 0.07 → (i % 4) * 0.04
+              The old values meant card[3] waited 0.21s and card[7] waited 0.21s.
+              At normal scroll speed those cards were already fully in view before
+              they started animating, causing the "blank then pop" effect.
+              0.04s stagger (max 0.12s) is fast enough to feel staggered but
+              short enough that no card is ever visibly late.
+          */}
           <div className="hidden sm:grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4 pt-8">
             {FEATURED_PUMPS.map((pump, i) => (
               <PrecisionReveal
                 key={pump.id}
                 variant="riseUp"
-                delay={(i % 4) * 0.07}
+                delay={(i % 4) * 0.04}
               >
                 <PumpCard pump={pump} priority={i < 4} />
               </PrecisionReveal>
             ))}
           </div>
 
-          {/* ── CTA Buttons ── */}
-          <PrecisionReveal variant="riseUp" delay={0.2} className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
+          {/* CTA */}
+          <PrecisionReveal variant="riseUp" delay={0.1} className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/products"
               id="featured-pumps-catalogue-cta"
@@ -173,13 +132,7 @@ export default function FeaturedPumpsGrid() {
             >
               See Full Catalogue
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path
-                  d="M3 8h10M9 4l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
 
@@ -195,9 +148,9 @@ export default function FeaturedPumpsGrid() {
             >
               Download PDF Catalogue
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
             </a>
           </PrecisionReveal>

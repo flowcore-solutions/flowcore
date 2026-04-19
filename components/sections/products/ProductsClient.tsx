@@ -278,8 +278,6 @@ export default function ProductsClient() {
               </div>
             </PrecisionReveal>
           </div>
-
-
         </div>
       </header>
 
@@ -319,8 +317,6 @@ export default function ProductsClient() {
                   />
                 ))}
               </div>
-
-
             </div>
 
             {/* Mobile horizontal chip scroll */}
@@ -423,18 +419,19 @@ export default function ProductsClient() {
               })}
             </div>
 
-            {/* Desktop: standard grid */}
+            {/* Desktop: standard grid with PrecisionReveal */}
             <div
               className="hidden sm:grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
             >
               {displayedPumps.map((pump, i) => (
-                <div
-                  key={`${activeCategory}-${pump.id}`}
-                  className="animate-reveal-up"
-                  style={{ animationDelay: `${i * 0.03}s` }}
+                <PrecisionReveal 
+                  key={`${activeCategory}-${pump.id}`} 
+                  variant="riseUp" 
+                  delay={i % 6 * 0.04}
+                  once={true}
                 >
                   <PumpCard pump={pump} priority={i === 0 && activeCategory === null} />
-                </div>
+                </PrecisionReveal>
               ))}
             </div>
 

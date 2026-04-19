@@ -7,9 +7,7 @@ import QuoteModalWrapper from "@/components/layout/QuoteModalWrapper";
 import RevealObserver from "@/components/ui/RevealObserver";
 import { Analytics } from "@vercel/analytics/react";
 
-
 // ── Font ──────────────────────────────────────────────────────────────────
-// Loaded once at the root — CSS variable injected on <body>.
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -21,31 +19,28 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   metadataBase: new URL("https://flowcoresolutions.in"),
   applicationName: "FlowCore Solutions",
+
   title: {
-    default: "FlowCore Solutions — Industrial Pump Systems & Water Treatment in Bangalore",
+    default: "FlowCore Solutions | Berlington Pumps in Bangalore",
     template: "%s | FlowCore Solutions",
   },
+
   description:
     "FlowCore Solutions is the authorized Berlington Pumps dealer in Bangalore, offering industrial pump systems, MEP specification support, and servicing in Karnataka.",
-  keywords: [
-    "industrial pumps Bangalore",
-    "Berlington pumps distributor Bangalore",
-    "Flowchar water treatment chemicals Karnataka",
-    "vertical multistage pumps",
-    "AISI 316 stainless steel pumps",
-    "WTP engineering solutions",
-    "HVAC pump systems",
-    "sewage submersible pumps Karnataka",
-    "MEP specification support Bangalore",
-    "pump repair services Bangalore",
-    "water treatment plant chemicals",
-    "industrial fluid infrastructure",
-    "centrifugal pump supplier Bangalore",
-    "scale inhibitors biocides coagulants",
-  ],
-  alternates: {
-    canonical: "/",
+
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon-180x180.png", sizes: "180x180", type: "image/png" },
+    ],
   },
+
+  manifest: "/manifest.json",
+
   robots: {
     index: true,
     follow: true,
@@ -57,116 +52,80 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+
   openGraph: {
     type: "website",
     siteName: "FlowCore Solutions",
-    locale: "en_IN",
     url: "https://flowcoresolutions.in",
-    title: "FlowCore Solutions — Industrial Pump Systems & Water Treatment in Bangalore",
+    title: "FlowCore Solutions | Berlington Pumps in Bangalore",
     description:
-      "Authorized Berlington Pumps dealer in Bangalore. ISO-certified pump systems, MEP support, and 24/7 lifecycle servicing across Karnataka.",
+      "Authorized Berlington Pumps dealer in Bangalore. Industrial pump systems and water treatment solutions.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "FlowCore Solutions — Industrial Fluid Infrastructure & Water Treatment Bangalore",
+        alt: "FlowCore Solutions",
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "FlowCore Solutions — Industrial Pump Systems & Water Treatment in Bangalore",
+    title: "FlowCore Solutions | Berlington Pumps in Bangalore",
     description:
-      "Authorized Berlington Pumps dealer in Bangalore providing ISO-certified pump systems and Flowchar water treatment in Karnataka.",
+      "Authorized Berlington Pumps dealer in Bangalore. Industrial pump systems and water treatment solutions.",
     images: ["/og-image.png"],
-  },
-  appleWebApp: {
-    title: "FlowCore",
   },
 };
 
-// ── Organization JSON-LD ──────────────────────────────────────────────────
+
+// ── Organization Schema ───────────────────────────────────────────────────
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "@id": "https://flowcoresolutions.in/#organization",
   name: "FlowCore Solutions",
   url: "https://flowcoresolutions.in",
-  logo: {
-    "@type": "ImageObject",
-    url: "https://flowcoresolutions.in/og-image.png",
-    width: 1200,
-    height: 630,
-  },
-  description:
-    "FlowCore Solutions is the authorized Berlington Pumps dealer in Bangalore. Specializing in ISO-certified pump selection, MEP specification support, and Total System Health lifecycle servicing across Karnataka.",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "1st Floor, Cheluva Complex, In front of Kottigepalya Bus Stop, Magadi Main Road, Kottingepalya",
-    addressLocality: "Bangalore",
-    addressRegion: "Karnataka",
-    postalCode: "560091",
-    addressCountry: "IN",
-  },
-  telephone: "+918618885283",
-  email: "flowcoresolutionsblr@gmail.com",
-  foundingDate: "2020",
-  areaServed: {
-    "@type": "State",
-    name: "Karnataka",
-  },
-  knowsAbout: [
-    "Industrial Pump Systems",
-    "Water Treatment Plants",
-    "HVAC Fluid Systems",
-    "MEP Engineering",
-    "Vertical Multistage Pumps",
-    "Submersible Sewage Pumps",
-    "Water Treatment Chemicals",
-  ],
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Berlington Pump Catalogue",
-    url: "https://flowcoresolutions.in/products",
-  },
-  sameAs: [],
+  logo: "https://flowcoresolutions.in/og-image.png",
+};
+
+// ── WebSite Schema (VERY IMPORTANT FIX) ───────────────────────────────────
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "FlowCore Solutions",
+  url: "https://flowcoresolutions.in",
 };
 
 // ── Root Layout ───────────────────────────────────────────────────────────
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <head>
-      </head>
-      <body
-        className={`${poppins.variable} font-sans antialiased bg-white text-text-dark`}
-      >
-        {/* Organization JSON-LD — injected on every page */}
+    <html lang="en">
+      <body className={`${poppins.variable} font-sans`}>
+        {/* Organization Schema */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
         />
-        <RevealObserver />
 
-        {/* Floating Island Navbar — fixed, renders above page content */}
+        {/* WebSite Schema (fixes Google site name) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema),
+          }}
+        />
+
         <Navbar />
 
-        {/*
-          Page content offset:
-          - Navbar island: top-4 (16px) + py-3.5 ≈ 28px + logo height 36px ≈ 80px total
-          - We add pt-24 (96px) to avoid content hiding under the nav.
-          - Individual page heroes that intentionally underlap the nav
-            can override this with a negative margin-top on their outer wrapper.
-        */}
-        <main id="main-content" className="pt-24">
-          {children}
-        </main>
+
+        <main className="pt-24">{children}</main>
 
         <Footer />
         <QuoteModalWrapper />
