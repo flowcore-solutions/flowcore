@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <div className="relative flex flex-col items-center justify-center min-h-[75vh] w-full bg-white px-6 py-24 text-center overflow-hidden">
       
-      {/* ── Background Grid & Gradients ── */}
+      {/* ── Background Grid & Gradients and others ── */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 opacity-5"

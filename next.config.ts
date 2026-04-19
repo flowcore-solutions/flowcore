@@ -4,26 +4,26 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: '/:path*',
+        source: "/:path*",
         has: [
           {
-            type: 'host',
-            value: 'flowcore-site.vercel.app',
+            type: "host",
+            value: "flowcore-site.vercel.app",
           },
         ],
-        destination: 'https://flowcoresolutions.in/:path*',
+        destination: "https://flowcoresolutions.in/:path*",
         permanent: true,
       },
     ];
   },
+
   images: {
-    // Enable modern image formats — Next.js will serve WebP/AVIF to supported browsers
     formats: ["image/avif", "image/webp"],
-    // Responsive breakpoints for srcset generation
+    qualities: [60, 75, 100],
+
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // Reduce cache TTL for local dev, increase in prod if needed
-    minimumCacheTTL: 31536000, // 1 year
+    minimumCacheTTL: 31536000,
   },
 };
 
