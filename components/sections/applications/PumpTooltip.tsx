@@ -1,133 +1,131 @@
 "use client";
 
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import type { DiagramNode } from "@/lib/application-data";
 import { getPumpById } from "@/lib/pump-data";
 import type { StaticImageData } from "next/image";
 
-
 import cdlCdlf from "@/app/assets/pumps/cdl-cdlf.png";
-import wq from "@/app/assets/pumps/wq.png";
-import qyB from "@/app/assets/pumps/qy-b.png";
-import hydro from "@/app/assets/pumps/hydro.png";
-import chl from "@/app/assets/pumps/chl.png";
-import chm from "@/app/assets/pumps/chm.png";
-import chlf from "@/app/assets/pumps/chlf-chlf-t.png";
-import bt from "@/app/assets/pumps/bt.png";
-import niso from "@/app/assets/pumps/niso.png";
-import sz from "@/app/assets/pumps/sz.png";
-import ld from "@/app/assets/pumps/ld.png";
-import stp from "@/app/assets/pumps/stp.png";
+import wq      from "@/app/assets/pumps/wq.png";
+import qyB     from "@/app/assets/pumps/qy-b.png";
+import hydro   from "@/app/assets/pumps/hydro.png";
+import chl     from "@/app/assets/pumps/chl.png";
+import chm     from "@/app/assets/pumps/chm.png";
+import chlf    from "@/app/assets/pumps/chlf-chlf-t.png";
+import bt      from "@/app/assets/pumps/bt.png";
+import niso    from "@/app/assets/pumps/niso.png";
+import sz      from "@/app/assets/pumps/sz.png";
+import ld      from "@/app/assets/pumps/ld.png";
+import stp     from "@/app/assets/pumps/stp.png";
 
 const PUMP_IMAGES: Record<string, StaticImageData> = {
-  "cdl-cdlf": cdlCdlf,
-  wq,
-  "qy-b": qyB,
-  hydro,
-  chl,
-  chm,
-  chlf,
-  bt,
-  niso,
-  sz,
-  ld,
-  stp,
+  "cdl-cdlf": cdlCdlf, wq, "qy-b": qyB, hydro,
+  chl, chm, chlf, bt, niso, sz, ld, stp,
 };
 
-const GREEN = "#6cc24a";
-const DEEP_BLUE = "#0f3d91";
+const GREEN        = "#6cc24a";
+const DEEP_BLUE    = "#0f3d91";
 const PRIMARY_BLUE = "#1e5bb8";
-const BORDER = "#e5e7eb";
-const TEXT_LIGHT = "#64748b";
+const BORDER       = "#e5e7eb";
+const TEXT_LIGHT   = "#64748b";
+const BG_SECTION   = "#f8fafc";
 
 interface PumpTooltipProps {
-  node: DiagramNode;
-  anchorX: number;
-  anchorY: number;
+  node:   DiagramNode;
+  style?: CSSProperties;
+  /** Mobile variant: full-width, no absolute positioning */
+  mobile?: boolean;
 }
 
-export default function PumpTooltip({ node, anchorX, anchorY }: PumpTooltipProps) {
-  const pump = getPumpById(node.pumpModelId);
+export default function PumpTooltip({ node, style, mobile }: PumpTooltipProps) {
+  const pump  = getPumpById(node.pumpModelId);
   const image = PUMP_IMAGES[node.pumpModelId];
-
-  const openLeft = anchorX >= 55;
-  const leftPct = openLeft
-    ? Math.max(anchorX - 38, 2)
-    : Math.min(anchorX + 4, 58);
-  const topPct = Math.max(anchorY - 36, 2);
 
   return (
     <div
       role="tooltip"
       style={{
-        position: "absolute",
-        left: `${leftPct}%`,
-        top: `${topPct}%`,
-        zIndex: 20,
-        width: "min(220px, calc(100vw - 4rem))",
-        boxShadow: "var(--shadow-card-hover)",
+        boxShadow:     "0 20px 60px 0 rgba(15, 61, 145, 0.22)",
+        pointerEvents: "none",
+        width:         mobile ? "100%" : "300px",
+        ...style,
       }}
-      className="rounded-xl border border-border bg-white overflow-hidden pointer-events-none animate-reveal-up"
+      className="rounded-2xl border border-border bg-white overflow-hidden animate-reveal-up"
     >
+      {/* Header */}
       <div
-        className="flex items-center gap-2 px-3 py-2"
-        style={{ backgroundColor: `${GREEN}15`, borderBottom: `1px solid ${BORDER}` }}
+        className="flex items-center justify-between gap-2 px-4 py-3"
+        style={{
+          background:   `linear-gradient(135deg, ${DEEP_BLUE}, #1e5bb8)`,
+          borderBottom: `1px solid ${BORDER}`,
+        }}
       >
-        <span
-          className="text-[10px] font-bold uppercase tracking-widest"
-          style={{ color: "#2fa84f" }}
-        >
+        <span className="text-[11px] font-bold uppercase tracking-widest text-white">
           {node.label}
+        </span>
+        <span
+          className="text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0"
+          style={{ backgroundColor: `${GREEN}35`, color: GREEN }}
+        >
+          Active
         </span>
       </div>
 
-      <div className="p-3 flex gap-3">
-        {image ? (
+      {/* Body */}
+      <div className="p-4 flex gap-4 items-center">
+        {image && (
           <div
-            className="shrink-0 rounded-lg overflow-hidden flex items-center justify-center"
-            style={{ width: 56, height: 56, backgroundColor: "#f8fafc" }}
+            className="shrink-0 rounded-xl overflow-hidden flex items-center justify-center"
+            style={{
+              width:           mobile ? 80 : 72,
+              height:          mobile ? 80 : 72,
+              backgroundColor: BG_SECTION,
+              border:          `1px solid ${BORDER}`,
+            }}
           >
             <Image
               src={image}
               alt={pump?.fullName ?? node.pumpModelId}
-              width={52}
-              height={52}
-              className="object-contain p-1"
+              width={mobile ? 72 : 64}
+              height={mobile ? 72 : 64}
+              className="object-contain p-1.5"
             />
           </div>
-        ) : null}
+        )}
 
-        <div className="flex flex-col gap-1 min-w-0">
+        <div className="flex flex-col gap-1.5 min-w-0 justify-center">
           <p
-            className="text-xs font-bold leading-tight truncate"
+            className="text-sm font-bold leading-tight"
             style={{ color: DEEP_BLUE }}
           >
             {pump?.fullName ?? node.pumpModelId}
           </p>
-          <p
-            className="text-[11px] leading-snug"
-            style={{ color: TEXT_LIGHT }}
-          >
+          <p className="text-xs leading-relaxed" style={{ color: TEXT_LIGHT }}>
             {node.role}
           </p>
         </div>
       </div>
 
+      {/* Stats */}
       {pump && (
-        <div className="grid grid-cols-2 divide-x border-t border-border">
+        <div
+          className="grid grid-cols-2 divide-x"
+          style={{ borderTop: `1px solid ${BORDER}` }}
+        >
           {[
-            ["Flow", pump.flowRate],
-            ["Head", pump.maxHead],
+            ["Flow Rate", pump.flowRate],
+            ["Max Head",  pump.maxHead],
           ].map(([label, val]) => (
-            <div key={label} className="px-3 py-2 flex flex-col gap-0.5">
+            <div key={label} className="px-4 py-3 flex flex-col gap-1">
               <span
-                className="text-[10px] uppercase tracking-wider font-medium"
+                className="text-[10px] uppercase tracking-wider font-semibold"
                 style={{ color: TEXT_LIGHT }}
               >
                 {label}
               </span>
               <span
-                className="text-[11px] font-semibold"
+                className="text-sm font-bold"
                 style={{ color: PRIMARY_BLUE, fontVariantNumeric: "tabular-nums" }}
               >
                 {val}

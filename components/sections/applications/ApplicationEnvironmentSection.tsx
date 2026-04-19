@@ -20,13 +20,16 @@ export default function ApplicationEnvironmentSection({
     <section
       id={`env-${env.id}`}
       aria-labelledby={`env-heading-${env.id}`}
-      className="relative overflow-hidden"
+      className="relative"
+      // KEY FIX: removed overflow-hidden from the section.
+      // It was clipping the desktop tooltip whenever it extended beyond the
+      // section boundary. The bg pattern div below handles its own overflow.
       style={{ backgroundColor: "#f8fafc" }}
     >
-      {/* Diagonal industrial line pattern — same as PartnerSynergy & ApplicationShowcase */}
+      {/* Background pattern — contained in its own div so it doesn't affect tooltip overflow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
         style={{
           backgroundImage: `repeating-linear-gradient(45deg, #0F172A 0, #0F172A 1px, transparent 1px, transparent 20px)`,
           opacity: 0.025,
@@ -38,12 +41,10 @@ export default function ApplicationEnvironmentSection({
           {env.name}
         </h2>
 
-        <PrecisionReveal
-          variant={isEven ? "fadeSlideLeft" : "fadeSlideRight"}
-        >
+        <PrecisionReveal variant={isEven ? "fadeSlideLeft" : "fadeSlideRight"}>
           <ApplicationDiagram env={env} reversed={!isEven} />
         </PrecisionReveal>
-      </div>
+      </div>t
     </section>
   );
 }
