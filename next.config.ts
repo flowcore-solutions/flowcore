@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
         has: [
           {
             type: "host",
-            value: "flowcore-site.vercel.app",
+            value: "flowcore-six.vercel.app",
           },
         ],
         destination: "https://flowcoresolutions.in/:path*",
