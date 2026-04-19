@@ -60,7 +60,7 @@ export default function HeroSection() {
         {/* LEFT / TOP */}
         <div className="flex h-[52%] w-full flex-col justify-center px-8 sm:h-[55%] sm:px-16 lg:h-full lg:w-[55%] lg:justify-start lg:px-24 xl:px-36 lg:pt-6 xl:pt-8">
           <span
-            className="animate-reveal-right opacity-0 mb-3 lg:mb-5 border-l-2 border-light-blue pl-3 lg:pl-4 -ml-[14px] lg:-ml-[18px] text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-[0.2em] text-light-blue"
+            className="animate-reveal-right opacity-0 mb-3 lg:mb-5 border-l-2 border-light-blue pl-3 lg:pl-4 -ml-3.5 lg:-ml-4.5 text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-[0.2em] text-light-blue"
           >
             Authorized Berlington Pump Dealer in Karnataka
           </span>
@@ -114,7 +114,7 @@ export default function HeroSection() {
         <div className="flex flex-1 flex-col justify-center px-8 sm:px-16 lg:flex-1 lg:justify-start lg:px-20 lg:pt-6 xl:pt-8">
           
           <span
-            className="animate-reveal-left opacity-0 mb-3 lg:mb-5 border-l-2 border-deep-blue pl-3 lg:pl-4 -ml-[14px] lg:-ml-[18px] text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-[0.2em] text-deep-blue"
+            className="animate-reveal-left opacity-0 mb-3 lg:mb-5 border-l-2 border-deep-blue pl-3 lg:pl-4 -ml-3.5 lg:-ml-4.5 text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-[0.2em] text-deep-blue"
           >
             Water Treatment Chemicals
           </span>
