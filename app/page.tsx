@@ -130,7 +130,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageFaqSchema) }}
       />
       <HeroSection />
-      {/* <StatsBar /> */}
+     
       <FeaturedPumpsGrid />
       <PartnerSynergy />
       <ApplicationShowcase/>

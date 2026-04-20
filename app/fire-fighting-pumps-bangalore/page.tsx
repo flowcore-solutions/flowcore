@@ -53,6 +53,17 @@ const productSchema = {
   brand: {
     "@type": "Brand",
     name: "Berlington"
+  },
+  offers: {
+    "@type": "Offer",
+    url: "https://flowcoresolutions.in/fire-fighting-pumps-bangalore",
+    priceCurrency: "INR",
+    price: "0", 
+    availability: "https://schema.org/InStock",
+    seller: {
+      "@type": "Organization",
+      name: "FlowCore Solutions",
+    }
   }
 };
 

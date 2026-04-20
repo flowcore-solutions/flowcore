@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import QuoteModalWrapper from "@/components/layout/QuoteModalWrapper";
-import RevealObserver from "@/components/ui/RevealObserver";
 import { Analytics } from "@vercel/analytics/react";
 
 // ── Font ──────────────────────────────────────────────────────────────────
