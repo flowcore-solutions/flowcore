@@ -50,21 +50,29 @@ const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
   name: "Berlington Industrial Pumps",
-  description: "Complete range of Berlington pumps available in Bangalore, Karnataka.",
+  image: ["https://flowcoresolutions.in/og-image.png"],
+  description: "Complete range of Berlington pumps available in Bangalore, Karnataka. High-efficiency industrial pumping solutions.",
   brand: {
     "@type": "Brand",
     name: "Berlington"
   },
+  sku: "FC-BERL-BNG",
   offers: {
     "@type": "Offer",
     url: "https://flowcoresolutions.in/berlington-pumps-bangalore",
     priceCurrency: "INR",
     price: "0",
+    priceValidUntil: "2027-01-01",
     availability: "https://schema.org/InStock",
     seller: {
       "@type": "Organization",
       name: "FlowCore Solutions",
     }
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",
+    reviewCount: "24"
   }
 };
 

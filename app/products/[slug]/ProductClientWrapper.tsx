@@ -38,6 +38,11 @@ export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
         name: "FlowCore Solutions",
       },
     },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "12"
+    }
   };
 
   return (

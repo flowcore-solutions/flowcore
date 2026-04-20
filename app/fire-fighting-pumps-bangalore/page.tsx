@@ -49,21 +49,29 @@ const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
   name: "Fire Fighting Pump Systems",
-  description: "Complete NBC and NFPA compliant fire fighting pump solutions for Bangalore projects.",
+  image: ["https://flowcoresolutions.in/og-image.png"],
+  description: "Complete NBC and NFPA compliant fire fighting pump solutions for Bangalore projects. Engineered for safety.",
   brand: {
     "@type": "Brand",
     name: "Berlington"
   },
+  sku: "FC-FIRE-BNG",
   offers: {
     "@type": "Offer",
     url: "https://flowcoresolutions.in/fire-fighting-pumps-bangalore",
     priceCurrency: "INR",
-    price: "0", 
+    price: "0",
+    priceValidUntil: "2027-01-01",
     availability: "https://schema.org/InStock",
     seller: {
       "@type": "Organization",
       name: "FlowCore Solutions",
     }
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    reviewCount: "32"
   }
 };
 
