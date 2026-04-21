@@ -73,7 +73,7 @@ export default function HeroSection() {
             >
               Berlington <br />
               <span className="text-light-blue">Pumps</span> <br/>
-              <span className="text-white/60">Karnataka</span>
+              <span className="text-white">Karnataka</span>
             </h1>
           </PrecisionReveal>
 
@@ -112,7 +112,7 @@ export default function HeroSection() {
         <article className="flex flex-1 flex-col justify-center px-8 sm:px-16 lg:flex-1 lg:justify-start lg:px-20 lg:pt-8 xl:pt-12">
           
           <PrecisionReveal variant="fadeSlideLeft" className="mb-4 lg:mb-6 border-l-2 border-deep-blue pl-4 -ml-4.5 text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-[0.2em] text-deep-blue">
-            Advanced Water Treatment
+            Advanced Water Treatment Chemicals
           </PrecisionReveal>
 
           <PrecisionReveal variant="riseUp" delay={0.15}>
