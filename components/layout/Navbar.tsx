@@ -17,10 +17,10 @@ export default function Navbar() {
       <div className="pointer-events-none fixed left-0 right-0 top-3 sm:top-4 z-50 px-4 sm:px-6">
         <nav
           id="main-navbar"
-          className="pointer-events-auto relative mx-auto max-w-7xl rounded-[2rem] sm:rounded-4xl bg-white/95 py-3 sm:py-4 shadow-[0_8px_32px_rgba(15,23,42,0.08)] backdrop-blur-md transition-all duration-500"
+          className="pointer-events-auto relative mx-auto max-w-7xl roundedxl- sm:rounded-4xl bg-white/95 py-3 sm:py-4 shadow-[0_8px_32px_rgba(15,23,42,0.08)] backdrop-blur-md transition-all duration-500"
         >
           {/* Decorative background blobs */}
-          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[2rem] sm:rounded-4xl">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-4xl sm:rounded-4xl">
             <div className="absolute -left-20 top-1/2 h-96 w-[24rem] -translate-y-1/2 rounded-full bg-[#6CC24A]/25 blur-[60px]" />
             <div className="absolute -right-20 top-1/2 h-120 w-120 -translate-y-1/2 rounded-full bg-[#1E5BB8]/15 blur-[70px]" />
           </div>
@@ -42,7 +42,7 @@ export default function Navbar() {
             {/* RIGHT SIDE: Mobile Menu & Desktop CTA */}
             <div className="flex flex-1 justify-end items-center gap-4">
               {/* Desktop CTA */}
-              <Link href="/contact#inquiry-form" className="hidden lg:block">
+              <Link href="/contact" className="hidden lg:block">
                 <button className="relative overflow-hidden rounded-full bg-deep-blue px-8 py-3 text-sm font-black uppercase tracking-widest text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_30px_rgba(15,23,42,0.4)]">
                   <span className="relative z-10">Get a Quote</span>
                   <span className="absolute inset-0 bg-primary-blue opacity-0 transition-opacity duration-300 hover:opacity-100" />

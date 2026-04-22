@@ -330,18 +330,27 @@ function CardBack({ pump }: { pump: PumpModel }) {
         {pump.seriesCode}
       </div>
 
-      {/* Header */}
-      <div className="relative z-10 px-4 pt-4 pb-3 border-b border-white/10 shrink-0 min-w-0">
-        <span
-          className="block text-[10px] font-black uppercase tracking-[0.2em] mb-1 truncate"
-          style={{ color: "#4da3ff" }}
-        >
-          Berlington · {pump.seriesCode}
-        </span>
-        <h2 className="text-[15px] font-black text-white leading-tight tracking-tight">
+      {/* Header — Clickable to product detail */}
+      <Link 
+        href={`/products/${pump.id}`} 
+        className="relative z-10 px-4 pt-4 pb-3 border-b border-white/10 shrink-0 min-w-0 hover:bg-white/5 transition-colors group/backheader"
+      >
+        <div className="flex items-center justify-between gap-2">
+          <span
+            className="block text-[10px] font-black uppercase tracking-[0.2em] mb-1 truncate"
+            style={{ color: "#4da3ff" }}
+          >
+            Berlington · {pump.seriesCode}
+          </span>
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="opacity-0 group-hover/backheader:opacity-100 transition-opacity">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="#4da3ff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+        <h2 className="text-[15px] font-black text-white leading-tight tracking-tight flex items-center gap-2">
           Technical Specs
+          <span className="text-[10px] font-bold text-white/40 group-hover/backheader:text-white/60 transition-colors ml-auto">View Details</span>
         </h2>
-      </div>
+      </Link>
 
       <div className="relative z-10 flex-1 flex flex-col justify-center px-4 py-1 min-h-0">
         {specs.map(({ label, value }) => (
@@ -372,7 +381,7 @@ function CardBack({ pump }: { pump: PumpModel }) {
           href={`?quote=${pump.id}`}
           scroll={false}
           id={`pump-card-cta-${pump.id}`}
-          className="flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-[13px] font-black text-text-dark tracking-wide bg-primary-green transition-all duration-200 hover:brightness-110 hover:-translate-y-px hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-green focus-visible:ring-offset-2 focus-visible:ring-offset-deep-blue active:scale-[0.98]"
+          className="flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-[13px] font-black text-white tracking-wide bg-primary-green transition-all duration-200 hover:brightness-110 hover:-translate-y-px hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-green focus-visible:ring-offset-2 focus-visible:ring-offset-deep-blue active:scale-[0.98]"
         >
           Request Quote
           <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">

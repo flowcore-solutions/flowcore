@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import Image, { type StaticImageData } from "next/image";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 import SectionTag from "@/components/ui/SectionTag";
 import FAQSection, { type FAQItem } from "@/components/ui/FAQSection";
 import { getPumpById } from "@/lib/pump-data";
+import { PUMP_IMAGES } from "@/components/ui/PumpCard";
 
 type CtaLink = {
   label: string;
@@ -45,8 +49,10 @@ type LandingConfig = {
   hero: {
     eyebrow: string;
     title: string;
+    subtitle?: string;
     body: string;
     theme: "deep" | "slate" | "teal";
+    heroImage?: StaticImageData;
     primaryCta: CtaLink;
     secondaryCta: CtaLink;
   };
@@ -101,33 +107,36 @@ type LandingConfig = {
 const heroThemeMap = {
   deep: {
     section: "bg-deep-blue",
-    overlay:
-      "linear-gradient(120deg, rgba(15,61,145,0.98) 0%, rgba(15,61,145,0.92) 52%, rgba(30,91,184,0.88) 100%)",
-    card: "bg-white/10 border-white/12 text-white",
+    overlay: "linear-gradient(135deg, #0F3D91 0%, #1E5BB8 100%)",
+    card: "bg-white/[0.05] border-white/10 text-white backdrop-blur-xl",
     eyebrowText: "text-light-blue border-light-blue",
-    bodyText: "text-white/78",
+    bodyText: "text-white/80",
     secondary:
-      "border border-white/20 bg-white/5 text-white hover:border-white/35",
+      "border border-white/20 bg-white/5 text-white hover:bg-white/10",
+    accentLine: "bg-light-blue",
+    titleText: "text-white",
   },
   slate: {
-    section: "bg-text-dark",
-    overlay:
-      "linear-gradient(120deg, rgba(15,23,42,0.98) 0%, rgba(15,23,42,0.94) 52%, rgba(30,91,184,0.78) 100%)",
-    card: "bg-white/8 border-white/10 text-white",
+    section: "bg-deep-blue",
+    overlay: "linear-gradient(135deg, #0F3D91 0%, #1E5BB8 100%)",
+    card: "bg-white/[0.05] border-white/10 text-white backdrop-blur-xl",
     eyebrowText: "text-primary-green border-primary-green",
-    bodyText: "text-white/78",
+    bodyText: "text-white/80",
     secondary:
-      "border border-white/20 bg-white/5 text-white hover:border-white/35",
+      "border border-white/20 bg-white/5 text-white hover:bg-white/10",
+    accentLine: "bg-primary-green",
+    titleText: "text-white",
   },
   teal: {
-    section: "bg-[#0A192F]", // Deep scientific navy
-    overlay:
-      "radial-gradient(circle at 80% 20%, rgba(6,182,212,0.2) 0%, transparent 50%), linear-gradient(120deg, #0A192F 0%, #1B437C 60%, #0891B2 100%)",
-    card: "bg-white/[0.08] border-white/15 text-white backdrop-blur-2xl",
-    eyebrowText: "text-[#22D3EE] border-[#22D3EE]", // Vibrant Cyan
-    bodyText: "text-white/85",
+    section: "bg-[#0A192F]", 
+    overlay: "linear-gradient(135deg, #0A192F 0%, #162E44 100%)",
+    card: "bg-white/[0.05] border-white/10 text-white backdrop-blur-xl",
+    eyebrowText: "text-[#22D3EE] border-[#22D3EE]",
+    bodyText: "text-white/80",
     secondary:
-      "border border-white/20 bg-white/5 text-white hover:border-white/35",
+      "border border-white/20 bg-white/5 text-white hover:bg-white/10",
+    accentLine: "bg-[#06B6D4]",
+    titleText: "text-white",
   },
 };
 
@@ -280,7 +289,7 @@ export default function CityLandingPage({ config }: { config: LandingConfig }) {
     : undefined;
 
   const hasRightSideContent =
-    (config.trustBar && config.trustBar.stats?.length > 0) || featuredPump;
+    (config.trustBar && config.trustBar.stats?.length > 0) || featuredPump || config.hero.heroImage;
 
   return (
     <main className="relative bg-section-bg">
@@ -294,101 +303,140 @@ export default function CityLandingPage({ config }: { config: LandingConfig }) {
         }}
       />
       <div className="relative z-10">
-      <header className={`hero-underlap relative overflow-hidden ${heroTheme.section}`}>
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(45deg, rgba(255,255,255,0.06) 0, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 24px)",
-            opacity: 0.35,
-          }}
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0"
-          style={{ background: heroTheme.overlay }}
-        />
-        <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-20">
-          {!config.hideBreadcrumb && (
-            <PageBreadcrumb label={config.breadcrumbLabel} theme={config.hero.theme} />
-          )}
+      <header className={`hero-underlap relative min-h-[90vh] flex flex-col overflow-hidden ${heroTheme.section}`}>
+        {/* ── BACKGROUND LAYERS ── */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div 
+            className="absolute inset-0 z-0"
+            style={{ 
+              background: heroTheme.overlay 
+            }}
+          />
+          
+          {/* Subtle Grid overlay — lighter for dark backgrounds */}
           <div
-            className={`grid gap-10 lg:items-center ${
-              hasRightSideContent
-                ? "lg:grid-cols-[1.1fr_0.9fr]"
-                : "max-w-4xl lg:grid-cols-1"
-            }`}
-          >
-            <div className="max-w-3xl">
-              <PrecisionReveal variant="fadeSlideLeft" delay={0.08}>
-                <span
-                  className={[
-                    "inline-flex items-center border-l-2 pl-3 text-[10px] font-black uppercase tracking-[0.22em]",
-                    heroTheme.eyebrowText,
-                  ].join(" ")}
-                >
-                  {config.hero.eyebrow}
-                </span>
-              </PrecisionReveal>
-              <PrecisionReveal variant="fadeSlideLeft" delay={0.14}>
-                <h1
-                  className={[
-                    "mt-5 font-black leading-[1.02] tracking-tight text-white",
-                  ].join(" ")}
-                  style={{ fontSize: "clamp(2.4rem, 6vw, 4.8rem)" }}
-                >
-                  {config.hero.title}
-                </h1>
-              </PrecisionReveal>
-              <PrecisionReveal variant="fadeSlideLeft" delay={0.2}>
-                <p className={["mt-6 max-w-2xl text-lg leading-8", heroTheme.bodyText].join(" ")}>
-                  {config.hero.body}
-                </p>
-              </PrecisionReveal>
-              <PrecisionReveal variant="riseUp" delay={0.26}>
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <PrimaryLink {...config.hero.primaryCta} />
-                  <SecondaryLink
-                    {...config.hero.secondaryCta}
-                    className={heroTheme.secondary}
-                  />
-                </div>
-              </PrecisionReveal>
-            </div>
+            aria-hidden="true"
+            className="absolute inset-0 z-0 opacity-[0.07]"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(45deg, #FFF 0, #FFF 1px, transparent 1px, transparent 32px)",
+            }}
+          />
+        </div>
 
-            {config.trustBar && config.trustBar.stats?.length > 0 && (
-            <PrecisionReveal variant="fadeSlideRight" delay={0.22}>
-              <div
-                className={[
-                  "grid gap-4 rounded-[28px] border p-6 sm:grid-cols-2",
-                  heroTheme.card,
-                ].join(" ")}
-              >
-                {(config.trustBar.stats).slice(0, 4).map((stat) => (
-                    <div
-                      key={stat.label}
-                      className="rounded-xl border border-white/10 bg-white/5 p-4"
-                    >
-                      <div
-                        className={[
-                          "text-3xl font-black text-white",
-                        ].join(" ")}
-                      >
-                        {stat.value}
-                      </div>
-                      <div
-                        className={[
-                          "mt-1 text-[11px] font-black uppercase tracking-[0.18em] text-white/65",
-                        ].join(" ")}
-                      >
-                        {stat.label}
-                      </div>
-                  </div>
-                ))}
-              </div>
-            </PrecisionReveal>
+        {/* ── CONTENT ── */}
+        <div className="relative z-10 flex-1 flex flex-col pt-12">
+          <div className="mx-auto w-full max-w-7xl px-8 pb-16">
+            {!config.hideBreadcrumb && (
+              <PageBreadcrumb label={config.breadcrumbLabel} theme={config.hero.theme} />
             )}
+
+            <div
+              className={`grid gap-12 lg:items-center ${
+                hasRightSideContent
+                  ? "lg:grid-cols-[1.1fr_0.9fr]"
+                  : "max-w-4xl lg:grid-cols-1"
+              }`}
+            >
+              <div className="relative">
+                <PrecisionReveal variant="fadeSlideLeft" delay={0.08}>
+                  <span
+                    className={[
+                      "inline-flex items-center border-l-4 pl-5 text-[11px] font-black uppercase tracking-[0.3em]",
+                      heroTheme.eyebrowText,
+                    ].join(" ")}
+                  >
+                    {config.hero.eyebrow}
+                  </span>
+                </PrecisionReveal>
+
+                <PrecisionReveal variant="riseUp" delay={0.14}>
+                  <h1
+                    className={["mt-8 font-black leading-[1.1] tracking-tight uppercase text-white", heroTheme.titleText].join(" ")}
+                    style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)" }}
+                  >
+                    {config.hero.title}
+                  </h1>
+                </PrecisionReveal>
+
+                {config.hero.subtitle && (
+                  <PrecisionReveal variant="riseUp" delay={0.18}>
+                     <h2 className="mt-4 text-2xl lg:text-3xl font-black text-white/90 uppercase tracking-[0.05em]">
+                      {config.hero.subtitle}
+                     </h2>
+                  </PrecisionReveal>
+                )}
+
+                <PrecisionReveal variant="fadeSlideLeft" delay={0.24}>
+                  <p className={["mt-8 max-w-2xl text-base lg:text-lg leading-relaxed font-medium", heroTheme.bodyText].join(" ")}>
+                    {config.hero.body}
+                  </p>
+                </PrecisionReveal>
+
+                <PrecisionReveal variant="riseUp" delay={0.32}>
+                  <div className="mt-10 flex flex-wrap gap-5">
+                    <PrimaryLink {...config.hero.primaryCta} />
+                    <SecondaryLink
+                      {...config.hero.secondaryCta}
+                      className={heroTheme.secondary}
+                    />
+                  </div>
+                </PrecisionReveal>
+              </div>
+
+              {hasRightSideContent && (
+                <div className="relative flex justify-center lg:justify-end">
+                   {config.hero.heroImage ? (
+                      <PrecisionReveal variant="fadeSlideRight" delay={0.25} className="w-full">
+                         <div className="relative aspect-square w-full max-w-xl">
+                            <Image 
+                              src={config.hero.heroImage} 
+                              alt={config.hero.title}
+                              fill
+                              className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-transform duration-500 hover:scale-[1.02]"
+                            />
+                         </div>
+                      </PrecisionReveal>
+                   ) : featuredPump ? (
+                      <PrecisionReveal variant="fadeSlideRight" delay={0.25} className="w-full">
+                         <div className="relative aspect-square w-full max-w-xl">
+                            <Image 
+                              src={PUMP_IMAGES[featuredPump.id]} 
+                              alt={featuredPump.fullName}
+                              fill
+                              className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-transform duration-500 hover:scale-[1.02]"
+                            />
+                         </div>
+                      </PrecisionReveal>
+                   ) : (
+                    config.trustBar && config.trustBar.stats?.length > 0 && (
+                      <PrecisionReveal variant="fadeSlideRight" delay={0.25}>
+                        <div
+                          className={[
+                            "grid gap-4 rounded-[32px] border p-8",
+                            heroTheme.card,
+                          ].join(" ")}
+                        >
+                          {config.trustBar.stats.slice(0, 4).map((stat) => (
+                            <div
+                              key={stat.label}
+                              className="group/stat border-b border-white/5 pb-4 last:border-0 last:pb-0"
+                            >
+                              <div className="text-4xl font-black text-white tracking-tighter">
+                                {stat.value}
+                              </div>
+                              <div className="mt-1 text-[10px] font-black uppercase tracking-[0.25em] text-white/50 group-hover/stat:text-primary-green transition-colors">
+                                {stat.label}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </PrecisionReveal>
+                    )
+                   )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>
@@ -400,7 +448,8 @@ export default function CityLandingPage({ config }: { config: LandingConfig }) {
             className="pointer-events-none absolute inset-0 opacity-[0.03]"
             style={{
               backgroundImage:
-                "repeating-linear-gradient(45deg, #0F172A 0, #0F172A 1px, transparent 1px, transparent 20px)",
+                "radial-gradient(#0F172A 1px, transparent 1px)",
+              backgroundSize: "24px 24px"
             }}
           />
           <div className="relative z-10 mx-auto grid max-w-6xl gap-4 px-6 py-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -408,7 +457,7 @@ export default function CityLandingPage({ config }: { config: LandingConfig }) {
               <PrecisionReveal key={stat.label} variant="riseUp" delay={index * 0.05}>
                 <div 
                   className="rounded-xl border border-border bg-white px-5 py-5 text-center transition-all duration-300 hover:border-primary-blue/30 hover:shadow-md"
-                  style={{ boxShadow: "var(--shadow-card-sm)" }}
+                  style={{ boxShadow: "var(--shadow-card)" }}
                 >
                   <div className="text-2xl font-black text-deep-blue">{stat.value}</div>
                   <div className="mt-1 text-[10px] font-black uppercase tracking-[0.18em] text-text-light">

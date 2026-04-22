@@ -7,12 +7,12 @@
  */
 
 import Link from "next/link";
-import { useState, type FormEvent, type ChangeEvent } from "react";
+import { useState, type FormEvent, type ChangeEvent, useRef, useEffect } from "react";
 import {
   OFFICE_LOCATIONS,
   type OfficeLocation,
 } from "@/lib/location-data";
-import { PUMP_CATALOG } from "@/lib/pump-data";
+import { PUMP_CATALOG, PUMP_CATEGORIES, getPumpById } from "@/lib/pump-data";
 import SectionTag from "@/components/ui/SectionTag";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 
@@ -125,21 +125,19 @@ function ContactPanel({ loc }: { loc: OfficeLocation }) {
 // ── Inquiry Form ──────────────────────────────────────────────────────────
 
 type FormState = {
-  fullName: string;
-  company: string;
+  name: string;
   email: string;
   phone: string;
-  product: string;
+  pumpIds: string[];
   application: string;
   message: string;
 };
 
 const EMPTY_FORM: FormState = {
-  fullName: "",
-  company: "",
+  name: "",
   email: "",
   phone: "",
-  product: "",
+  pumpIds: [],
   application: "",
   message: "",
 };
@@ -160,7 +158,7 @@ function FieldLabel({
   required,
   children,
 }: {
-  htmlFor: string;
+  htmlFor?: string;
   required?: boolean;
   children: React.ReactNode;
 }) {
@@ -175,12 +173,130 @@ function FieldLabel({
   );
 }
 
+// ── Custom Dropdown Component ─────────────────────────────────────────────
+
+function MultiProductSelect({ 
+  selectedIds, 
+  onChange,
+  hasError = false
+}: { 
+  selectedIds: string[], 
+  onChange: (ids: string[]) => void,
+  hasError?: boolean
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const togglePump = (id: string) => {
+    if (selectedIds.includes(id)) {
+      onChange(selectedIds.filter(v => v !== id));
+    } else {
+      onChange([...selectedIds, id]);
+    }
+  };
+
+  return (
+    <div className="relative" ref={containerRef}>
+      <div 
+        className={[
+          "min-h-[46px] w-full border rounded-lg bg-white px-3 py-2 cursor-pointer transition-all flex flex-wrap gap-2 items-center",
+          hasError 
+            ? "border-red-400 focus-within:ring-1 focus-within:ring-red-400" 
+            : "border-border hover:border-primary-blue focus-within:ring-1 focus-within:ring-primary-blue"
+        ].join(" ")}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {selectedIds.length === 0 && (
+          <span className="text-text-light text-sm">Select products of interest...</span>
+        )}
+        {selectedIds.map(id => {
+          const pump = getPumpById(id);
+          if (!pump) return null;
+          return (
+            <span key={id} className="inline-flex items-center gap-1 bg-section-bg text-deep-blue text-[11px] font-bold px-2 py-1 rounded border border-border">
+              {pump.seriesCode}
+              <button 
+                type="button"
+                onClick={(e) => { e.stopPropagation(); togglePump(id); }}
+                className="hover:text-red-500 transition-colors p-0.5"
+              >
+                <svg width="10" height="10" viewBox="0 0 16 16" fill="none">
+                  <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                </svg>
+              </button>
+            </span>
+          );
+        })}
+        
+        <div className="ml-auto text-text-light">
+           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
+             <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+           </svg>
+        </div>
+      </div>
+      
+      {/* Dropdown Menu */}
+      <div 
+        className={`absolute top-full left-0 right-0 mt-1.5 bg-white border border-border rounded-xl shadow-xl z-50 max-h-[300px] overflow-y-auto transition-all duration-200 origin-top ${
+          isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+        }`}
+      >
+        {PUMP_CATEGORIES.map(category => {
+          const categoryPumps = PUMP_CATALOG.filter(p => p.category === category);
+          if (categoryPumps.length === 0) return null;
+          
+          return (
+            <div key={category}>
+              <div className="px-3 py-1.5 bg-section-bg text-[9px] font-black text-text-light uppercase tracking-[0.15em] sticky top-0 border-b border-border z-10">
+                {category}
+              </div>
+              {categoryPumps.map(pump => {
+                const isSelected = selectedIds.includes(pump.id);
+                return (
+                  <div 
+                    key={pump.id}
+                    className={`px-4 py-2.5 flex items-center gap-3 cursor-pointer hover:bg-section-bg transition-colors ${isSelected ? 'bg-primary-blue/5' : ''}`}
+                    onClick={() => togglePump(pump.id)}
+                  >
+                    <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all ${isSelected ? 'bg-primary-blue border-primary-blue' : 'border-slate-300 bg-white'}`}>
+                      {isSelected && (
+                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                          <path d="M2.5 6L5.5 9L10.5 3" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      )}
+                    </div>
+                    <div className="flex flex-col min-w-0">
+                      <span className="text-sm font-bold text-text-dark">{pump.seriesCode}</span>
+                      <span className="text-[11px] text-text-light truncate">{pump.fullName}</span>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function InquiryForm() {
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const [errors, setErrors] = useState<Partial<FormState>>({});
+  type FormErrors = Partial<Record<keyof FormState, string>>;
+  const [errors, setErrors] = useState<FormErrors>({});
 
   function handleChange(
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -193,11 +309,11 @@ function InquiryForm() {
   }
 
   function validate(): boolean {
-    const errs: Partial<FormState> = {};
-    if (!form.fullName.trim()) errs.fullName = "Required";
-    if (!form.company.trim()) errs.company = "Required";
+    const errs: FormErrors = {};
+    if (!form.name.trim()) errs.name = "Required";
     if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       errs.email = "Valid email required";
+    if (form.pumpIds.length === 0) errs.pumpIds = "Required";
     setErrors(errs);
     return Object.keys(errs).length === 0;
   }
@@ -214,11 +330,10 @@ function InquiryForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           source: "inquiry",
-          name: form.fullName,
-          company: form.company,
+          name: form.name,
           email: form.email,
           phone: form.phone,
-          product: form.product,
+          pumpIds: form.pumpIds,
           message: form.message,
         }),
       });
@@ -258,7 +373,7 @@ function InquiryForm() {
             <div>
               <h3 className="text-xl font-bold text-deep-blue mb-2">Inquiry Received</h3>
               <p className="text-sm text-text-light max-w-xs">
-                Thank you, <strong className="text-text-dark">{form.fullName}</strong>. Our
+                Thank you, <strong className="text-text-dark">{form.name}</strong>. Our
                 engineering team will contact you within 1 business day.
               </p>
             </div>
@@ -285,42 +400,23 @@ function InquiryForm() {
               </p>
             </div>
 
-            {/* Name + Company */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div>
-                <FieldLabel htmlFor="fullName" required>Full Name</FieldLabel>
-                <input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  autoComplete="name"
-                  value={form.fullName}
-                  onChange={handleChange}
-                  placeholder="e.g. Arjun Singh"
-                  className={inputClass(!!errors.fullName)}
-                  aria-describedby={errors.fullName ? "fullName-error" : undefined}
-                />
-                {errors.fullName && (
-                  <p id="fullName-error" className="mt-1 text-xs text-red-500">{errors.fullName}</p>
-                )}
-              </div>
-              <div>
-                <FieldLabel htmlFor="company" required>Company Name</FieldLabel>
-                <input
-                  id="company"
-                  name="company"
-                  type="text"
-                  autoComplete="organization"
-                  value={form.company}
-                  onChange={handleChange}
-                  placeholder="Infrastructure Pvt. Ltd."
-                  className={inputClass(!!errors.company)}
-                  aria-describedby={errors.company ? "company-error" : undefined}
-                />
-                {errors.company && (
-                  <p id="company-error" className="mt-1 text-xs text-red-500">{errors.company}</p>
-                )}
-              </div>
+            {/* Name / Company */}
+            <div>
+              <FieldLabel htmlFor="name" required>Name / Company Name</FieldLabel>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autoComplete="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="e.g. Arjun Singh / Infrastructure Pvt Ltd"
+                className={inputClass(!!errors.name)}
+                aria-describedby={errors.name ? "name-error" : undefined}
+              />
+              {errors.name && (
+                <p id="name-error" className="mt-1 text-xs text-red-500">{errors.name}</p>
+              )}
             </div>
 
             {/* Email + Phone */}
@@ -359,21 +455,18 @@ function InquiryForm() {
 
             {/* Product interest */}
             <div>
-              <FieldLabel htmlFor="product">Product / Series of Interest</FieldLabel>
-              <select
-                id="product"
-                name="product"
-                value={form.product}
-                onChange={handleChange}
-                className={inputClass()}
-              >
-                <option value="">— Select a pump series —</option>
-                {PUMP_CATALOG.map((p) => (
-                  <option key={p.id} value={p.fullName}>
-                    {p.fullName} ({p.category})
-                  </option>
-                ))}
-              </select>
+              <FieldLabel required>Product / Series of Interest</FieldLabel>
+              <MultiProductSelect 
+                selectedIds={form.pumpIds} 
+                onChange={(ids) => {
+                  setForm(p => ({ ...p, pumpIds: ids }));
+                  if (errors.pumpIds) setErrors(prev => ({ ...prev, pumpIds: undefined }));
+                }}
+                hasError={!!errors.pumpIds}
+              />
+              {errors.pumpIds && (
+                <p className="mt-1 text-xs text-red-500">Please select at least one series</p>
+              )}
             </div>
 
             {/* Message */}

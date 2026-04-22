@@ -11,7 +11,6 @@ interface ContactPayload {
   name: string;
   email: string;
   // Inquiry (ContactClient)
-  company?: string;
   phone?: string;
   product?: string;
   message?: string;
@@ -47,7 +46,6 @@ function validatePayload(body: unknown): ContactPayload {
     source: source as ContactSource,
     name,
     email,
-    company: typeof b.company === "string" ? b.company.trim() : undefined,
     phone: typeof b.phone === "string" ? b.phone.trim() : undefined,
     product: typeof b.product === "string" ? b.product.trim() : undefined,
     message: typeof b.message === "string" ? b.message.trim() : undefined,
@@ -75,9 +73,8 @@ function buildSubject(payload: ContactPayload): string {
 function buildHtml(payload: ContactPayload): string {
   const rows: Array<[string, string | undefined]> = [
     ["Source", payload.source],
-    ["Name", payload.name],
+    ["Name / Company", payload.name],
     ["Email", payload.email],
-    ["Company", payload.company],
     ["Phone", payload.phone],
     ["Product Interest", payload.product],
     ["Pump Model IDs", payload.pumpIds?.join(", ")],

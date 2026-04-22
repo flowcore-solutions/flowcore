@@ -1,13 +1,17 @@
 import type { LandingConfig } from "@/components/sections/local-seo/CityLandingPage";
+import industrialHero from "@/app/assets/pumps/Berlington-Pumps-Set.png";
+import pumpsHero from "@/app/assets/pumps/Pumps-heros.png";
 
 export const berlingtonLandingConfig: LandingConfig = {
   breadcrumbLabel: "Berlington Pumps Bangalore",
   hero: {
     eyebrow: "BERLINGTON PUMPS · BANGALORE",
-    title: "Authorised Berlington Pump Supplier in Bangalore, Karnataka",
+    title: "Berlington Pump Supplier",
+    subtitle: "Bangalore, Karnataka",
     body:
       "FlowCore Solutions supplies genuine Berlington industrial pumps for builders, OEMs, consultants, and maintenance teams across Bangalore. We support pump selection, delivery planning, and lifecycle response for Karnataka projects where duty accuracy matters.",
-    theme: "deep",
+    theme: "slate",
+    heroImage: industrialHero,
     primaryCta: { label: "View Berlington Models", href: "/products" },
     secondaryCta: { label: "Request a Quote", href: "/contact#inquiry-form" },
   },
@@ -159,10 +163,12 @@ export const industrialPumpsLandingConfig: LandingConfig = {
   breadcrumbLabel: "Industrial Pumps Bangalore",
   hero: {
     eyebrow: "INDUSTRIAL PUMPS · KARNATAKA",
-    title: "Industrial Pump Supplier in Bangalore, Karnataka",
+    title: "Industrial Pump Supplier",
+    subtitle: "Bangalore, Karnataka",
     body:
       "FlowCore Solutions supports Bangalore buyers sourcing industrial pumps for manufacturing, cooling, water treatment, fire safety, and process duty. We supply application-matched Berlington systems with local engineering response across Karnataka.",
     theme: "slate",
+    heroImage: pumpsHero,
     primaryCta: { label: "Explore Pump Range", href: "/products" },
     secondaryCta: { label: "Get a Quote", href: "/contact#inquiry-form" },
   },
@@ -270,21 +276,16 @@ export const fireFightingLandingConfig: LandingConfig = {
   breadcrumbLabel: "Fire Fighting Pumps Bangalore",
   hero: {
     eyebrow: "FIRE FIGHTING SYSTEMS · BANGALORE",
-    title: "Fire Fighting Pump Systems in Bangalore, Karnataka",
+    title: "Fire Fighting Pump Systems",
+    subtitle: "Bangalore, Karnataka",
     body:
       "FlowCore Solutions supplies Berlington fire fighting pump systems for builders, contractors, and facility teams in Bangalore. We support NBC and NFPA-led project requirements with local pump selection, standby planning, and service continuity across Karnataka.",
-    theme: "deep",
+    theme: "slate",
+    heroImage: industrialHero,
     primaryCta: { label: "Get Compliant Now", href: "/contact#inquiry-form" },
     secondaryCta: { label: "View Systems", href: "/products" },
   },
-  trustBar: {
-    stats: [
-      { value: "NBC", label: "Project alignment" },
-      { value: "NFPA", label: "Selection logic" },
-      { value: "Fire NOC", label: "Support ready" },
-      { value: "Bangalore", label: "Local response" },
-    ],
-  },
+  featuredPumpId: "cdl",
   intro: {
     title: "Fire Fighting Pump Systems Supplied in Bangalore",
     subtitle:
