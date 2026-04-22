@@ -18,35 +18,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState, useCallback, useEffect, type MouseEvent } from "react";
-import type { PumpModel } from "@/lib/pump-data";
-import type { StaticImageData } from "next/image";
+import { PUMP_CATALOG, type PumpModel } from "@/lib/pump-data";
 
 // ── Static image map ──────────────────────────────────────────────────────
-import cdlCdlf    from "@/app/assets/pumps/cdl-cdlf.png";
-import cdlfCdh    from "@/app/assets/pumps/cdlf-cdh.png";
-import cdlkCdlkf  from "@/app/assets/pumps/cdlk-cdlkf.png";
-import chl        from "@/app/assets/pumps/chl.png";
-import chlf       from "@/app/assets/pumps/chlf-chlf-t.png";
-import chm        from "@/app/assets/pumps/chm.png";
-import wq         from "@/app/assets/pumps/wq.png";
-import stp        from "@/app/assets/pumps/stp.png";
-import qyB        from "@/app/assets/pumps/qy-b.png";
-import hydro      from "@/app/assets/pumps/hydro.png";
-import bt         from "@/app/assets/pumps/bt.png";
-import sz         from "@/app/assets/pumps/sz.png";
-import zs         from "@/app/assets/pumps/zs.png";
-import ld         from "@/app/assets/pumps/ld.png";
-import niso       from "@/app/assets/pumps/niso.png";
-import mini       from "@/app/assets/pumps/mini.png";
-
-export const PUMP_IMAGES: Record<string, StaticImageData> = {
-  "cdl-cdlf": cdlCdlf,
-  "cdlf-cdh": cdlfCdh,
-  "cdlk-cdlkf": cdlkCdlkf,
-  chl, chlf, chm, wq, stp,
-  "qy-b": qyB,
-  hydro, bt, sz, zs, ld, niso, mini,
-};
+export const PUMP_IMAGES: Record<string, string> = Object.fromEntries(
+  PUMP_CATALOG.map((pump) => [pump.id, pump.imagePath])
+);
 
 // ── Types & constants ─────────────────────────────────────────────────────
 
@@ -229,7 +206,6 @@ function CardFront({ pump, imageRef, tilt, priority = false }: CardFrontProps) {
             sizes="(max-width: 768px) 120px, (max-width: 1280px) 160px, 180px"
             className="object-contain p-4 relative z-10"
             quality={60}
-            placeholder="blur"
             style={{
               transform:  imageTransform,
               filter:     imageFilter,
@@ -250,9 +226,9 @@ function CardFront({ pump, imageRef, tilt, priority = false }: CardFrontProps) {
       {/* ── Footer: pump name + hover cue ── */}
       <div className="flex-1 flex flex-col justify-between px-4 pt-3 pb-4 min-h-0 pointer-events-none">
         <div>
-          <h2 className="text-[15px] font-black text-deep-blue leading-tight tracking-tight">
+          <h3 className="text-[15px] font-black text-deep-blue leading-tight tracking-tight">
             {pump.fullName}
-          </h2>
+          </h3>
             <div className="mt-2.5">
               <p className="text-[9px] font-black uppercase tracking-[0.25em] text-primary-blue/40 mb-2.5 ml-0.5">
                 Core Utility
@@ -346,17 +322,19 @@ function CardBack({ pump }: { pump: PumpModel }) {
             <path d="M3 8h10M9 4l4 4-4 4" stroke="#4da3ff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <h2 className="text-[15px] font-black text-white leading-tight tracking-tight flex items-center gap-2">
-          Technical Specs
-          <span className="text-[10px] font-bold text-white/40 group-hover/backheader:text-white/60 transition-colors ml-auto">View Details</span>
-        </h2>
+        <div className="flex items-center gap-2">
+          <h3 className="text-[15px] font-black text-white leading-tight tracking-tight">
+            Technical Specs
+          </h3>
+          <span className="text-[10px] font-bold text-white/40 group-hover/backheader:text-white/60 transition-colors ml-auto">Open product page</span>
+        </div>
       </Link>
 
       <div className="relative z-10 flex-1 flex flex-col justify-center px-4 py-1 min-h-0">
         {specs.map(({ label, value }) => (
           <div
             key={label}
-            className="grid items-center py-[5px] border-b border-white/10 last:border-0"
+            className="grid items-center py-1.25 border-b border-white/10 last:border-0"
             style={{ gridTemplateColumns: "1fr 1.5fr" }}
           >
             <span

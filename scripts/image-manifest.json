@@ -1,0 +1,205 @@
+{
+  "generatedAt": "2026-04-22T11:01:08.585Z",
+  "assets": [
+    {
+      "source": "app/assets/pumps/Berlington-Pumps-Set.png",
+      "output": "public/assets/hero/berlington-industrial-pumps-showcase-bangalore.webp",
+      "publicPath": "/assets/hero/berlington-industrial-pumps-showcase-bangalore.webp",
+      "profile": "hero",
+      "width": 1740,
+      "height": 1032,
+      "originalBytes": 872103,
+      "optimizedBytes": 124690
+    },
+    {
+      "source": "app/assets/pumps/Pumps-heros.png",
+      "output": "public/assets/hero/berlington-industrial-pumps-hero-bangalore.webp",
+      "publicPath": "/assets/hero/berlington-industrial-pumps-hero-bangalore.webp",
+      "profile": "hero",
+      "width": 1540,
+      "height": 1021,
+      "originalBytes": 1715583,
+      "optimizedBytes": 123994
+    },
+    {
+      "source": "app/assets/pumps/factory-outlet.png",
+      "output": "public/assets/facility/berlington-pumps-manufacturing-facility.webp",
+      "publicPath": "/assets/facility/berlington-pumps-manufacturing-facility.webp",
+      "profile": "facility",
+      "width": 1225,
+      "height": 659,
+      "originalBytes": 2078231,
+      "optimizedBytes": 231416
+    },
+    {
+      "source": "app/assets/pumps/manufacture-process.png",
+      "output": "public/assets/facility/berlington-pump-manufacturing-process.webp",
+      "publicPath": "/assets/facility/berlington-pump-manufacturing-process.webp",
+      "profile": "facility",
+      "width": 974,
+      "height": 493,
+      "originalBytes": 815265,
+      "optimizedBytes": 46818
+    },
+    {
+      "source": "app/assets/pumps/cdl-cdlf.png",
+      "output": "public/assets/pumps/berlington-cdl-cdlf-vertical-multistage-pump.webp",
+      "publicPath": "/assets/pumps/berlington-cdl-cdlf-vertical-multistage-pump.webp",
+      "profile": "product",
+      "width": 382,
+      "height": 617,
+      "originalBytes": 265183,
+      "optimizedBytes": 20068
+    },
+    {
+      "source": "app/assets/pumps/cdlf-cdh.png",
+      "output": "public/assets/pumps/berlington-cdlf-cdh-high-pressure-multistage-pump.webp",
+      "publicPath": "/assets/pumps/berlington-cdlf-cdh-high-pressure-multistage-pump.webp",
+      "profile": "product",
+      "width": 366,
+      "height": 524,
+      "originalBytes": 230609,
+      "optimizedBytes": 20306
+    },
+    {
+      "source": "app/assets/pumps/cdlk-cdlkf.png",
+      "output": "public/assets/pumps/berlington-cdlk-cdlkf-vertical-multistage-pump.webp",
+      "publicPath": "/assets/pumps/berlington-cdlk-cdlkf-vertical-multistage-pump.webp",
+      "profile": "product",
+      "width": 263,
+      "height": 588,
+      "originalBytes": 196574,
+      "optimizedBytes": 17220
+    },
+    {
+      "source": "app/assets/pumps/chl.png",
+      "output": "public/assets/pumps/berlington-chl-horizontal-multistage-pump.webp",
+      "publicPath": "/assets/pumps/berlington-chl-horizontal-multistage-pump.webp",
+      "profile": "product",
+      "width": 582,
+      "height": 325,
+      "originalBytes": 165974,
+      "optimizedBytes": 19748
+    },
+    {
+      "source": "app/assets/pumps/chlf-chlf-t.png",
+      "output": "public/assets/pumps/berlington-chlf-chlf-t-horizontal-multistage-pump.webp",
+      "publicPath": "/assets/pumps/berlington-chlf-chlf-t-horizontal-multistage-pump.webp",
+      "profile": "product",
+      "width": 562,
+      "height": 319,
+      "originalBytes": 209837,
+      "optimizedBytes": 25276
+    },
+    {
+      "source": "app/assets/pumps/chm.png",
+      "output": "public/assets/pumps/berlington-chm-horizontal-multistage-pump.webp",
+      "publicPath": "/assets/pumps/berlington-chm-horizontal-multistage-pump.webp",
+      "profile": "product",
+      "width": 575,
+      "height": 375,
+      "originalBytes": 203912,
+      "optimizedBytes": 24224
+    },
+    {
+      "source": "app/assets/pumps/wq.png",
+      "output": "public/assets/pumps/berlington-wq-submersible-sewage-pump.webp",
+      "publicPath": "/assets/pumps/berlington-wq-submersible-sewage-pump.webp",
+      "profile": "product",
+      "width": 351,
+      "height": 599,
+      "originalBytes": 247337,
+      "optimizedBytes": 21006
+    },
+    {
+      "source": "app/assets/pumps/hydro.png",
+      "output": "public/assets/pumps/berlington-hydro-variable-speed-booster-pump.webp",
+      "publicPath": "/assets/pumps/berlington-hydro-variable-speed-booster-pump.webp",
+      "profile": "product",
+      "width": 575,
+      "height": 472,
+      "originalBytes": 289457,
+      "optimizedBytes": 34386
+    },
+    {
+      "source": "app/assets/pumps/mini.png",
+      "output": "public/assets/pumps/berlington-mini-single-booster-pump.webp",
+      "publicPath": "/assets/pumps/berlington-mini-single-booster-pump.webp",
+      "profile": "product",
+      "width": 544,
+      "height": 521,
+      "originalBytes": 194589,
+      "optimizedBytes": 20224
+    },
+    {
+      "source": "app/assets/pumps/bt.png",
+      "output": "public/assets/pumps/berlington-bt-side-channel-blower.webp",
+      "publicPath": "/assets/pumps/berlington-bt-side-channel-blower.webp",
+      "profile": "product",
+      "width": 550,
+      "height": 477,
+      "originalBytes": 368213,
+      "optimizedBytes": 39586
+    },
+    {
+      "source": "app/assets/pumps/qy-b.png",
+      "output": "public/assets/pumps/berlington-qy-b-self-priming-mixing-pump.webp",
+      "publicPath": "/assets/pumps/berlington-qy-b-self-priming-mixing-pump.webp",
+      "profile": "product",
+      "width": 550,
+      "height": 375,
+      "originalBytes": 260526,
+      "optimizedBytes": 30878
+    },
+    {
+      "source": "app/assets/pumps/sz.png",
+      "output": "public/assets/pumps/berlington-sz-fluorine-chemical-pump.webp",
+      "publicPath": "/assets/pumps/berlington-sz-fluorine-chemical-pump.webp",
+      "profile": "product",
+      "width": 602,
+      "height": 454,
+      "originalBytes": 276728,
+      "optimizedBytes": 31708
+    },
+    {
+      "source": "app/assets/pumps/zs.png",
+      "output": "public/assets/pumps/berlington-zs-single-stage-centrifugal-pump.webp",
+      "publicPath": "/assets/pumps/berlington-zs-single-stage-centrifugal-pump.webp",
+      "profile": "product",
+      "width": 554,
+      "height": 427,
+      "originalBytes": 271462,
+      "optimizedBytes": 30760
+    },
+    {
+      "source": "app/assets/pumps/stp.png",
+      "output": "public/assets/pumps/berlington-stp-single-stage-pump.webp",
+      "publicPath": "/assets/pumps/berlington-stp-single-stage-pump.webp",
+      "profile": "product",
+      "width": 579,
+      "height": 405,
+      "originalBytes": 330357,
+      "optimizedBytes": 20444
+    },
+    {
+      "source": "app/assets/pumps/niso.png",
+      "output": "public/assets/pumps/berlington-niso-end-suction-centrifugal-pump.webp",
+      "publicPath": "/assets/pumps/berlington-niso-end-suction-centrifugal-pump.webp",
+      "profile": "product",
+      "width": 574,
+      "height": 419,
+      "originalBytes": 209730,
+      "optimizedBytes": 27480
+    },
+    {
+      "source": "app/assets/pumps/ld.png",
+      "output": "public/assets/pumps/berlington-ld-vertical-inline-circulation-pump.webp",
+      "publicPath": "/assets/pumps/berlington-ld-vertical-inline-circulation-pump.webp",
+      "profile": "product",
+      "width": 398,
+      "height": 556,
+      "originalBytes": 192986,
+      "optimizedBytes": 19158
+    }
+  ]
+}

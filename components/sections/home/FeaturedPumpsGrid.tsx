@@ -137,7 +137,7 @@ export default function FeaturedPumpsGrid() {
             </Link>
 
             <a
-              href="/catalog.pdf"
+              href="/flowcore-berlington-pumps-bangalore-catalogue.pdf"
               download
               className={[
                 "inline-flex items-center gap-2 rounded-lg px-6 py-2.5",

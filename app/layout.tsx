@@ -20,12 +20,12 @@ export const metadata: Metadata = {
   applicationName: "FlowCore Solutions",
 
   title: {
-    default: "FlowCore Solutions | Berlington Pumps in Bangalore",
+    default: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
     template: "%s | FlowCore Solutions",
   },
 
   description:
-    "FlowCore Solutions is the authorized Berlington Pumps dealer in Bangalore, offering industrial pump systems, MEP specification support, and servicing in Karnataka.",
+    "Authorized Berlington Pumps dealer in Bangalore. Industrial pumps, WTP systems & expert service across Karnataka.",
 
   icons: {
     icon: [
@@ -56,9 +56,9 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "FlowCore Solutions",
     url: "https://flowcoresolutions.in",
-    title: "FlowCore Solutions | Berlington Pumps in Bangalore",
+    title: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
     description:
-      "Authorized Berlington Pumps dealer in Bangalore. Industrial pump systems and water treatment solutions.",
+      "Authorized Berlington Pumps dealer in Bangalore. Industrial pumps, WTP systems & expert service across Karnataka.",
     images: [
       {
         url: "/og-image.png",
@@ -71,9 +71,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "FlowCore Solutions | Berlington Pumps in Bangalore",
+    title: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
     description:
-      "Authorized Berlington Pumps dealer in Bangalore. Industrial pump systems and water treatment solutions.",
+      "Authorized Berlington Pumps dealer in Bangalore. Industrial pumps, WTP systems & expert service across Karnataka.",
     images: ["/og-image.png"],
   },
 };
@@ -83,9 +83,19 @@ export const metadata: Metadata = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://flowcoresolutions.in/#organization",
   name: "FlowCore Solutions",
   url: "https://flowcoresolutions.in",
   logo: "https://flowcoresolutions.in/og-image.png",
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      telephone: "+91-8618885283",
+      areaServed: "IN",
+      availableLanguage: ["en"],
+    },
+  ],
 };
 
 // ── WebSite Schema (VERY IMPORTANT FIX) ───────────────────────────────────

@@ -156,6 +156,7 @@ export default function SynergyBridge() {
                     src={berlingtonLogo}
                     alt="Berlington Industrial Pumps"
                     fill
+                    sizes="(max-width: 1024px) 256px, 288px"
                     className="object-contain object-left"
                   />
                 </div>
@@ -196,6 +197,7 @@ export default function SynergyBridge() {
                   src={flowcoreLogo}
                   alt="FlowCore Solutions"
                   fill
+                  sizes="(max-width: 1024px) 176px, 192px"
                   className="object-contain"
                 />
               </div>
@@ -251,6 +253,7 @@ export default function SynergyBridge() {
                     src={flowcharLogo}
                     alt="Flowchar Water Treatment"
                     fill
+                    sizes="(max-width: 1024px) 192px, 224px"
                     className="object-contain object-left"
                   />
                 </div>

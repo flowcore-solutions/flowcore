@@ -109,9 +109,10 @@ export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
                   <div className="relative w-full h-full p-12 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110">
                     <Image
                       src={pump.imagePath}
-                      alt={pump.fullName}
+                      alt={`${pump.fullName} Berlington industrial pump with flow rate ${pump.flowRate} and max head ${pump.maxHead}`}
                       fill
                       priority
+                      sizes="(max-width: 1024px) 100vw, 42vw"
                       className="object-contain p-4 drop-shadow-[0_32px_64px_rgba(15,61,145,0.15)]"
                     />
                   </div>
@@ -279,4 +280,3 @@ export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
     </>
   );
 }
-

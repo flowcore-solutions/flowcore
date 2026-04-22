@@ -13,8 +13,9 @@
 
 import Image from "next/image";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
-import manufactureProcess from "@/app/assets/pumps/manufacture-process.png";
-import factoryOutlet from "@/app/assets/pumps/factory-outlet.png";
+
+const manufactureProcess = "/assets/facility/berlington-pump-manufacturing-process.webp";
+const factoryOutlet = "/assets/facility/berlington-pumps-manufacturing-facility.webp";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -91,7 +92,7 @@ function TimelineEntry({
         {/* Horizontal connector line to card */}
         <div
           aria-hidden="true"
-          className="absolute top-2.5 left-[18px] h-px w-8"
+          className="absolute top-2.5 left-4.5 h-px w-8"
           style={{ backgroundColor: "#e5e7eb" }}
         />
       </div>
@@ -142,6 +143,7 @@ function TimelineEntry({
                 alt={item.imageAlt ?? ""}
                 width={560}
                 height={200}
+                sizes="(max-width: 768px) 100vw, 560px"
                 className="w-full object-cover"
                 style={{ objectPosition: "center 30%" }}
               />
@@ -187,7 +189,7 @@ export default function ExpertiseTimeline() {
           {/* The vertical line — absolutely positioned behind the dots */}
           <div
             aria-hidden="true"
-            className="absolute left-[9px] top-2.5 bottom-10"
+            className="absolute left-2.25 top-2.5 bottom-10"
             style={{ width: "2px", backgroundColor: "#1e5bb8" }}
           />
 

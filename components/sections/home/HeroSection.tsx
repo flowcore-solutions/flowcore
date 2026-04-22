@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import berlingtonPumpsSet from "@/app/assets/pumps/Berlington-Pumps-Set.png";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
+
+const berlingtonPumpsSet = "/assets/hero/berlington-industrial-pumps-showcase-bangalore.webp";
 
 const BlueBackground = () => (
   <>

@@ -32,8 +32,9 @@ const FAQSection = dynamic(() => import("@/components/ui/FAQSection"), {
 
 export function generateMetadata(): Metadata {
   return {
-    title: "FlowCore Solutions | Berlington Pumps Bangalore",
-    description: "FlowCore Solutions is the authorized Berlington Pumps dealer and service provider in Bangalore. Specializing in industrial pump systems, WTP, and HVAC applications across Karnataka.",
+    title: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
+    description:
+      "Authorized Berlington Pumps dealer in Bangalore. Industrial pumps, WTP systems & expert service across Karnataka.",
     keywords: [
       "Berlington pumps Bangalore",
       "Berlington pump dealer Karnataka",
@@ -47,21 +48,23 @@ export function generateMetadata(): Metadata {
     openGraph: {
       type: "website",
       url: "https://flowcoresolutions.in",
-      title: "FlowCore Solutions | Authorized Berlington Pumps Dealer in Bangalore",
-      description: "FlowCore Solutions is the authorized Berlington Pumps dealer and service provider in Bangalore. Specializing in industrial pump systems, WTP, and HVAC applications across Karnataka.",
+      title: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
+      description:
+        "Authorized Berlington Pumps dealer in Bangalore. Industrial pumps, WTP systems & expert service across Karnataka.",
       images: [
         {
           url: "/og-image.png",
           width: 1200,
           height: 630,
-          alt: "FlowCore Solutions | Authorized Berlington Pumps Dealer in Bangalore",
+          alt: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "FlowCore Solutions | Authorized Berlington Pumps Dealer in Bangalore",
-      description: "FlowCore Solutions is the authorized Berlington Pumps dealer and service provider in Bangalore. Specializing in industrial pump systems across Karnataka.",
+      title: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
+      description:
+        "Authorized Berlington Pumps dealer in Bangalore. Industrial pumps, WTP systems & expert service across Karnataka.",
       images: ["/og-image.png"],
     },
   };
@@ -121,6 +124,9 @@ const homepageFaqSchema = {
 export default function HomePage() {
   return (
     <>
+      <h1 className="sr-only">
+        Industrial Pumps and Berlington Pumps Dealer in Bangalore
+      </h1>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}

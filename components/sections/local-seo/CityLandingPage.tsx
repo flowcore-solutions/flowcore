@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image, { type StaticImageData } from "next/image";
+import Image from "next/image";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 import SectionTag from "@/components/ui/SectionTag";
 import FAQSection, { type FAQItem } from "@/components/ui/FAQSection";
@@ -52,7 +52,7 @@ type LandingConfig = {
     subtitle?: string;
     body: string;
     theme: "deep" | "slate" | "teal";
-    heroImage?: StaticImageData;
+    heroImage?: string;
     primaryCta: CtaLink;
     secondaryCta: CtaLink;
   };
@@ -391,8 +391,9 @@ export default function CityLandingPage({ config }: { config: LandingConfig }) {
                          <div className="relative aspect-square w-full max-w-xl">
                             <Image 
                               src={config.hero.heroImage} 
-                              alt={config.hero.title}
+                              alt={`${config.hero.title} in ${config.hero.subtitle ?? config.breadcrumbLabel}`}
                               fill
+                              sizes="(max-width: 1024px) 100vw, 40vw"
                               className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-transform duration-500 hover:scale-[1.02]"
                             />
                          </div>
@@ -402,8 +403,9 @@ export default function CityLandingPage({ config }: { config: LandingConfig }) {
                          <div className="relative aspect-square w-full max-w-xl">
                             <Image 
                               src={PUMP_IMAGES[featuredPump.id]} 
-                              alt={featuredPump.fullName}
+                              alt={`${featuredPump.fullName} industrial pump for ${config.breadcrumbLabel}`}
                               fill
+                              sizes="(max-width: 1024px) 100vw, 40vw"
                               className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-transform duration-500 hover:scale-[1.02]"
                             />
                          </div>
@@ -413,7 +415,7 @@ export default function CityLandingPage({ config }: { config: LandingConfig }) {
                       <PrecisionReveal variant="fadeSlideRight" delay={0.25}>
                         <div
                           className={[
-                            "grid gap-4 rounded-[32px] border p-8",
+                            "grid gap-4 rounded-4xl border p-8",
                             heroTheme.card,
                           ].join(" ")}
                         >
@@ -693,7 +695,7 @@ export default function CityLandingPage({ config }: { config: LandingConfig }) {
               {config.testimonials.items.map((item, index) => (
                 <PrecisionReveal key={item.quote} variant="riseUp" delay={index * 0.05}>
                   <figure
-                    className="rounded-[24px] border border-border bg-white p-6"
+                    className="rounded-3xl border border-border bg-white p-6"
                     style={{ boxShadow: "var(--shadow-card)" }}
                   >
                     <blockquote className="text-base leading-8 text-text-light">
@@ -784,7 +786,7 @@ export default function CityLandingPage({ config }: { config: LandingConfig }) {
 
       <section className="py-14 lg:py-20">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="rounded-[32px] bg-deep-blue px-8 py-10 text-white lg:px-12">
+          <div className="rounded-4xl bg-deep-blue px-8 py-10 text-white lg:px-12">
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
               <div className="max-w-3xl">
                 <SectionTag accent="green">Next Step</SectionTag>

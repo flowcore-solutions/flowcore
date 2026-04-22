@@ -4,30 +4,7 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import type { DiagramNode } from "@/lib/application-data";
 import { getPumpById } from "@/lib/pump-data";
-import type { StaticImageData } from "next/image";
-
-import cdlCdlf from "@/app/assets/pumps/cdl-cdlf.png";
-import wq      from "@/app/assets/pumps/wq.png";
-import qyB     from "@/app/assets/pumps/qy-b.png";
-import hydro   from "@/app/assets/pumps/hydro.png";
-import chl     from "@/app/assets/pumps/chl.png";
-import chm     from "@/app/assets/pumps/chm.png";
-import chlf    from "@/app/assets/pumps/chlf-chlf-t.png";
-import bt      from "@/app/assets/pumps/bt.png";
-import niso    from "@/app/assets/pumps/niso.png";
-import sz      from "@/app/assets/pumps/sz.png";
-import ld      from "@/app/assets/pumps/ld.png";
-import stp     from "@/app/assets/pumps/stp.png";
-import zs      from "@/app/assets/pumps/zs.png";
-import cdlfCdh from "@/app/assets/pumps/cdlf-cdh.png";
-import cdlkCdlkf from "@/app/assets/pumps/cdlk-cdlkf.png";
-import mini    from "@/app/assets/pumps/mini.png";
-
-const PUMP_IMAGES: Record<string, StaticImageData> = {
-  "cdl-cdlf": cdlCdlf, wq, "qy-b": qyB, hydro,
-  chl, chm, chlf, bt, niso, sz, ld, stp, zs, 
-  "cdlf-cdh": cdlfCdh, "cdlk-cdlkf": cdlkCdlkf, mini
-};
+import { PUMP_IMAGES } from "@/components/ui/PumpCard";
 
 const GREEN        = "#6cc24a";
 const DEEP_BLUE    = "#0f3d91";
@@ -92,9 +69,10 @@ export default function PumpTooltip({ node, style, mobile }: PumpTooltipProps) {
           >
             <Image
               src={image}
-              alt={pump?.fullName ?? node.pumpModelId}
+              alt={pump ? `${pump.fullName} pump used in ${node.label}` : `${node.label} pump diagram reference`}
               width={mobile ? 72 : 64}
               height={mobile ? 72 : 64}
+              sizes={mobile ? "72px" : "64px"}
               className="object-contain p-1.5"
             />
           </div>

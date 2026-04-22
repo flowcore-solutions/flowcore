@@ -13,7 +13,8 @@ import Image from "next/image";
 import Link from "next/link";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 import GreenCTAButton from "@/components/ui/GreenCTAButton";
-import berlingtonPumpsSet from "@/app/assets/pumps/Berlington-Pumps-Set.png";
+
+const berlingtonPumpsSet = "/assets/hero/berlington-industrial-pumps-showcase-bangalore.webp";
 
 // ── Inline SVG icons ──────────────────────────────────────────────────────
 
@@ -149,7 +150,7 @@ export default function TotalSystemHealth() {
           {/* ── Left: pump visual hero block ── */}
           <PrecisionReveal variant="fadeSlideLeft" delay={0.2}>
             <div
-              className="relative rounded-2xl overflow-hidden min-h-[480px] flex flex-col justify-end group/hero"
+              className="relative rounded-2xl overflow-hidden min-h-120 flex flex-col justify-end group/hero"
               style={{ backgroundColor: "#0F3D91" }}
             >
               {/* Tech grid */}
@@ -165,8 +166,9 @@ export default function TotalSystemHealth() {
               <div className="absolute inset-0">
                 <Image
                   src={berlingtonPumpsSet}
-                  alt="Berlington industrial pump systems"
+                  alt="Berlington industrial pump systems supported by FlowCore lifecycle engineering"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 33vw"
                   className="object-cover object-center transition-transform duration-700 group-hover/hero:scale-105"
                   style={{ opacity: 0.22, mixBlendMode: "luminosity" }}
                 />

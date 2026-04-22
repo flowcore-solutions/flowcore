@@ -11,6 +11,11 @@ const FOOTER_LINKS = [
   { href: "/contact#inquiry-form", label: "Contact" },
 ];
 
+const CONTACT_EMAIL_USER = "flowcoresolutionsblr";
+const CONTACT_EMAIL_DOMAIN = "gmail.com";
+const CONTACT_EMAIL = `${CONTACT_EMAIL_USER}@${CONTACT_EMAIL_DOMAIN}`;
+const WHATSAPP_LINK = "https://wa.me/918618885283";
+
 function BrandIdentity() {
   return (
     <div className="bg-white rounded-2xl p-5 sm:p-6 inline-flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/20 relative group overflow-hidden">
@@ -140,7 +145,31 @@ export default function Footer() {
                     </div>
                   </a>
 
-                  <a href="mailto:flowcoresolutionsblr@gmail.com" className="group flex items-center gap-4 bg-white/5 hover:bg-[#1E5BB8]/30 border border-white/10 hover:border-[#4DA3FF]/50 rounded-xl p-3 transition-all duration-300">
+                  <a
+                    href={WHATSAPP_LINK}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Chat with FlowCore Solutions on WhatsApp"
+                    className="group flex items-center gap-4 bg-white/5 hover:bg-[#6CC24A]/10 border border-white/10 hover:border-[#6CC24A]/50 rounded-xl p-3 transition-all duration-300"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-white/10 group-hover:bg-[#6CC24A] flex items-center justify-center transition-colors duration-300">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-white">
+                        <path d="M20 11.5A8.5 8.5 0 0 1 7.46 18.98L4 20l1.07-3.33A8.5 8.5 0 1 1 20 11.5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M9.5 9.5c.3 1.1 1.9 2.7 3 3 .4.1.9 0 1.2-.3l.7-.7c.2-.2.5-.2.8-.1l1.5.7c.3.1.4.5.3.8-.4 1.1-1.4 1.8-2.6 1.8-3.6 0-6.5-2.9-6.5-6.5 0-1.2.7-2.2 1.8-2.6.3-.1.7 0 .8.3l.7 1.5c.1.3.1.6-.1.8l-.7.7c-.3.3-.4.8-.3 1.2Z" fill="currentColor" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black tracking-widest text-[#6CC24A] uppercase mb-0.5 opacity-80 group-hover:opacity-100 transition-opacity">WhatsApp</p>
+                      <span className="font-semibold text-white/90 group-hover:text-white text-xs block">
+                        Chat with sales support
+                      </span>
+                    </div>
+                  </a>
+
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="group flex items-center gap-4 bg-white/5 hover:bg-[#1E5BB8]/30 border border-white/10 hover:border-[#4DA3FF]/50 rounded-xl p-3 transition-all duration-300"
+                  >
                     <div className="w-10 h-10 rounded-lg bg-white/10 group-hover:bg-[#1E5BB8] flex items-center justify-center transition-colors duration-300">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white">
                         <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -149,7 +178,12 @@ export default function Footer() {
                     </div>
                     <div className="min-w-0">
                       <p className="text-[10px] font-black tracking-widest text-[#4DA3FF] uppercase mb-0.5 opacity-80 group-hover:opacity-100 transition-opacity">Email Us</p>
-                      <span className="font-semibold text-white/90 group-hover:text-white text-xs truncate block" style={{ wordBreak: 'break-all' }}>flowcoresolutionsblr@gmail.com</span>
+                      <span className="font-semibold text-white/90 group-hover:text-white text-xs truncate block" style={{ wordBreak: "break-all" }}>
+                        {CONTACT_EMAIL_USER}
+                        <span aria-hidden="true"> [at] </span>
+                        <span className="sr-only">@</span>
+                        {CONTACT_EMAIL_DOMAIN}
+                      </span>
                     </div>
                   </a>
                 </div>

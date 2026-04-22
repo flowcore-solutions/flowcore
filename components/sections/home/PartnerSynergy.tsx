@@ -39,7 +39,7 @@ export default function PartnerSynergy() {
         </div>
 
         {/* Synergy Block */}
-        <div className="relative rounded-4xl overflow-hidden lg:min-h-[480px] flex flex-col lg:flex-row lg:items-stretch shadow-[0_20px_80px_-15px_rgba(15,61,145,0.15)] group">
+        <div className="relative rounded-4xl overflow-hidden lg:min-h-120 flex flex-col lg:flex-row lg:items-stretch shadow-[0_20px_80px_-15px_rgba(15,61,145,0.15)] group">
 
           {/* ── Berlington Side ── */}
           {/* FIX: PrecisionReveal now wraps only the CONTENT div, not the full-height
@@ -68,7 +68,7 @@ export default function PartnerSynergy() {
                     src={berlingtonLogo}
                     alt="Berlington Pumps — ISO-certified industrial pump manufacturer"
                     fill
-                    sizes="384px"
+                    sizes="(max-width: 1280px) 320px, 384px"
                     className="object-contain object-left"
                   />
                 </div>
@@ -107,7 +107,7 @@ export default function PartnerSynergy() {
                     src={flowcharLogo}
                     alt="Flowchar — ISO-certified water treatment chemicals"
                     fill
-                    sizes="384px"
+                    sizes="(max-width: 1280px) 320px, 384px"
                     className="object-contain object-left"
                   />
                 </div>

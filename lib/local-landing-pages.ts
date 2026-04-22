@@ -1,6 +1,7 @@
 import type { LandingConfig } from "@/components/sections/local-seo/CityLandingPage";
-import industrialHero from "@/app/assets/pumps/Berlington-Pumps-Set.png";
-import pumpsHero from "@/app/assets/pumps/Pumps-heros.png";
+
+const industrialHero = "/assets/hero/berlington-industrial-pumps-showcase-bangalore.webp";
+const pumpsHero = "/assets/hero/berlington-industrial-pumps-hero-bangalore.webp";
 
 export const berlingtonLandingConfig: LandingConfig = {
   breadcrumbLabel: "Berlington Pumps Bangalore",
@@ -281,7 +282,7 @@ export const fireFightingLandingConfig: LandingConfig = {
     body:
       "FlowCore Solutions supplies Berlington fire fighting pump systems for builders, contractors, and facility teams in Bangalore. We support NBC and NFPA-led project requirements with local pump selection, standby planning, and service continuity across Karnataka.",
     theme: "slate",
-    heroImage: industrialHero,
+    heroImage: pumpsHero,
     primaryCta: { label: "Get Compliant Now", href: "/contact#inquiry-form" },
     secondaryCta: { label: "View Systems", href: "/products" },
   },

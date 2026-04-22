@@ -104,11 +104,6 @@ const productSchema = {
       },
     },
   },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.8",
-    reviewCount: "24"
-  }
 };
 
 const faqSchema = {

@@ -7,10 +7,11 @@ export default function NavbarBrand() {
     <div className="flex items-center gap-3">
       <Image
         src={flowcoreLogo}
-        alt="FlowCore Solutions logo - Industrial Pump Systems and Water Treatment"
+        alt="FlowCore Solutions logo for industrial pumps and water treatment systems"
         width={54}
         height={54}
         priority
+        sizes="56px"
         className="w-12 drop-shadow-[0_4px_12px_rgba(0,0,0,0.15)] lg:w-14"
       />
       <div className="leading-none">
