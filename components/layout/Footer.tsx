@@ -5,13 +5,10 @@ import flowcoreLogoHorizontal from "@/app/assets/logos/flowcore-logo-horizontal.
 
 const FOOTER_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/berlington-pumps-bangalore", label: "Berlington Pumps" },
-  { href: "/industrial-pumps-bangalore", label: "Industrial Pumps" },
-  { href: "/fire-fighting-pumps-bangalore", label: "Fire Fighting Pumps" },
-  { href: "/water-treatment-chemicals-bangalore", label: "WTP Chemicals" },
   { href: "/products", label: "Products" },
+  { href: "/applications", label: "Applications" },
   { href: "/about", label: "About Us" },
-  { href: "/contact", label: "Contact" },
+  { href: "/contact#inquiry-form", label: "Contact" },
 ];
 
 function BrandIdentity() {

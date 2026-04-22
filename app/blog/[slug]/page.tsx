@@ -179,7 +179,7 @@ export default async function BlogPostPage({
                 Product Catalogue
               </Link>
               <Link
-                href="/contact"
+                href="/contact#inquiry-form"
                 className="rounded-full border border-[#6CC24A]/20 bg-[#6CC24A]/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#275B17]"
               >
                 Request a Quote
@@ -242,7 +242,7 @@ export default async function BlogPostPage({
                 </p>
                 <div className="mt-8 flex flex-wrap gap-4">
                   <Link
-                    href="/contact"
+                    href="/contact#inquiry-form"
                     className="rounded-xl bg-[#6CC24A] px-6 py-3.5 text-xs font-black uppercase tracking-widest text-[#0F172A] transition-all hover:bg-[#5BB039] hover:scale-[1.02] shadow-[0_10px_30px_-10px_rgba(108,194,74,0.5)]"
                   >
                     Talk to FlowCore

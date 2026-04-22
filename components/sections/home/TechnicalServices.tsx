@@ -1,7 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
+
+type AuditFormState = {
+  name: string;
+  company: string;
+  email: string;
+};
+
+const EMPTY_AUDIT: AuditFormState = { name: "", company: "", email: "" };
+
+type SubmitStatus = "idle" | "loading" | "success" | "error";
 
 const REQUIREMENTS = [
   "New Installation",
@@ -28,13 +38,48 @@ const TRUST_ITEMS = [
 ];
 
 export default function TechnicalServices() {
+  const [form, setForm] = useState<AuditFormState>(EMPTY_AUDIT);
   const [selectedReqs, setSelectedReqs] = useState<string[]>([]);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const toggleReq = (req: string) => {
     setSelectedReqs((prev) =>
       prev.includes(req) ? prev.filter((r) => r !== req) : [...prev, req]
     );
   };
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "audit",
+          name: form.name,
+          company: form.company,
+          email: form.email,
+          requirements: selectedReqs,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = (await res.json()) as { error?: string };
+        throw new Error(data.error ?? "Submission failed. Please try again.");
+      }
+
+      setStatus("success");
+      setForm(EMPTY_AUDIT);
+      setSelectedReqs([]);
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
+      setStatus("error");
+    }
+  }
 
   return (
     <section className="relative w-full py-12 lg:py-20 overflow-hidden" style={{ backgroundColor: "#f8fafc" }}>
@@ -68,17 +113,49 @@ export default function TechnicalServices() {
             </div>
 
             <PrecisionReveal variant="riseUp" delay={0.2}>
-              <form 
-                className="space-y-6" 
-                onSubmit={(e) => { e.preventDefault(); alert("Form submitted!"); }}
+              <form
+                className="space-y-6"
+                onSubmit={handleSubmit}
+                aria-label="System audit request form"
               >
+                {/* Success banner */}
+                {status === "success" && (
+                  <div
+                    role="alert"
+                    className="flex items-center gap-3 rounded-lg border border-[#d3f4dd] bg-[#f0fcf3] px-4 py-3"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                      <circle cx="9" cy="9" r="8.25" stroke="#2fa84f" strokeWidth="1.5"/>
+                      <path d="M5.5 9l2.5 2.5 4.5-4.5" stroke="#2fa84f" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <p className="text-sm font-semibold text-dark-green">
+                      Request sent! Our team will respond within 4 hours.
+                    </p>
+                  </div>
+                )}
+                {/* Error banner */}
+                {status === "error" && (
+                  <div
+                    role="alert"
+                    className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-0.5 shrink-0" aria-hidden="true">
+                      <circle cx="8" cy="8" r="7" stroke="#ef4444" strokeWidth="1.5"/>
+                      <path d="M8 4.5v4M8 10.5v1" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                    <p className="text-sm font-medium text-red-700">{errorMsg}</p>
+                  </div>
+                )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label htmlFor="auth-name" className="text-xs font-bold uppercase tracking-wider text-slate-500">Full Name</label>
                     <input
                       type="text"
                       id="auth-name"
+                      name="name"
                       required
+                      value={form.name}
+                      onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
                       className="w-full border-b border-slate-300 bg-transparent px-0 py-2 text-slate-900 placeholder:text-slate-400 focus:border-primary-blue focus:outline-none focus:ring-0 transition-colors"
                       placeholder="John Doe"
                     />
@@ -88,6 +165,9 @@ export default function TechnicalServices() {
                     <input
                       type="text"
                       id="auth-company"
+                      name="company"
+                      value={form.company}
+                      onChange={(e) => setForm((p) => ({ ...p, company: e.target.value }))}
                       className="w-full border-b border-slate-300 bg-transparent px-0 py-2 text-slate-900 placeholder:text-slate-400 focus:border-primary-blue focus:outline-none focus:ring-0 transition-colors"
                       placeholder="FlowCore Ind."
                     />
@@ -99,7 +179,10 @@ export default function TechnicalServices() {
                   <input
                     type="email"
                     id="auth-email"
+                    name="email"
                     required
+                    value={form.email}
+                    onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
                     className="w-full border-b border-slate-300 bg-transparent px-0 py-2 text-slate-900 placeholder:text-slate-400 focus:border-primary-blue focus:outline-none focus:ring-0 transition-colors"
                     placeholder="john@example.com"
                   />
@@ -131,12 +214,26 @@ export default function TechnicalServices() {
                 <div className="pt-6">
                   <button
                     type="submit"
-                    className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-lg bg-[#6CC24A] px-8 py-4 text-sm font-bold text-white transition-all hover:bg-[#5db33d] hover:-translate-y-px hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#6CC24A] focus:ring-offset-2 active:scale-[0.98]"
+                    id="audit-submit"
+                    disabled={status === "loading"}
+                    className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-lg bg-[#6CC24A] px-8 py-4 text-sm font-bold text-white transition-all hover:bg-[#5db33d] hover:-translate-y-px hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#6CC24A] focus:ring-offset-2 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                   >
-                    <span className="relative z-10">Request Consultation</span>
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    {status === "loading" ? (
+                      <>
+                        <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeOpacity="0.25" />
+                          <path d="M12 2a10 10 0 0110 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                        </svg>
+                        <span className="relative z-10">Sending…</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="relative z-10">Request Consultation</span>
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="relative z-10 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </>
+                    )}
                   </button>
                 </div>
               </form>

@@ -4,6 +4,15 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { PUMP_CATALOG, getPumpById, PUMP_CATEGORIES } from "@/lib/pump-data";
 
+type QuoteFormState = {
+  name: string;
+  email: string;
+  notes: string;
+};
+
+const EMPTY_QUOTE: QuoteFormState = { name: "", email: "", notes: "" };
+type SubmitStatus = "idle" | "loading" | "success" | "error";
+
 // Custom Multi-select for pumps
 function MultiSelect({ 
   selectedIds, 
@@ -128,7 +137,10 @@ export default function QuoteModal() {
   const isOpen = !!quoteId;
   
   // Local form states
+  const [form, setForm] = useState<QuoteFormState>(EMPTY_QUOTE);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
+  const [submitError, setSubmitError] = useState("");
   const [success, setSuccess] = useState(false);
   
   // Track last quoteId for manual sync during render (standard React pattern for prop-to-state sync)
@@ -144,7 +156,13 @@ export default function QuoteModal() {
   // Reset form on close
   useEffect(() => {
     if (!isOpen) {
-      setTimeout(() => { setSuccess(false); }, 300); // Wait for exit animation
+      setTimeout(() => {
+        setSuccess(false);
+        setForm(EMPTY_QUOTE);
+        setSubmitStatus("idle");
+        setSubmitError("");
+        setSelectedIds([]);
+      }, 300); // Wait for exit animation
     }
   }, [isOpen]);
 
@@ -174,13 +192,38 @@ export default function QuoteModal() {
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Dummy submit for design purpose
-    setSuccess(true);
-    setTimeout(() => {
-      closeModal();
-    }, 2500);
+    setSubmitStatus("loading");
+    setSubmitError("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "quote",
+          name: form.name,
+          email: form.email,
+          pumpIds: selectedIds,
+          notes: form.notes,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = (await res.json()) as { error?: string };
+        throw new Error(data.error ?? "Submission failed. Please try again.");
+      }
+
+      setSubmitStatus("success");
+      setSuccess(true);
+      setTimeout(() => {
+        closeModal();
+      }, 2500);
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "Something went wrong.");
+      setSubmitStatus("error");
+    }
   };
 
   return (
@@ -242,22 +285,28 @@ export default function QuoteModal() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-2 tracking-wide">NAME / COMPANY NAME</label>
+                  <label htmlFor="quote-name" className="block text-sm font-semibold text-slate-700 mb-2 tracking-wide">NAME / COMPANY NAME</label>
                   <input 
                     type="text" 
-                    id="name" 
+                    id="quote-name"
+                    name="name"
                     required
+                    value={form.name}
+                    onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
                     className="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1E5BB8] focus:border-[#1E5BB8] transition-colors"
                     placeholder="e.g. John Doe / Apex Industries"
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2 tracking-wide">EMAIL ADDRESS</label>
+                  <label htmlFor="quote-email" className="block text-sm font-semibold text-slate-700 mb-2 tracking-wide">EMAIL ADDRESS</label>
                   <input 
                     type="email" 
-                    id="email" 
+                    id="quote-email"
+                    name="email"
                     required
+                    value={form.email}
+                    onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
                     className="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1E5BB8] focus:border-[#1E5BB8] transition-colors"
                     placeholder="john@example.com"
                   />
@@ -269,23 +318,53 @@ export default function QuoteModal() {
                 </div>
 
                 <div>
-                  <label htmlFor="notes" className="block text-sm font-semibold text-slate-700 mb-2 tracking-wide">OPERATING CONDITIONS <span className="text-slate-400 font-medium">(OPTIONAL)</span></label>
+                  <label htmlFor="quote-notes" className="block text-sm font-semibold text-slate-700 mb-2 tracking-wide">OPERATING CONDITIONS <span className="text-slate-400 font-medium">(OPTIONAL)</span></label>
                   <textarea 
-                    id="notes" 
+                    id="quote-notes"
+                    name="notes"
                     rows={2}
+                    value={form.notes}
+                    onChange={(e) => setForm((p) => ({ ...p, notes: e.target.value }))}
                     className="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1E5BB8] focus:border-[#1E5BB8] transition-colors resize-none"
                     placeholder="Flow rate required, head, fluid type, etc."
                   />
                 </div>
 
+                {/* Error banner */}
+                {submitStatus === "error" && (
+                  <div
+                    role="alert"
+                    className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-0.5 shrink-0" aria-hidden="true">
+                      <circle cx="8" cy="8" r="7" stroke="#ef4444" strokeWidth="1.5"/>
+                      <path d="M8 4.5v4M8 10.5v1" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                    <p className="text-sm font-medium text-red-700">{submitError}</p>
+                  </div>
+                )}
+
                 <button 
                   type="submit"
-                  className="w-full mt-4 bg-[#6CC24A] hover:brightness-110 text-white font-bold tracking-wide py-3.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all shadow-sm hover:shadow-md hover:-translate-y-px active:scale-[0.98]"
+                  disabled={submitStatus === "loading"}
+                  className="w-full mt-4 bg-[#6CC24A] hover:brightness-110 text-white font-bold tracking-wide py-3.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all shadow-sm hover:shadow-md hover:-translate-y-px active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 >
-                  Submit Request
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                  {submitStatus === "loading" ? (
+                    <>
+                      <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeOpacity="0.25" />
+                        <path d="M12 2a10 10 0 0110 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                      </svg>
+                      Sending…
+                    </>
+                  ) : (
+                    <>
+                      Submit Request
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </>
+                  )}
                 </button>
                 <p className="text-center text-[11px] text-slate-400 mt-4 font-semibold uppercase tracking-wider">No commitment required. 100% confidential.</p>
               </form>

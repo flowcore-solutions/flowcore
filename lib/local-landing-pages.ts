@@ -9,7 +9,7 @@ export const berlingtonLandingConfig: LandingConfig = {
       "FlowCore Solutions supplies genuine Berlington industrial pumps for builders, OEMs, consultants, and maintenance teams across Bangalore. We support pump selection, delivery planning, and lifecycle response for Karnataka projects where duty accuracy matters.",
     theme: "deep",
     primaryCta: { label: "View Berlington Models", href: "/products" },
-    secondaryCta: { label: "Request a Quote", href: "/contact" },
+    secondaryCta: { label: "Request a Quote", href: "/contact#inquiry-form" },
   },
 
   intro: {
@@ -148,7 +148,7 @@ export const berlingtonLandingConfig: LandingConfig = {
     title: "Need Berlington Pumps in Bangalore?",
     body:
       "Send us the duty point, application, and site timeline. We will recommend the right Berlington model family for your Bangalore project and help your team move faster from enquiry to quote.",
-    primaryCta: { label: "Get a Quote", href: "/contact" },
+    primaryCta: { label: "Get a Quote", href: "/contact#inquiry-form" },
     secondaryCta: { label: "View All Pumps", href: "/products" },
   },
 };
@@ -164,7 +164,7 @@ export const industrialPumpsLandingConfig: LandingConfig = {
       "FlowCore Solutions supports Bangalore buyers sourcing industrial pumps for manufacturing, cooling, water treatment, fire safety, and process duty. We supply application-matched Berlington systems with local engineering response across Karnataka.",
     theme: "slate",
     primaryCta: { label: "Explore Pump Range", href: "/products" },
-    secondaryCta: { label: "Get a Quote", href: "/contact" },
+    secondaryCta: { label: "Get a Quote", href: "/contact#inquiry-form" },
   },
   featuredPumpId: "niso",
   intro: {
@@ -261,7 +261,7 @@ export const industrialPumpsLandingConfig: LandingConfig = {
     title: "Source Industrial Pumps in Bangalore - Fast, Reliable, Genuine",
     body:
       "Tell FlowCore what the system has to do. We will help you narrow the right industrial pump category, confirm application fit, and build a quote around actual Bangalore project needs.",
-    primaryCta: { label: "Get a Quote", href: "/contact" },
+    primaryCta: { label: "Get a Quote", href: "/contact#inquiry-form" },
     secondaryCta: { label: "Explore Pump Range", href: "/products" },
   },
 };
@@ -274,7 +274,7 @@ export const fireFightingLandingConfig: LandingConfig = {
     body:
       "FlowCore Solutions supplies Berlington fire fighting pump systems for builders, contractors, and facility teams in Bangalore. We support NBC and NFPA-led project requirements with local pump selection, standby planning, and service continuity across Karnataka.",
     theme: "deep",
-    primaryCta: { label: "Get Compliant Now", href: "/contact" },
+    primaryCta: { label: "Get Compliant Now", href: "/contact#inquiry-form" },
     secondaryCta: { label: "View Systems", href: "/products" },
   },
   trustBar: {
@@ -377,7 +377,7 @@ export const fireFightingLandingConfig: LandingConfig = {
     title: "Need Fire Fighting Pumps in Bangalore?",
     body:
       "Share your flow, pressure, and project type. FlowCore will help you shortlist the right fire fighting pump system for Bangalore and Karnataka approvals, supply, and service.",
-    primaryCta: { label: "Get a Quote", href: "/contact" },
+    primaryCta: { label: "Get a Quote", href: "/contact#inquiry-form" },
     secondaryCta: { label: "View Systems", href: "/products" },
   },
 };
@@ -391,8 +391,8 @@ export const waterChemicalsLandingConfig: LandingConfig = {
     body:
       "FlowCore Solutions provides a complete range of chemicals for Water Treatment Plants (WTP), STP, ETP, and RO systems in Bangalore. We support Karnataka industries with application-led chemical supply, dosing guidance, and dependable local delivery.",
     theme: "teal",
-    primaryCta: { label: "View Chemical Range", href: "/contact" },
-    secondaryCta: { label: "Get a Quote", href: "/contact" },
+    primaryCta: { label: "View Chemical Range", href: "/contact#inquiry-form" },
+    secondaryCta: { label: "Get a Quote", href: "/contact#inquiry-form" },
   },
   featuredPumpId: "sz",
   trustBar: {
@@ -491,7 +491,7 @@ export const waterChemicalsLandingConfig: LandingConfig = {
     title: "Source Water Treatment Chemicals in Bangalore - Bulk and Retail",
     body:
       "Tell us the treatment stage, plant type, and recurring demand. FlowCore will help you shortlist the right chemical category for your Bangalore or Karnataka requirement and organise a practical supply response.",
-    primaryCta: { label: "Get a Quote", href: "/contact" },
-    secondaryCta: { label: "Talk to FlowCore", href: "/contact" },
+    primaryCta: { label: "Get a Quote", href: "/contact#inquiry-form" },
+    secondaryCta: { label: "Talk to FlowCore", href: "/contact#inquiry-form" },
   },
 };

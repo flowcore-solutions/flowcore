@@ -179,6 +179,7 @@ function InquiryForm() {
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [errors, setErrors] = useState<Partial<FormState>>({});
 
   function handleChange(
@@ -205,14 +206,40 @@ function InquiryForm() {
     e.preventDefault();
     if (!validate()) return;
     setSubmitting(true);
-    // Simulate network — replace with fetch('/api/contact', ...) in production
-    await new Promise((r) => setTimeout(r, 900));
-    setSubmitting(false);
-    setSubmitted(true);
+    setSubmitError("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "inquiry",
+          name: form.fullName,
+          company: form.company,
+          email: form.email,
+          phone: form.phone,
+          product: form.product,
+          message: form.message,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = (await res.json()) as { error?: string };
+        throw new Error(data.error ?? "Submission failed. Please try again.");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-white p-6 lg:p-8" style={{ boxShadow: "var(--shadow-card)" }}>
+    <div id="inquiry-form" className="scroll-mt-32 rounded-2xl border border-border bg-white p-6 lg:p-8" style={{ boxShadow: "var(--shadow-card)" }}>
         {submitted ? (
           /* ── Success State ── */
           <div
@@ -246,7 +273,6 @@ function InquiryForm() {
           /* ── Form ── */
           <form
             key="form"
-            id="inquiry-form"
             onSubmit={handleSubmit}
             noValidate
             className="flex flex-col gap-5 animate-reveal-up"
@@ -363,6 +389,20 @@ function InquiryForm() {
                 className={`${inputClass()} resize-none`}
               />
             </div>
+
+            {/* Submit error */}
+            {submitError && (
+              <div
+                role="alert"
+                className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-0.5 shrink-0" aria-hidden="true">
+                  <circle cx="8" cy="8" r="7" stroke="#ef4444" strokeWidth="1.5"/>
+                  <path d="M8 4.5v4M8 10.5v1" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+                <p className="text-sm font-medium text-red-700">{submitError}</p>
+              </div>
+            )}
 
             {/* Submit */}
             <button

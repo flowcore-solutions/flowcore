@@ -10,7 +10,7 @@ const PAGE_HEADER = {
       </Link>{" "}
       engineered for each stage, from raw water intake to high-rise pressure
       supply. Need help sizing?{" "}
-      <Link href="/contact" className="text-primary-green hover:underline">
+      <Link href="/contact#inquiry-form" className="text-primary-green hover:underline">
         Contact our engineering team
       </Link>
       .

@@ -191,7 +191,7 @@ export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 mt-auto">
-                <Link href="/contact" className="w-full sm:w-auto">
+                <Link href="/contact#inquiry-form" className="w-full sm:w-auto">
                   <button className="w-full bg-[#1E5BB8] hover:bg-[#0F3D91] text-white px-8 py-4 rounded-xl font-bold uppercase tracking-widest text-sm transition-all shadow-[0_10px_20px_-10px_rgba(30,91,184,0.5)] hover:shadow-[0_15px_30px_-15px_rgba(30,91,184,0.6)] hover:-translate-y-1">
                     Request Berlington Quote
                   </button>

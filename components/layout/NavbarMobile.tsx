@@ -85,7 +85,7 @@ export default function NavbarMobile() {
                 })}
               </nav>
               <div className="mt-4 border-t border-border/70 pt-4">
-                <Link href="/contact" onClick={close} className="flex items-center justify-center rounded-full bg-deep-blue px-5 py-3 text-sm font-bold uppercase tracking-widest text-white transition-all active:scale-95">
+                <Link href="/contact#inquiry-form" onClick={close} className="flex items-center justify-center rounded-full bg-deep-blue px-5 py-3 text-sm font-bold uppercase tracking-widest text-white transition-all active:scale-95">
                   Get a Quote
                 </Link>
               </div>

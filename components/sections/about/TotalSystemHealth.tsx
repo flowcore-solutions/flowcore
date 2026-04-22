@@ -262,7 +262,7 @@ export default function TotalSystemHealth() {
                 Assess current infrastructure lifecycle metrics and establish a tailored maintenance mandate.
               </p>
             </div>
-            <Link href="/contact" id="system-health-cta-link" className="shrink-0 w-full sm:w-auto">
+            <Link href="/contact#inquiry-form" id="system-health-cta-link" className="shrink-0 w-full sm:w-auto">
               <GreenCTAButton size="md" className="w-full">Get Engineering Consultation</GreenCTAButton>
             </Link>
           </div>

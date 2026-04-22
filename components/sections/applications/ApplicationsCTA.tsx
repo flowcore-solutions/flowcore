@@ -55,7 +55,7 @@ export default function ApplicationsCTA() {
 
         <PrecisionReveal variant="riseUp" delay={0.21}>
           <div className="mt-4">
-            <Link href="/contact" id="applications-cta-link">
+            <Link href="/contact#inquiry-form" id="applications-cta-link">
               <GreenCTAButton>Request Engineering Consultation</GreenCTAButton>
             </Link>
           </div>

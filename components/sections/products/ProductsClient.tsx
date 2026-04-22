@@ -246,7 +246,7 @@ export default function ProductsClient() {
               <PrecisionReveal variant="fadeSlideLeft" delay={0.21}>
                 <p className="mt-6 text-base leading-relaxed text-text-light font-medium max-w-lg">
                   {PUMP_CATALOG.length} pump series engineered for reliability across <Link href="/applications" className="text-primary-blue hover:underline">water treatment, HVAC, and heavy industrial applications</Link>.
-                  Hover any card to reveal full technical specifications, or <Link href="/contact" className="text-primary-blue hover:underline">contact our engineering team</Link> for system sizing.
+                  Hover any card to reveal full technical specifications, or <Link href="/contact#inquiry-form" className="text-primary-blue hover:underline">contact our engineering team</Link> for system sizing.
                 </p>
               </PrecisionReveal>
             </div>

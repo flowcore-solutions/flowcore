@@ -16,7 +16,7 @@ export const NAV_LINKS: readonly NavLink[] = [
   { href: "/about", label: "About", indicator: "green" },
   { href: "/applications", label: "Applications", indicator: "blue" },
   { href: "/products", label: "Products", indicator: "blue" },
-  { href: "/contact", label: "Contact", indicator: "green" },
+  { href: "/contact#inquiry-form", label: "Contact", indicator: "green" },
 ] as const;
 
 function NavDot({ indicator, isActive }: { indicator: NavIndicator; isActive: boolean }) {

@@ -42,7 +42,7 @@ export default function Navbar() {
             {/* RIGHT SIDE: Mobile Menu & Desktop CTA */}
             <div className="flex flex-1 justify-end items-center gap-4">
               {/* Desktop CTA */}
-              <Link href="/contact" className="hidden lg:block">
+              <Link href="/contact#inquiry-form" className="hidden lg:block">
                 <button className="relative overflow-hidden rounded-full bg-deep-blue px-8 py-3 text-sm font-black uppercase tracking-widest text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_30px_rgba(15,23,42,0.4)]">
                   <span className="relative z-10">Get a Quote</span>
                   <span className="absolute inset-0 bg-primary-blue opacity-0 transition-opacity duration-300 hover:opacity-100" />
