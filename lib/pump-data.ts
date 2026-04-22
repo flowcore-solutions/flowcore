@@ -51,6 +51,8 @@ export type PumpModel = {
   connections: string;
   /** Application environments this pump is suited for */
   applications: ApplicationTag[];
+  /** 2-3 primary applications for UI display */
+  summaryApplications: string[];
 };
 
 export const PUMP_CATALOG: readonly PumpModel[] = [
@@ -71,6 +73,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel / Cast iron",
     connections: "25 – 50 mm",
     applications: ["WTP", "HVAC", "Pressure Boosting", "Fire Fighting"],
+    summaryApplications: ["Water treatment systems", "Fire-fighting systems", "Boiler feed systems"],
   },
   {
     id: "cdlf-cdh",
@@ -86,6 +89,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel / Cast iron",
     connections: "25 – 65 mm",
     applications: ["WTP", "Industrial", "Pressure Boosting"],
+    summaryApplications: ["MF / UF / RO systems", "High pressure washing", "Industrial boosting"],
   },
   {
     id: "cdlk-cdlkf",
@@ -101,6 +105,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel / Cast iron",
     connections: "40 – 80 mm",
     applications: ["HVAC", "Industrial", "Pressure Boosting"],
+    summaryApplications: ["Machine tools cooling", "Chiller units", "Industrial filtration"],
   },
 
   // ── Horizontal Multistage ─────────────────────────────────────────────────
@@ -119,6 +124,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel / Cast iron",
     connections: "25 – 40 mm",
     applications: ["WTP", "HVAC", "Pressure Boosting"],
+    summaryApplications: ["Water treatment", "Industrial washing", "Domestic water supply"],
   },
   {
     id: "chlf",
@@ -134,6 +140,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel",
     connections: "25 – 50 mm",
     applications: ["WTP", "HVAC", "Pressure Boosting"],
+    summaryApplications: ["Water treatment", "Industrial washing", "Water supply systems"],
   },
   {
     id: "chm",
@@ -149,6 +156,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel",
     connections: "40 – 65 mm",
     applications: ["WTP", "HVAC", "Industrial"],
+    summaryApplications: ["Industrial washing", "Conditioning systems", "Water supply systems"],
   },
 
   // ── Sewage & Submersible ──────────────────────────────────────────────────
@@ -168,6 +176,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel / Cast iron",
     connections: "50 – 250 mm",
     applications: ["Sewage Treatment", "Industrial"],
+    summaryApplications: ["Municipal water plants", "Sewage & wastewater", "Industrial drainage"],
   },
 
   // ── Hydro & Booster ───────────────────────────────────────────────────────
@@ -186,6 +195,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel / Cast iron",
     connections: "25 – 100 mm",
     applications: ["Pressure Boosting", "HVAC", "WTP"],
+    summaryApplications: ["High-rise water supply", "Industrial boosting", "Pressure washing"],
   },
   {
     id: "mini",
@@ -202,6 +212,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel / Cast iron",
     connections: "25 – 50 mm",
     applications: ["Pressure Boosting", "HVAC"],
+    summaryApplications: ["Independent bungalows", "Row houses", "Small factories"],
   },
   {
     id: "bt",
@@ -219,6 +230,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Aluminium",
     connections: "DN50 – DN200",
     applications: ["Sewage Treatment", "Industrial"],
+    summaryApplications: ["Wastewater treatment", "Pneumatic conveying", "Aeration processes"],
   },
 
   // ── Self-Priming ──────────────────────────────────────────────────────────
@@ -238,6 +250,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel / Cast iron",
     connections: "25 – 50 mm",
     applications: ["Industrial", "Aquaculture"],
+    summaryApplications: ["Ozone water generators", "Biochemical aeration", "Air float treatment"],
   },
   {
     id: "sz",
@@ -253,6 +266,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "FEP / PVDF / Cast iron",
     connections: "40 – 100 mm",
     applications: ["Chemical Transfer", "Industrial"],
+    summaryApplications: ["Chemical systems", "Metal smelting", "Textile dyeing"],
   },
 
   // ── Pipeline & Industrial ─────────────────────────────────────────────────
@@ -272,6 +286,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel",
     connections: "40 – 100 mm",
     applications: ["WTP", "Pressure Boosting", "Industrial"],
+    summaryApplications: ["Water treatment systems", "Pressure boosting", "Water circulation"],
   },
   {
     id: "stp",
@@ -288,6 +303,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel",
     connections: "25 – 32 mm",
     applications: ["WTP", "Irrigation"],
+    summaryApplications: ["Domestic water supply", "Water circulation", "Gardening"],
   },
   {
     id: "niso",
@@ -303,6 +319,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel / Cast iron",
     connections: "80 – 400 mm",
     applications: ["WTP", "HVAC", "Fire Fighting", "Industrial"],
+    summaryApplications: ["HVAC & Cooling", "Firefighting systems", "Industrial supply"],
   },
   {
     id: "ld",
@@ -318,6 +335,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
     material: "Stainless steel / Cast iron",
     connections: "50 – 200 mm",
     applications: ["HVAC", "Industrial", "Fire Fighting"],
+    summaryApplications: ["District heating", "HVAC systems", "Liquid transportation"],
   },
 
 ] as const;

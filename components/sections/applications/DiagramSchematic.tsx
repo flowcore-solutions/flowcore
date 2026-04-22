@@ -255,18 +255,6 @@ export default function DiagramSchematic({
           />
         ))}
 
-        {/* ── Flow arrowheads at elbow midpoints ── */}
-        {pipes.map((p) => {
-          const midX  = p.midX;
-          const fromY = p.fromY;
-          return (
-            <g key={`arr-${p.key}`} transform={`translate(${midX + 2.5}, ${fromY})`}>
-              <polygon points="-1.2,-0.85 1.4,0 -1.2,0.85"
-                fill={PRIMARY_GREEN} opacity="0.65" />
-            </g>
-          );
-        })}
-
         {/* ── Elbow joints ── */}
         {pipes.map((p, i) => {
           const n    = nodes[i];

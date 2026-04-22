@@ -90,7 +90,8 @@ export default function ApplicationsHeader() {
                     Interactive Guide
                   </span>
                   <p className="max-w-[180px] text-xs font-bold leading-tight text-deep-blue">
-                    Hover over diagram nodes to reveal pump specifications
+                    <span className="hidden lg:inline">Hover over</span>
+                    <span className="lg:hidden">Tap</span> diagram nodes to reveal pump specifications
                   </p>
                 </div>
               </div>

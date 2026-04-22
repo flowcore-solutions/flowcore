@@ -253,26 +253,23 @@ function CardFront({ pump, imageRef, tilt, priority = false }: CardFrontProps) {
           <h2 className="text-[15px] font-black text-deep-blue leading-tight tracking-tight">
             {pump.fullName}
           </h2>
-          <div className="mt-3">
-            <p className="mb-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-slate-500">
-              Applications
-            </p>
-            <div className="flex flex-wrap gap-1.5">
-              {pump.applications.slice(0, 3).map((app) => (
-                <span
-                  key={app}
-                  className="rounded-full border px-2.5 py-1 text-[9px] font-bold leading-none"
-                  style={{
-                    backgroundColor: "rgba(108,194,74,0.08)",
-                    color: "#2fa84f",
-                    borderColor: "rgba(108,194,74,0.18)",
-                  }}
-                >
-                  {app}
-                </span>
-              ))}
+            <div className="mt-2.5">
+              <p className="text-[9px] font-black uppercase tracking-[0.25em] text-primary-blue/40 mb-2.5 ml-0.5">
+                Core Utility
+              </p>
+              <div className="flex flex-col gap-2">
+                {pump.summaryApplications.map((app, idx) => (
+                  <div key={app} className="flex items-center gap-2.5 group/app">
+                    <span className="text-[8px] font-black text-primary-green/60 uppercase tracking-tighter leading-none w-3">
+                      0{idx + 1}
+                    </span>
+                    <span className="text-[10.5px] font-bold text-slate-500 uppercase tracking-wide leading-tight group-hover/app:text-deep-blue transition-colors">
+                      {app}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
         </div>
 
         {/* Interaction cue */}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 import type { ApplicationEnvironment, DiagramNode } from "@/lib/application-data";
 import DiagramSchematic from "./DiagramSchematic";
 import PumpTooltip from "./PumpTooltip";
@@ -13,6 +13,15 @@ interface ApplicationDiagramProps {
 
 export default function ApplicationDiagram({ env, reversed = false }: ApplicationDiagramProps) {
   const [activeNode, setActiveNode] = useState<DiagramNode | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check for mobile layout to center the tooltip
+  useLayoutEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
     <div className="flex flex-col gap-4">
@@ -23,10 +32,8 @@ export default function ApplicationDiagram({ env, reversed = false }: Applicatio
           The card has a min-height so the layout doesn't jump when it appears.
           On lg+ screens this is hidden — desktop uses the overlay instead.
       ─────────────────────────────────────────────────────────────────────── */}
-      <div className="block lg:hidden" style={{ minHeight: activeNode ? undefined : 0 }}>
-        {activeNode && (
-          <PumpTooltip node={activeNode} mobile />
-        )}
+      <div className="hidden">
+        {/* Mobile tooltip container removed — behavior now matches desktop overlay */}
       </div>
 
       {/* ── MAIN GRID ─────────────────────────────────────────────────────── */}
@@ -37,7 +44,7 @@ export default function ApplicationDiagram({ env, reversed = false }: Applicatio
       >
         {/* Diagram column */}
         <div
-          className={`relative order-1 ${reversed ? "lg:order-1" : "lg:order-2"}`}
+          className={`relative order-2 ${reversed ? "lg:order-1" : "lg:order-2"}`}
           // overflow:visible so the desktop tooltip can escape this div's bounds
           // without being clipped. The parent section handles page-level overflow.
           style={{ overflow: "visible" }}
@@ -59,21 +66,18 @@ export default function ApplicationDiagram({ env, reversed = false }: Applicatio
           ─────────────────────────────────────────────────────────────────── */}
           {activeNode && (
             <div
-              className="hidden lg:block"
+              className="block"
               style={{
                 position:  "absolute",
-                // The SVG's rendered height = containerWidth × (70/100).
-                // So top as % of container height is: node.y/70 × (70/100) × 100
-                // = node.y × 1 — but the container height equals SVG rendered height
-                // which is width × 0.7. CSS % on 'top' is relative to container height.
-                // Since SVG height = container width × 0.7, and top% is of container height:
-                // topPercent = (node.y / 70) * 100 gives correct result when
-                // the container height equals the SVG rendered height.
-                top:       `${(activeNode.y / 70) * 100}%`,
-                left:      `${activeNode.x}%`,
-                transform: `translate(${activeNode.x > 52 ? "calc(-100% - 12px)" : "12px"}, -40%)`,
                 zIndex:    40,
                 pointerEvents: "none",
+                // Mobile: center horizontally to avoid clipping
+                // Desktop (lg): pin to node.x
+                left:      isMobile ? "50%" : `${activeNode.x}%`,
+                top:       `${(activeNode.y / 70) * 100}%`,
+                transform: isMobile
+                  ? "translate(-50%, -50%)" 
+                  : `translate(${activeNode.x > 52 ? "calc(-100% - 12px)" : "12px"}, -40%)`,
               }}
             >
               <PumpTooltip node={activeNode} />
@@ -82,7 +86,7 @@ export default function ApplicationDiagram({ env, reversed = false }: Applicatio
         </div>
 
         {/* Info column */}
-        <div className={`order-2 ${reversed ? "lg:order-2" : "lg:order-1"}`}>
+        <div className={`order-1 ${reversed ? "lg:order-2" : "lg:order-1"}`}>
           <EnvironmentInfo env={env} activeNode={activeNode} />
         </div>
       </div>

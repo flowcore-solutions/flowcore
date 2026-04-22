@@ -1,0 +1,251 @@
+BERLINGTON PUMPS – STRUCTURED DATA
+
+1. CDL / CDLF
+Type: Vertical Multistage Centrifugal Pump
+Technical Details:
+- Flow Rate: 0.4 – 240 m³/h
+- Head: 4 – 305 m
+- Temperature: -15°C to +120°C
+- Voltage: 220V / 380V
+Applications:
+- Water treatment systems
+- Industrial washing systems
+- Fire-fighting systems
+- HVAC systems
+- Boiler feed systems
+- Other industrial applications
+Material: Stainless steel / Cast iron
+
+
+2. CDLF + CDH
+Type: High Pressure Pump Unit
+Technical Details:
+- Flow Rate: 0.4 – 65 m³/h
+- Head: 110 – 718 m
+- Temperature: -15°C to +120°C
+- Voltage: 220V / 380V
+Applications:
+- MF / UF / NF / RO systems
+- High pressure washing systems
+- Industrial boosting systems
+- Other industrial applications
+Material: Stainless steel / Cast iron
+
+
+3. CDLK / CDLKF
+Type: Immersion Type Multistage Centrifugal Pump
+Technical Details:
+- Flow Rate: 0.4 – 65 m³/h
+- Head: 6 – 305 m
+- Temperature: -15°C to +105°C
+- Voltage: 220V / 380V
+Applications:
+- Machine tools cooling systems
+- Industrial washing systems
+- Chiller units
+- Industrial filtration systems
+- Other industrial applications
+Material: Stainless steel / Cast iron
+
+
+4. HYDRO
+Type: Variable Speed Controlled Booster System
+Technical Details:
+- Flow Rate: 2 – 500 m³/h
+- Head: 4 – 200 m
+- Temperature: 15°C to +120°C
+- Voltage: 380V
+Applications:
+- Water supply for high-rise buildings
+- High pressure washing systems
+- Industrial boosting systems
+- Other industrial applications
+Material: Stainless steel / Cast iron
+
+
+5. CHL
+Type: Horizontal Multistage Centrifugal Pump
+Technical Details:
+- Flow Rate: 0.5 – 32 m³/h
+- Head: 6 – 88 m
+- Temperature: -15°C to +105°C
+- Voltage: 220V / 380V
+Applications:
+- Water treatment systems
+- Industrial washing systems
+- Water supply systems
+- Other industrial applications
+Material: Stainless steel / Cast iron
+
+
+6. CHLF / CHLF(T)
+Type: Horizontal Multistage Centrifugal Pump
+Technical Details:
+- Flow Rate: 0.5 – 32 m³/h
+- Head: 6 – 88 m
+- Temperature: -15°C to +105°C
+- Voltage: 220V / 380V
+Applications:
+- Water treatment systems
+- Industrial washing systems
+- Water supply systems
+- Other industrial applications
+Material: Stainless steel / Cast iron
+
+
+7. CHM
+Type: Horizontal Multistage Centrifugal Pump
+Technical Details:
+- Flow Rate: 0.5 – 32 m³/h
+- Head: 6 – 88 m
+- Temperature: -15°C to +105°C
+- Voltage: 220V / 380V
+Applications:
+- Water treatment systems
+- Industrial washing systems
+- Water supply systems
+- Other industrial applications
+Material: Stainless steel
+
+
+8. MINI
+Type: Single Booster Pump
+Technical Details:
+- Flow Rate: 2 – 28 m³/h
+- Head: 4 – 54 m
+- Temperature: 15°C to +120°C
+- Voltage: 220V
+Applications:
+- Independent bungalows
+- Row houses
+- Small factories
+Material: Stainless steel / Cast iron
+
+
+9. ZS
+Type: Horizontal Single-Stage Centrifugal Pump
+Technical Details:
+- Flow Rate: 3 – 200 m³/h
+- Head: 8.8 – 73.7 m
+- Temperature: -10°C to +100°C
+- Voltage: 220V / 380V
+Applications:
+- Water treatment systems
+- Pressure boosting systems
+Material: Stainless steel
+
+
+10. STP
+Type: Horizontal Single-Stage Pump
+Technical Details:
+- Flow Rate: 0.4 – 4 m³/h
+- Head: 4 – 50 m
+- Temperature: up to +45°C
+- Voltage: 220V / 380V
+Applications:
+- Domestic water supply
+- Water treatment
+- Water circulation
+- Gardening
+Material: Stainless steel
+
+
+11. QY(B)
+Type: Stainless Steel Self-Priming Liquid Mixing Pump
+Technical Details:
+- Flow Rate: 0.4 – 18 m³/h
+- Head: 10 – 70 m
+- Temperature: -10°C to +105°C
+- Voltage: 220V / 380V
+Applications:
+- Air float treatment facilities
+- Ozone water generators
+- Oxygen-enriched water systems
+- Biochemical aeration devices
+- Other industrial applications
+Material: Stainless steel / Cast iron
+
+
+12. SZ
+Type: Fluorine Plastic Single-Stage Centrifugal Pump
+Technical Details:
+- Flow Rate: 2.2 – 60 m³/h
+- Head: 15 – 54 m
+- Temperature: -20°C to +120°C
+- Voltage: 220V / 380V
+Applications:
+- Alkali & acid production
+- Metal smelting industry
+- Chemical systems
+- Paper industry
+- Textile dyeing systems
+- Electroplating pickling processes
+- Corrosive liquid transfer
+Material: FEP / PVDF / Cast iron
+
+
+13. NISO
+Type: End Suction Centrifugal Pump
+Technical Details:
+- Flow Rate: 3 – 1200 m³/h
+- Head: 4 – 160 m
+- Temperature: -15°C to +110°C
+- Voltage: 220V / 380V
+Applications:
+- Water treatment systems
+- HVAC systems
+- District heating systems
+- Industrial cooling systems
+- Firefighting systems
+- Pressure boosting systems
+Material: Stainless steel / Cast iron
+
+
+14. LD
+Type: Vertical Inline Circulation Pump
+Technical Details:
+- Flow Rate: 2 – 1200 m³/h
+- Head: 6.3 – 107.6 m
+- Temperature: -15°C to +110°C
+- Voltage: 220V / 380V
+Applications:
+- District heating systems
+- HVAC systems
+- Cooling systems
+- Domestic hot water systems
+- Industrial liquid transportation
+- Water supply systems
+Material: Stainless steel / Cast iron
+
+
+15. WQ
+Type: Submersible Sewage Pump
+Technical Details:
+- Flow Rate: 3 – 1800 m³/h
+- Head: 2 – 66 m
+- Temperature: 0°C to +40°C
+- Voltage: 220V / 380V
+Applications:
+- Municipal water supply plants
+- Storm water drainage
+- Sewage & wastewater pumping
+- Sludge transfer
+- Industrial drainage
+- Agricultural irrigation
+Material: Stainless steel / Cast iron
+
+
+16. BT
+Type: Side Channel Blower
+Technical Details:
+- Flow Rate: 10 – 3000 m³/h
+- Head: 1 – 7 m
+- Temperature: up to +50°C
+- Voltage: 220V / 380V
+Applications:
+- Wastewater treatment
+- Vacuum systems
+- Pneumatic conveying
+- Gas boosting
+- Aeration processes
+Material: Aluminium

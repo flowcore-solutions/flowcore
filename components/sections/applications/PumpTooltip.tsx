@@ -18,10 +18,15 @@ import niso    from "@/app/assets/pumps/niso.png";
 import sz      from "@/app/assets/pumps/sz.png";
 import ld      from "@/app/assets/pumps/ld.png";
 import stp     from "@/app/assets/pumps/stp.png";
+import zs      from "@/app/assets/pumps/zs.png";
+import cdlfCdh from "@/app/assets/pumps/cdlf-cdh.png";
+import cdlkCdlkf from "@/app/assets/pumps/cdlk-cdlkf.png";
+import mini    from "@/app/assets/pumps/mini.png";
 
 const PUMP_IMAGES: Record<string, StaticImageData> = {
   "cdl-cdlf": cdlCdlf, wq, "qy-b": qyB, hydro,
-  chl, chm, chlf, bt, niso, sz, ld, stp,
+  chl, chm, chlf, bt, niso, sz, ld, stp, zs, 
+  "cdlf-cdh": cdlfCdh, "cdlk-cdlkf": cdlkCdlkf, mini
 };
 
 const GREEN        = "#6cc24a";
@@ -48,7 +53,8 @@ export default function PumpTooltip({ node, style, mobile }: PumpTooltipProps) {
       style={{
         boxShadow:     "0 20px 60px 0 rgba(15, 61, 145, 0.22)",
         pointerEvents: "none",
-        width:         mobile ? "100%" : "300px",
+        width:         mobile ? "100%" : "clamp(260px, 70vw, 300px)",
+        maxWidth:      "calc(100vw - 48px)",
         ...style,
       }}
       className="rounded-2xl border border-border bg-white overflow-hidden animate-reveal-up"
