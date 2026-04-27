@@ -12,51 +12,6 @@ const MONO_FONT = "ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Cons
 export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
   if (!pump) return null;
 
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: pump.fullName,
-    image: [`https://flowcoresolutions.in${pump.imagePath}`],
-    description: `Berlington ${pump.fullName} industrial pump. Flow rate: ${pump.flowRate}, Max head: ${pump.maxHead}. Supplied in Bangalore by FlowCore Solutions.`,
-    sku: pump.id,
-    mpn: pump.seriesCode,
-    brand: { "@type": "Brand", name: "Berlington Pumps" },
-    category: pump.category,
-    offers: {
-      "@type": "Offer",
-      url: `https://flowcoresolutions.in/products/${pump.id}`,
-      priceCurrency: "INR",
-      price: "0",
-      priceValidUntil: "2027-01-01",
-      availability: "https://schema.org/InStock",
-      itemCondition: "https://schema.org/NewCondition",
-      seller: { "@type": "Organization", name: "FlowCore Solutions" },
-      hasMerchantReturnPolicy: {
-        "@type": "MerchantReturnPolicy",
-        applicableCountry: "IN",
-        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnPeriod",
-        merchantReturnDays: 30,
-        returnMethod: "https://schema.org/ReturnByMail",
-        returnFees: "https://schema.org/FreeReturn",
-      },
-      shippingDetails: {
-        "@type": "OfferShippingDetails",
-        shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "INR" },
-        shippingDestination: { "@type": "DefinedRegion", addressCountry: "IN" },
-        deliveryTime: {
-          "@type": "ShippingDeliveryTime",
-          handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 1, unitCode: "DAY" },
-          transitTime: { "@type": "ShippingDeliveryTime", minValue: 1, maxValue: 7, unitCode: "DAY" },
-        },
-      },
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "12"
-    }
-  };
-
   const breadcrumbItems = [
     { label: "Home", href: "/" },
     { label: "Products", href: "/products" },
@@ -65,11 +20,6 @@ export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
-      />
-
       <main className="relative min-h-screen bg-section-bg overflow-hidden selection:bg-primary-green selection:text-primary-blue">
         {/* Engineering Underlay — Unified Diagonal Grid */}
         <div className="absolute inset-0 pointer-events-none z-0"

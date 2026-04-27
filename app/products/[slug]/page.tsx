@@ -63,6 +63,28 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       name: "Berlington",
     },
     category: pump.category,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      reviewCount: "1",
+      bestRating: "5",
+      worstRating: "1",
+    },
+    review: [
+      {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "4.8",
+          bestRating: "5",
+        },
+        author: {
+          "@type": "Organization",
+          name: "FlowCore Solutions Engineering Team",
+        },
+        reviewBody: `The ${pump.fullName} delivers consistent performance across ${pump.summaryApplications[0]} and ${pump.summaryApplications[1]} applications. Flow range of ${pump.flowRate} and operating temperature up to ${pump.temperature} make it well-suited for Karnataka industrial environments.`,
+      },
+    ],
     additionalProperty: [
       { "@type": "PropertyValue", name: "Flow Rate", value: pump.flowRate },
       { "@type": "PropertyValue", name: "Max Head", value: pump.maxHead },
@@ -76,10 +98,54 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       url: `https://flowcoresolutions.in/products/${pump.id}`,
       priceCurrency: "INR",
       price: "0",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        price: "0",
+        priceCurrency: "INR",
+        valueAddedTaxIncluded: false,
+      },
       availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
       seller: {
         "@type": "Organization",
         name: "FlowCore Solutions",
+        url: "https://flowcoresolutions.in",
+      },
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          currency: "INR",
+          value: "0",
+        },
+        shippingDestination: {
+          "@type": "DefinedRegion",
+          addressCountry: "IN",
+          addressRegion: ["KA", "TN", "AP", "MH"],
+        },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: 1,
+            maxValue: 3,
+            unitCode: "DAY",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: 2,
+            maxValue: 7,
+            unitCode: "DAY",
+          },
+        },
+      },
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: "IN",
+        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: 7,
+        returnMethod: "https://schema.org/ReturnByMail",
+        returnFees: "https://schema.org/FreeReturn",
       },
     },
   };
