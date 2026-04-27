@@ -3,6 +3,7 @@
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { PUMP_CATALOG, getPumpById, PUMP_CATEGORIES } from "@/lib/pump-data";
+import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 
 type QuoteFormState = {
   name: string;
@@ -25,15 +26,7 @@ function MultiSelect({
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Close when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  useOnClickOutside(containerRef, () => setIsOpen(false));
 
   const togglePump = (id: string) => {
     if (selectedIds.includes(id)) {

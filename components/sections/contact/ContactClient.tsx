@@ -7,7 +7,7 @@
  */
 
 import Link from "next/link";
-import { useState, type FormEvent, type ChangeEvent, useRef, useEffect } from "react";
+import { useState, type FormEvent, type ChangeEvent, useRef } from "react";
 import {
   OFFICE_LOCATIONS,
   type OfficeLocation,
@@ -15,6 +15,7 @@ import {
 import { PUMP_CATALOG, PUMP_CATEGORIES, getPumpById } from "@/lib/pump-data";
 import SectionTag from "@/components/ui/SectionTag";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
+import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 
 // ── Contact Info Panel ────────────────────────────────────────────────────
 
@@ -187,15 +188,7 @@ function MultiProductSelect({
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  useOnClickOutside(containerRef, () => setIsOpen(false));
 
   const togglePump = (id: string) => {
     if (selectedIds.includes(id)) {
