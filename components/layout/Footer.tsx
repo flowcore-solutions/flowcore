@@ -1,9 +1,7 @@
-
 import Image from "next/image";
 import Link from "next/link";
-import flowcoreLogoHorizontal from "@/app/assets/logos/flowcore-logo-horizontal.svg";
 
-const FOOTER_LINKS = [
+const FOOTER_LINKS = [    
   { href: "/", label: "Home" },
   { href: "/products", label: "Products" },
   { href: "/applications", label: "Applications" },
@@ -22,7 +20,7 @@ function BrandIdentity() {
       {/* Subtle hover gleam effect inside the white container */}
       <div className="absolute inset-0 bg-linear-to-tr from-[#6CC24A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       <Image
-        src={flowcoreLogoHorizontal}
+        src="/assets/logos/flowcore-logo-horizontal.svg"
         alt="FlowCore Solutions — Industrial Pump Systems & Water Treatment"
         width={220}
         height={70}

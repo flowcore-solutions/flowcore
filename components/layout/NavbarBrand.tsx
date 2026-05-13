@@ -1,12 +1,10 @@
 import Image from "next/image";
 
-import flowcoreLogo from "@/app/assets/logos/flowcore-logo.svg";
-
-export default function NavbarBrand() {
+export default function NavbarBrand() {      
   return (
     <div className="flex items-center gap-3">
       <Image
-        src={flowcoreLogo}
+        src="/assets/logos/flowcore-logo.svg"    
         alt="FlowCore Solutions logo for industrial pumps and water treatment systems"
         width={54}
         height={54}

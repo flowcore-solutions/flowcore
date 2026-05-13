@@ -4,10 +4,9 @@ import Image from "next/image";
 import SectionTag from "@/components/ui/SectionTag";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 
-import berlingtonLogo from "@/app/assets/logos/berlington-logo.svg";
-import flowcharLogo from "@/app/assets/logos/flowchar-logo.svg";
 
 export default function PartnerSynergy() {
+
   return (
     <section className="relative py-12 lg:py-16 overflow-hidden bg-section-bg">
       <div
@@ -65,7 +64,7 @@ export default function PartnerSynergy() {
                 </div>
                 <div className="relative h-28 w-80 xl:h-32 xl:w-96 mb-8 brightness-0 invert">
                   <Image
-                    src={berlingtonLogo}
+                    src="/assets/logos/berlington-logo.svg"
                     alt="Berlington Pumps — ISO-certified industrial pump manufacturer"
                     fill
                     sizes="(max-width: 1280px) 320px, 384px"
@@ -104,7 +103,7 @@ export default function PartnerSynergy() {
                 </div>
                 <div className="relative h-28 w-80 xl:h-32 xl:w-96 mb-8">
                   <Image
-                    src={flowcharLogo}
+                    src="/assets/logos/flowchar-logo.svg"
                     alt="Flowchar — ISO-certified water treatment chemicals"
                     fill
                     sizes="(max-width: 1280px) 320px, 384px"

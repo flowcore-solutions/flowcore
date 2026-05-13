@@ -10,11 +10,9 @@
 import Image from "next/image";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 import SectionTag from "@/components/ui/SectionTag";
-import berlingtonLogo from "@/app/assets/logos/berlington-logo.svg";
-import flowcharLogo from "@/app/assets/logos/flowchar-logo.svg";
-import flowcoreLogo from "@/app/assets/logos/flowcore-logo-horizontal.svg";
 
 // ── Data ──────────────────────────────────────────────────────────────────
+
 
 const BERLINGTON_CAPABILITIES = [
   "16+ Pump Series (Vertical, Horizontal, Submersible)",
@@ -153,7 +151,7 @@ export default function SynergyBridge() {
 
                 <div className="relative h-20 w-64 lg:h-24 lg:w-72 mb-8 brightness-0 invert">
                   <Image
-                    src={berlingtonLogo}
+                    src="/assets/logos/berlington-logo.svg"
                     alt="Berlington Industrial Pumps"
                     fill
                     sizes="(max-width: 1024px) 256px, 288px"
@@ -194,7 +192,7 @@ export default function SynergyBridge() {
             <div className="relative z-10 flex shrink-0 flex-col items-center justify-center bg-white px-6 py-10 lg:w-48 lg:py-0 ">
               <div className="relative mb-8 h-24 w-44 lg:w-36 xl:w-48">
                 <Image
-                  src={flowcoreLogo}
+                  src="/assets/logos/flowcore-logo-horizontal.svg"
                   alt="FlowCore Solutions"
                   fill
                   sizes="(max-width: 1024px) 176px, 192px"
@@ -250,7 +248,7 @@ export default function SynergyBridge() {
 
                 <div className="relative h-20 w-48 lg:h-24 lg:w-56 mb-8">
                   <Image
-                    src={flowcharLogo}
+                    src="/assets/logos/flowchar-logo.svg"
                     alt="Flowchar Water Treatment"
                     fill
                     sizes="(max-width: 1024px) 192px, 224px"

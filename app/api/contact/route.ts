@@ -1,6 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+// ── Utilities ─────────────────────────────────────────────────────────────
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+// ── Rate Limiting (In-Memory) ─────────────────────────────────────────────
+
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+
+function isRateLimited(request: NextRequest): boolean {
+  const forwarded = request.headers.get("x-forwarded-for");
+  const ip = forwarded?.split(",")[0]?.trim() || "unknown";
+  const now = Date.now();
+  const limit = 5;
+  const windowMs = 10 * 60 * 1000;
+
+  const rateData = rateLimitMap.get(ip);
+
+  if (!rateData || now > rateData.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + windowMs });
+    return false;
+  }
+
+  if (rateData.count >= limit) {
+    return true;
+  }
+
+  rateData.count++;
+  return false;
+}
+
 // ── Types ─────────────────────────────────────────────────────────────────
 
 type ContactSource = "inquiry" | "quote" | "audit";
@@ -59,28 +96,28 @@ function validatePayload(body: unknown): ContactPayload {
   };
 }
 
-// ── Email templates ───────────────────────────────────────────────────────
-
-function buildSubject(payload: ContactPayload): string {
-  const labels: Record<ContactSource, string> = {
-    inquiry: "New Industrial Inquiry",
-    quote: "New Quote Request",
-    audit: "New System Audit Request",
+function buildHtml(payload: ContactPayload, inquiryId: string, subject: string): string {
+  const sourceLabel = payload.source.charAt(0).toUpperCase() + payload.source.slice(1);
+  
+  const sourceColors: Record<ContactSource, string> = {
+    inquiry: "#0f3d91", // Deep Blue
+    quote: "#2fa84f",   // Dark Green
+    audit: "#ea580c",   // Orange
   };
-  return `[FlowCore] ${labels[payload.source]} — ${payload.name}`;
-}
-
-function buildHtml(payload: ContactPayload): string {
+  
+  const headerBg = sourceColors[payload.source];
+  
   const rows: Array<[string, string | undefined]> = [
-    ["Source", payload.source],
-    ["Name / Company", payload.name],
-    ["Email", payload.email],
-    ["Phone", payload.phone],
-    ["Product Interest", payload.product],
-    ["Pump Model IDs", payload.pumpIds?.join(", ")],
-    ["Operating Notes", payload.notes],
-    ["Service Requirements", payload.requirements?.join(", ")],
-    ["Message", payload.message],
+    ["Inquiry ID", escapeHtml(inquiryId)],
+    ["Source", escapeHtml(payload.source)],
+    ["Name / Company", escapeHtml(payload.name)],
+    ["Email", escapeHtml(payload.email)],
+    ["Phone", payload.phone ? escapeHtml(payload.phone) : undefined],
+    ["Product Interest", payload.product ? escapeHtml(payload.product) : undefined],
+    ["Pump Model IDs", payload.pumpIds?.map(escapeHtml).join(", ")],
+    ["Operating Notes", payload.notes ? escapeHtml(payload.notes) : undefined],
+    ["Service Requirements", payload.requirements?.map(escapeHtml).join(", ")],
+    ["Message", payload.message ? escapeHtml(payload.message) : undefined],
   ];
 
   const tableRows = rows
@@ -88,8 +125,8 @@ function buildHtml(payload: ContactPayload): string {
     .map(
       ([label, value]) => `
         <tr>
-          <td style="padding:8px 12px;font-weight:600;color:#0f3d91;white-space:nowrap;vertical-align:top;border-bottom:1px solid #e5e7eb;">${label}</td>
-          <td style="padding:8px 12px;color:#0f172a;vertical-align:top;border-bottom:1px solid #e5e7eb;">${value}</td>
+          <td style="padding:12px 16px;font-weight:600;color:#0f3d91;white-space:nowrap;vertical-align:top;border-bottom:1px solid #e5e7eb;line-height:1.6;">${label}</td>
+          <td style="padding:12px 16px;color:#0f172a;vertical-align:top;border-bottom:1px solid #e5e7eb;line-height:1.6;">${value}</td>
         </tr>`
     )
     .join("");
@@ -102,20 +139,28 @@ function buildHtml(payload: ContactPayload): string {
       <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fafc;padding:40px 20px;">
         <tr><td align="center">
           <table width="600" style="background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;box-shadow:0 4px 24px rgba(0,0,0,0.07);">
-            <!-- Header -->
+            <!-- Logo Header -->
             <tr>
-              <td style="background:#0f3d91;padding:28px 32px;">
-                <p style="margin:0;color:#4da3ff;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;">FlowCore Solutions</p>
-                <h1 style="margin:8px 0 0;color:#ffffff;font-size:22px;font-weight:800;">${buildSubject(payload)}</h1>
+              <td align="center" style="background:#ffffff;padding:24px 0;border-bottom:1px solid #e5e7eb;">
+                <img src="https://flowcoresolutions.in/assets/logos/flowcore-logo-horizontal.svg" alt="FlowCore Solutions" height="36" style="display:block;border:0;" />
+              </td>
+            </tr>
+            <!-- Dynamic Branding Header -->
+            <tr>
+              <td style="background:${headerBg};padding:28px 32px;">
+                <p style="margin:0;color:#ffffff;opacity:0.7;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;">FlowCore Solutions — ${escapeHtml(sourceLabel)}</p>
+                <h1 style="margin:8px 0 0;color:#ffffff;font-size:22px;font-weight:800;">${escapeHtml(subject)}</h1>
               </td>
             </tr>
             <!-- Body -->
             <tr>
-              <td style="padding:28px 32px;">
+              <td style="padding:32px 40px;">
+                <h2 style="margin:0 0 20px;color:#0f172a;font-size:18px;font-weight:700;">Inquiry Details from ${escapeHtml(payload.name)}</h2>
                 <table width="100%" cellpadding="0" cellspacing="0" style="border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;">
                   ${tableRows}
                 </table>
-                <p style="margin:24px 0 0;font-size:12px;color:#94a3b8;">
+                <hr style="border:0;border-top:1px solid #e5e7eb;margin:32px 0;">
+                <p style="margin:0;font-size:12px;color:#94a3b8;">
                   Submitted at ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST via flowcoresolutions.in
                 </p>
               </td>
@@ -128,7 +173,7 @@ function buildHtml(payload: ContactPayload): string {
   `;
 }
 
-function buildAutoReplyHtml(name: string): string {
+function buildAutoReplyHtml(name: string, inquiryId: string): string {
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -137,24 +182,41 @@ function buildAutoReplyHtml(name: string): string {
       <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fafc;padding:40px 20px;">
         <tr><td align="center">
           <table width="600" style="background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;box-shadow:0 4px 24px rgba(0,0,0,0.07);">
+            <!-- Logo Header -->
+            <tr>
+              <td align="center" style="background:#ffffff;padding:24px 0;border-bottom:1px solid #e5e7eb;">
+                <img src="https://flowcoresolutions.in/assets/logos/flowcore-logo-horizontal.svg" alt="FlowCore Solutions" height="36" style="display:block;border:0;" />
+              </td>
+            </tr>
+            <!-- Blue Branding Header -->
             <tr>
               <td style="background:#0f3d91;padding:28px 32px;">
                 <p style="margin:0;color:#4da3ff;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;">FlowCore Solutions</p>
                 <h1 style="margin:8px 0 0;color:#ffffff;font-size:22px;font-weight:800;">We received your inquiry</h1>
               </td>
             </tr>
+            <!-- Body -->
             <tr>
-              <td style="padding:32px;">
-                <p style="margin:0;font-size:16px;color:#0f172a;">Hi <strong>${name}</strong>,</p>
+              <td style="padding:48px;">
+                <p style="margin:0;font-size:16px;color:#0f172a;">Hi <strong>${escapeHtml(name)}</strong>,</p>
                 <p style="margin:16px 0;font-size:15px;line-height:1.7;color:#475569;">
                   Thank you for reaching out to FlowCore Solutions. Our engineering team has received your submission and will respond within <strong>1 business day</strong>.
                 </p>
-                <p style="margin:16px 0;font-size:15px;line-height:1.7;color:#475569;">
-                  In the meantime, feel free to browse our <a href="https://flowcoresolutions.in/products" style="color:#1e5bb8;">full pump catalogue</a> or learn more about our <a href="https://flowcoresolutions.in/applications" style="color:#1e5bb8;">system applications</a>.
+                <p style="margin:16px 0;font-size:15px;line-height:1.7;color:#0f3d91;">
+                  Your Inquiry ID: <strong>${escapeHtml(inquiryId)}</strong>
                 </p>
-                <p style="margin:24px 0 0;font-size:13px;color:#94a3b8;">
-                  FlowCore Solutions · Bangalore, Karnataka<br>
-                  Authorized Berlington Pump Dealer · Flowchar WTP Chemicals
+                <p style="margin:16px 0;font-size:15px;line-height:1.7;color:#475569;">
+                  In the meantime, feel free to explore our industrial solutions:
+                </p>
+                <div style="margin:32px 0;">
+                  <a href="https://flowcoresolutions.in/products" style="display:inline-block;background:#1e5bb8;color:#ffffff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;margin-right:12px;box-shadow:0 4px 12px rgba(30,91,184,0.2);">Full Pump Catalogue</a>
+                  <a href="https://flowcoresolutions.in/applications" style="display:inline-block;background:#0f3d91;color:#ffffff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;box-shadow:0 4px 12px rgba(15,61,145,0.2);">System Applications</a>
+                </div>
+                <hr style="border:0;border-top:1px solid #e5e7eb;margin:40px 0;">
+                <p style="margin:0;font-size:13px;color:#94a3b8;line-height:1.6;">
+                  <strong>FlowCore Solutions</strong><br>
+                  Bangalore, Karnataka &middot; Authorized Berlington Pump Dealer<br>
+                  Advanced Hydraulic Systems &middot; Flowchar WTP Chemicals
                 </p>
               </td>
             </tr>
@@ -187,7 +249,15 @@ function createTransporter() {
 // ── Route handler ─────────────────────────────────────────────────────────
 
 export async function POST(request: NextRequest) {
-  // 1. Parse body
+  // 1. Rate Limit check (Fast exit)
+  if (isRateLimited(request)) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429 }
+    );
+  }
+
+  // 2. Parse body
   let body: unknown;
   try {
     body = await request.json();
@@ -198,7 +268,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // 2. Validate
+  // 3. Validate
   let payload: ContactPayload;
   try {
     payload = validatePayload(body);
@@ -207,16 +277,20 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 400 });
   }
 
-  // 3. Send email
+  // 4. Send email
   try {
     const transporter = createTransporter();
     const contactEmail = process.env.CONTACT_EMAIL ?? process.env.GMAIL_USER;
+    const inquiryId = `FC-${new Date().getFullYear()}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+    
+    const sourceLabel = payload.source.charAt(0).toUpperCase() + payload.source.slice(1);
+    const subject = `[FlowCore] New ${sourceLabel} Request from ${payload.name}`;
 
     await transporter.sendMail({
       from: `"FlowCore Website" <${process.env.GMAIL_USER}>`,
       to: contactEmail,
-      subject: buildSubject(payload),
-      html: buildHtml(payload),
+      subject: subject,
+      html: buildHtml(payload, inquiryId, subject),
       replyTo: payload.email,
     });
 
@@ -225,7 +299,7 @@ export async function POST(request: NextRequest) {
       from: `"FlowCore Solutions" <${process.env.GMAIL_USER}>`,
       to: payload.email,
       subject: "We received your inquiry — FlowCore Solutions",
-      html: buildAutoReplyHtml(payload.name),
+      html: buildAutoReplyHtml(payload.name, inquiryId),
     });
   } catch (err) {
     console.error("[/api/contact] Email send failed:", err);
