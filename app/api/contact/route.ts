@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 // ── Utilities ─────────────────────────────────────────────────────────────
 
@@ -139,12 +139,6 @@ function buildHtml(payload: ContactPayload, inquiryId: string, subject: string):
       <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fafc;padding:40px 20px;">
         <tr><td align="center">
           <table width="600" style="background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;box-shadow:0 4px 24px rgba(0,0,0,0.07);">
-            <!-- Logo Header -->
-            <tr>
-              <td align="center" style="background:#ffffff;padding:24px 0;border-bottom:1px solid #e5e7eb;">
-                <img src="https://flowcoresolutions.in/assets/logos/flowcore-logo-horizontal.svg" alt="FlowCore Solutions" height="36" style="display:block;border:0;" />
-              </td>
-            </tr>
             <!-- Dynamic Branding Header -->
             <tr>
               <td style="background:${headerBg};padding:28px 32px;">
@@ -182,12 +176,6 @@ function buildAutoReplyHtml(name: string, inquiryId: string): string {
       <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fafc;padding:40px 20px;">
         <tr><td align="center">
           <table width="600" style="background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;box-shadow:0 4px 24px rgba(0,0,0,0.07);">
-            <!-- Logo Header -->
-            <tr>
-              <td align="center" style="background:#ffffff;padding:24px 0;border-bottom:1px solid #e5e7eb;">
-                <img src="https://flowcoresolutions.in/assets/logos/flowcore-logo-horizontal.svg" alt="FlowCore Solutions" height="36" style="display:block;border:0;" />
-              </td>
-            </tr>
             <!-- Blue Branding Header -->
             <tr>
               <td style="background:#0f3d91;padding:28px 32px;">
@@ -228,24 +216,6 @@ function buildAutoReplyHtml(name: string, inquiryId: string): string {
   `;
 }
 
-// ── Transporter ───────────────────────────────────────────────────────────
-
-function createTransporter() {
-  const user = process.env.GMAIL_USER;
-  const pass = process.env.GMAIL_APP_PASSWORD;
-
-  if (!user || !pass) {
-    throw new Error(
-      "Missing GMAIL_USER or GMAIL_APP_PASSWORD environment variables."
-    );
-  }
-
-  return nodemailer.createTransport({
-    service: "gmail",
-    auth: { user, pass },
-  });
-}
-
 // ── Route handler ─────────────────────────────────────────────────────────
 
 export async function POST(request: NextRequest) {
@@ -279,24 +249,23 @@ export async function POST(request: NextRequest) {
 
   // 4. Send email
   try {
-    const transporter = createTransporter();
-    const contactEmail = process.env.CONTACT_EMAIL ?? process.env.GMAIL_USER;
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const contactEmail = process.env.CONTACT_EMAIL ?? "info@flowcoresolutions.in";
     const inquiryId = `FC-${new Date().getFullYear()}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
     
     const sourceLabel = payload.source.charAt(0).toUpperCase() + payload.source.slice(1);
     const subject = `[FlowCore] New ${sourceLabel} Request from ${payload.name}`;
 
-    await transporter.sendMail({
-      from: `"FlowCore Website" <${process.env.GMAIL_USER}>`,
+    await resend.emails.send({
+      from: "FlowCore Website <noreply@flowcoresolutions.in>",
       to: contactEmail,
       subject: subject,
       html: buildHtml(payload, inquiryId, subject),
       replyTo: payload.email,
     });
 
-    // Auto-reply to submitter
-    await transporter.sendMail({
-      from: `"FlowCore Solutions" <${process.env.GMAIL_USER}>`,
+    await resend.emails.send({
+      from: "FlowCore Solutions <noreply@flowcoresolutions.in>",
       to: payload.email,
       subject: "We received your inquiry — FlowCore Solutions",
       html: buildAutoReplyHtml(payload.name, inquiryId),
