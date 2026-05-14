@@ -57,12 +57,6 @@ const productSchema = {
     name: "Berlington"
   },
   sku: "FC-BERL-BNG",
-  offers: {
-    "@type": "Offer",
-    priceCurrency: "INR",
-    availability: "https://schema.org/InStock",
-    url: "https://flowcoresolutions.in/contact",
-  },
 };
 
 const faqSchema = {

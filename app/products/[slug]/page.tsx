@@ -62,12 +62,7 @@ function AuthorityProductPage({ page }: { page: ProductAuthorityPage }) {
     seller: { "@type": "Organization", name: "FlowCore Solutions" },
     category: page.primaryKeyword,
     url: `https://flowcoresolutions.in/products/${page.slug}`,
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "INR",
-      availability: "https://schema.org/InStock",
-      url: "https://flowcoresolutions.in/contact",
-    },
+    image: ["https://flowcoresolutions.in/og-image.png"],
     additionalProperty: page.sections
       .flatMap((section) => section.bullets ?? [])
       .slice(0, 10)
@@ -234,12 +229,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       { "@type": "PropertyValue", name: "Voltage", value: pump.voltage },
       { "@type": "PropertyValue", name: "Material", value: pump.material },
     ],
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "INR",
-      availability: "https://schema.org/InStock",
-      url: "https://flowcoresolutions.in/contact",
-    },
   };
 
   return (
