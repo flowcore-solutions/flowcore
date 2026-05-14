@@ -17,12 +17,12 @@ export default function Navbar() {
       <div className="pointer-events-none fixed left-0 right-0 top-3 sm:top-4 z-50 px-4 sm:px-6">
         <nav
           id="main-navbar"
-          className="pointer-events-auto relative mx-auto max-w-7xl roundedxl- sm:rounded-4xl bg-white/95 py-3 sm:py-4 shadow-[0_8px_32px_rgba(15,23,42,0.08)] backdrop-blur-md transition-all duration-500"
+          className="pointer-events-auto relative mx-auto max-w-7xl rounded-full bg-white/90 py-2.5 sm:py-3 shadow-[0_8px_32px_rgba(15,23,42,0.12)] backdrop-blur-md transition-all duration-500"
         >
           {/* Decorative background blobs */}
-          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-4xl sm:rounded-4xl">
-            <div className="absolute -left-20 top-1/2 h-96 w-[24rem] -translate-y-1/2 rounded-full bg-[#6CC24A]/25 blur-[60px]" />
-            <div className="absolute -right-20 top-1/2 h-120 w-120 -translate-y-1/2 rounded-full bg-[#1E5BB8]/15 blur-[70px]" />
+          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
+            <div className="absolute -left-20 top-1/2 h-96 w-[24rem] -translate-y-1/2 rounded-full bg-[#6CC24A]/20 blur-[60px]" />
+            <div className="absolute -right-20 top-1/2 h-120 w-120 -translate-y-1/2 rounded-full bg-[#1E5BB8]/10 blur-[70px]" />
           </div>
 
           <div className="relative z-10 flex items-center justify-between px-5 sm:px-8">

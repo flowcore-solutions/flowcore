@@ -1,7 +1,29 @@
+import { PHASE3_BLOG_POSTS } from "./phase3-authority-data";
+
+// ─────────────────────────────────────────────
+// TYPES
+// ─────────────────────────────────────────────
+
+export type BlogIntentType =
+  | "informational"
+  | "engineering"
+  | "troubleshooting"
+  | "maintenance"
+  | "comparison"
+  | "commercial"
+  | "installation"
+  | "efficiency";
+
 export type BlogSection = {
   heading: string;
   paragraphs: string[];
   bullets?: string[];
+  /**
+   * Internal links injected at the end of this section.
+   * Each entry renders as an anchor tag in the blog template.
+   * href = /blog/[slug], label = link text.
+   */
+  relatedLinks?: { slug: string; label: string }[];
 };
 
 export type BlogFaq = {
@@ -24,315 +46,477 @@ export type BlogPost = {
   ctaBody: string;
   primaryKeyword: string;
   faqs: BlogFaq[];
+  intentType?: BlogIntentType;
+  clusterSlug?: string;
 };
 
+// ─────────────────────────────────────────────
+// LEGACY BLOG POSTS
+// ─────────────────────────────────────────────
+
 export const BLOG_POSTS: readonly BlogPost[] = [
+  // ─────────────────────────────────────────────
+  // POST 1 — COMMERCIAL / BUYING GUIDE
+  // ─────────────────────────────────────────────
   {
     slug: "industrial-pumps-in-bangalore-buying-guide",
     title: "Industrial Pumps in Bangalore: Complete Buying Guide",
     seoTitle:
-      "Industrial Pumps in Bangalore: Complete Buying Guide for WTP, HVAC & Fire Systems",
+      "Industrial Pumps in Bangalore: Buying Guide for WTP, HVAC & Fire Systems",
     metaDescription:
-      "Learn how to choose industrial pumps in Bangalore for HVAC, WTP, fire fighting, and process duty. FlowCore Solutions helps Karnataka buyers match duty, material, and service support.",
+      "How to select industrial pumps in Bangalore for HVAC, WTP, fire fighting, and process duty. FlowCore Solutions helps Karnataka buyers match duty point, material, and service support before the order goes out.",
     excerpt:
-      "A practical buying guide for Bangalore facilities comparing duty points, materials, service access, and application fit before selecting an industrial pump.",
+      "A field-oriented buying guide for Bangalore facilities — duty point verification, material selection, suction conditions, and service access before specifying an industrial pump.",
     publishedAt: "2026-04-16",
     updatedAt: "2026-04-16",
     readingTime: "8 min read",
     primaryKeyword: "industrial pumps in Bangalore",
+    intentType: "commercial",
+    clusterSlug: undefined,
+
     intro: [
-      "Buying industrial pumps in Bangalore is rarely just a catalogue decision. Facilities in Peenya, Nelamangala, Bidadi, Bommasandra, and the wider Karnataka industrial belt need pumps that match flow, head, operating temperature, water quality, and maintenance realities on site.",
-      "That is why FlowCore Solutions treats pump selection as an engineering decision instead of a price-first procurement exercise. As the local authorized Berlington pumps dealer and service partner, we help project teams shortlist the right pump family, size the system correctly, and plan service support before the equipment reaches site.",
+      "Most pump problems on Bangalore sites start at the shortlisting stage, not at installation. Flow and head get confirmed late. Suction conditions are estimated. Motor rating gets used as a proxy for duty, which it isn't.",
+      "This guide covers what to verify before ordering — duty point, fluid conditions, suction head, material, and service access. Getting these wrong costs more than the pump.",
     ],
+
     sections: [
       {
-        heading: "What to check before you buy an industrial pump in Bangalore",
+        heading: "Verify the operating duty before shortlisting",
         paragraphs: [
-          "The first filter is application fit. A pump selected for water treatment duty in Bangalore may fail early if it is pushed into fire fighting standby, HVAC circulation, or abrasive process duty without checking the actual operating conditions.",
-          "The second filter is duty accuracy. Buyers should confirm required flow rate, total dynamic head, fluid temperature, suction conditions, motor power, and expected operating hours. When these values are vague, the pump may be oversized, inefficient, noisy, or difficult to maintain.",
+          "Confirm flow rate, total dynamic head, fluid temperature, suction conditions, and expected run hours before touching a catalogue. When these are vague at quoting stage, the selected pump will be wrong — oversized, undersized, or wrong construction for the fluid.",
+          "Many Karnataka sites also run on inconsistent incoming voltage. Check the motor nameplate against site supply before first start. Voltage mismatch on first energisation voids warranty and is one of the more avoidable early failures we see.",
+          "Also confirm the application: WTP, RO feed, HVAC circulation, pressure boosting, fire fighting standby, sewage transfer, or process fluid. A pump correct for one duty is often wrong for another even at the same flow and head.",
         ],
         bullets: [
-          "Define the exact application: WTP, RO feed, HVAC circulation, pressure boosting, fire fighting, sewage, or process transfer.",
-          "Confirm flow rate, head, fluid temperature, and operating schedule.",
-          "Check whether the liquid is clean water, treated water, chemical-laced water, or wastewater.",
-          "Plan for maintenance access, spare parts, and technician availability in Bangalore.",
+          "Flow rate, TDH, fluid temperature, operating schedule — confirmed, not estimated.",
+          "Suction conditions: static suction lift, pipe losses, NPSH available vs required.",
+          "Fluid type: clean water, treated water, brackish, chemical, or wastewater with solids.",
+          "Site voltage and phase against motor nameplate before commissioning.",
+        ],
+        relatedLinks: [
+          {
+            slug: "berlington-pumps-applications-fire-fighting-hvac-wtp",
+            label: "See how Berlington pumps are applied across fire fighting, HVAC, and WTP systems",
+          },
         ],
       },
       {
-        heading: "Best pump categories for Bangalore commercial and industrial projects",
+        heading: "Which pump type for which application",
         paragraphs: [
-          "Vertical multistage pumps are the most common choice where pressure stability matters. They are widely used in RO skids, pressure boosting lines, boiler feed duties, and compact utility rooms where floor space is limited.",
-          "Horizontal multistage pumps work well for clean water transfer, booster sets, and packaged systems where service teams need easier horizontal access. For sewage or drainage duty, submersible pumps remain the practical option because they handle solids and wet-well conditions more reliably.",
-          "For HVAC and fire fighting projects in Karnataka, end-suction and pipeline-oriented pump selections are often preferred when the design brief prioritizes circulation reliability, standby readiness, and integration with larger MEP packages.",
+          "Vertical multistage pumps are the standard selection for RO feed and pressure boosting where floor space is tight. Most Peenya and Bommasandra plant rooms cannot fit horizontal configurations at the same pressure range — the vertical footprint is the practical reason they get specified.",
+          "Horizontal multistage configurations are better where access matters post-installation. Bearings and mechanical seals are easier to reach on horizontal units in a cramped utility block. For sewage duty in lift stations or wet wells, submersible units eliminate the suction pipe complexity and handle solids directly.",
+          "For HVAC and fire fighting on Karnataka projects, end-suction pumps are the common selection. MEP consultants here are familiar with the duty criteria, and spares availability in Bangalore is reliable for standard frame sizes.",
+        ],
+        relatedLinks: [
+          {
+            slug: "vertical-multistage-pumps-for-ro-plants",
+            label: "Why vertical multistage pumps are specified for RO and high-pressure WTP",
+          },
+          {
+            slug: "optimizing-hvac-pump-efficiency",
+            label: "HVAC pump sizing and VFD control — energy savings guide",
+          },
         ],
       },
       {
-        heading: "Industries we serve in Bangalore",
+        heading: "Industries and applications across Bangalore",
         paragraphs: [
-          "Pump requirements change sharply by industry, so local application knowledge matters. FlowCore Solutions supports buyers across Bangalore where system uptime, compliance, and operating efficiency affect daily output.",
+          "Duty requirements differ sharply by application. On older BWSSB-fed buildings, supply pressure has often degraded from the original design condition — a booster that was correctly sized ten years ago now operates outside its design range, which is where noise and vibration problems start.",
         ],
         bullets: [
-          "Commercial towers and campuses needing HVAC circulation and pressure boosting.",
-          "Hospitals and institutions requiring dependable water transfer and standby fire systems.",
-          "Factories and process plants with utility water, cooling, and chemical dosing needs.",
-          "Water treatment and sewage treatment contractors executing WTP, STP, and RO packages.",
-          "Warehouses, data centers, and infrastructure projects requiring serviceable fire fighting and booster systems.",
+          "Commercial towers and campuses: HVAC circulation, pressure boosting, fire fighting standby.",
+          "Hospitals and institutions: dependable water transfer, standby fire duty.",
+          "Process plants and factories: utility water, cooling tower circuits, chemical dosing lines.",
+          "WTP, STP, and RO contractors: packaged treatment skids requiring pressure and transfer pumps.",
+          "Data centres, warehouses, infrastructure: serviceable fire fighting and booster systems with fast local support.",
         ],
       },
       {
-        heading: "Why Berlington pump selection matters for WTP, HVAC, and fire fighting",
+        heading: "Material selection for Berlington pump series",
         paragraphs: [
-          "Berlington pump families are frequently selected in Bangalore because they cover the core industrial demand set: stainless steel multistage pumps for treated water systems, centrifugal configurations for circulation and transfer, and supporting pump sets for pressure and utility applications.",
-          "For WTP and RO projects, stainless steel construction helps where water quality and corrosion resistance are central to long equipment life. In HVAC systems, stable flow and energy-conscious sizing become more important than chasing the cheapest initial unit cost. In fire fighting, buyers need dependable pressure performance, duty-standby planning, and service support that can respond quickly if a system goes down.",
+          "For WTP and RO applications, stainless steel construction — SS304 as standard, SS316 where chloride exposure is present — protects water quality and reduces early corrosion failures. This isn't a premium selection; it's the basic material requirement for treated-water duty.",
+          "In HVAC circulation, operating at or near BEP matters more than motor kW rating. Oversized pumps are one of the more common energy waste sources we see on Karnataka sites. In fire fighting, the questions are duty-standby changeover logic and whether local service response is fast enough when the system trips.",
+        ],
+        relatedLinks: [
+          {
+            slug: "optimizing-hvac-pump-efficiency",
+            label: "How to correct oversized HVAC pumps and reduce operating cost",
+          },
         ],
       },
       {
-        heading: "How local service support in Karnataka changes the buying decision",
+        heading: "Local service support matters as much as product selection",
         paragraphs: [
-          "A pump that looks correct on paper can become expensive when service support is slow. Bangalore buyers should evaluate local commissioning support, access to genuine spares, and whether the supplier can help troubleshoot sizing or control issues after installation.",
-          "FlowCore Solutions supports projects from Bangalore and across Karnataka with selection guidance, commercial response, and lifecycle servicing. That shortens downtime risk, especially for facilities that cannot wait for long intercity escalation when a pump trips or performance drops.",
+          "A pump that looks correct on a duty sheet becomes expensive when service response is slow. Commissioning support, genuine spares availability, and post-installation troubleshooting are things to confirm before the order, not after the pump trips at 2am.",
+          "Catalogue suppliers without local presence create a specific pattern: the unit cost looks good, then the facility waits three days for someone to check a control wiring fault. The savings disappear fast.",
         ],
       },
       {
-        heading: "Common mistakes buyers make",
+        heading: "Common selection mistakes on Karnataka projects",
         paragraphs: [
-          "The most common mistake is buying by horsepower alone. Motor rating without duty matching does not tell you whether the pump will deliver the right flow at the actual head.",
-          "Another common issue is overlooking material compatibility. Treated water, chemical exposure, and solids handling each demand different construction logic. Buyers also underestimate service access, especially in compact plant rooms where vertical clearance, suction layout, and maintenance space directly affect lifecycle cost.",
+          "Selecting on horsepower alone is the most common mistake. Motor rating without duty matching tells you nothing about whether the pump will deliver the right flow at actual system head.",
+          "On older buildings, this is worse — the original sizing was done for a load that has since changed, and replacement decisions get made on motor frame size rather than system curve. Material compatibility is the other consistent miss. Treated water, chemical exposure, and solids handling each require different construction. Impeller wear is the first thing to inspect when output drops on an in-service pump.",
         ],
         bullets: [
-          "Selecting on price without verifying the operating duty.",
-          "Ignoring suction conditions and NPSH-related issues.",
-          "Using the wrong material for water chemistry or process conditions.",
-          "Treating service and spare parts as an afterthought.",
+          "Selecting on price without verifying the duty point.",
+          "Ignoring suction conditions and available NPSH.",
+          "Using standard cast iron construction where water chemistry demands stainless.",
+          "Treating spares and service as afterthoughts at procurement.",
         ],
       },
       {
-        heading: "How to shortlist the right pump supplier in Bangalore",
+        heading: "What a qualified pump supplier should be able to do",
         paragraphs: [
-          "A strong supplier should be able to review your duty conditions, recommend the correct pump family, explain why the selection fits, and stay involved through commissioning and after-sales support. That is especially important for MEP consultants, builders, and facility teams working to tight project schedules in Bangalore.",
-          "If the supplier cannot discuss system curves, material suitability, power considerations, and long-term maintenance, the selection process is incomplete. High-intent buyers usually benefit more from a technically involved local partner than from a broad catalogue reseller.",
-        ],
-      },
-      {
-        heading: "Final recommendation for Bangalore buyers",
-        paragraphs: [
-          "If your project is based in Bangalore or elsewhere in Karnataka, start with application fit, duty clarity, and service readiness. That usually narrows the product decision faster than comparing model numbers in isolation.",
-          "For facilities buying industrial pumps for HVAC, WTP, fire protection, or general utility water systems, FlowCore Solutions can help review your requirement, map it to the appropriate Berlington pump family, and support the project through supply and service.",
+          "A supplier should review your duty conditions, recommend the correct pump family, and stay involved through commissioning — especially on fast-moving Bangalore MEP projects where delays cost real money.",
+          "If the supplier cannot discuss system curves, material suitability, or suction conditions at quoting stage, the selection is incomplete. That conversation is what separates a reliable installation from a difficult one.",
         ],
       },
     ],
-    ctaTitle: "Need help selecting an industrial pump in Bangalore?",
+
+    ctaTitle: "Need duty-matched pump selection for a Bangalore or Karnataka project?",
     ctaBody:
-      "Share your flow, head, and application details with FlowCore Solutions. We will help you shortlist the right Berlington pump family for Bangalore and Karnataka projects with local supply and service support.",
+      "Share your flow, head, and application details with FlowCore Solutions. We review duty conditions and recommend the correct Berlington pump family for the installation.",
+
     faqs: [
       {
-        question: "Where can I buy industrial pumps in Bangalore?",
+        question: "Where can I source industrial pumps in Bangalore?",
         answer:
-          "You can buy industrial pumps in Bangalore from FlowCore Solutions, which supplies and supports Berlington pump systems for WTP, HVAC, fire fighting, and utility water applications across Karnataka.",
+          "FlowCore Solutions supplies and supports Berlington pump systems for WTP, HVAC, fire fighting, and utility water applications across Karnataka. We support selection, supply, and lifecycle service.",
       },
       {
-        question: "Which industrial pump is best for water treatment in Bangalore?",
+        question: "Which pump type is correct for water treatment in Bangalore?",
         answer:
-          "For many WTP and RO applications, stainless steel vertical multistage pumps are preferred because they offer reliable pressure, compact installation, and good corrosion resistance for treated water duties.",
+          "Vertical multistage pumps in SS304 or SS316 construction are the standard selection for WTP and RO duty — compact footprint, reliable pressure, and corrosion resistance for treated water.",
       },
       {
-        question: "Do you provide industrial pump service in Karnataka?",
+        question: "Do you provide pump service and commissioning support in Karnataka?",
         answer:
-          "Yes. FlowCore Solutions supports Bangalore and Karnataka projects with pump selection guidance, supply coordination, and lifecycle service for Berlington pump installations.",
+          "Yes. FlowCore Solutions supports Bangalore and Karnataka projects from selection through commissioning and ongoing service for Berlington pump installations.",
       },
     ],
   },
+
+  // ─────────────────────────────────────────────
+  // POST 2 — INFORMATIONAL / APPLICATIONS
+  // ─────────────────────────────────────────────
   {
     slug: "berlington-pumps-applications-fire-fighting-hvac-wtp",
-    title:
-      "Berlington Pumps Applications in Fire Fighting, HVAC & WTP Systems",
+    title: "Berlington Pumps: Fire Fighting, HVAC and WTP Applications",
     seoTitle:
-      "Berlington Pumps Applications in Fire Fighting, HVAC & WTP Systems in Bangalore",
+      "Berlington Pumps: Fire Fighting, HVAC and Water Treatment Applications in Karnataka",
     metaDescription:
-      "See where Berlington pumps fit in fire fighting, HVAC, and WTP systems across Bangalore and Karnataka. Learn which pump families suit pressure, circulation, and treatment applications.",
+      "How Berlington pumps are applied across fire fighting, HVAC circulation, and WTP projects in Bangalore and Karnataka — duty-specific selection guidance from FlowCore Solutions.",
     excerpt:
-      "A practical overview of how Berlington pump systems are applied across fire fighting, HVAC, and water treatment projects in Bangalore and Karnataka.",
+      "Application-specific selection context for Berlington pump systems across fire fighting, HVAC, and water treatment projects in Bangalore and Karnataka.",
     publishedAt: "2026-04-16",
     updatedAt: "2026-04-16",
     readingTime: "8 min read",
-    primaryKeyword:
-      "Berlington pumps applications in fire fighting HVAC and WTP systems",
+    primaryKeyword: "Berlington pumps applications",
+    intentType: "informational",
+    clusterSlug: undefined,
+
     intro: [
-      "Berlington pumps are used across several of the highest-intent industrial pump searches in Bangalore because the same project often combines fire fighting, HVAC circulation, and water treatment duties under one facility package.",
-      "For consultants, contractors, and facility owners in Karnataka, the real challenge is not finding a pump brand name. It is matching the right pump family to the right duty condition and then ensuring the system is supported locally after commissioning. That is where FlowCore Solutions adds value as the authorized Berlington pumps dealer and service provider in Bangalore.",
+      "Fire fighting, HVAC circulation, and water treatment are three different engineering problems. They share very little in terms of duty requirements, material demands, or control logic. Using the same selection approach across all three creates avoidable site problems.",
+      "For MEP consultants and contractors in Karnataka, the work happens at duty matching — which Berlington series fits which application, and why.",
     ],
+
     sections: [
       {
-        heading: "Why application-based pump selection matters",
+        heading: "Why the same pump cannot be selected across all three applications",
         paragraphs: [
-          "A fire fighting pump is built around standby readiness and pressure delivery during critical events. An HVAC pump is selected for circulation efficiency and stable performance across long operating hours. A WTP pump has to deal with transfer, boosting, or pressure requirements while respecting water quality and material compatibility.",
-          "Using one generic selection approach across all three applications usually creates avoidable problems. Application-based selection improves reliability, energy performance, and maintenance planning from the start.",
+          "A fire fighting pump is designed around standby readiness and instantaneous pressure delivery when called. It may sit idle for months and must start reliably under load. An HVAC pump runs continuously, and selection is dominated by long-hours efficiency and thermal behaviour at part load. A WTP pump handles pressure, transfer, or boosting with material requirements set by fluid chemistry.",
+          "We have seen this fail specifically when a WTP pump gets reassigned to fire fighting standby — different start logic, different pressure curve, different seal requirements. Early failure is predictable when duty conditions are ignored at selection.",
+        ],
+        relatedLinks: [
+          {
+            slug: "industrial-pumps-in-bangalore-buying-guide",
+            label: "Industrial pump buying guide for Bangalore — duty verification and selection checklist",
+          },
         ],
       },
       {
         heading: "Berlington pumps in fire fighting systems",
         paragraphs: [
-          "In Bangalore commercial buildings, warehouses, campuses, and industrial plants, fire fighting systems depend on dependable pressure delivery and standby readiness. Pumps in this environment are not judged by daily operating comfort. They are judged by how confidently they respond when the system is under stress.",
-          "Berlington pump configurations used in fire fighting projects are typically evaluated for pressure requirements, hydrant and sprinkler network design, duty-standby logic, and integration with the broader MEP package. Buyers should also consider testing routines, spare support, and whether the local supplier can assist with specification-stage selection.",
+          "In Karnataka commercial buildings and industrial plants, a fire pump is judged by one criterion: does it deliver rated pressure and flow when called? Standby readiness and duty-standby changeover logic are what MEP consultants focus on at specification.",
+          "Shaft alignment is a common first-start oversight on newly installed fire pumps — it shows up as vibration and early mechanical seal failure. Check alignment before energisation, not after. Berlington fire fighting configurations are selected against hydrant network pressure requirements, standby logic, and local service response time.",
         ],
         bullets: [
-          "Hydrant and sprinkler pressure support.",
-          "Standby-critical installation planning.",
-          "Compatibility with MEP-led project documentation.",
-          "Service access for inspection and breakdown response in Bangalore.",
+          "Rated pressure delivery at hydrant and sprinkler design points.",
+          "Duty-standby changeover — manual or automatic per IS 15105 / NBC requirements.",
+          "Commissioning: shaft alignment, coupling check, rotation direction before first start.",
+          "Service access for annual inspection and breakdown response in Bangalore.",
+        ],
+        relatedLinks: [
+          {
+            slug: "industrial-pumps-in-bangalore-buying-guide",
+            label: "Fire pump selection checklist for Karnataka projects",
+          },
         ],
       },
       {
-        heading: "Berlington pumps in HVAC systems",
+        heading: "Berlington pumps in HVAC circulation systems",
         paragraphs: [
-          "HVAC pump duty is about stable circulation, predictable head, and long-hours efficiency. In Bangalore office campuses, hotels, hospitals, industrial cooling systems, and mixed-use assets, HVAC pumps have a direct impact on thermal performance and operating cost.",
-          "Berlington pump families used in HVAC applications are often selected for circulation loops, cooling water movement, booster sets, and system pressure balancing. Here, correct sizing is essential. Oversized pumps can waste energy and create control issues, while undersized pumps can reduce comfort and system stability.",
+          "HVAC circulation duty means long operating hours — often 6,000–8,000 hours per year on a commercial building in Bangalore. Energy consumption compounds quickly on a pump running 20–30% oversized against actual system demand, which is the most common condition we find on site audits.",
+          "Correct sizing against the actual system curve — not the theoretical peak — is where most energy savings come from. VFD integration makes sense where load varies significantly across the operating day. It does not help much on constant-head systems; the load profile determines whether VFD investment is justified.",
+        ],
+        relatedLinks: [
+          {
+            slug: "optimizing-hvac-pump-efficiency",
+            label: "How to size HVAC pumps correctly and integrate VFD control — energy savings guide",
+          },
         ],
       },
       {
         heading: "Berlington pumps in WTP and RO systems",
         paragraphs: [
-          "Water treatment systems require pumps that can handle transfer, boosting, filtration support, and pressure requirements with the correct material selection. Stainless steel multistage configurations are especially relevant where treated water quality and corrosion resistance matter.",
-          "Across Bangalore and Karnataka, Berlington pumps are commonly considered for RO feed systems, filtration skids, packaged WTP units, municipal support systems, and utility water infrastructure. Material choice, pressure requirement, and service access should be reviewed together instead of separately.",
+          "Water treatment applications need pumps matched to pressure requirement, flow stability, and material compatibility. For RO feed duty, stainless steel multistage configurations are the standard — SS304 for most treated-water applications, SS316 for coastal Karnataka sites or where chloride levels are elevated.",
+          "Pressure stability on the RO feed side directly affects membrane life. Pressure spikes shorten element service life faster than most operators realise. VFD control on RO feed pumps addresses both energy use and membrane protection where feed water quality and recovery rate vary across the day.",
+        ],
+        relatedLinks: [
+          {
+            slug: "vertical-multistage-pumps-for-ro-plants",
+            label: "Why vertical multistage pumps are the standard for RO and high-pressure WTP",
+          },
         ],
       },
       {
-        heading: "Berlington pump use cases buyers actually ask about",
+        heading: "Typical application scenarios on Karnataka projects",
         paragraphs: [
-          "The most common buyer conversations are not about abstract specifications. They are about practical use cases such as boosting pressure in a campus utility block, supporting an HVAC circulation loop, handling treated water for a commercial plant room, or planning standby support for a fire fighting package.",
-          "That is why FlowCore Solutions structures recommendations around use cases first and model selection second. The result is a more useful discussion for EPC teams, builders, consultants, and facility engineers based in Bangalore.",
+          "The most common conversations we have are about specific use cases: campus utility pressure boosting, HVAC chilled water circulation, treated water transfer for a commercial plant room, or standby fire system integration on a new building.",
         ],
         bullets: [
-          "Fire pump support for commercial and industrial buildings.",
-          "HVAC circulation pumps for chillers, cooling towers, and closed loops.",
-          "Vertical multistage pumps for RO and water treatment lines.",
-          "Pressure boosting for utilities, campuses, and process water systems.",
-        ],
-      },
-      {
-        heading: "Industries we serve in Bangalore and Karnataka",
-        paragraphs: [
-          "Berlington pump applications vary by sector, but the strongest demand in Bangalore usually comes from commercial infrastructure, industrial processing, institutional facilities, and treatment-system contractors.",
-        ],
-        bullets: [
-          "Commercial real estate and business parks.",
-          "Hospitals, institutions, and education campuses.",
-          "Manufacturing plants and process facilities.",
-          "Water treatment, sewage treatment, and RO contractors.",
-          "Warehousing, logistics, and infrastructure projects.",
-        ],
-      },
-      {
-        heading: "How FlowCore supports application-specific pump selection",
-        paragraphs: [
-          "FlowCore Solutions supports clients in Bangalore with pump selection support, product matching, and service coordination based on actual project use cases. That matters most when one site combines multiple duties such as fire fighting, HVAC, and treated water transfer.",
-          "Instead of forcing a generic product pitch, we review the duty condition, installation environment, service expectations, and local support needs before recommending the right Berlington pump family. That makes procurement decisions faster and reduces commissioning friction later.",
-        ],
-      },
-      {
-        heading: "When to involve a local dealer early",
-        paragraphs: [
-          "Buyers should involve a local dealer early when the project requires MEP coordination, system sizing support, or application clarification across multiple utilities. This is especially important in Bangalore projects where timelines are compressed and site coordination can delay procurement.",
-          "An early technical conversation usually helps avoid rework, wrong-model ordering, and mismatched pump performance. It also makes it easier to line up service expectations before the system is live.",
+          "Fire pump packages for commercial towers and industrial buildings.",
+          "HVAC circulation on chiller circuits, cooling towers, and closed loops.",
+          "Vertical multistage pumps on RO skids and packaged WTP units.",
+          "Pressure boosting for campus utilities and process water systems.",
         ],
       },
     ],
-    ctaTitle: "Planning a fire fighting, HVAC, or WTP pump package?",
+
+    ctaTitle: "Planning a fire fighting, HVAC, or WTP pump package in Karnataka?",
     ctaBody:
-      "Talk to FlowCore Solutions for Berlington pump selection support in Bangalore. We help consultants, contractors, and facility teams match the correct pump family to the application and service requirement.",
+      "Talk to FlowCore Solutions for Berlington pump selection support in Bangalore. We help consultants, contractors, and facility teams match the correct pump family to duty and service requirements.",
+
     faqs: [
       {
-        question: "What are Berlington pumps used for?",
+        question: "What applications are Berlington pumps used for?",
         answer:
-          "Berlington pumps are commonly used for fire fighting, HVAC circulation, water treatment, pressure boosting, and industrial utility water systems where dependable performance and local service support are important.",
+          "Fire fighting standby, HVAC circulation, water treatment, pressure boosting, and industrial utility water. Correct series selection depends on duty point, fluid, and operating hours.",
       },
       {
-        question: "Where can I buy Berlington pumps in Bangalore?",
+        question: "Where can I source Berlington pumps in Bangalore?",
         answer:
-          "FlowCore Solutions supplies Berlington pumps in Bangalore and supports projects across Karnataka with product selection, supply coordination, and lifecycle service.",
+          "FlowCore Solutions supplies Berlington pumps across Karnataka with selection support, supply coordination, and lifecycle service for commissioned installations.",
       },
       {
-        question: "Are Berlington pumps suitable for HVAC and WTP systems?",
+        question: "Are Berlington pumps suitable for both HVAC and WTP?",
         answer:
-          "Yes. Berlington pump families are widely suited to HVAC circulation and WTP applications when the duty, material, and pressure requirements are matched correctly during selection.",
+          "Yes, when selected correctly. HVAC and WTP have different duty requirements, material demands, and control logic — the pump series must be matched to the specific application.",
       },
     ],
   },
+
+  // ─────────────────────────────────────────────
+  // POST 3 — EFFICIENCY / HVAC
+  // ─────────────────────────────────────────────
   {
     slug: "optimizing-hvac-pump-efficiency",
-    title: "Optimizing HVAC Pump Efficiency in Commercial Buildings",
-    seoTitle: "Optimizing HVAC Pump Efficiency in Bangalore Commercial Buildings",
-    metaDescription: "Discover how to optimize HVAC pump efficiency in commercial buildings to reduce energy costs. Learn sizing and control strategies with FlowCore Solutions.",
-    excerpt: "HVAC circulation loops are among the highest energy consumers in commercial facilities. Learn how correct pump sizing and VFD integration can drastically cut operational costs.",
+    title: "HVAC Pump Efficiency: Sizing, VFD Control and Energy Savings",
+    seoTitle:
+      "HVAC Pump Efficiency: Sizing, VFD Control and Energy Savings for Commercial Buildings",
+    metaDescription:
+      "How to reduce HVAC pump energy use in commercial buildings through correct duty sizing, VFD integration, and BEP operation. FlowCore engineering guidance for Bangalore facilities.",
+    excerpt:
+      "HVAC circulation pumps running oversized are the most common energy waste on commercial buildings in Bangalore. Correct sizing and VFD integration are where the savings are.",
     publishedAt: "2026-04-18",
     updatedAt: "2026-04-18",
     readingTime: "6 min read",
     primaryKeyword: "HVAC pump efficiency",
+    intentType: "efficiency",
+    clusterSlug: "hvac-pumps",
+
     intro: [
-      "In modern commercial buildings across Bangalore, the HVAC system typically accounts for the majority of utility costs. And within that system, the circulation pumps are often running 24/7. When these pumps are incorrectly sized or poorly controlled, the energy waste compounds silently year after year.",
-      "FlowCore Solutions frequently audits existing setups and helps consultants design new systems that prioritize efficiency. Selecting the right Berlington pump with a flat efficiency curve is only step one. The real savings come from matching the pump to building load dynamics."
+      "On commercial buildings across Bangalore, HVAC pumps are among the highest continuous energy consumers. Most of them are oversized. They were specified against peak theoretical load, never revisited, and now run at 40–60% of that load for most of the year.",
+      "That gap — between specified duty and actual operating condition — is where the energy waste is. Fixing it requires two things: correct sizing against the real system curve, and VFD control where load variation justifies it.",
     ],
+
     sections: [
       {
-        heading: "The Cost of Oversizing",
+        heading: "What operating outside BEP actually costs",
         paragraphs: [
-          "A common mistake during the MEP design phase is specifying a pump based on maximum theoretical load with too high a safety margin. This forces the pump to operate far from its Best Efficiency Point (BEP) during the 90% of the year when the building is not at peak load.",
-          "Oversized pumps not only waste electrical power but also create excessive pressure drops and valve wear, increasing maintenance interventions."
-        ]
+          "Best Efficiency Point (BEP) is the flow and head condition at which a pump operates with minimum energy input and maximum hydraulic efficiency. Every percentage point away from BEP is additional electrical draw for the same output.",
+          "On Bangalore commercial sites — Whitefield office campuses, Electronic City facilities — we commonly find HVAC pumps operating 25–40% above actual system demand. At that condition, increased radial loads on the impeller cause accelerated seal and bearing wear. This is also the operating condition where low-frequency vibration complaints from occupied floors are most common.",
+          "Oversizing at specification is the cause. MEP design typically stacks a safety margin on top of calculated peak load. The system then runs at a fraction of that for most of its operating life.",
+        ],
+        relatedLinks: [
+          {
+            slug: "berlington-pumps-applications-fire-fighting-hvac-wtp",
+            label: "How HVAC pump selection fits into fire fighting and WTP application context",
+          },
+        ],
       },
       {
-        heading: "Variable Frequency Drives (VFD) Integration",
+        heading: "When VFD integration is justified — and when it isn't",
         paragraphs: [
-          "Installing VFDs allows the pump motor to adapt its speed to the actual demand of the chilled water or condenser-water loop. Cutting the motor speed by just 20% can yield almost 50% energy savings due to the affinity laws of centrifugal pumps."
-        ]
-      }
+          "A VFD lets the motor adapt speed to actual chilled water or condenser water demand. The affinity laws mean that a 20% speed reduction yields close to 50% energy savings — the relationship is cubic, not linear.",
+          "That saving is only real when the system curve varies. A constant-head application — a pressure boosting line maintaining fixed minimum pressure — gains very little from a VFD. Adding one as a blanket efficiency measure without checking the load profile is a common mistake on Karnataka projects.",
+          "Check the building's hourly load profile for at least one full operating week before specifying VFD control. If the pump runs at near-constant load, pump replacement at the correct duty point delivers better ROI than a VFD on an oversized unit.",
+        ],
+        relatedLinks: [
+          {
+            slug: "industrial-pumps-in-bangalore-buying-guide",
+            label: "Full buying guide for industrial pumps in Bangalore — duty verification and selection",
+          },
+        ],
+      },
     ],
-    ctaTitle: "Want to audit your building's HVAC pump efficiency?",
-    ctaBody: "Contact FlowCore Solutions. Our engineers in Bangalore can help you select highly efficient Berlington pumps tailored exactly to your MEP requirements.",
+
+    ctaTitle: "Want an HVAC pump efficiency audit for your Bangalore facility?",
+    ctaBody:
+      "FlowCore Solutions engineers can review your HVAC pump duty conditions, identify oversizing, and recommend correct Berlington pump selection or VFD integration where justified.",
+
     faqs: [
-      { question: "How much energy can a VFD save on an HVAC pump?", answer: "A VFD can save anywhere from 30% to 50% of pump energy consumption depending on the load profile of the building." }
-    ]
+      {
+        question: "How much energy can a VFD save on an HVAC pump?",
+        answer:
+          "30–50% of pump energy depending on load profile. The saving is real only where system demand varies. Constant-head systems gain little from VFD — correct pump sizing is the better fix there.",
+      },
+      {
+        question: "How do I know if my HVAC pump is oversized?",
+        answer:
+          "Check whether the control valve is throttled more than 30% at normal operating conditions. Excessive throttling, high noise, or vibration at rated speed all indicate the pump is operating well outside BEP.",
+      },
+    ],
   },
+
+  // ─────────────────────────────────────────────
+  // POST 4 — ENGINEERING / VERTICAL MULTISTAGE
+  // ─────────────────────────────────────────────
   {
     slug: "vertical-multistage-pumps-for-ro-plants",
-    title: "Why Vertical Multistage Pumps Are Essential for RO Plants",
-    seoTitle: "Vertical Multistage Pumps for RO Plants and WTP in Bangalore",
-    metaDescription: "Understand why vertical multistage pumps are the industry standard for RO plants and municipal water treatment. Explore Berlington pump solutions.",
-    excerpt: "For Reverse Osmosis (RO) systems and high-pressure water treatment, vertical multistage pumps offer the perfect blend of footprint, pressure, and corrosion resistance.",
+    title: "Why Vertical Multistage Pumps Are Specified for RO Plants",
+    seoTitle:
+      "Vertical Multistage Pumps for RO Plants: Pressure, Footprint and Material Selection",
+    metaDescription:
+      "Why vertical multistage pumps are the standard RO feed pump selection — pressure stability, compact footprint, and stainless material requirements explained with Karnataka site context.",
+    excerpt:
+      "RO feed requires consistent high pressure in a compact footprint. Vertical multistage pumps are the standard selection — here is the engineering reasoning and material guidance.",
     publishedAt: "2026-04-19",
     updatedAt: "2026-04-19",
     readingTime: "5 min read",
     primaryKeyword: "vertical multistage pumps for RO",
+    intentType: "engineering",
+    clusterSlug: "industrial-ro-pumps",
+
     intro: [
-      "Reverse Osmosis systems require consistent, high-pressure feed water to overcome osmotic resistance. Achieving this reliably, without taking up massive amounts of plant room floor space, is a distinct engineering challenge.",
-      "This is why vertical multistage pumps have become the backbone of RO systems in Bangalore's industrial parks and residential townships. They combine the pressure capabilities of multiple impellers with an incredibly compact vertical footprint."
+      "RO membranes require stable, consistent feed pressure. Pressure spikes shorten element life faster than most operators track. Getting that pressure reliably in a plant room with a constrained footprint is the practical engineering problem on most Bangalore and Karnataka installations.",
+      "Vertical multistage pumps are the standard solution — stacked impellers generate high head incrementally, and the vertical frame fits into plant rooms where a horizontal unit at the same pressure rating would not.",
     ],
+
     sections: [
       {
-        heading: "Material Considerations for RO Skids",
+        heading: "Why vertical over horizontal for RO feed duty",
         paragraphs: [
-          "In RO applications, the input water can often be brackish, and the output is highly purified. Both scenarios demand excellent corrosion resistance. Stainless steel internal components (usually SS304 or SS316) are critical to ensure the pump does not rust or leach impurities back into the treated water."
-        ]
+          "The vertical frame is the immediate reason on most Bangalore sites. Industrial parks in Peenya and Bommasandra have plant rooms built to minimum dimensions. At 6–12 bar feed pressure, a horizontal multistage unit requires significantly more floor space than its vertical equivalent.",
+          "Beyond footprint, vertical multistage pumps connect directly into RO pressure vessel inlet piping in a standard skid layout. The alignment between pump discharge and membrane vessel inlet is cleaner, and suction pipework is shorter — both reduce installation complexity and potential leak points.",
+        ],
+        relatedLinks: [
+          {
+            slug: "industrial-pumps-in-bangalore-buying-guide",
+            label: "Industrial pump buying guide — selection checklist for WTP and RO applications",
+          },
+          {
+            slug: "berlington-pumps-applications-fire-fighting-hvac-wtp",
+            label: "How Berlington pumps are applied across WTP and RO skid projects in Karnataka",
+          },
+        ],
       },
       {
-        heading: "Maintaining High Pressure Stability",
+        heading: "Material selection: SS304 vs SS316 for RO duty",
         paragraphs: [
-          "The multistage design naturally generates high head pressures. By stacking impellers vertically, these pumps can push water through dense membrane filters smoothly without the pulsation issues found in other pump types, ensuring a longer lifespan for the expensive RO membranes."
-        ]
-      }
+          "SS304 is the standard construction for most treated-water RO feed duty in inland Karnataka. It provides adequate corrosion resistance for low-TDS and moderate-chloride feed water at typical operating pressures.",
+          "For Mangalore and coastal Karnataka installations, SS316 is the correct selection regardless of nominal feed water TDS. Ambient humidity and salt air accelerate galvanic corrosion on external wetted components faster than inland sites. On older coastal installations, impeller wear and casing pitting are the first things to inspect when output pressure drops.",
+          "Pump material selection and membrane pressure rating should be reviewed together at the specification stage — they are linked decisions.",
+        ],
+      },
+      {
+        heading: "Pressure stability and membrane protection",
+        paragraphs: [
+          "The stacked impeller design builds pressure incrementally, which produces a flatter, more stable head curve than single-stage alternatives at the same pressure rating. Pressure stability directly protects membrane elements — spikes cause localised stress at the membrane surface and shorten service life.",
+          "VFD control on RO feed pumps is increasingly specified where feed water quality and recovery rate vary across the operating day. Running at constant maximum duty when demand is lower stresses membranes unnecessarily. Check shaft alignment before first start on any new RO feed pump installation — misalignment on a high-head multistage unit is one of the more common first-start problems.",
+        ],
+        relatedLinks: [
+          {
+            slug: "optimizing-hvac-pump-efficiency",
+            label: "VFD control — when it's justified and how to verify savings",
+          },
+        ],
+      },
     ],
-    ctaTitle: "Sourcing pumps for your next RO or WTP project?",
-    ctaBody: "FlowCore Solutions is the authorized distributor for Berlington vertical multistage pumps. Get in touch with our Bangalore team for fast technical selection.",
+
+    ctaTitle: "Sourcing feed pumps for an RO or WTP project in Karnataka?",
+    ctaBody:
+      "FlowCore Solutions supplies Berlington vertical multistage pumps for RO and water treatment applications across Bangalore and Karnataka. Contact our team for technical selection support.",
+
     faqs: [
-      { question: "Why are vertical pumps preferred over horizontal pumps for RO?", answer: "Vertical pumps save valuable floor space on RO skids and easily achieve the high pressures required by stacking multiple impellers in a compact frame." }
-    ]
-  }
+      {
+        question: "Why are vertical multistage pumps preferred for RO feed duty?",
+        answer:
+          "Compact footprint at high pressure, stable head curve, and direct skid integration. The vertical frame fits plant rooms where horizontal units at the same pressure rating do not.",
+      },
+      {
+        question: "Should I use SS304 or SS316 for an RO pump in Karnataka?",
+        answer:
+          "SS304 is correct for most inland Karnataka applications. SS316 is required for coastal installations — Mangalore and similar environments — where chloride exposure accelerates corrosion on wetted components.",
+      },
+      {
+        question: "What causes pressure instability on RO feed lines?",
+        answer:
+          "Oversized pumps running far from BEP, incorrect impeller selection, or mechanical seal wear. Check shaft alignment and impeller clearance first on any RO feed pressure complaint.",
+      },
+    ],
+  },
 ];
 
-export function getAllBlogPosts() {
-  return BLOG_POSTS;
+// ─────────────────────────────────────────────
+// COMBINED BLOG POST REGISTRY
+// ─────────────────────────────────────────────
+
+export function getAllBlogPosts(): BlogPost[] {
+  const posts = [...BLOG_POSTS, ...PHASE3_BLOG_POSTS];
+  const seenSlugs = new Set<string>();
+
+  const deduped = posts.filter((post) => {
+    if (seenSlugs.has(post.slug)) return false;
+    seenSlugs.add(post.slug);
+    return true;
+  });
+
+  if (process.env.NODE_ENV === "development") {
+    const intentMap = new Map<string, string>();
+    deduped.forEach((post) => {
+      const key = `${post.primaryKeyword}::${post.intentType ?? "unknown"}`;
+      if (intentMap.has(key)) {
+        console.warn(
+          `[SEO] Potential blog cannibalization: "${post.slug}" and "${intentMap.get(key)}" share keyword "${post.primaryKeyword}" with intent "${post.intentType}"`
+        );
+      } else {
+        intentMap.set(key, post.slug);
+      }
+    });
+  }
+
+  return deduped;
 }
 
-export function getBlogPostBySlug(slug: string) {
-  return BLOG_POSTS.find((post) => post.slug === slug);
+export function getBlogPostBySlug(slug: string): BlogPost | undefined {
+  return getAllBlogPosts().find((post) => post.slug === slug);
+}
+
+export function getBlogPostsByCluster(clusterSlug: string): BlogPost[] {
+  return getAllBlogPosts().filter((post) => post.clusterSlug === clusterSlug);
+}
+
+export function getBlogPostsByIntent(intentType: BlogIntentType): BlogPost[] {
+  return getAllBlogPosts().filter((post) => post.intentType === intentType);
 }

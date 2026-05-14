@@ -4,12 +4,24 @@ import { notFound } from "next/navigation";
 import FAQSection from "@/components/ui/FAQSection";
 import FeaturedSnippetBlock from "@/components/ui/FeaturedSnippetBlock";
 import { getAllBlogPosts, getBlogPostBySlug } from "@/lib/blog-data";
+import { generateBlogSEO } from "@/lib/seo";
+import { getRelatedContent } from "@/lib/internal-linking";
+import { SEORelatedLinks } from "@/components/sections/SEOContentSections";
+
+// ─────────────────────────────────────────────
+// STATIC PARAMS
+// ─────────────────────────────────────────────
 
 export async function generateStaticParams() {
-  return getAllBlogPosts().map((post) => ({
-    slug: post.slug,
-  }));
+  return getAllBlogPosts().map((post) => ({ slug: post.slug }));
 }
+
+// ─────────────────────────────────────────────
+// METADATA
+// Uses generateBlogSEO() so intent prefix is applied
+// and title patterns stay consistent with the rest of
+// the SEO system rather than being handcoded per post.
+// ─────────────────────────────────────────────
 
 export async function generateMetadata({
   params,
@@ -18,30 +30,35 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
+  if (!post) return {};
 
-  if (!post) {
-    return {};
-  }
+  // generateBlogSEO handles intent prefix + description trimming
+  const meta = generateBlogSEO(
+    post.slug,
+    post.title,
+    post.excerpt,
+    post.intentType
+  );
 
+  // Preserve OG article type and canonical set by generateBlogSEO
   return {
-    title: post.seoTitle,
-    description: post.metaDescription,
-    alternates: {
-      canonical: `/blog/${post.slug}`,
-    },
+    ...meta,
+    // Override title if post has a manually crafted seoTitle that differs from title
+    // (keeps backward compatibility with handwritten posts like the Bangalore buying guide)
+    ...(post.seoTitle !== post.title && post.seoTitle
+      ? { title: post.seoTitle }
+      : {}),
     openGraph: {
-      title: post.seoTitle,
-      description: post.metaDescription,
-      url: `https://flowcoresolutions.in/blog/${post.slug}`,
+      ...(meta.openGraph as object),
       type: "article",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.seoTitle,
-      description: post.metaDescription,
+      url: `https://flowcoresolutions.in/blog/${post.slug}`,
     },
   };
 }
+
+// ─────────────────────────────────────────────
+// PAGE COMPONENT
+// ─────────────────────────────────────────────
 
 export default async function BlogPostPage({
   params,
@@ -50,44 +67,35 @@ export default async function BlogPostPage({
 }) {
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
+  if (!post) notFound();
 
-  if (!post) {
-    notFound();
-  }
+  // getRelatedContent now returns LinkItem[] for all fields
+  const related = getRelatedContent(post.slug);
+
+  // ── Schema markup ─────────────────────────────
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://flowcoresolutions.in",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Blog",
-        item: "https://flowcoresolutions.in/blog",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: post.title,
-        item: `https://flowcoresolutions.in/blog/${post.slug}`,
-      },
+      { "@type": "ListItem", position: 1, name: "Home",  item: "https://flowcoresolutions.in" },
+      { "@type": "ListItem", position: 2, name: "Blog",  item: "https://flowcoresolutions.in/blog" },
+      { "@type": "ListItem", position: 3, name: post.title, item: `https://flowcoresolutions.in/blog/${post.slug}` },
     ],
   };
 
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: post.title,
-    description: post.metaDescription,
-    datePublished: post.publishedAt,
-    dateModified: post.updatedAt,
-    mainEntityOfPage: `https://flowcoresolutions.in/blog/${post.slug}`,
+    headline:          post.title,
+    description:       post.metaDescription,
+    datePublished:     post.publishedAt,
+    dateModified:      post.updatedAt,
+    mainEntityOfPage:  `https://flowcoresolutions.in/blog/${post.slug}`,
+    // articleSection maps to intentType for semantic clarity
+    articleSection:    post.intentType ?? "informational",
+    // keywords from primaryKeyword
+    keywords:          post.primaryKeyword,
     author: {
       "@type": "Organization",
       name: "FlowCore Solutions",
@@ -100,42 +108,27 @@ export default async function BlogPostPage({
         url: "https://flowcoresolutions.in/og-image.png",
       },
     },
-    about: [
-      "Berlington pumps",
-      "industrial pumps in Bangalore",
-      "HVAC pumps",
-      "water treatment pumps",
-      "fire fighting pumps",
-    ],
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: post.faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  };
+  const faqSchema = post.faqs.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: post.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      }
+    : null;
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      {faqSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      )}
 
       <main className="hero-underlap relative bg-section-bg py-16 md:py-20 overflow-hidden">
         <div
@@ -148,16 +141,25 @@ export default async function BlogPostPage({
         />
         <article className="relative mx-auto max-w-4xl px-6">
           <div className="rounded-[32px] bg-white px-6 py-10 border border-gray-100 md:px-10">
+
+            {/* ── Metadata bar ────────────────────────── */}
             <div className="text-sm text-[#64748B]">
               <Link href="/blog" className="font-semibold text-[#1E5BB8] hover:underline">
                 Blog
               </Link>
               <span className="mx-2">/</span>
+              {post.intentType && (
+                <>
+                  <span className="capitalize">{post.intentType}</span>
+                  <span className="mx-2">/</span>
+                </>
+              )}
               <span>{post.readingTime}</span>
               <span className="mx-2">/</span>
               <span>Updated {post.updatedAt}</span>
             </div>
 
+            {/* ── Title ──────────────────────────────── */}
             <h1 className="mt-6 text-4xl font-black tracking-tight text-[#0F172A] md:text-5xl">
               {post.title}
             </h1>
@@ -165,19 +167,19 @@ export default async function BlogPostPage({
               {post.metaDescription}
             </p>
 
+            {/* ── Topic pills ───────────────────────────
+                Links now use actual hrefs from related.products
+                so crawlers can follow them. ───────────── */}
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/berlington-pumps-bangalore"
-                className="rounded-full border border-[#1E5BB8]/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#1E5BB8]"
-              >
-                Berlington Pumps Bangalore
-              </Link>
-              <Link
-                href="/products"
-                className="rounded-full border border-[#1E5BB8]/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#1E5BB8]"
-              >
-                Product Catalogue
-              </Link>
+              {related.products.slice(0, 2).map((product) => (
+                <Link
+                  key={product.href}
+                  href={product.href}
+                  className="rounded-full border border-[#1E5BB8]/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#1E5BB8]"
+                >
+                  {product.title}
+                </Link>
+              ))}
               <Link
                 href="/contact#inquiry-form"
                 className="rounded-full border border-[#6CC24A]/20 bg-[#6CC24A]/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#275B17]"
@@ -186,22 +188,21 @@ export default async function BlogPostPage({
               </Link>
             </div>
 
+            {/* ── Intro ────────────────────────────────── */}
             <div className="mt-12 space-y-6 text-lg leading-8 text-[#475569]">
               {post.intro.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
 
+            {/* ── Featured snippets (first 2 FAQs) ──────── */}
             <section className="mt-12 space-y-4">
               {post.faqs.slice(0, 2).map((faq) => (
-                <FeaturedSnippetBlock
-                  key={faq.question}
-                  question={faq.question}
-                  answer={faq.answer}
-                />
+                <FeaturedSnippetBlock key={faq.question} question={faq.question} answer={faq.answer} />
               ))}
             </section>
 
+            {/* ── Main sections ─────────────────────────── */}
             <div className="mt-14 space-y-12">
               {post.sections.map((section) => (
                 <section key={section.heading}>
@@ -213,7 +214,7 @@ export default async function BlogPostPage({
                       <p key={paragraph}>{paragraph}</p>
                     ))}
                   </div>
-                  {section.bullets ? (
+                  {section.bullets && (
                     <ul className="mt-6 space-y-3 text-lg leading-8 text-[#475569]">
                       {section.bullets.map((bullet) => (
                         <li key={bullet} className="flex gap-3">
@@ -222,11 +223,35 @@ export default async function BlogPostPage({
                         </li>
                       ))}
                     </ul>
-                  ) : null}
+                  )}
                 </section>
               ))}
             </div>
 
+            {/* ── In-content cluster links ──────────────────
+                Inline related posts within the article body
+                strengthen topical authority flow. ──────── */}
+            {related.blogs.length > 0 && (
+              <aside className="mt-12 rounded-2xl border border-[#1E5BB8]/10 bg-[#F8FAFF] p-6">
+                <p className="text-xs font-semibold uppercase tracking-widest text-[#1E5BB8] mb-4">
+                  Related reading
+                </p>
+                <ul className="space-y-2">
+                  {related.blogs.slice(0, 5).map((blog) => (
+                    <li key={blog.href}>
+                      <Link
+                        href={blog.href}
+                        className="text-sm font-medium text-[#1E5BB8] hover:underline leading-6"
+                      >
+                        {blog.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            )}
+
+            {/* ── CTA block ─────────────────────────────── */}
             <section className="mt-16 rounded-[28px] bg-[#1E5BB8] p-8 md:p-10 text-white relative overflow-hidden">
               <div
                 className="pointer-events-none absolute inset-0 opacity-10"
@@ -236,7 +261,9 @@ export default async function BlogPostPage({
                 }}
               />
               <div className="relative z-10">
-                <h2 className="text-2xl font-black md:text-3xl tracking-tight text-white">{post.ctaTitle}</h2>
+                <h2 className="text-2xl font-black md:text-3xl tracking-tight text-white">
+                  {post.ctaTitle}
+                </h2>
                 <p className="mt-4 max-w-3xl text-sm md:text-base leading-7 text-blue-100">
                   {post.ctaBody}
                 </p>
@@ -259,11 +286,18 @@ export default async function BlogPostPage({
           </div>
         </article>
 
-        <FAQSection
-          faqs={post.faqs}
-          title="Article FAQs"
-          tag="Search Questions"
+        {/* ── SEORelatedLinks now receives LinkItem[] ─────
+            products, blogs, cities all have title + href ─ */}
+        <SEORelatedLinks
+          products={related.products}
+          blogs={related.blogs}
+          cities={related.cities}
+          industries={related.industries}
+          applications={related.applications}
+          services={related.services}
         />
+
+        <FAQSection faqs={post.faqs} title="Article FAQs" tag="Search Questions" />
       </main>
     </>
   );

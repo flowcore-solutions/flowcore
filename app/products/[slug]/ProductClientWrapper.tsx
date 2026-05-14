@@ -6,11 +6,15 @@ import { type PumpModel } from "@/lib/pump-data";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 import SectionTag from "@/components/ui/SectionTag";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import { getRelatedContent } from "@/lib/internal-linking";
+import { SEORelatedLinks } from "@/components/sections/SEOContentSections";
 
 const MONO_FONT = "ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace";
 
 export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
   if (!pump) return null;
+
+  const related = getRelatedContent(pump.id);
 
   const breadcrumbItems = [
     { label: "Home", href: "/" },
@@ -89,7 +93,7 @@ export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
 
               <PrecisionReveal variant="riseUp" delay={0.25}>
                 <p className="text-xl text-text-light font-medium leading-relaxed mb-12 max-w-xl">
-                  Precision-engineered <strong className="text-deep-blue font-black underline decoration-primary-green decoration-4 underline-offset-4">{pump.id.toUpperCase()}</strong> unit. Optimized for mission-critical hydraulic performance in complex industrial infrastructure.
+                  Berlington <strong className="text-deep-blue font-black underline decoration-primary-green decoration-4 underline-offset-4">{pump.id.toUpperCase()}</strong> — rated {pump.flowRate} at up to {pump.maxHead}. Suitable for {pump.summaryApplications[0].toLowerCase()} and {pump.summaryApplications[1].toLowerCase()} duty in Karnataka installations.
                 </p>
               </PrecisionReveal>
 
@@ -136,16 +140,16 @@ export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
           <div className="mx-auto max-w-7xl px-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
               <div>
-                <SectionTag accent="green" className="mb-6">Build Integrity</SectionTag>
+                <SectionTag accent="green" className="mb-6">Installation Notes</SectionTag>
                 <h2 className="text-4xl md:text-5xl font-black text-deep-blue leading-[1.1] tracking-tight mb-8">
-                  Configured for <br />
-                  <span className="text-primary-green uppercase italic">Total Reliability.</span>
+                  Check before <br />
+                  <span className="text-primary-green uppercase italic">commissioning.</span>
                 </h2>
                 <div className="space-y-10">
                   {[
-                    { title: "Material Spec", desc: `High-grade ${pump.material} components for zero-fail operation in varied environments.`, icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" },
-                    { title: "Grid Integration", desc: `${pump.voltage} compliant driver units, compatible with standard industrial power boards.`, icon: "M13 10V3L4 14h7v7l9-11h-7z" },
-                    { title: "Interface Architecture", desc: `Standard ${pump.connections} connections for rapid site assembly and registry compliance.`, icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" }
+                    { title: "Material", desc: `Wetted parts in ${pump.material}. Check compatibility with your fluid before installation — particularly relevant for treated water or chemical exposure duty.`, icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" },
+                    { title: "Power Supply", desc: `Runs on ${pump.voltage}. Confirm site supply matches motor nameplate before energising — mismatch is a common first-start issue on Karnataka projects.`, icon: "M13 10V3L4 14h7v7l9-11h-7z" },
+                    { title: "Connections", desc: `${pump.connections} flanged or threaded ports. Check shaft alignment before first start when inline-mounted; misalignment causes early seal wear.`, icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" }
                   ].map((feat, i) => (
                     <div key={i} className="flex gap-6 group">
                       <div className="shrink-0 w-14 h-14 rounded-2xl bg-white border border-border flex items-center justify-center text-primary-blue shadow-sm group-hover:border-primary-green group-hover:text-primary-green transition-all transform group-hover:scale-110">
@@ -195,6 +199,13 @@ export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
           </div>
         </section>
 
+        {/* ── Internal Linking Section (SEO) ── */}
+        <SEORelatedLinks 
+          products={related.products}
+          blogs={related.blogs}
+          cities={related.cities}
+        />
+
         {/* ── Conversion Footer ── */}
         <section className="relative z-10 py-20 px-6">
           <div className="mx-auto max-w-5xl">
@@ -208,14 +219,14 @@ export default function ProductClientWrapper({ pump }: { pump: PumpModel }) {
               />
 
               <PrecisionReveal variant="riseUp" className="relative z-10 flex flex-col items-center">
-                <SectionTag accent="green" className="mb-8">Contact Engineering</SectionTag>
+                <SectionTag accent="green" className="mb-8">Get a Quote</SectionTag>
                 <h2 className="text-4xl md:text-6xl font-black text-white mb-10 tracking-tighter leading-[1.05]">
-                  Start Your <span className="text-primary-green italic">{pump.seriesCode}</span> <br className="hidden md:block" /> Integration Today.
+                  Need the <span className="text-primary-green italic">{pump.seriesCode}</span> <br className="hidden md:block" /> for your site?
                 </h2>
                 <div className="flex flex-col sm:flex-row gap-6 items-center">
                   <Link href="/contact#inquiry-form">
                     <button className="bg-primary-green text-deep-blue hover:bg-white transition-all px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl shadow-primary-green/20 scale-110 hover:scale-105 active:scale-95">
-                      Get Technical Quote
+                      Send Enquiry
                     </button>
                   </Link>
                   <p className="text-white/40 text-[10px] font-black uppercase tracking-[0.3em]">
