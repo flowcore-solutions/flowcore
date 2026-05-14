@@ -58,56 +58,10 @@ const productSchema = {
   sku: "FC-FIRE-BNG",
   offers: {
     "@type": "Offer",
-    url: "https://flowcoresolutions.in/fire-fighting-pumps-bangalore",
     priceCurrency: "INR",
-    price: "0",
-    priceValidUntil: "2027-01-01",
     availability: "https://schema.org/InStock",
-    seller: {
-      "@type": "Organization",
-      name: "FlowCore Solutions",
-    },
-    hasMerchantReturnPolicy: {
-      "@type": "MerchantReturnPolicy",
-      applicableCountry: "IN",
-      returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnPeriod",
-      merchantReturnDays: 30,
-      returnMethod: "https://schema.org/ReturnByMail",
-      returnFees: "https://schema.org/FreeReturn",
-    },
-    shippingDetails: {
-      "@type": "OfferShippingDetails",
-      shippingRate: {
-        "@type": "MonetaryAmount",
-        value: "0",
-        currency: "INR",
-      },
-      shippingDestination: {
-        "@type": "DefinedRegion",
-        addressCountry: "IN",
-      },
-      deliveryTime: {
-        "@type": "ShippingDeliveryTime",
-        handlingTime: {
-          "@type": "QuantitativeValue",
-          minValue: 0,
-          maxValue: 1,
-          unitCode: "DAY",
-        },
-        transitTime: {
-          "@type": "ShippingDeliveryTime",
-          minValue: 1,
-          maxValue: 7,
-          unitCode: "DAY",
-        },
-      },
-    },
+    url: "https://flowcoresolutions.in/contact",
   },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: "32"
-  }
 };
 
 const faqSchema = {
