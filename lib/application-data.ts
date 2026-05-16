@@ -34,16 +34,26 @@ export type EquipmentType =
   | "storage-tank"
   | "process-tank";
 
+export type PipeRoute = {
+  id: string;
+  from: string;
+  to: string;
+  path: string;
+  hasArrow?: boolean;
+  style?: "main" | "trunk" | "return" | "branch" | "bypass";
+  opacity?: number;
+};
+
 export type DiagramNode = {
   id: string;
   label: string;
   role: string;
-  /** null for non-pump equipment nodes */
   pumpModelId: string | null;
-  /** Describes what this node physically is */
   equipmentType: EquipmentType;
   x: number;
   y: number;
+  isBranchNode?: boolean;
+  customScale?: number;
 };
 
 export type ApplicationEnvironment = {
@@ -52,6 +62,7 @@ export type ApplicationEnvironment = {
   name: string;
   description: string;
   diagramNodes: DiagramNode[];
+  pipes: PipeRoute[];
 };
 
 const CORE_APPLICATIONS: Application[] = [
@@ -432,103 +443,212 @@ export const APPLICATIONS: Application[] = [
 ];
 
 // ── Diagram node map — all 12 environments with mixed equipment + pumps ──────
+const applicationDiagramMap: Record<string, { nodes: DiagramNode[]; pipes: PipeRoute[] }> = {
 
-const applicationDiagramMap: Record<string, DiagramNode[]> = {
+  "ro-plants": {
+    nodes: [
+      { id: "ro-raw-tank",    label: "Raw Tank",   role: "Raw water storage vessel",           equipmentType: "storage-tank",  pumpModelId: null,       x: 18, y: 52 },
+      { id: "ro-feed-pump",   label: "CDLF Feed Pump",  role: "Raw water feed to pre-treatment",    equipmentType: "pump",     pumpModelId: "cdl-cdlf", x: 34, y: 52 },
+      { id: "ro-sand-filter", label: "Sand Filter",     role: "Pressure sand filtration stage",      equipmentType: "sand-filter", pumpModelId: null,       x: 50, y: 52 },
+      { id: "ro-hp-pump",     label: "RO HP Pump",    role: "High pressure RO membrane feed",     equipmentType: "pump",     pumpModelId: "cdlf-cdh", x: 68, y: 52 },
+      { id: "ro-membrane",    label: "Membrane",   role: "RO semi-permeable membrane vessels", equipmentType: "ro-vessel", pumpModelId: null,       x: 82, y: 40 },
+      { id: "ro-reject",      label: "Reject Stream", role: "Concentrate discharge", equipmentType: "valve", pumpModelId: null, x: 82, y: 58, isBranchNode: true },
+    ],
+    pipes: [
+      { id: "p1", from: "ro-raw-tank",    to: "ro-feed-pump",   path: "M 18 52 H 34", style: "main", hasArrow: true },
+      { id: "p2", from: "ro-feed-pump",   to: "ro-sand-filter", path: "M 34 52 H 50", style: "main", hasArrow: true },
+      { id: "p3", from: "ro-sand-filter", to: "ro-hp-pump",     path: "M 50 52 H 68", style: "main", hasArrow: true },
+      { id: "p4", from: "ro-hp-pump",     to: "ro-membrane",    path: "M 68 52 H 78 V 40 H 82", style: "main", hasArrow: true },
+      { id: "p5", from: "ro-hp-pump",     to: "ro-reject",      path: "M 78 52 V 58 H 82", style: "branch", hasArrow: true, opacity: 0.4 },
+    ]
+  },
 
-  "ro-plants": [
-    { id: "ro-raw-tank",   label: "Raw Tank",   role: "Raw water storage vessel",           equipmentType: "storage-tank",  pumpModelId: null,       x: 12, y: 38 },
-    { id: "ro-feed-pump",  label: "Feed Pump",  role: "Raw water feed to pre-treatment",    equipmentType: "pump",     pumpModelId: "cdl-cdlf", x: 30, y: 24 },
-    { id: "ro-sand-filter",label: "Sand Filter",role: "Multimedia sand pre-filtration",     equipmentType: "sand-filter",   pumpModelId: null,       x: 50, y: 38 },
-    { id: "ro-hp-pump",    label: "HP Pump",    role: "High pressure RO membrane feed",     equipmentType: "pump",     pumpModelId: "cdlf-cdh", x: 70, y: 24 },
-    { id: "ro-membrane",   label: "Membrane",   role: "RO semi-permeable membrane vessels", equipmentType: "ro-vessel", pumpModelId: null,       x: 88, y: 38 },
-  ],
+  "fire-fighting": {
+    nodes: [
+      { id: "ff-sump",    label: "Sump Tank", role: "Fire water storage sump",            equipmentType: "sump", pumpModelId: null,    x: 22, y: 62 },
+      { id: "ff-jockey",  label: "Jockey",    role: "System pressure maintenance pump",   equipmentType: "pump", pumpModelId: "mini",  x: 18, y: 32 },
+      { id: "ff-main",    label: "Main Fire Pump",      role: "Primary electric fire pump",         equipmentType: "pump", pumpModelId: "niso",  x: 50, y: 62 },
+      { id: "ff-diesel",  label: "Diesel Fire Pump",    role: "Diesel standby fire pump",           equipmentType: "pump", pumpModelId: "niso",  x: 54, y: 32 },
+      { id: "ff-header",  label: "Hydrant Header",    role: "Pressurised fire header manifold",   equipmentType: "header-manifold",pumpModelId: null,    x: 82, y: 38 },
+    ],
+    pipes: [
+      { id: "p1", from: "ff-sump", to: "ff-jockey", path: "M 22 62 V 32 H 18", style: "branch" },
+      { id: "p2", from: "ff-sump", to: "ff-main",   path: "M 22 62 H 50", style: "main" },
+      { id: "p3", from: "ff-sump", to: "ff-diesel", path: "M 22 62 H 38 V 32 H 54", style: "branch" },
+      { id: "p4", from: "ff-main", to: "ff-header", path: "M 50 62 H 82 V 38", style: "main", hasArrow: true },
+      { id: "p5", from: "ff-diesel", to: "ff-header", path: "M 54 32 H 82 V 38", style: "branch", hasArrow: true },
+      { id: "p6", from: "ff-jockey", to: "ff-header", path: "M 18 32 H 82 V 38", style: "bypass", hasArrow: true },
+    ]
+  },
 
-  "fire-fighting": [
-    { id: "ff-sump",    label: "Sump Tank", role: "Fire water storage sump",            equipmentType: "sump", pumpModelId: null,    x: 12, y: 38 },
-    { id: "ff-jockey",  label: "Jockey",    role: "System pressure maintenance pump",   equipmentType: "pump", pumpModelId: "mini",  x: 30, y: 24 },
-    { id: "ff-main",    label: "Main",      role: "Primary electric fire pump",         equipmentType: "pump", pumpModelId: "niso",  x: 50, y: 38 },
-    { id: "ff-diesel",  label: "Diesel",    role: "Diesel standby fire pump",           equipmentType: "pump", pumpModelId: "niso",  x: 70, y: 24 },
-    { id: "ff-header",  label: "Header",    role: "Pressurised fire header manifold",   equipmentType: "header-manifold",pumpModelId: null,    x: 88, y: 38 },
-  ],
+  "hvac": {
+    nodes: [
+      { id: "hvac-chiller",   label: "Chiller",   role: "Core chilled water production unit",         equipmentType: "chiller", pumpModelId: null,    x: 25, y: 52, customScale: 1.12 },
+      { id: "hvac-chw",       label: "Primary CHW Pump",  role: "Chilled water primary loop pump",            equipmentType: "pump", pumpModelId: "ld",    x: 22, y: 22 },
+      { id: "hvac-ahu",       label: "AHU Load",  role: "Air handling unit cooling coil",             equipmentType: "valve", pumpModelId: null,   x: 50, y: 28, customScale: 1.15 },
+      { id: "hvac-cdw",       label: "Condenser Pump",  role: "Condenser water circulation pump",           equipmentType: "pump", pumpModelId: "niso",  x: 78, y: 22 },
+      { id: "hvac-tower",     label: "Cool Tower",role: "Cooling tower heat rejection unit",          equipmentType: "cooling-tower", pumpModelId: null,    x: 75, y: 52, customScale: 1.2 },
+    ],
+    pipes: [
+      { id: "p1", from: "hvac-chiller", to: "hvac-chw",     path: "M 25 52 V 22", style: "main", hasArrow: true },
+      { id: "p2", from: "hvac-chw",     to: "hvac-ahu",     path: "M 22 22 H 50 V 28", style: "main", hasArrow: true },
+      { id: "p3", from: "hvac-ahu",     to: "hvac-chiller", path: "M 50 28 V 40 H 25 V 52", style: "return", hasArrow: true },
+      { id: "p4", from: "hvac-ahu",     to: "hvac-cdw",     path: "M 50 28 V 22 H 78", style: "main", hasArrow: true },
+      { id: "p5", from: "hvac-cdw",     to: "hvac-tower",   path: "M 78 22 V 52", style: "main", hasArrow: true },
+      { id: "p6", from: "hvac-tower",   to: "hvac-ahu",     path: "M 75 52 V 40 H 50 V 28", style: "return", hasArrow: true },
+    ]
+  },
 
-  "hvac": [
-    { id: "hvac-chiller",   label: "Chiller",   role: "Chiller unit evaporator",                    equipmentType: "chiller", pumpModelId: null,    x: 12, y: 38 },
-    { id: "hvac-chw",       label: "CHW Pump",  role: "Chilled water primary loop pump",            equipmentType: "pump", pumpModelId: "ld",    x: 30, y: 24 },
-    { id: "hvac-cdw",       label: "CDW Pump",  role: "Condenser water circulation pump",           equipmentType: "pump", pumpModelId: "niso",  x: 50, y: 38 },
-    { id: "hvac-tower",     label: "Cool Tower",role: "Cooling tower heat rejection unit",          equipmentType: "cooling-tower", pumpModelId: null,    x: 70, y: 24 },
-    { id: "hvac-makeup",    label: "Make-up",   role: "Cooling tower make-up water supply pump",    equipmentType: "pump", pumpModelId: "chlf",  x: 88, y: 38 },
-  ],
+  "boiler-feed": {
+    nodes: [
+      { id: "bf-feed-tank",  label: "Deaerator Tank",  role: "Deaerator boiler feed water tank",  equipmentType: "deaerator", pumpModelId: null,       x: 24, y: 44, customScale: 1.15 },
+      { id: "bf-feed-pump",  label: "CDLF Feed Pump",  role: "High pressure boiler feed pump",    equipmentType: "pump", pumpModelId: "cdlf-cdh", x: 42, y: 26 },
+      { id: "bf-boiler",     label: "Boiler",     role: "Steam boiler vessel",               equipmentType: "boiler", pumpModelId: null,       x: 58, y: 44 },
+      { id: "bf-condensate", label: "Condensate", role: "Condensate return pump",            equipmentType: "pump", pumpModelId: "cdl-cdlf", x: 72, y: 22 },
+    ],
+    pipes: [
+      { id: "p1", from: "bf-feed-tank", to: "bf-feed-pump", path: "M 24 44 H 32 V 26 H 42", style: "main", hasArrow: true },
+      { id: "p2", from: "bf-feed-pump", to: "bf-boiler", path: "M 42 26 H 50 V 44 H 58", style: "main", hasArrow: true },
+      { id: "p3", from: "bf-boiler", to: "bf-condensate", path: "M 58 44 H 65 V 22 H 72", style: "main", hasArrow: true }
+    ]
+  },
 
-  "boiler-feed": [
-    { id: "bf-feed-tank",  label: "Feed Tank",  role: "Deaerator boiler feed water tank",  equipmentType: "deaerator", pumpModelId: null,       x: 14, y: 38 },
-    { id: "bf-feed-pump",  label: "Feed Pump",  role: "High pressure boiler feed pump",    equipmentType: "pump", pumpModelId: "cdlf-cdh", x: 36, y: 24 },
-    { id: "bf-boiler",     label: "Boiler",     role: "Steam boiler vessel",               equipmentType: "boiler", pumpModelId: null,       x: 62, y: 38 },
-    { id: "bf-condensate", label: "Condensate", role: "Condensate return pump",            equipmentType: "pump", pumpModelId: "cdl-cdlf", x: 86, y: 24 },
-  ],
+  "water-treatment": {
+    nodes: [
+      { id: "wt-raw-pump",    label: "Raw Intake",    role: "Raw water intake transfer pump",     equipmentType: "pump",   pumpModelId: "niso",     x: 18, y: 40 },
+      { id: "wt-clarifier",   label: "Clarifier",     role: "Sedimentation clarifier tank",       equipmentType: "clarifier",   pumpModelId: null,       x: 36, y: 26, customScale: 1.1 },
+      { id: "wt-sand-filter", label: "Sand Filter",   role: "Pressure sand filtration stage",        equipmentType: "sand-filter", pumpModelId: null,       x: 50, y: 32, customScale: 1.1 },
+      { id: "wt-transfer",    label: "Transfer",      role: "Filtered water transfer pump",       equipmentType: "pump",   pumpModelId: "cdl-cdlf", x: 66, y: 24 },
+      { id: "wt-dist",        label: "Clear Tank",    role: "Treated water storage tank",   equipmentType: "storage-tank",   pumpModelId: null,       x: 82, y: 40 },
+    ],
+    pipes: [
+      { id: "p1", from: "wt-raw-pump", to: "wt-clarifier", path: "M 18 40 H 26 V 26 H 36", style: "main", hasArrow: true },
+      { id: "p2", from: "wt-clarifier", to: "wt-sand-filter", path: "M 36 26 H 43 V 32 H 50", style: "main", hasArrow: true },
+      { id: "p3", from: "wt-sand-filter", to: "wt-transfer", path: "M 50 32 H 58 V 24 H 66", style: "main", hasArrow: true },
+      { id: "p4", from: "wt-transfer", to: "wt-dist", path: "M 66 24 H 74 V 40 H 82", style: "main", hasArrow: true }
+    ]
+  },
 
-  "water-treatment": [
-    { id: "wt-raw-pump",    label: "Raw Pump",    role: "Raw water intake transfer pump",     equipmentType: "pump",   pumpModelId: "niso",     x: 12, y: 38 },
-    { id: "wt-clarifier",   label: "Clarifier",   role: "Sedimentation clarifier tank",       equipmentType: "clarifier",   pumpModelId: null,       x: 30, y: 24 },
-    { id: "wt-sand-filter", label: "Sand Filter", role: "Rapid sand filtration stage",        equipmentType: "sand-filter", pumpModelId: null,       x: 50, y: 38 },
-    { id: "wt-transfer",    label: "Transfer",    role: "Filtered water transfer pump",       equipmentType: "pump",   pumpModelId: "cdl-cdlf", x: 70, y: 24 },
-    { id: "wt-dist",        label: "Distribution",role: "Treated water distribution pump",   equipmentType: "pump",   pumpModelId: "zs",       x: 88, y: 38 },
-  ],
+  "industrial-filtration": {
+    nodes: [
+      { id: "if-feed",    label: "Feed Pump",   role: "Process water feed to filter train",  equipmentType: "pump",   pumpModelId: "chm",   x: 18, y: 48 },
+      { id: "if-media",   label: "Media Filter",role: "Multimedia deep bed filter",          equipmentType: "media-filter", pumpModelId: null,    x: 36, y: 22, customScale: 1.1 },
+      { id: "if-bkwash",  label: "Backwash",    role: "Backwash reverse flow header",          equipmentType: "header-manifold",   pumpModelId: null,  x: 50, y: 42, customScale: 1.15 },
+      { id: "if-filtrate",label: "Filtrate",    role: "Filtered water storage tank",  equipmentType: "storage-tank",   pumpModelId: null,    x: 64, y: 32 },
+    ],
+    pipes: [
+      { id: "p1", from: "if-feed", to: "if-media", path: "M 18 48 H 26 V 22 H 36", style: "main", hasArrow: true },
+      { id: "p2", from: "if-media", to: "if-bkwash", path: "M 36 22 H 44 V 42 H 50", style: "main", hasArrow: true },
+      { id: "p3", from: "if-bkwash", to: "if-filtrate", path: "M 50 42 H 58 V 32 H 64", style: "main", hasArrow: true }
+    ]
+  },
 
-  "industrial-filtration": [
-    { id: "if-feed",    label: "Feed Pump",   role: "Process water feed to filter train",  equipmentType: "pump",   pumpModelId: "chm",   x: 12, y: 38 },
-    { id: "if-pre",     label: "Pre-filter",  role: "Coarse pre-filtration stage",         equipmentType: "filter", pumpModelId: null,    x: 30, y: 24 },
-    { id: "if-media",   label: "Media Filter",role: "Multimedia deep bed filter",          equipmentType: "media-filter", pumpModelId: null,    x: 50, y: 38 },
-    { id: "if-bkwash",  label: "Backwash",    role: "Backwash reverse flow pump",          equipmentType: "pump",   pumpModelId: "niso",  x: 70, y: 24 },
-    { id: "if-filtrate",label: "Filtrate",    role: "Filtered water transfer to process",  equipmentType: "pump",   pumpModelId: "zs",    x: 88, y: 38 },
-  ],
+  "sewage-treatment": {
+    nodes: [
+      { id: "stp-inlet",    label: "Inlet Pump", role: "Inlet wet well submersible transfer",    equipmentType: "pump",   pumpModelId: "wq",   x: 12, y: 55 },
+      { id: "stp-screen",   label: "Screen",     role: "Physical bar screen for solids",         equipmentType: "screen", pumpModelId: null,   x: 28, y: 55 },
+      { id: "stp-aeration", label: "Aeration",   role: "Biological treatment aeration tank",     equipmentType: "tank",   pumpModelId: null,   x: 56, y: 35, customScale: 1.1 },
+      { id: "stp-blower",   label: "Blower",     role: "Air blower for aeration tank",           equipmentType: "blower", pumpModelId: "bt",   x: 42, y: 65 },
+      { id: "stp-clarifier",label: "Clarifier",  role: "Secondary sedimentation clarifier",      equipmentType: "clarifier",pumpModelId: null,  x: 78, y: 55 },
+      { id: "stp-effluent", label: "Effluent",   role: "Treated water discharge pump",           equipmentType: "pump",   pumpModelId: "niso", x: 96, y: 55 },
+      { id: "stp-sludge",   label: "Sludge Return",role: "Activated sludge return to aeration",  equipmentType: "valve",  pumpModelId: null,   x: 78, y: 70, isBranchNode: true },
+    ],
+    pipes: [
+      { id: "p1", from: "stp-inlet", to: "stp-screen", path: "M 12 55 H 28", style: "main", hasArrow: true },
+      { id: "p2", from: "stp-screen", to: "stp-aeration", path: "M 28 55 H 43 V 35 H 56", style: "main", hasArrow: true },
+      { id: "p3", from: "stp-blower", to: "stp-aeration", path: "M 42 65 V 35 H 56", style: "branch", hasArrow: true },
+      { id: "p4", from: "stp-aeration", to: "stp-clarifier", path: "M 56 35 H 68 V 55 H 78", style: "main", hasArrow: true },
+      { id: "p5", from: "stp-clarifier", to: "stp-effluent", path: "M 78 55 H 96", style: "main", hasArrow: true },
+      { id: "p6", from: "stp-clarifier", to: "stp-sludge", path: "M 78 55 V 70", style: "return", hasArrow: true },
+      { id: "p7", from: "stp-sludge", to: "stp-aeration", path: "M 78 70 H 45 V 35 H 56", style: "return", hasArrow: true },
+    ]
+  },
 
-  "sewage-treatment": [
-    { id: "stp-inlet",    label: "Inlet Pump", role: "Inlet wet well submersible transfer",    equipmentType: "pump",   pumpModelId: "wq",   x: 12, y: 38 },
-    { id: "stp-screen",   label: "Screen",     role: "Bar screen and grit removal",            equipmentType: "screen", pumpModelId: null,   x: 30, y: 24 },
-    { id: "stp-aeration", label: "Aeration",   role: "Biological treatment aeration blower",  equipmentType: "blower", pumpModelId: "bt",   x: 50, y: 38 },
-    { id: "stp-clarifier",label: "Clarifier",  role: "Secondary sedimentation clarifier",     equipmentType: "clarifier",   pumpModelId: null,   x: 70, y: 24 },
-    { id: "stp-effluent", label: "Effluent",   role: "Treated effluent discharge pump",       equipmentType: "pump",   pumpModelId: "niso", x: 88, y: 38 },
-  ],
+  "wastewater-transfer": {
+    nodes: [
+      { id: "ww-collection", label: "Collection Wet Well", role: "Collection holding pit",                  equipmentType: "wet-well", pumpModelId: null,    x: 18, y: 40, customScale: 1.1 },
+      { id: "ww-transfer",   label: "Transfer Pump",    role: "Submersible wastewater transfer pump",   equipmentType: "pump", pumpModelId: "wq",    x: 36, y: 24 },
+      { id: "ww-lift-sump",  label: "Intermediate Sump", role: "Intermediate lift station sump",         equipmentType: "sump", pumpModelId: null,    x: 52, y: 32 },
+      { id: "ww-lift-pump",  label: "Booster Pump",      role: "Lift station submersible pump",          equipmentType: "pump", pumpModelId: "wq",    x: 68, y: 24 },
+      { id: "ww-discharge",  label: "Discharge",         role: "Final discharge to treatment plant",     equipmentType: "pump", pumpModelId: "niso",  x: 80, y: 35 },
+    ],
+    pipes: [
+      { id: "p1", from: "ww-collection", to: "ww-transfer", path: "M 18 40 H 27 V 24 H 36", style: "main", hasArrow: true },
+      { id: "p2", from: "ww-transfer", to: "ww-lift-sump", path: "M 36 24 H 44 V 32 H 52", style: "main", hasArrow: true },
+      { id: "p3", from: "ww-lift-sump", to: "ww-lift-pump", path: "M 52 32 H 60 V 24 H 68", style: "main", hasArrow: true },
+      { id: "p4", from: "ww-lift-pump", to: "ww-discharge", path: "M 68 24 H 74 V 35 H 80", style: "main", hasArrow: true },
+      { id: "p5", from: "ww-lift-sump", to: "ww-collection",path: "M 52 32 V 44 H 18 V 40", style: "return", hasArrow: true, opacity: 0.4 }
+    ]
+  },
 
-  "wastewater-transfer": [
-    { id: "ww-collection", label: "Collection", role: "Collection holding pit",                  equipmentType: "wet-well", pumpModelId: null,    x: 12, y: 38 },
-    { id: "ww-transfer",   label: "Transfer",   role: "Submersible wastewater transfer pump",   equipmentType: "pump", pumpModelId: "wq",    x: 30, y: 24 },
-    { id: "ww-lift-sump",  label: "Lift Sump",  role: "Intermediate lift station sump",         equipmentType: "sump", pumpModelId: null,    x: 50, y: 38 },
-    { id: "ww-lift-pump",  label: "Lift Pump",  role: "Lift station submersible pump",          equipmentType: "pump", pumpModelId: "wq",    x: 70, y: 24 },
-    { id: "ww-discharge",  label: "Discharge",  role: "Final discharge to treatment plant",     equipmentType: "pump", pumpModelId: "niso",  x: 88, y: 38 },
-  ],
+  "industrial-drainage": {
+    nodes: [
+      { id: "id-pit",      label: "Drain Pit",  role: "Plant floor drainage collection pit",  equipmentType: "wet-well",   pumpModelId: null,    x: 18, y: 40, customScale: 1.1 },
+      { id: "id-pit-pump", label: "Pit Pump",   role: "Submersible pit drainage pump",        equipmentType: "pump",   pumpModelId: "wq",    x: 36, y: 24 },
+      { id: "id-sump",     label: "Sump Pump",  role: "Self-priming sump dewatering pump",   equipmentType: "pump",   pumpModelId: "qy-b",  x: 52, y: 32 },
+      { id: "id-sep",      label: "Oil Sep.",   role: "Oil water separator vessel",           equipmentType: "process-tank", pumpModelId: null,    x: 68, y: 22, customScale: 1.1 },
+      { id: "id-out",      label: "Discharge",  role: "Treated drainage discharge pump",     equipmentType: "pump",   pumpModelId: "zs",    x: 82, y: 38 },
+    ],
+    pipes: [
+      { id: "p1", from: "id-pit", to: "id-pit-pump", path: "M 18 40 H 27 V 24 H 36", style: "main", hasArrow: true },
+      { id: "p2", from: "id-pit-pump", to: "id-sump", path: "M 36 24 H 44 V 32 H 52", style: "main", hasArrow: true },
+      { id: "p3", from: "id-sump", to: "id-sep", path: "M 52 32 H 60 V 22 H 68", style: "main", hasArrow: true },
+      { id: "p4", from: "id-sep", to: "id-out", path: "M 68 22 H 75 V 38 H 82", style: "main", hasArrow: true },
+      { id: "p5", from: "id-sump", to: "id-pit", path: "M 52 32 V 44 H 18 V 40", style: "return", hasArrow: true }
+    ]
+  },
 
-  "industrial-drainage": [
-    { id: "id-pit",      label: "Drain Pit",  role: "Plant floor drainage collection pit",  equipmentType: "wet-well",   pumpModelId: null,    x: 12, y: 38 },
-    { id: "id-pit-pump", label: "Pit Pump",   role: "Submersible pit drainage pump",        equipmentType: "pump",   pumpModelId: "wq",    x: 30, y: 24 },
-    { id: "id-sump",     label: "Sump Pump",  role: "Self-priming sump dewatering pump",   equipmentType: "pump",   pumpModelId: "qy-b",  x: 50, y: 38 },
-    { id: "id-sep",      label: "Oil Sep.",   role: "Oil water separator vessel",           equipmentType: "process-tank", pumpModelId: null,    x: 70, y: 24 },
-    { id: "id-out",      label: "Discharge",  role: "Treated drainage discharge pump",     equipmentType: "pump",   pumpModelId: "zs",    x: 88, y: 38 },
-  ],
+  "high-rise-water-supply": {
+    nodes: [
+      { id: "hr-ug",      label: "Underground Tank", role: "Primary site water storage",           equipmentType: "storage-tank", pumpModelId: null,       x: 18, y: 40, customScale: 1.1 },
+      { id: "hr-xfer",    label: "Transfer Pump",    role: "Transfer to overhead storage",         equipmentType: "pump", pumpModelId: "cdl-cdlf", x: 34, y: 24 },
+      { id: "hr-booster", label: "Hydro Booster",    role: "Variable speed pressure booster",      equipmentType: "booster-system", pumpModelId: "hydro",    x: 50, y: 38, customScale: 1.2 },
+      { id: "hr-oh",      label: "Overhead Tank",    role: "Terrace-level gravity storage",        equipmentType: "storage-tank", pumpModelId: null,       x: 68, y: 22, customScale: 1.1 },
+      { id: "hr-zone",    label: "Dist. Zone Pump",  role: "Pressure zone distribution pump",      equipmentType: "pump", pumpModelId: "mini",     x: 84, y: 40, customScale: 1.08 },
+    ],
+    pipes: [
+      { id: "p1", from: "hr-ug", to: "hr-xfer", path: "M 18 40 H 26 V 24 H 34", style: "main", hasArrow: true },
+      { id: "p2", from: "hr-xfer", to: "hr-booster", path: "M 34 24 H 42 V 38 H 50", style: "main", hasArrow: true },
+      { id: "p3", from: "hr-booster", to: "hr-oh", path: "M 50 38 H 58 V 22 H 68", style: "main", hasArrow: true },
+      { id: "p4", from: "hr-oh", to: "hr-zone", path: "M 68 22 H 76 V 40 H 84", style: "main", hasArrow: true }
+    ]
+  },
 
-  "high-rise-water-supply": [
-    { id: "hr-ug",      label: "UG Tank",   role: "Underground water storage tank",       equipmentType: "storage-tank", pumpModelId: null,       x: 12, y: 38 },
-    { id: "hr-xfer",    label: "Transfer",  role: "Transfer pump to booster inlet",       equipmentType: "pump", pumpModelId: "cdl-cdlf", x: 30, y: 24 },
-    { id: "hr-booster", label: "Booster",   role: "Variable speed pressure booster",      equipmentType: "booster-system", pumpModelId: "hydro",    x: 50, y: 38 },
-    { id: "hr-oh",      label: "OH Tank",   role: "Overhead terrace storage tank",        equipmentType: "storage-tank", pumpModelId: null,       x: 70, y: 24 },
-    { id: "hr-zone",    label: "Zone Pump", role: "Pressure zone distribution pump",      equipmentType: "pump", pumpModelId: "mini",     x: 88, y: 38 },
-  ],
+  "hotel-water-systems": {
+    nodes: [
+      { id: "hw-ug",      label: "UG Tank",      role: "Underground site water storage",      equipmentType: "storage-tank", pumpModelId: null,       x: 12, y: 45, customScale: 1.1 },
+      { id: "hw-booster", label: "Hydro Booster", role: "Primary site distribution booster",  equipmentType: "booster-system", pumpModelId: "hydro",    x: 30, y: 45, customScale: 1.2 },
+      { id: "hw-guest",   label: "Guest Supply",  role: "Potable water distribution branch",   equipmentType: "pump", pumpModelId: "hydro",    x: 52, y: 20 },
+      { id: "hw-hvac",    label: "HVAC Circ",     role: "Chilled water loop circulation",      equipmentType: "pump", pumpModelId: "ld",       x: 70, y: 20 },
+      { id: "hw-fire",    label: "Fire System",   role: "Fire hydrant standby system",         equipmentType: "pump", pumpModelId: "niso",     x: 88, y: 20 },
+      { id: "hw-ro",      label: "Kitchen RO",    role: "Dining water purification plant",     equipmentType: "pump", pumpModelId: "cdlf-cdh", x: 52, y: 65 },
+      { id: "hw-stp",     label: "STP Plant",     role: "Waste treatment and recycling",       equipmentType: "pump", pumpModelId: "wq",       x: 72, y: 65 },
+    ],
+    pipes: [
+      { id: "p1", from: "hw-ug",      to: "hw-booster", path: "M 12 45 H 30",           style: "trunk",  hasArrow: true },
+      { id: "p2", from: "hw-booster", to: "hw-guest",   path: "M 30 45 H 42 V 20 H 52", style: "main",   hasArrow: true },
+      { id: "p3", from: "hw-booster", to: "hw-hvac",    path: "M 30 45 H 42 V 20 H 70", style: "main",   hasArrow: true },
+      { id: "p4", from: "hw-booster", to: "hw-fire",    path: "M 30 45 H 42 V 20 H 88", style: "main",   hasArrow: true },
+      { id: "p5", from: "hw-booster", to: "hw-ro",      path: "M 30 45 H 42 V 65 H 52", style: "branch", hasArrow: true },
+      { id: "p6", from: "hw-booster", to: "hw-stp",     path: "M 30 45 H 42 V 65 H 72", style: "return", hasArrow: true, opacity: 0.4 }
+    ]
+  },
 
-  "hotel-water-systems": [
-    { id: "hw-domestic", label: "Domestic", role: "Guest water pressure booster pump",     equipmentType: "pump", pumpModelId: "hydro",    x: 12, y: 38 },
-    { id: "hw-hvac",     label: "HVAC",     role: "Chilled water HVAC circulation pump",  equipmentType: "pump", pumpModelId: "ld",       x: 30, y: 24 },
-    { id: "hw-fire",     label: "Fire",     role: "Fire hydrant main pump",               equipmentType: "pump", pumpModelId: "niso",     x: 50, y: 38 },
-    { id: "hw-stp",      label: "STP",      role: "Sewage treatment wet well pump",       equipmentType: "pump", pumpModelId: "wq",       x: 70, y: 24 },
-    { id: "hw-ro",       label: "RO Feed",  role: "Drinking water RO feed pump",          equipmentType: "pump", pumpModelId: "cdlf-cdh", x: 88, y: 38 },
-  ],
-
-  "utility-water": [
-    { id: "uw-storage",  label: "Storage",    role: "Utility water storage tank",          equipmentType: "storage-tank",  pumpModelId: null,    x: 12, y: 38 },
-    { id: "uw-transfer", label: "Transfer",   role: "Utility water transfer pump",         equipmentType: "pump",  pumpModelId: "niso",  x: 30, y: 24 },
-    { id: "uw-pressure", label: "Pressure",   role: "Utility pressure boosting pump",      equipmentType: "pump",  pumpModelId: "zs",    x: 50, y: 38 },
-    { id: "uw-meter",    label: "Flow Meter", role: "Flow measurement and monitoring",     equipmentType: "flow-meter", pumpModelId: null,    x: 70, y: 24 },
-    { id: "uw-circ",     label: "Circulation",role: "Closed loop utility circulation pump",equipmentType: "pump",  pumpModelId: "ld",    x: 88, y: 38 },
-  ],
+  "utility-water": {
+    nodes: [
+      { id: "uw-storage",  label: "Storage Tank",      role: "Utility water storage tank",          equipmentType: "storage-tank",  pumpModelId: null,    x: 18, y: 40, customScale: 1.1 },
+      { id: "uw-transfer", label: "Transfer Pump",    role: "Utility water transfer pump",         equipmentType: "pump",  pumpModelId: "niso",  x: 36, y: 24 },
+      { id: "uw-pressure", label: "Booster Pump",     role: "Utility pressure boosting pump",      equipmentType: "pump",  pumpModelId: "zs",    x: 54, y: 38, customScale: 1.15 },
+      { id: "uw-meter",    label: "Flow Meter",       role: "Flow measurement instrumentation",    equipmentType: "flow-meter", pumpModelId: null,    x: 70, y: 38, customScale: 0.85 },
+      { id: "uw-circ",     label: "Recirculation Pump",role: "Closed loop utility circulation",     equipmentType: "pump",  pumpModelId: "ld",    x: 84, y: 44 },
+    ],
+    pipes: [
+      { id: "p1", from: "uw-storage", to: "uw-transfer", path: "M 18 40 H 27 V 24 H 36", style: "main", hasArrow: true },
+      { id: "p2", from: "uw-transfer", to: "uw-pressure", path: "M 36 24 H 45 V 38 H 54", style: "main", hasArrow: true },
+      { id: "p3", from: "uw-pressure", to: "uw-meter", path: "M 54 38 H 70", style: "main", hasArrow: true },
+      { id: "p4", from: "uw-meter", to: "uw-circ", path: "M 70 38 H 77 V 44 H 84", style: "main", hasArrow: true }
+    ]
+  },
 };
 
 // ── Environment list — all 12, each with authored diagram nodes ──────────────
@@ -550,7 +670,9 @@ export const APPLICATION_ENVIRONMENTS: ApplicationEnvironment[] = [
   const application = APPLICATIONS.find((a) => a.slug === slug)!;
   return {
     id: slug,
-    shortName: application.name
+    shortName: slug === "wastewater-transfer" ? "WWT" 
+      : slug === "water-treatment" ? "WT"
+      : application.name
       .split(/\s+/)
       .map((part) => part[0])
       .join("")
@@ -558,7 +680,8 @@ export const APPLICATION_ENVIRONMENTS: ApplicationEnvironment[] = [
       .toUpperCase(),
     name: application.name,
     description: application.description,
-    diagramNodes: applicationDiagramMap[slug],
+    diagramNodes: applicationDiagramMap[slug].nodes,
+    pipes: applicationDiagramMap[slug].pipes,
   };
 });
 

@@ -1,19 +1,36 @@
+"use client";
+
 import dynamic from "next/dynamic";
 import type { ApplicationEnvironment } from "@/lib/application-data";
+
+// Lazy-load so React Flow only loads client-side (it uses browser APIs)
 const ApplicationDiagram = dynamic(() => import("./ApplicationDiagram"), {
-  ssr: true,
+  ssr: false,
+  loading: () => (
+    <div
+      style={{
+        height:     360,
+        background: "#f4f7fb",
+        border:     "1.5px solid #dde5ef",
+        borderRadius: 16,
+        display:    "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <span style={{ fontSize: 12, color: "#94a8bc", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+        Loading schematic…
+      </span>
+    </div>
+  ),
 });
-import PrecisionReveal from "@/components/ui/PrecisionReveal";
 
 interface ApplicationEnvironmentSectionProps {
-  env: ApplicationEnvironment;
+  env:   ApplicationEnvironment;
   index: number;
 }
 
-export default function ApplicationEnvironmentSection({
-  env,
-  index,
-}: ApplicationEnvironmentSectionProps) {
+export default function ApplicationEnvironmentSection({ env, index }: ApplicationEnvironmentSectionProps) {
   const isEven = index % 2 === 0;
 
   return (
@@ -21,18 +38,15 @@ export default function ApplicationEnvironmentSection({
       id={`env-${env.id}`}
       aria-labelledby={`env-heading-${env.id}`}
       className="relative"
-      // KEY FIX: removed overflow-hidden from the section.
-      // It was clipping the desktop tooltip whenever it extended beyond the
-      // section boundary. The bg pattern div below handles its own overflow.
-      style={{ backgroundColor: "#f8fafc" }}
+      style={{ backgroundColor: "#f4f7fb" }}
     >
-      {/* Background pattern — contained in its own div so it doesn't affect tooltip overflow */}
+      {/* Background texture */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
         style={{
-          backgroundImage: `repeating-linear-gradient(45deg, #0F172A 0, #0F172A 1px, transparent 1px, transparent 20px)`,
-          opacity: 0.025,
+          backgroundImage: `repeating-linear-gradient(45deg, #0f2744 0, #0f2744 1px, transparent 1px, transparent 22px)`,
+          opacity: 0.018,
         }}
       />
 
@@ -41,9 +55,7 @@ export default function ApplicationEnvironmentSection({
           {env.name}
         </h2>
 
-        <PrecisionReveal variant={isEven ? "fadeSlideLeft" : "fadeSlideRight"}>
-          <ApplicationDiagram env={env} reversed={!isEven} />
-        </PrecisionReveal>
+        <ApplicationDiagram env={env} reversed={!isEven} />
       </div>
     </section>
   );

@@ -249,3 +249,129 @@ Applications:
 - Gas boosting
 - Aeration processes
 Material: Aluminium
+
+
+Here's the prompt:
+
+Completely redesign the pump system application diagram section using React Flow (@xyflow/react). You have full creative freedom on the visual design. Here is the full context:
+
+What this section does:
+This is an industrial pump systems showcase for a B2B pump distributor website (FlowCore, selling Berlington pumps in Bangalore). It shows 12 different water/industrial system diagrams — RO Plants, Fire Fighting, HVAC, Boiler Feed, Sewage Treatment etc. Each diagram shows the flow of water through pumps and equipment in that system. Engineers and contractors are the audience. It needs to look technical, professional, and trustworthy — not like a generic SaaS dashboard.
+
+Files involved:
+
+components/sections/applications/DiagramSchematic.tsx — the diagram renderer (full redesign)
+components/sections/applications/EnvironmentInfo.tsx — the info card (can redesign)
+components/sections/applications/ApplicationEnvironmentSection.tsx — the parent layout (can redesign)
+lib/application-data.ts — the data source (keep all data, only change types if needed)
+
+
+Data available per environment:
+ts// Each environment has:
+env.name          // "RO Plants", "Fire Fighting" etc
+env.shortName     // "RP", "FF" etc
+env.description   // one paragraph description
+env.diagramNodes  // array of nodes with:
+  node.id
+  node.label        // "Raw Tank", "CDLF Feed Pump" etc
+  node.role         // engineering description of this component
+  node.equipmentType // "pump" | "tank" | "chiller" | "boiler" etc (22 types)
+  node.pumpModelId   // "niso" | "wq" | "ld" etc or null if not a pump
+  node.x, node.y    // position in 0-100 coordinate space
+  node.isBranchNode  // true for secondary/return flow nodes
+
+env.pipes         // array of connections:
+  pipe.id
+  pipe.from, pipe.to  // node ids
+  pipe.style          // "main" | "return" | "branch" | "bypass"
+  pipe.hasArrow       // boolean
+
+Equipment types that exist:
+pump, tank, filter, membrane, blower, valve, chiller, cooling-tower, clarifier, screen, header-manifold, sump, deaerator, boiler, flow-meter, booster-system, wet-well, sand-filter, media-filter, ro-vessel, storage-tank, process-tank
+
+Pump model IDs that exist:
+cdl-cdlf, cdlf-cdh, niso, wq, mini, ld, hydro, bt, chlf, chm, zs, qy-b
+
+Current problems to solve in the redesign:
+
+Nodes clip outside the viewBox on complex diagrams
+Flow arrows render incorrectly on return/bypass pipes
+Labels overlap adjacent nodes
+All 12 diagrams look visually identical in topology
+Branch nodes (blower feeding aeration, sludge return) don't look like branch nodes
+The diagram feels algorithmically generated
+
+
+Design direction — pick whatever fits best from these ideas:
+Option A — Dark industrial control room aesthetic
+
+Dark slate/charcoal background for the diagram canvas
+Nodes as glowing instrument panels with colored borders by equipment type
+Pipes as luminous colored lines with flow animation
+Feels like a SCADA/DCS control screen
+
+Option B — Blueprint / technical drawing aesthetic
+
+Blueprint blue background with white/cyan line work
+Nodes as technical drawing symbols
+Grid lines visible
+Dimension annotations
+Feels like an engineering drawing
+
+Option C — Clean modern process flow
+
+White canvas, very high contrast
+Nodes as cards with icon + label inside
+Thick colored edges by pipe type
+Minimal but technical
+Feels like a modern P&ID tool
+
+Option D — Split panel with animated flow
+
+Left panel: static equipment list with specs
+Right panel: animated diagram where flow particles travel along pipes
+Clicking a node expands its detail inline
+Feels interactive and modern
+
+
+Hard requirements regardless of design choice:
+
+Use @xyflow/react as the diagram engine
+Every equipment type must have a visually distinct node appearance — don't make all nodes look the same. Pumps look different from tanks look different from chillers.
+Pipe styles must be visually distinct:
+
+main — primary process flow, most prominent
+return — dashed or lighter, clearly secondary
+branch — feeds into main flow from side
+bypass — clearly different color, amber or orange
+
+
+isBranchNode nodes must be visually smaller or differently styled — they are secondary components, not primary process stages
+The active/hover state on a node must be obvious — highlight the node, highlight all pipes connected to it, show the node's role description somewhere
+The 12 environment selector must be clear — user needs to switch between RO Plants, Fire Fighting, HVAC etc easily. Can be tabs, cards, a sidebar, a dropdown, anything.
+fitView must be true so no nodes ever clip
+The section must be fully responsive — works on mobile
+Keep nodesDraggable={false} and zoomOnScroll={false} — this is a showcase not an editor
+Must be 'use client' compatible with Next.js 14 app router
+Do not break any imports from lib/application-data.ts — all the data exports must still work
+The info panel showing stageCount, pumpCount, equipmentCount and the component badges must still exist somewhere in the UI — can be redesigned completely but the data must be shown
+
+
+What you should produce:
+
+A completely rewritten DiagramSchematic.tsx using React Flow
+A redesigned EnvironmentInfo.tsx if the layout changes
+Updated ApplicationEnvironmentSection.tsx if the layout changes
+Any new sub-components needed
+The npm install command needed
+Brief comment in each file explaining the key design decisions made
+
+Do not touch:
+
+lib/application-data.ts data or exports
+Any other page files
+SEO, metadata, or sitemap files
+The Navbar or Footer
+
+
+Go ahead and pick whichever design option you think best suits a professional B2B industrial pump distributor, or combine elements. The goal is that when an engineer lands on this page they immediately think "this company knows what they are doing."

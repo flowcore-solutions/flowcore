@@ -1,225 +1,312 @@
 import type { ApplicationEnvironment, DiagramNode, EquipmentType } from "@/lib/application-data";
-import { getPumpById } from "@/lib/pump-data";
 
-const GREEN      = "#6cc24a";
-const DEEP_BLUE  = "#0f3d91";
-const LIGHT_BLUE = "#4da3ff";
-const AMBER      = "#f59e0b";
-const SLATE      = "#64748b";
-const TEAL       = "#0d9488";
-const ROSE       = "#e11d48";
-const VIOLET     = "#7c3aed";
-const CYAN       = "#0891b2";
-const ORANGE     = "#ea580c";
+// ─── Design tokens (mirrored from DiagramSchematic for consistency) ───────────
+const T = {
+  navy:       "#0f2744",
+  blue:       "#1a4b8c",
+  blueMid:    "#2461b5",
+  blueLight:  "#3a7bd5",
+  steelGray:  "#4a6080",
+  midGray:    "#7a8ea8",
+  lightGray:  "#b8c8d8",
+  border:     "#dde5ef",
+  bgSheet:    "#f4f7fb",
+  bgWhite:    "#ffffff",
+  green:      "#2d7a4f",
+  greenLight: "#3da868",
+  teal:       "#147a7a",
+  rose:       "#b02840",
+  violet:     "#5b35a0",
+  orange:     "#b05515",
+  cyan:       "#0e6e8c",
+  amber:      "#c87c10",
+  text:       "#1a2a3a",
+  textMid:    "#3a5070",
+  textLight:  "#6a7f98",
+  textMuted:  "#94a8bc",
+} as const;
 
-// ── Equipment display labels ─────────────────────────────────────────────────
+const ACCENT: Record<EquipmentType, string> = {
+  pump:               T.blueMid,
+  tank:               T.cyan,
+  filter:             T.amber,
+  membrane:           T.green,
+  blower:             T.steelGray,
+  valve:              T.navy,
+  chiller:            T.teal,
+  "cooling-tower":    T.teal,
+  clarifier:          T.cyan,
+  screen:             T.steelGray,
+  "header-manifold":  T.navy,
+  sump:               T.cyan,
+  deaerator:          T.orange,
+  boiler:             T.rose,
+  "flow-meter":       T.violet,
+  "booster-system":   T.blueMid,
+  "wet-well":         T.teal,
+  "sand-filter":      T.amber,
+  "media-filter":     T.amber,
+  "ro-vessel":        T.green,
+  "storage-tank":     T.cyan,
+  "process-tank":     T.teal,
+};
+
 const EQUIPMENT_LABELS: Record<EquipmentType, string> = {
-  pump: "Pump",
-  tank: "Tank",
-  filter: "Filter",
-  membrane: "Membrane",
-  blower: "Blower",
-  valve: "Valve",
-  "chiller": "Chiller",
-  "cooling-tower": "Cool Tower",
-  "clarifier": "Clarifier",
-  "screen": "Screen",
-  "header-manifold": "Header",
-  "sump": "Sump",
-  "deaerator": "Deaerator",
-  "boiler": "Boiler",
-  "flow-meter": "Flow Meter",
-  "booster-system": "Booster",
-  "wet-well": "Wet Well",
-  "sand-filter": "Sand Filter",
-  "media-filter": "Media Filter",
-  "ro-vessel": "RO Vessel",
-  "storage-tank": "Storage Tank",
-  "process-tank": "Process Tank",
+  pump:               "Pump",
+  tank:               "Tank",
+  filter:             "Filter",
+  membrane:           "Membrane",
+  blower:             "Blower",
+  valve:              "Valve",
+  chiller:            "Chiller",
+  "cooling-tower":    "Cool Tower",
+  clarifier:          "Clarifier",
+  screen:             "Screen",
+  "header-manifold":  "Header",
+  sump:               "Sump",
+  deaerator:          "Deaerator",
+  boiler:             "Boiler",
+  "flow-meter":       "Flow Meter",
+  "booster-system":   "Booster",
+  "wet-well":         "Wet Well",
+  "sand-filter":      "Sand Filter",
+  "media-filter":     "Media Filter",
+  "ro-vessel":        "RO Vessel",
+  "storage-tank":     "Storage",
+  "process-tank":     "Process Tank",
 };
 
-const EQUIPMENT_ACCENT: Record<EquipmentType, string> = {
-  pump: "#1e5bb8",
-  tank: LIGHT_BLUE,
-  filter: AMBER,
-  membrane: GREEN,
-  blower: SLATE,
-  valve: DEEP_BLUE,
-  "chiller": CYAN,
-  "cooling-tower": TEAL,
-  "clarifier": LIGHT_BLUE,
-  "screen": SLATE,
-  "header-manifold": DEEP_BLUE,
-  "sump": LIGHT_BLUE,
-  "deaerator": ORANGE,
-  "boiler": ROSE,
-  "flow-meter": VIOLET,
-  "booster-system": "#1e5bb8",
-  "wet-well": TEAL,
-  "sand-filter": AMBER,
-  "media-filter": AMBER,
-  "ro-vessel": GREEN,
-  "storage-tank": LIGHT_BLUE,
-  "process-tank": CYAN,
+const PUMP_MODEL_LABELS: Record<string, string> = {
+  "cdl-cdlf":  "CDL / CDLF Multistage",
+  "cdlf-cdh":  "CDLF / CDH HP",
+  "niso":      "NISO End-Suction",
+  "wq":        "WQ Sewage",
+  "mini":      "MINI Jockey",
+  "ld":        "LD Inline",
+  "hydro":     "HYDRO Booster",
+  "bt":        "BT Blower",
+  "chlf":      "CHLF / CHLF-T",
+  "chm":       "CHM Multistage",
+  "zs":        "ZS Single-Stage",
+  "qy-b":      "QY(B) Self-Prime",
 };
+
+function badgeLabel(node: DiagramNode): string {
+  if (node.pumpModelId) return PUMP_MODEL_LABELS[node.pumpModelId] ?? node.pumpModelId.toUpperCase();
+  return EQUIPMENT_LABELS[node.equipmentType];
+}
 
 interface EnvironmentInfoProps {
   env:        ApplicationEnvironment;
   activeNode: DiagramNode | null;
 }
 
-// ── Badge label helper ───────────────────────────────────────────────────────
-function nodeBadgeLabel(node: DiagramNode): string {
-  if (node.pumpModelId) {
-    const pump = getPumpById(node.pumpModelId);
-    return pump?.seriesCode ?? node.pumpModelId.toUpperCase();
-  }
-  return EQUIPMENT_LABELS[node.equipmentType];
-}
-
 export default function EnvironmentInfo({ env, activeNode }: EnvironmentInfoProps) {
-  const theme = {
-    bg:              DEEP_BLUE,
-    accentPrimary:   GREEN,
-    accentSecondary: LIGHT_BLUE,
-    divider:         "rgba(255,255,255,0.1)",
-    watermark:       "rgba(255,255,255,0.04)",
-    gridBorder:      "#fff",
-    gridOpacity:     0.06,
-
-    badgeIdleBg:     "rgba(255,255,255,0.07)",
-    badgeIdleBorder: "rgba(255,255,255,0.12)",
-    badgeIdleText:   "#ffffff",
-    badgeIdleDot:    "rgba(255,255,255,0.4)",
-
-    statSub: "text-[#4da3ff]",
-    statNum: "text-white",
-    statISO: GREEN,
-  };
-
-  // Count distinct pump nodes (pumpModelId !== null)
-  const pumpCount = env.diagramNodes.filter((n) => n.pumpModelId !== null).length;
-  const equipmentCount = env.diagramNodes.filter((n) => n.pumpModelId === null).length;
+  const pumpCount     = env.diagramNodes.filter((n) => n.pumpModelId !== null).length;
+  const equipCount    = env.diagramNodes.filter((n) => n.pumpModelId === null && !n.isBranchNode).length;
+  const stageCount    = env.diagramNodes.filter((n) => !n.isBranchNode).length;
+  const primaryNodes  = env.diagramNodes.filter((n) => !n.isBranchNode);
 
   return (
     <div
-      className="relative flex flex-col justify-between rounded-2xl overflow-hidden h-full"
       style={{
-        backgroundColor: theme.bg,
-        boxShadow:       "0 8px 40px -8px rgba(15,61,145,0.35)",
-        minHeight:       "340px",
+        background:    T.bgWhite,
+        border:        `1.5px solid ${T.border}`,
+        borderRadius:  16,
+        overflow:      "hidden",
+        height:        "100%",
+        display:       "flex",
+        flexDirection: "column",
+        boxShadow:     "0 2px 20px rgba(15,39,68,0.07)",
+        minHeight:     360,
       }}
     >
-      {/* Tech grid overlay */}
+      {/* ── Header bar ──────────────────────────────────────────── */}
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
         style={{
-          opacity:         theme.gridOpacity,
-          backgroundImage: `linear-gradient(${theme.gridBorder} 1px, transparent 1px), linear-gradient(90deg, ${theme.gridBorder} 1px, transparent 1px)`,
-          backgroundSize:  "32px 32px",
+          background:   T.navy,
+          padding:      "16px 20px 14px",
+          position:     "relative",
+          overflow:     "hidden",
         }}
-      />
-
-      {/* Large watermark */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-4 right-4 font-black select-none leading-none"
-        style={{ fontSize: "clamp(3rem, 6vw, 5rem)", color: theme.watermark, letterSpacing: "-0.04em" }}
       >
-        {env.shortName}
+        {/* Subtle engineering grid */}
+        <div
+          aria-hidden="true"
+          style={{
+            position:        "absolute",
+            inset:           0,
+            backgroundImage: `linear-gradient(${T.blue}40 1px, transparent 1px), linear-gradient(90deg, ${T.blue}40 1px, transparent 1px)`,
+            backgroundSize:  "28px 28px",
+            opacity:         0.25,
+            pointerEvents:   "none",
+          }}
+        />
+
+        <div style={{ position: "relative", zIndex: 1 }}>
+          {/* Tag line */}
+          <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
+            <span
+              style={{
+                display:       "inline-block",
+                width:         6,
+                height:        6,
+                borderRadius:  "50%",
+                background:    T.greenLight,
+                flexShrink:    0,
+              }}
+            />
+            <span
+              style={{
+                fontSize:      10,
+                fontWeight:    800,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color:         T.greenLight,
+              }}
+            >
+              {env.shortName}
+            </span>
+          </div>
+
+          <h3
+            style={{
+              margin:        0,
+              fontSize:      "clamp(1.05rem, 1.8vw, 1.35rem)",
+              fontWeight:    800,
+              color:         "#ffffff",
+              lineHeight:    1.1,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            {env.name}
+          </h3>
+        </div>
       </div>
 
-      {/* Top section */}
-      <div className="relative z-10 px-6 pt-6 sm:px-8 sm:pt-8">
-        <span
-          className="inline-flex items-center gap-2 pl-3 border-l-2 text-[11px] font-black uppercase tracking-[0.18em]"
-          style={{ borderColor: theme.accentPrimary, color: theme.accentPrimary }}
+      {/* ── Description ──────────────────────────────────────────── */}
+      <div style={{ padding: "14px 20px 0" }}>
+        <p
+          style={{
+            margin:     0,
+            fontSize:   12.5,
+            lineHeight: 1.65,
+            color:      T.textMid,
+            fontWeight: 450,
+          }}
         >
-          <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: theme.accentPrimary }} />
-          {env.shortName}
-        </span>
-
-        <h3
-          className="mt-4 font-black leading-[1.1] tracking-tight text-white"
-          style={{ fontSize: "clamp(1.4rem, 2vw, 1.75rem)" }}
-        >
-          {env.name}
-        </h3>
-
-        <p className="mt-4 text-sm leading-relaxed font-medium text-[#4da3ff] opacity-90">
           {env.description}
         </p>
       </div>
 
-      <div className="relative z-10 mx-6 sm:mx-8 mt-6" style={{ borderTop: `1px solid ${theme.divider}` }} />
+      {/* ── Divider ───────────────────────────────────────────────── */}
+      <div style={{ height: 1, background: T.border, margin: "14px 20px 0" }} />
 
-      {/* Node badges */}
-      <div className="relative z-10 px-6 pt-5 pb-6 sm:px-8 sm:pb-8 flex flex-col gap-4">
-        <p className={`text-[10px] font-black uppercase tracking-[0.18em] ${theme.statSub}`}>
+      {/* ── Component badges ─────────────────────────────────────── */}
+      <div style={{ padding: "12px 20px 0" }}>
+        <span
+          style={{
+            display:       "block",
+            fontSize:      9.5,
+            fontWeight:    800,
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color:         T.blueLight,
+            marginBottom:  8,
+          }}
+        >
           System Components
-        </p>
+        </span>
 
-        <div className="flex flex-wrap gap-2">
-          {env.diagramNodes.map((node) => {
-            const isActive      = activeNode?.id === node.id;
-            const isPump        = node.pumpModelId !== null;
-            // Active pump → green. Active equipment → equipment accent. Idle → white-tinted.
-            const activeBorder  = isPump ? GREEN : EQUIPMENT_ACCENT[node.equipmentType];
-            const activeText    = isPump ? GREEN : EQUIPMENT_ACCENT[node.equipmentType];
-            const activeBg      = isPump ? `${GREEN}22` : `${EQUIPMENT_ACCENT[node.equipmentType]}22`;
-            const activeDot     = isPump ? GREEN : EQUIPMENT_ACCENT[node.equipmentType];
-
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+          {Array.from(
+            new Map(primaryNodes.map((n) => [badgeLabel(n), n])).values()
+          ).map((node) => {
+            const label     = badgeLabel(node);
+            const isAnyActive = activeNode && badgeLabel(activeNode) === label;
+            const isPump    = node.pumpModelId !== null;
+            const accent    = isPump ? T.blueMid : ACCENT[node.equipmentType];
             return (
               <span
                 key={node.id}
-                className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11px] font-bold transition-all duration-200"
                 style={{
-                  backgroundColor: isActive ? activeBg          : theme.badgeIdleBg,
-                  border:          `1px solid ${isActive ? activeBorder : theme.badgeIdleBorder}`,
-                  color:           isActive ? activeText        : theme.badgeIdleText,
+                  display:         "inline-flex",
+                  alignItems:      "center",
+                  gap:             5,
+                  padding:         "4px 10px",
+                  borderRadius:    6,
+                  fontSize:        10.5,
+                  fontWeight:      isAnyActive ? 700 : 600,
+                  letterSpacing:   "-0.01em",
+                  background:      isAnyActive ? `${accent}15` : `${T.bgSheet}`,
+                  border:          `1px solid ${isAnyActive ? accent : T.border}`,
+                  color:           isAnyActive ? accent : T.textMid,
+                  transition:      "all 0.2s ease",
                 }}
               >
                 <span
-                  className="w-1.5 h-1.5 rounded-full shrink-0 transition-colors duration-200"
-                  style={{ backgroundColor: isActive ? activeDot : theme.badgeIdleDot }}
+                  style={{
+                    width:         5,
+                    height:        5,
+                    borderRadius:  "50%",
+                    background:    isAnyActive ? accent : T.lightGray,
+                    flexShrink:    0,
+                    transition:    "background 0.2s ease",
+                  }}
                 />
-                {nodeBadgeLabel(node)}
+                {label}
               </span>
             );
           })}
         </div>
+      </div>
 
-        {/* Stat row */}
-        <div
-          className="grid grid-cols-3 gap-4 mt-2 pt-5"
-          style={{ borderTop: `1px solid ${theme.divider}` }}
-        >
-          <div>
-            <div className={`text-2xl font-black ${theme.statNum}`} style={{ letterSpacing: "-0.03em" }}>
-              {env.diagramNodes.length}
+      {/* Spacer pushes stats to bottom */}
+      <div style={{ flex: 1 }} />
+
+      {/* ── Divider ───────────────────────────────────────────────── */}
+      <div style={{ height: 1, background: T.border, margin: "0 20px" }} />
+
+      {/* ── Stats row ────────────────────────────────────────────── */}
+      <div
+        style={{
+          display:    "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          padding:    "14px 20px 16px",
+          gap:        8,
+        }}
+      >
+        {[
+          { value: stageCount,  label: "Stages",    color: T.text },
+          { value: pumpCount,   label: "Pumps",     color: T.blueMid },
+          { value: equipCount,  label: "Equipment", color: T.steelGray },
+        ].map(({ value, label, color }) => (
+          <div key={label}>
+            <div
+              style={{
+                fontSize:      26,
+                fontWeight:    800,
+                color,
+                letterSpacing: "-0.04em",
+                lineHeight:    1,
+              }}
+            >
+              {value}
             </div>
-            <div className={`text-[10px] font-bold uppercase tracking-widest mt-0.5 ${theme.statSub}`}>
-              Stages
+            <div
+              style={{
+                fontSize:      9.5,
+                fontWeight:    700,
+                textTransform: "uppercase",
+                letterSpacing: "0.12em",
+                color:         T.textMuted,
+                marginTop:     3,
+              }}
+            >
+              {label}
             </div>
           </div>
-          <div>
-            <div className="text-2xl font-black" style={{ color: theme.statISO, letterSpacing: "-0.03em" }}>
-              {pumpCount}
-            </div>
-            <div className={`text-[10px] font-bold uppercase tracking-widest mt-0.5 ${theme.statSub}`}>
-              Pumps
-            </div>
-          </div>
-          <div>
-            <div className="text-2xl font-black text-white" style={{ letterSpacing: "-0.03em", opacity: 0.75 }}>
-              {equipmentCount}
-            </div>
-            <div className={`text-[10px] font-bold uppercase tracking-widest mt-0.5 ${theme.statSub}`}>
-              Equipment
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
