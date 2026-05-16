@@ -20,6 +20,22 @@ const EQUIPMENT_LABELS: Record<EquipmentType, string> = {
   membrane: "Membrane",
   blower: "Blower",
   valve: "Valve",
+  "chiller": "Chiller",
+  "cooling-tower": "Cooling Tower",
+  "clarifier": "Clarifier",
+  "screen": "Screen",
+  "header-manifold": "Header Manifold",
+  "sump": "Sump",
+  "deaerator": "Deaerator",
+  "boiler": "Boiler",
+  "flow-meter": "Flow Meter",
+  "booster-system": "Booster System",
+  "wet-well": "Wet Well",
+  "sand-filter": "Sand Filter",
+  "media-filter": "Media Filter",
+  "ro-vessel": "RO Vessel",
+  "storage-tank": "Storage Tank",
+  "process-tank": "Process Tank",
 };
 
 interface PumpTooltipProps {

@@ -6,24 +6,61 @@ const DEEP_BLUE  = "#0f3d91";
 const LIGHT_BLUE = "#4da3ff";
 const AMBER      = "#f59e0b";
 const SLATE      = "#64748b";
+const TEAL       = "#0d9488";
+const ROSE       = "#e11d48";
+const VIOLET     = "#7c3aed";
+const CYAN       = "#0891b2";
+const ORANGE     = "#ea580c";
 
 // ── Equipment display labels ─────────────────────────────────────────────────
 const EQUIPMENT_LABELS: Record<EquipmentType, string> = {
-  pump:     "Pump",
-  tank:     "Tank",
-  filter:   "Filter",
+  pump: "Pump",
+  tank: "Tank",
+  filter: "Filter",
   membrane: "Membrane",
-  blower:   "Blower",
-  valve:    "Valve",
+  blower: "Blower",
+  valve: "Valve",
+  "chiller": "Chiller",
+  "cooling-tower": "Cool Tower",
+  "clarifier": "Clarifier",
+  "screen": "Screen",
+  "header-manifold": "Header",
+  "sump": "Sump",
+  "deaerator": "Deaerator",
+  "boiler": "Boiler",
+  "flow-meter": "Flow Meter",
+  "booster-system": "Booster",
+  "wet-well": "Wet Well",
+  "sand-filter": "Sand Filter",
+  "media-filter": "Media Filter",
+  "ro-vessel": "RO Vessel",
+  "storage-tank": "Storage Tank",
+  "process-tank": "Process Tank",
 };
 
 const EQUIPMENT_ACCENT: Record<EquipmentType, string> = {
-  pump:     "#1e5bb8",
-  tank:     LIGHT_BLUE,
-  filter:   AMBER,
+  pump: "#1e5bb8",
+  tank: LIGHT_BLUE,
+  filter: AMBER,
   membrane: GREEN,
-  blower:   SLATE,
-  valve:    DEEP_BLUE,
+  blower: SLATE,
+  valve: DEEP_BLUE,
+  "chiller": CYAN,
+  "cooling-tower": TEAL,
+  "clarifier": LIGHT_BLUE,
+  "screen": SLATE,
+  "header-manifold": DEEP_BLUE,
+  "sump": LIGHT_BLUE,
+  "deaerator": ORANGE,
+  "boiler": ROSE,
+  "flow-meter": VIOLET,
+  "booster-system": "#1e5bb8",
+  "wet-well": TEAL,
+  "sand-filter": AMBER,
+  "media-filter": AMBER,
+  "ro-vessel": GREEN,
+  "storage-tank": LIGHT_BLUE,
+  "process-tank": CYAN,
 };
 
 interface EnvironmentInfoProps {
