@@ -22,17 +22,15 @@ export default function PartnerSynergy() {
         {/* Header */}
         <div className="mb-12 text-center max-w-3xl mx-auto">
           <PrecisionReveal variant="riseUp">
-            <SectionTag>The FlowCore Advantage</SectionTag>
+            <SectionTag>Pumps and Treatment</SectionTag>
             <h2
               className="mt-4 font-black text-deep-blue uppercase leading-[1.1]"
               style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", letterSpacing: "-0.02em" }}
             >
-              Hardware <span className="text-border mx-2 font-light">+</span> Chemistry
+              Pump Systems <span className="text-border mx-2 font-light">&amp;</span> Water Treatment Support
             </h2>
             <p className="mt-6 text-text-light text-base md:text-lg font-medium leading-relaxed max-w-2xl mx-auto">
-              We don&apos;t just supply pumps; we deliver complete fluid intelligence. By
-              synchronizing heavy-duty engineering with advanced chemical treatments, we
-              guarantee maximum efficiency and an uncompromising lifespan.
+              We supply pumps and support water treatment jobs with installation guidance, spare parts, AMC, and breakdown response.
             </p>
           </PrecisionReveal>
         </div>
@@ -71,21 +69,20 @@ export default function PartnerSynergy() {
                     className="object-contain object-left"
                   />
                 </div>
-                <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tight">Precision Engineering</h3>
+                <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tight">Pump Supply</h3>
                 <p className="text-[#4DA3FF] font-medium leading-relaxed max-w-[90%]">
-                  High-pressure centrifugal and stainless steel pumps built for the most
-                  demanding municipal and industrial environments.
+                  Centrifugal, multistage, submersible, booster, and fire pumps for building services, treatment plants, and factory utilities.
                 </p>
               </div>
 
               <div className="relative z-10 mt-16 grid grid-cols-2 gap-8 auto-mt">
                 <div className="space-y-1 border-t border-white/10 pt-4">
-                  <div className="text-3xl lg:text-4xl font-black text-white">16</div>
-                  <div className="text-[10px] uppercase tracking-widest text-[#4DA3FF] font-bold">Pump Series</div>
+                  <div className="text-3xl lg:text-4xl font-black text-white">RO</div>
+                  <div className="text-[10px] uppercase tracking-widest text-[#4DA3FF] font-bold">Feed and transfer</div>
                 </div>
                 <div className="space-y-1 border-t border-white/10 pt-4">
-                  <div className="text-3xl lg:text-4xl font-black text-white">ISO</div>
-                  <div className="text-[10px] uppercase tracking-widest text-[#4DA3FF] font-bold">Grade Certified</div>
+                  <div className="text-3xl lg:text-4xl font-black text-white">AMC</div>
+                  <div className="text-[10px] uppercase tracking-widest text-[#4DA3FF] font-bold">Service support</div>
                 </div>
               </div>
             </PrecisionReveal>
@@ -98,7 +95,7 @@ export default function PartnerSynergy() {
                 <div className="flex items-center gap-4 mb-12">
                   <span className="w-8 h-8 rounded-full bg-primary-green flex items-center justify-center text-white font-bold text-xs">02</span>
                   <span className="text-primary-green text-[10px] font-black tracking-[0.2em] uppercase">
-                    Water Treatment Chemical Partner
+                    Water Treatment Support
                   </span>
                 </div>
                 <div className="relative h-28 w-80 xl:h-32 xl:w-96 mb-8">
@@ -110,21 +107,20 @@ export default function PartnerSynergy() {
                     className="object-contain object-left"
                   />
                 </div>
-                <h3 className="text-3xl font-black text-deep-blue mb-4 uppercase tracking-tight">Lifespan Optimization</h3>
+                <h3 className="text-3xl font-black text-deep-blue mb-4 uppercase tracking-tight">Treatment Plant Support</h3>
                 <p className="text-text-light font-medium leading-relaxed max-w-[90%]">
-                  Engineered water treatments that eliminate scale, prevent bio-fouling,
-                  and protect your pump infrastructure from the inside out.
+                  RO plants, STP and ETP systems, dosing support, and service input for water lines that need steady operation.
                 </p>
               </div>
 
               <div className="relative z-10 mt-16 grid grid-cols-2 gap-8 auto-mt">
                 <div className="space-y-1 border-t border-border pt-4">
-                  <div className="text-3xl lg:text-4xl font-black text-primary-green">Zero</div>
-                  <div className="text-[10px] uppercase tracking-widest text-text-light font-bold">Scale Buildup</div>
+                  <div className="text-3xl lg:text-4xl font-black text-primary-green">STP</div>
+                  <div className="text-[10px] uppercase tracking-widest text-text-light font-bold">Transfer and aeration</div>
                 </div>
                 <div className="space-y-1 border-t border-border pt-4">
-                  <div className="text-3xl lg:text-4xl font-black text-primary-green">+40%</div>
-                  <div className="text-[10px] uppercase tracking-widest text-text-light font-bold">Life Extension</div>
+                  <div className="text-3xl lg:text-4xl font-black text-primary-green">AMC</div>
+                  <div className="text-[10px] uppercase tracking-widest text-text-light font-bold">Planned service</div>
                 </div>
               </div>
             </PrecisionReveal>

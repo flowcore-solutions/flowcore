@@ -2,45 +2,53 @@
 
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import type { DiagramNode } from "@/lib/application-data";
+import type { DiagramNode, EquipmentType } from "@/lib/application-data";
 import { getPumpById } from "@/lib/pump-data";
 import { PUMP_IMAGES } from "@/components/ui/PumpCard";
 
-const GREEN        = "#6cc24a";
-const DEEP_BLUE    = "#0f3d91";
+const GREEN = "#6cc24a";
+const DEEP_BLUE = "#0f3d91";
 const PRIMARY_BLUE = "#1e5bb8";
-const BORDER       = "#e5e7eb";
-const TEXT_LIGHT   = "#64748b";
-const BG_SECTION   = "#f8fafc";
+const BORDER = "#e5e7eb";
+const TEXT_LIGHT = "#64748b";
+const BG_SECTION = "#f8fafc";
+
+const EQUIPMENT_LABELS: Record<EquipmentType, string> = {
+  pump: "Pump",
+  tank: "Tank",
+  filter: "Filter",
+  membrane: "Membrane",
+  blower: "Blower",
+  valve: "Valve",
+};
 
 interface PumpTooltipProps {
-  node:   DiagramNode;
+  node: DiagramNode;
   style?: CSSProperties;
-  /** Mobile variant: full-width, no absolute positioning */
   mobile?: boolean;
 }
 
 export default function PumpTooltip({ node, style, mobile }: PumpTooltipProps) {
-  const pump  = getPumpById(node.pumpModelId);
-  const image = PUMP_IMAGES[node.pumpModelId];
+  const pump = node.pumpModelId ? getPumpById(node.pumpModelId) : undefined;
+  const image = node.pumpModelId ? PUMP_IMAGES[node.pumpModelId] : undefined;
+  const title = pump?.fullName ?? `${node.label} ${EQUIPMENT_LABELS[node.equipmentType]}`;
 
   return (
     <div
       role="tooltip"
       style={{
-        boxShadow:     "0 20px 60px 0 rgba(15, 61, 145, 0.22)",
+        boxShadow: "0 20px 60px 0 rgba(15, 61, 145, 0.22)",
         pointerEvents: "none",
-        width:         mobile ? "100%" : "clamp(260px, 70vw, 300px)",
-        maxWidth:      "calc(100vw - 48px)",
+        width: mobile ? "100%" : "clamp(260px, 70vw, 300px)",
+        maxWidth: "calc(100vw - 48px)",
         ...style,
       }}
-      className="rounded-2xl border border-border bg-white overflow-hidden animate-reveal-up"
+      className="overflow-hidden rounded-2xl border border-border bg-white animate-reveal-up"
     >
-      {/* Header */}
       <div
         className="flex items-center justify-between gap-2 px-4 py-3"
         style={{
-          background:   `linear-gradient(135deg, ${DEEP_BLUE}, #1e5bb8)`,
+          background: `linear-gradient(135deg, ${DEEP_BLUE}, #1e5bb8)`,
           borderBottom: `1px solid ${BORDER}`,
         }}
       >
@@ -48,28 +56,27 @@ export default function PumpTooltip({ node, style, mobile }: PumpTooltipProps) {
           {node.label}
         </span>
         <span
-          className="text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0"
+          className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold"
           style={{ backgroundColor: `${GREEN}35`, color: GREEN }}
         >
           Active
         </span>
       </div>
 
-      {/* Body */}
-      <div className="p-4 flex gap-4 items-center">
+      <div className="flex items-center gap-4 p-4">
         {image && (
           <div
-            className="shrink-0 rounded-xl overflow-hidden flex items-center justify-center"
+            className="flex shrink-0 items-center justify-center overflow-hidden rounded-xl"
             style={{
-              width:           mobile ? 80 : 72,
-              height:          mobile ? 80 : 72,
+              width: mobile ? 80 : 72,
+              height: mobile ? 80 : 72,
               backgroundColor: BG_SECTION,
-              border:          `1px solid ${BORDER}`,
+              border: `1px solid ${BORDER}`,
             }}
           >
             <Image
               src={image}
-              alt={pump ? `${pump.fullName} pump used in ${node.label}` : `${node.label} pump diagram reference`}
+              alt={pump ? `${pump.fullName} pump used in ${node.label}` : `${node.label} diagram reference`}
               width={mobile ? 72 : 64}
               height={mobile ? 72 : 64}
               sizes={mobile ? "72px" : "64px"}
@@ -78,46 +85,56 @@ export default function PumpTooltip({ node, style, mobile }: PumpTooltipProps) {
           </div>
         )}
 
-        <div className="flex flex-col gap-1.5 min-w-0 justify-center">
-          <p
-            className="text-sm font-bold leading-tight"
-            style={{ color: DEEP_BLUE }}
-          >
-            {pump?.fullName ?? node.pumpModelId}
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-bold leading-tight" style={{ color: DEEP_BLUE }}>
+            {title}
           </p>
-          <p className="text-xs leading-relaxed" style={{ color: TEXT_LIGHT }}>
+          <p className="mt-1 text-xs leading-relaxed" style={{ color: TEXT_LIGHT }}>
             {node.role}
           </p>
         </div>
       </div>
 
-      {/* Stats */}
-      {pump && (
-        <div
-          className="grid grid-cols-2 divide-x"
-          style={{ borderTop: `1px solid ${BORDER}` }}
-        >
-          {[
-            ["Flow Rate", pump.flowRate],
-            ["Max Head",  pump.maxHead],
-          ].map(([label, val]) => (
-            <div key={label} className="px-4 py-3 flex flex-col gap-1">
-              <span
-                className="text-[10px] uppercase tracking-wider font-semibold"
-                style={{ color: TEXT_LIGHT }}
-              >
-                {label}
-              </span>
-              <span
-                className="text-sm font-bold"
-                style={{ color: PRIMARY_BLUE, fontVariantNumeric: "tabular-nums" }}
-              >
-                {val}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
+      <div
+        className={`grid ${pump ? "grid-cols-2" : "grid-cols-1"} divide-x`}
+        style={{ borderTop: `1px solid ${BORDER}` }}
+      >
+        {pump ? (
+          <>
+            {[
+              ["Flow Rate", pump.flowRate],
+              ["Max Head", pump.maxHead],
+            ].map(([label, value]) => (
+              <div key={label} className="flex flex-col gap-1 px-4 py-3">
+                <span
+                  className="text-[10px] font-semibold uppercase tracking-wider"
+                  style={{ color: TEXT_LIGHT }}
+                >
+                  {label}
+                </span>
+                <span
+                  className="text-sm font-bold"
+                  style={{ color: PRIMARY_BLUE, fontVariantNumeric: "tabular-nums" }}
+                >
+                  {value}
+                </span>
+              </div>
+            ))}
+          </>
+        ) : (
+          <div className="flex flex-col gap-1 px-4 py-3">
+            <span
+              className="text-[10px] font-semibold uppercase tracking-wider"
+              style={{ color: TEXT_LIGHT }}
+            >
+              Equipment Type
+            </span>
+            <span className="text-sm font-bold capitalize" style={{ color: PRIMARY_BLUE }}>
+              {EQUIPMENT_LABELS[node.equipmentType]}
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

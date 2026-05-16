@@ -181,7 +181,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
       {
         question: "Where can I source industrial pumps in Bangalore?",
         answer:
-          "FlowCore Solutions supplies and supports Berlington pump systems for WTP, HVAC, fire fighting, and utility water applications across Karnataka. We support selection, supply, and lifecycle service.",
+          "FlowCore Solutions supplies and supports Berlington pump systems for WTP, HVAC, fire fighting, and utility water applications across Karnataka. We support selection, supply, and service.",
       },
       {
         question: "Which pump type is correct for water treatment in Bangalore?",
@@ -306,7 +306,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
       {
         question: "Where can I source Berlington pumps in Bangalore?",
         answer:
-          "FlowCore Solutions supplies Berlington pumps across Karnataka with selection support, supply coordination, and lifecycle service for commissioned installations.",
+          "FlowCore Solutions supplies Berlington pumps across Karnataka with selection support, supply coordination, and service support for commissioned installations.",
       },
       {
         question: "Are Berlington pumps suitable for both HVAC and WTP?",

@@ -32,7 +32,7 @@ function seed(value: string, mod: number): number {
 
 const BRAND_REFS = [
   "FlowCore Solutions",
-  "our engineering team",
+  "our pump support team",
   "our Bangalore support team",
   "our pump specialists",
   "our service engineers",
@@ -81,7 +81,7 @@ const CTA_VARIANTS: CtaVariant[] = [
   // 0 — Technical selection (default)
   {
     title: "Not sure which pump fits your duty?",
-    body:  "Share the flow rate, head, and application. Our engineering team will shortlist the right Berlington model and explain why it fits — before you commit to a purchase.",
+    body:  "Share the flow rate, head, and application. Our pump support team will shortlist the right Berlington model and explain why it fits before you place the order.",
     primaryLabel:   "Send your duty details",
     secondaryLabel: "View pump models",
   },

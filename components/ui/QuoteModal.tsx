@@ -259,7 +259,7 @@ export default function QuoteModal() {
             <div className="mb-6 sm:mb-8">
               <h2 id="modal-title" className="mb-2 pr-12 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Request a Quote</h2>
               <p className="text-sm leading-relaxed text-slate-500">
-                Our engineering team will review your requirements and respond shortly with pricing, availability, and technical documentation.
+                Our pump support team will review your requirements and respond shortly with pricing, availability, and technical details.
               </p>
             </div>
 

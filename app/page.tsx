@@ -1,15 +1,3 @@
-/**
- * Home Page — FlowCore Solutions (/)
- *
- * Sections (in order per MASTER_PLAN.md Phase 3):
- *  1. HeroSection — Diagonal Split-Precision hero (full viewport)
- *  2. StatsBar    — Industrial social proof strip
- *  3. FeaturedPumpsGrid — 3D hover product catalogue
- *
- * RSC: This file and StatsBar are server components.
- * HeroSection and FeaturedPumpsGrid are "use client" for animation/interaction.
- */
-
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import HeroSection from "@/components/sections/home/HeroSection";
@@ -32,15 +20,15 @@ const FAQSection = dynamic(() => import("@/components/ui/FAQSection"), {
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
+    title: "Industrial Pumps for RO, HVAC and STP in Bengaluru",
     description:
-      "Authorized Berlington Pumps dealer in Bangalore. Industrial pumps, WTP systems & expert service across Karnataka.",
+      "Centrifugal, multistage, submersible, booster, and fire pumps in Bengaluru for RO plants, STP/ETP systems, HVAC circulation, pressure boosting, and breakdown support.",
     keywords: [
-      "Berlington pumps Bangalore",
-      "Berlington pump dealer Karnataka",
-      "Berlington pump service Bangalore",
-      "industrial pumps Bangalore",
-      "Berlington pump supplier"
+      "industrial pumps Bengaluru",
+      "centrifugal pumps Bengaluru",
+      "booster pumps Bengaluru",
+      "RO plant pumps Bengaluru",
+      "STP pumps Bengaluru",
     ],
     alternates: {
       canonical: "/",
@@ -48,23 +36,23 @@ export function generateMetadata(): Metadata {
     openGraph: {
       type: "website",
       url: "https://flowcoresolutions.in",
-      title: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
+      title: "Industrial Pumps for RO, HVAC and STP in Bengaluru",
       description:
-        "Authorized Berlington Pumps dealer in Bangalore. Industrial pumps, WTP systems & expert service across Karnataka.",
+        "Centrifugal, multistage, submersible, booster, and fire pumps in Bengaluru for water treatment and building services.",
       images: [
         {
           url: "/og-image.png",
           width: 1200,
           height: 630,
-          alt: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
+          alt: "Industrial Pumps and Water Treatment in Bengaluru",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
+      title: "Industrial Pumps for RO, HVAC and STP in Bengaluru",
       description:
-        "Authorized Berlington Pumps dealer in Bangalore. Industrial pumps, WTP systems & expert service across Karnataka.",
+        "Centrifugal, multistage, submersible, booster, and fire pumps in Bengaluru for water treatment and building services.",
       images: ["/og-image.png"],
     },
   };
@@ -74,37 +62,36 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "@id": "https://flowcoresolutions.in/#organization",
-  "name": "FlowCore Solutions",
-  "brand": "Berlington Pumps",
-  "url": "https://flowcoresolutions.in",
-  "address": {
+  name: "FlowCore Solutions",
+  url: "https://flowcoresolutions.in",
+  address: {
     "@type": "PostalAddress",
-    "streetAddress": "1st Floor, Cheluva Complex, In front of Kottigepalya Bus Stop, Magadi Main Road, Kottingepalya",
-    "addressLocality": "Bangalore",
-    "addressRegion": "Karnataka",
-    "postalCode": "560091",
-    "addressCountry": "IN"
+    streetAddress: "1st Floor, Cheluva Complex, In front of Kottigepalya Bus Stop, Magadi Main Road, Kottingepalya",
+    addressLocality: "Bangalore",
+    addressRegion: "Karnataka",
+    postalCode: "560091",
+    addressCountry: "IN",
   },
-  "areaServed": "Karnataka",
-  "telephone": "+918618885283",
-  "description": "FlowCore Solutions is the authorized Berlington Pumps dealer in Bangalore.",
+  areaServed: "Karnataka",
+  telephone: "+918618885283",
+  description: "FlowCore Solutions supplies industrial pumps and water treatment systems in Bengaluru.",
 };
 
 const homepageFaqs = [
   {
-    question: "Where can I buy Berlington pumps in Bangalore?",
+    question: "What pump applications does FlowCore support in Bengaluru?",
     answer:
-      "You can buy Berlington pumps in Bangalore from FlowCore Solutions. We supply industrial pump systems, help match the correct model to the application, and support projects across Karnataka.",
+      "We support RO feed, STP and ETP transfer, HVAC circulation, pressure boosting, fire pump duty, chemical dosing, and general utility water applications in Bengaluru.",
   },
   {
-    question: "What are Berlington pumps used for?",
+    question: "What pump types do you supply?",
     answer:
-      "Berlington pumps are used for HVAC circulation, water treatment systems, fire fighting, pressure boosting, and industrial utility water applications where dependable flow and service support matter.",
+      "We supply centrifugal, vertical multistage, horizontal multistage, submersible, booster, fire, and chemical-duty pumps based on the required flow, head, and liquid condition.",
   },
   {
-    question: "Do you provide pump service support in Karnataka?",
+    question: "Do you provide installation and AMC support?",
     answer:
-      "Yes. FlowCore Solutions supports Bangalore and Karnataka clients with pump selection guidance, supply coordination, and lifecycle service for Berlington pump installations.",
+      "Yes. We support supply, installation, AMC planning, spare parts, and breakdown response for pump systems in Bengaluru and nearby project locations.",
   },
 ];
 
@@ -124,9 +111,7 @@ const homepageFaqSchema = {
 export default function HomePage() {
   return (
     <>
-      <h1 className="sr-only">
-        Industrial Pumps and Berlington Pumps Dealer in Bangalore
-      </h1>
+      <h1 className="sr-only">Industrial pumps and water treatment systems in Bengaluru</h1>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
@@ -136,16 +121,11 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageFaqSchema) }}
       />
       <HeroSection />
-     
       <FeaturedPumpsGrid />
       <PartnerSynergy />
-      <ApplicationShowcase/>
+      <ApplicationShowcase />
       <TechnicalServices />
-      <FAQSection
-        faqs={homepageFaqs}
-        title="Customer FAQs"
-        tag="Buyer Questions"
-      />
+      <FAQSection faqs={homepageFaqs} title="Common Questions" tag="Pump and Service" />
     </>
   );
 }

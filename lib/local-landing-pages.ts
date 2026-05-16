@@ -10,7 +10,7 @@ export const berlingtonLandingConfig: LandingConfig = {
     title: "Berlington Pump Supplier",
     subtitle: "Bangalore, Karnataka",
     body:
-      "FlowCore Solutions supplies genuine Berlington industrial pumps for builders, OEMs, consultants, and maintenance teams across Bangalore. We support pump selection, delivery planning, and lifecycle response for Karnataka projects where duty accuracy matters.",
+      "FlowCore Solutions supplies Berlington industrial pumps for builders, OEMs, consultants, and maintenance teams across Bangalore. We support pump selection, delivery planning, and service response for Karnataka projects where duty accuracy matters.",
     theme: "slate",
     heroImage: industrialHero,
     primaryCta: { label: "View Berlington Models", href: "/products" },
@@ -84,7 +84,7 @@ export const berlingtonLandingConfig: LandingConfig = {
       {
         title: "Chemical Processing",
         description:
-          "Chemical transfer support for process lines that need compatible materials, controlled flow, and lifecycle service access across Karnataka plants.",
+          "Chemical transfer support for process lines that need compatible materials, controlled flow, and service access across Karnataka plants.",
       },
       {
         title: "Manufacturing Utilities",
@@ -100,7 +100,7 @@ export const berlingtonLandingConfig: LandingConfig = {
       "Authorised Berlington supply with model matching driven by duty conditions, not guesswork.",
       "Fast delivery coordination for Bangalore project schedules and Karnataka site requirements.",
       "Technical support for consultants, contractors, builders, and maintenance teams.",
-      "Access to genuine parts, service continuity, and lifecycle troubleshooting after supply.",
+      "Access to genuine parts, service continuity, and troubleshooting after supply.",
       "AMC support planning for systems where uptime and preventive care matter.",
       "A local team that understands WTP, HVAC, fire fighting, and industrial utility environments.",
     ],
@@ -181,7 +181,7 @@ export const industrialPumpsLandingConfig: LandingConfig = {
     body: [
       "Industrial pumps in Bangalore are rarely bought in isolation. Most projects involve system constraints such as operating hours, variable pressure demand, water quality, process sensitivity, or maintenance access. That is why FlowCore structures industrial pump selection around application fit first and brand or model second.",
       "Across Bangalore and Karnataka, we support builders, facility managers, EPC teams, consultants, and plant operators looking for centrifugal, submersible, monoblock, fire fighting, chemical, booster, sewage, and dewatering pumps. Each category solves a different duty problem, and the correct choice depends on flow, head, fluid condition, and service expectations.",
-      "For Bangalore buyers who need a responsive local supplier, FlowCore combines product availability with duty review, faster commercial turnaround, and lifecycle support that continues after installation.",
+      "For Bangalore buyers who need a responsive local supplier, FlowCore combines product availability with duty review, faster commercial turnaround, and service support after installation.",
     ],
   },
   range: {
@@ -251,7 +251,7 @@ export const industrialPumpsLandingConfig: LandingConfig = {
     {
       question: "Can you support AMC for industrial pumps in Karnataka?",
       answer:
-        "Yes. FlowCore can help plan preventive maintenance and ongoing service for installations that need lifecycle support after commissioning.",
+        "Yes. FlowCore can help plan preventive maintenance and ongoing service for installations after commissioning.",
     },
     {
       question: "Do you handle bulk orders for industrial pump projects?",
@@ -294,7 +294,7 @@ export const fireFightingLandingConfig: LandingConfig = {
     body: [
       "Fire fighting pumps in Bangalore have to support real-world building conditions, approval timelines, and installation standards. For commercial towers, hospitals, hotels, warehouses, and industrial facilities, the pump package has to align with hydrant and sprinkler demand, standby planning, and the broader fire protection design.",
       "FlowCore Solutions supports Bangalore and Karnataka projects with Berlington fire pump selection, system package guidance, and local engineering response. We work with contractors and consultants who need pumps that fit the duty correctly and suppliers who can stay involved through the practical stages of installation and service.",
-      "For fire fighting applications, the goal is straightforward: deliver dependable pressure support when the system is tested or activated, while keeping procurement, specification, and lifecycle maintenance aligned.",
+      "For fire fighting applications, the goal is straightforward: deliver dependable pressure support when the system is tested or activated, while keeping procurement, specification, and maintenance aligned.",
     ],
   },
   range: {

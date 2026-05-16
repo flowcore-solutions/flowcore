@@ -229,7 +229,7 @@ export default function ProductsClient() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
             <div className="max-w-2xl">
               <PrecisionReveal variant="fadeSlideLeft" delay={0.07}>
-                <SectionTag>Product Catalogue</SectionTag>
+                <SectionTag>Pump Range</SectionTag>
               </PrecisionReveal>
 
               <PrecisionReveal variant="fadeSlideLeft" delay={0.14}>
@@ -239,14 +239,14 @@ export default function ProductsClient() {
                 >
                   Berlington Industrial
                   <br />
-                  <span className="text-primary-blue">Pump Catalogue</span>
+                  <span className="text-primary-blue">Pump Range</span>
                 </h1>
               </PrecisionReveal>
 
               <PrecisionReveal variant="fadeSlideLeft" delay={0.21}>
                 <p className="mt-6 text-base leading-relaxed text-text-light font-medium max-w-lg">
-                  {PUMP_CATALOG.length} pump series engineered for reliability across <Link href="/applications" className="text-primary-blue hover:underline">water treatment, HVAC, and heavy industrial applications</Link>.
-                  Hover any card to reveal full technical specifications, or <Link href="/contact#inquiry-form" className="text-primary-blue hover:underline">contact our engineering team</Link> for system sizing.
+                  Pump models for <Link href="/applications" className="text-primary-blue hover:underline">water treatment, HVAC, pressure boosting, fire systems, and sewage duty</Link>.
+                  Open any card to check the duty range, or <Link href="/contact#inquiry-form" className="text-primary-blue hover:underline">get a quote</Link> for your job.
                 </p>
               </PrecisionReveal>
             </div>
@@ -255,9 +255,9 @@ export default function ProductsClient() {
             <PrecisionReveal variant="fadeSlideRight" delay={0.28}>
               <div className="grid grid-cols-3 gap-3 lg:min-w-[260px]">
                 {[
-                  { value: `${PUMP_CATALOG.length}`, label: "Pump Series", accent: "blue" },
-                  { value: "ISO",   label: "Certified",   accent: "blue" },
-                  { value: "6",     label: "Categories",  accent: "green" },
+                  { value: "RO", label: "Feed", accent: "blue" },
+                  { value: "HVAC", label: "Circulation", accent: "blue" },
+                  { value: "STP", label: "Transfer", accent: "green" },
                 ].map((stat) => (
                   <div
                     key={stat.label}
@@ -291,7 +291,7 @@ export default function ProductsClient() {
             {/* Desktop sticky sidebar */}
             <div className="hidden lg:block lg:sticky lg:top-28">
               <p className="mb-2 px-1 text-[10px] font-black uppercase tracking-[0.2em] text-text-light">
-                Filter by Category
+                Filter by Pump Type
               </p>
 
               {/* Filter panel */}

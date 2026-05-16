@@ -620,7 +620,7 @@ function buildProductPage(cluster: ClusterDefinition): ProductAuthorityPage {
         heading: "Applications and industries",
         body: [
           `${cluster.name} are relevant across ${cluster.mainApplications.map((item) => item.label).join(", ")}. The same pump family can serve different roles depending on pressure, flow, fluid type, redundancy requirement, and control arrangement.`,
-          `FlowCore regularly supports ${cluster.mainIndustries.map((item) => item.label).join(", ")} procurement and plant engineering teams who need reliable supply, technical selection support, and service coordination across Karnataka.`,
+          `FlowCore regularly supports ${cluster.mainIndustries.map((item) => item.label).join(", ")} procurement and plant teams who need reliable supply, technical selection support, and service coordination across Karnataka.`,
         ],
       },
       {
@@ -753,7 +753,7 @@ function blogSections(topic: BlogTopicDefinition, cluster?: ClusterDefinition): 
     sections.push({
       heading: "How to compare the options without picking the wrong one",
       body: [
-        `A comparison should identify which option fits the actual duty, site layout, lifecycle cost, and maintenance access — not which one is generically superior. Both options in any pump comparison exist because different applications need different solutions.`,
+        `A comparison should identify which option fits the actual duty, site layout, running cost, and maintenance access — not which one is generically superior. Both options in any pump comparison exist because different applications need different solutions.`,
         `Compare by: head range, flow stability, physical footprint, service access, material compatibility, control method, and how close each pump operates to its best efficiency point under real conditions.`,
       ],
       bullets: [
@@ -1012,7 +1012,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     slug: "industrial-pump-consultation",
     title: "Industrial Pump Consultation",
     seoTitle: "Industrial Pump Consultation for Karnataka Buyers",
-    metaDescription: "Engineering-led industrial pump consultation for flow, head, application fit, model selection, troubleshooting, and lifecycle service support in Karnataka.",
+    metaDescription: "Industrial pump consultation for flow, head, application fit, model selection, troubleshooting, and service support in Karnataka.",
     shortAnswer: "FlowCore provides industrial pump consultation for Karnataka buyers who need the technically correct pump family, not just a catalogue quote with a price.",
     updatedAt: UPDATED_AT,
     sections: [
@@ -1425,7 +1425,7 @@ export const PROJECT_PAGES: ProjectPage[] = [
       {
         heading: "Engineering review",
         body: [
-          "FlowCore reviews the actual chilled water or condenser water system head using as-installed pipe data, identifies the operating point on the existing pump curve, confirms where BEP sits relative to the actual duty, and evaluates whether a replacement pump or VFD on the existing unit delivers better lifecycle value.",
+          "FlowCore reviews the actual chilled water or condenser water system head using as-installed pipe data, identifies the operating point on the existing pump curve, confirms where BEP sits relative to the actual duty, and evaluates whether a replacement pump or VFD on the existing unit delivers better running value.",
         ],
         bullets: [
           "Actual system head from pipe sizing and valve losses — not original design estimate",
@@ -1542,7 +1542,7 @@ export function getClusterByServiceSlug(slug: string) {
 
 function getCityIntroSentence(city: string, clusterName: string, primaryKeyword: string): string {
   const brandOpener = getBrandSentenceOpener(city + clusterName);
-  return `${brandOpener} ${city.charAt(0).toUpperCase() + city.slice(1)} buyers with ${primaryKeyword} selection, Berlington model recommendation, quote support, and lifecycle service planning.`;
+  return `${brandOpener} ${city.charAt(0).toUpperCase() + city.slice(1)} buyers with ${primaryKeyword} selection, Berlington model recommendation, quote support, and service planning.`;
 }
 
 export function getCitySpecificContent(city: string, service: string) {

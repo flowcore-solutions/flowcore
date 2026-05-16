@@ -8,10 +8,9 @@ export default function ApplicationsCTA() {
   return (
     <section
       id="applications-cta"
-      aria-label="Get an engineering consultation"
+      aria-label="Get a quote"
       className="relative bg-deep-blue py-20 overflow-hidden"
     >
-      {/* Tech grid overlay — Industrial depth */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-15"
@@ -21,12 +20,8 @@ export default function ApplicationsCTA() {
         }}
       />
 
-      {/* Radial ambient glow */}
-      <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-blue/30 blur-[120px] rounded-full pointer-events-none" 
-      />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-blue/30 blur-[120px] rounded-full pointer-events-none" />
 
-      {/* Background Watermark */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute bottom-[-20px] left-10 font-black select-none leading-none text-white/5 tracking-tighter text-[120px] lg:text-[200px]"
@@ -48,15 +43,14 @@ export default function ApplicationsCTA() {
 
         <PrecisionReveal variant="riseUp" delay={0.14}>
           <p className="max-w-xl text-base sm:text-lg leading-relaxed text-white/70 font-medium">
-            Our engineering team will help you select the correct series,
-            flow rate, and head specification for your exact system requirements.
+            Share the duty point, application, or site issue. We will help you shortlist the right pump type for the job.
           </p>
         </PrecisionReveal>
 
         <PrecisionReveal variant="riseUp" delay={0.21}>
           <div className="mt-4">
             <Link href="/contact#inquiry-form" id="applications-cta-link">
-              <GreenCTAButton>Request Engineering Consultation</GreenCTAButton>
+              <GreenCTAButton>Get a Quote</GreenCTAButton>
             </Link>
           </div>
         </PrecisionReveal>

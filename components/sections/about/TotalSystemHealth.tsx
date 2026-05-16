@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * TotalSystemHealth — Life-cycle support mandate section.
+ * TotalSystemHealth — Service support section.
  *
  * The "after-sale" narrative — pump-first (65%+ visual weight),
  * showing the 4 pillars of ongoing system health.
@@ -64,29 +64,29 @@ const PILLARS = [
     id: "monitoring",
     icon: <MonitorIcon />,
     number: "01",
-    heading: "System Health Monitoring",
-    body: "Proactive performance tracking of installed pump systems — vibration, flow deviation, pressure variance — before failure occurs.",
+    heading: "System Checks",
+    body: "Routine checks on vibration, flow, and pressure so running pump systems can be reviewed before a shutdown happens.",
   },
   {
     id: "chemistry",
     icon: <ChemIcon />,
     number: "02",
-    heading: "Chemical Synergy Audits",
-    body: "Scheduled Flowchar treatment audits prevent scale accumulation, corrosion, and bio-fouling — extending pump and heat-exchanger life significantly.",
+    heading: "Treatment Review",
+    body: "Scheduled review of treatment-side conditions for RO, STP, and ETP systems where scaling, fouling, or dosing problems affect operation.",
   },
   {
     id: "repair",
     icon: <RepairIcon />,
     number: "03",
-    heading: "Rapid Repair & Overhaul",
-    body: "On-site technical support and fast-turnaround repair services eliminate unplanned downtime. Genuine Berlington spare parts stocked for immediate dispatch.",
+    heading: "Breakdown Support",
+    body: "On-site support, repair work, and spare parts for pump systems that need quick attention.",
   },
   {
     id: "support",
     icon: <SupportIcon />,
     number: "04",
-    heading: "On-Site Technical Support",
-    body: "FlowCore engineers are available for installation commissioning, performance validation, and long-term operational consultation across all project verticals.",
+    heading: "On-Site Support",
+    body: "Support for installation follow-up, operating checks, and service planning across pump and water treatment jobs.",
   },
 ] as const;
 
@@ -115,7 +115,7 @@ export default function TotalSystemHealth() {
         <div className="mb-14">
           <PrecisionReveal variant="fadeSlideLeft" className="mb-3">
             <span className="inline-flex items-center pl-3 border-l-2 border-primary-green text-[10px] font-black uppercase tracking-[0.2em] text-primary-green">
-              Life-Cycle Support Mandate
+              Service Support
             </span>
           </PrecisionReveal>
 
@@ -125,21 +125,15 @@ export default function TotalSystemHealth() {
               className="font-black text-deep-blue leading-[1.05] tracking-tight mb-4"
               style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)" }}
             >
-              Our Partnership Doesn&apos;t End
+              Support Continues
               <br />
-              <span className="text-primary-green">at Delivery.</span>
+              <span className="text-primary-green">After Supply.</span>
             </h2>
           </PrecisionReveal>
 
           <PrecisionReveal variant="fadeSlideLeft" delay={0.14}>
             <p className="max-w-2xl text-base leading-relaxed text-text-light font-medium">
-              FlowCore maintains a{" "}
-              <strong className="text-text-dark font-bold">
-                &quot;Total System Health&quot;
-              </strong>{" "}
-              mandate. Every installed Berlington system is backed by ongoing maintenance,
-              chemical programme audits, and rapid-response repair services — ensuring
-              maximum uptime and infrastructure longevity.
+              FlowCore supports running pump systems with planned checks, treatment-side review, spare parts, and breakdown response after supply.
             </p>
           </PrecisionReveal>
         </div>
@@ -166,7 +160,7 @@ export default function TotalSystemHealth() {
               <div className="absolute inset-0">
                 <Image
                   src={berlingtonPumpsSet}
-                  alt="Berlington industrial pump systems supported by FlowCore lifecycle engineering"
+                  alt="Industrial pump systems supported by FlowCore service work"
                   fill
                   sizes="(max-width: 1024px) 100vw, 33vw"
                   className="object-cover object-center transition-transform duration-700 group-hover/hero:scale-105"
@@ -179,7 +173,7 @@ export default function TotalSystemHealth() {
                 <span className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em]"
                   style={{ backgroundColor: "rgba(255,255,255,0.08)", color: "#4da3ff" }}>
                   <span className="w-1.5 h-1.5 rounded-full bg-light-blue animate-pulse" />
-                  Pump Systems — Core Focus
+                  Pump Systems
                 </span>
               </div>
 
@@ -190,14 +184,14 @@ export default function TotalSystemHealth() {
                     className="font-black text-white text-center"
                     style={{ fontSize: "clamp(3.5rem, 8vw, 5.2rem)", lineHeight: 1 }}
                   >
-                    65%
+                    AMC
                   </div>
                 </PrecisionReveal>
                 <PrecisionReveal variant="riseUp" delay={0.5}>
                   <div className="text-[11px] font-black uppercase tracking-[0.25em] text-light-blue text-center">
-                    Solution Focus on
+                    Service support for
                     <br />
-                    Pump Infrastructure
+                    running pump systems
                   </div>
                 </PrecisionReveal>
               </div>
@@ -209,13 +203,13 @@ export default function TotalSystemHealth() {
                     <div>
                       <div className="text-2xl font-black text-white">24/7</div>
                       <div className="text-[10px] uppercase tracking-widest text-light-blue font-bold mt-1">
-                        Duty Capability
+                      Running duty
                       </div>
                     </div>
                     <div>
                       <div className="text-2xl font-black text-primary-green">Zero</div>
                       <div className="text-[10px] uppercase tracking-widest text-light-blue font-bold mt-1">
-                        Planned Downtime
+                      Breakdown response
                       </div>
                     </div>
                   </div>
@@ -258,14 +252,14 @@ export default function TotalSystemHealth() {
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl border border-border bg-white p-8 [box-shadow:var(--shadow-card)]">
             <div>
               <p className="font-bold text-deep-blue text-base mb-1">
-                Establish a Total System Health Partnership
+                Ask About AMC
               </p>
               <p className="text-xs text-text-light font-medium">
-                Assess current infrastructure lifecycle metrics and establish a tailored maintenance mandate.
+                Share the site condition, running duty, and service need. We will suggest the next step.
               </p>
             </div>
             <Link href="/contact#inquiry-form" id="system-health-cta-link" className="shrink-0 w-full sm:w-auto">
-              <GreenCTAButton size="md" className="w-full">Get Engineering Consultation</GreenCTAButton>
+              <GreenCTAButton size="md" className="w-full">Ask About AMC</GreenCTAButton>
             </Link>
           </div>
         </PrecisionReveal>

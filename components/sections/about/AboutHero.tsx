@@ -1,12 +1,5 @@
 "use client";
 
-/**
- * AboutHero — Engineering-authority page header.
- *
- * Uses bg-section-bg + the repeating diagonal grid pattern
- * from ApplicationsHeader for cohesive blueprint atmosphere.
- */
-
 import Link from "next/link";
 import PrecisionReveal from "@/components/ui/PrecisionReveal";
 
@@ -17,7 +10,6 @@ export default function AboutHero() {
       className="hero-underlap relative bg-section-bg overflow-hidden"
       aria-label="About FlowCore Solutions"
     >
-      {/* Engineering grid — exact pattern from Applications page */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -27,20 +19,14 @@ export default function AboutHero() {
         }}
       />
 
-      {/* Subtle horizontal rule accent */}
       <div
         aria-hidden="true"
         className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-primary-blue/30 to-transparent"
       />
 
       <div className="relative mx-auto max-w-6xl px-6 py-12 lg:py-16">
-
-        {/* Breadcrumb */}
         <PrecisionReveal variant="fadeSlideLeft">
-          <nav
-            className="flex items-center gap-2 mb-10"
-            aria-label="Breadcrumb"
-          >
+          <nav className="flex items-center gap-2 mb-10" aria-label="Breadcrumb">
             <Link
               href="/"
               className="text-[10px] font-black uppercase tracking-[0.2em] text-text-light hover:text-primary-blue transition-colors"
@@ -58,12 +44,10 @@ export default function AboutHero() {
         </PrecisionReveal>
 
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12">
-
-          {/* Left — Primary headline */}
           <div className="max-w-2xl">
             <PrecisionReveal variant="fadeSlideLeft" delay={0.07}>
               <span className="block pl-3 border-l-2 border-primary-green text-[10px] font-black uppercase tracking-[0.2em] text-primary-green mb-6">
-                Engineering Infrastructure Partnership
+                About FlowCore Solutions
               </span>
             </PrecisionReveal>
 
@@ -76,28 +60,24 @@ export default function AboutHero() {
                 <br />
                 <span className="text-primary-blue">Systems</span>
                 {" & "}
-                <span className="text-primary-green">Engineering</span>
+                <span className="text-primary-green">Service</span>
               </h1>
             </PrecisionReveal>
 
             <PrecisionReveal variant="fadeSlideLeft" delay={0.21}>
               <p className="mt-8 text-base sm:text-lg leading-relaxed text-text-light font-medium max-w-xl">
-                FlowCore Solutions acts as the strategic engineering bridge
-                between high-performance <Link href="/products" className="text-primary-blue hover:underline">pump manufacturing</Link> and specialized
-                water chemistry — delivering complete fluid infrastructure
-                solutions across <Link href="/applications" className="text-primary-green hover:underline">municipal, commercial, and heavy industrial sectors</Link>.
+                FlowCore Solutions supplies <Link href="/products" className="text-primary-blue hover:underline">industrial pumps</Link> and supports <Link href="/applications" className="text-primary-green hover:underline">water treatment and building utility applications</Link> with installation planning, AMC, spare parts, and breakdown service.
               </p>
             </PrecisionReveal>
           </div>
 
-          {/* Right — Authority metric strip */}
           <PrecisionReveal variant="fadeSlideRight" delay={0.28}>
             <div className="grid grid-cols-2 gap-3 lg:gap-4 min-w-[280px]">
               {[
-                { value: "65%", label: "Pump-Focused", accent: "blue" },
-                { value: "ISO", label: "Certified Mfg.", accent: "blue" },
-                { value: "5+", label: "Key Verticals", accent: "green" },
-                { value: "Total", label: "System Health", accent: "green" },
+                { value: "RO", label: "Plants", accent: "blue" },
+                { value: "HVAC", label: "Lines", accent: "blue" },
+                { value: "STP", label: "Duty", accent: "green" },
+                { value: "AMC", label: "Support", accent: "green" },
               ].map((stat) => (
                 <div
                   key={stat.label}
@@ -121,7 +101,6 @@ export default function AboutHero() {
           </PrecisionReveal>
         </div>
 
-        {/* Bottom accent — engineering annotation line */}
         <PrecisionReveal variant="riseUp" delay={0.35}>
           <div className="mt-14 flex items-center gap-4">
             <div className="flex-1 h-px bg-border" />

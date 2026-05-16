@@ -6,12 +6,11 @@ const PAGE_HEADER = {
     <>
       Hover the diagram nodes to discover the exact{" "}
       <Link href="/products" className="text-primary-blue hover:underline">
-        Berlington pump series
+        pump type
       </Link>{" "}
-      engineered for each stage, from raw water intake to high-rise pressure
-      supply. Need help sizing?{" "}
+      used at each stage, from raw water transfer to high-rise pressure supply. Need help selecting one?{" "}
       <Link href="/contact#inquiry-form" className="text-primary-green hover:underline">
-        Contact our engineering team
+        Get a quote
       </Link>
       .
     </>
@@ -87,11 +86,11 @@ export default function ApplicationsHeader() {
 
                 <div className="flex flex-col gap-0.5">
                   <span className="text-[10px] font-black uppercase tracking-widest text-primary-green">
-                    Interactive Guide
+                    Pump Guide
                   </span>
                   <p className="max-w-[180px] text-xs font-bold leading-tight text-deep-blue">
                     <span className="hidden lg:inline">Hover over</span>
-                    <span className="lg:hidden">Tap</span> diagram nodes to reveal pump specifications
+                    <span className="lg:hidden">Tap</span> diagram nodes to view the pump duty
                   </p>
                 </div>
               </div>

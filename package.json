@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint . --ext .ts,.tsx",
+    "type-check": "tsc --noEmit",
+    "check": "npm run type-check && npm run lint",
     "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {

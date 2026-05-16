@@ -49,10 +49,10 @@ export default async function ApplicationPage({ params }: { params: Promise<Appl
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 1px, transparent 40px)" }} />
         <div className="relative z-10 max-w-6xl mx-auto px-6">
           <PrecisionReveal variant="fadeSlideLeft">
-            <SectionTag accent="green">Engineering Application</SectionTag>
+            <SectionTag accent="green">Application</SectionTag>
             <h1 className="mt-6 text-5xl md:text-6xl font-black text-white leading-tight uppercase tracking-tight">
               {application.name} <br />
-              <span className="text-primary-green italic">Pump Engineering.</span>
+              <span className="text-primary-green italic">Pump Duty.</span>
             </h1>
             <p className="mt-8 max-w-2xl text-xl text-white/80 leading-relaxed font-medium">
               {application.description}
@@ -66,7 +66,7 @@ export default async function ApplicationPage({ params }: { params: Promise<Appl
       
       <section className="py-16 border-b border-border/50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-black text-deep-blue uppercase tracking-tight mb-8">Technical Considerations</h2>
+          <h2 className="text-3xl font-black text-deep-blue uppercase tracking-tight mb-8">Selection Points</h2>
           <div className="grid gap-6 md:grid-cols-2">
             {application.keyConsiderations.map((consideration, i) => (
               <div key={i} className="flex items-center gap-4 p-6 rounded-2xl bg-white border border-border shadow-sm">
@@ -82,14 +82,14 @@ export default async function ApplicationPage({ params }: { params: Promise<Appl
 
       <section className="py-16 border-b border-border/50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-black text-deep-blue uppercase tracking-tight mb-8">Recommended Pump Systems</h2>
+          <h2 className="text-3xl font-black text-deep-blue uppercase tracking-tight mb-8">Recommended Pumps</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {application.recommendedPumps.map((pump) => (
               <Link key={pump.id} href={`/products/${pump.id}`} className="group p-8 rounded-[32px] bg-white border border-border hover:border-primary-blue transition-all shadow-sm hover:shadow-xl">
-                <span className="text-[10px] font-black text-primary-blue uppercase tracking-widest block mb-4">Industrial Model</span>
+                <span className="text-[10px] font-black text-primary-blue uppercase tracking-widest block mb-4">Pump Model</span>
                 <h3 className="text-xl font-black text-deep-blue group-hover:text-primary-blue transition-colors">{pump.name}</h3>
                 <div className="mt-6 flex items-center gap-2 text-xs font-black uppercase tracking-widest text-text-light group-hover:text-deep-blue">
-                  View Technical Specs <span>&rarr;</span>
+                  View Pump Details <span>&rarr;</span>
                 </div>
               </Link>
             ))}
@@ -102,14 +102,14 @@ export default async function ApplicationPage({ params }: { params: Promise<Appl
         blogs={[{ title: "How to select high-pressure pumps", href: "/blog/how-to-select-high-pressure-pumps" }, { title: "RO plant maintenance guide", href: "/blog/ro-plant-maintenance-guide" }]}
       />
 
-      <FAQSection faqs={application.faqs} title={`${application.name} Technical FAQs`} />
+      <FAQSection faqs={application.faqs} title={`${application.name} Questions`} />
 
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center bg-deep-blue rounded-[3rem] p-12 md:p-20 text-white">
-          <h2 className="text-4xl font-black mb-8 uppercase tracking-tighter">Expert Consultation for {application.name}</h2>
-          <p className="text-white/70 text-lg mb-10 max-w-2xl mx-auto">Our engineering team helps you size and select the right Berlington pump system for your specific duty point.</p>
+          <h2 className="text-4xl font-black mb-8 uppercase tracking-tighter">Get a Quote for {application.name}</h2>
+          <p className="text-white/70 text-lg mb-10 max-w-2xl mx-auto">Share the duty point and site condition. We will help you shortlist the right pump type for the job.</p>
           <Link href="/contact#inquiry-form" className="inline-block bg-primary-green text-deep-blue px-12 py-6 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-white transition-all shadow-xl shadow-primary-green/20">
-            Start Technical Review
+            Get a Quote
           </Link>
         </div>
       </section>

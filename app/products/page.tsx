@@ -1,40 +1,33 @@
-/**
- * Products Page (/products) — Server Component shell.
- *
- * The interactive filter/grid logic lives in ProductsClient (a "use client" component).
- * Keeping this file as a Server Component allows Next.js to export `metadata` and
- * serve full HTML to Googlebot without JavaScript.
- */
-
 import type { Metadata } from "next";
 import ProductsClient from "@/components/sections/products/ProductsClient";
+import FAQSection from "@/components/ui/FAQSection";
 
 export const metadata: Metadata = {
-  title: "Berlington Industrial Pump Catalogue — Vertical, Horizontal & Submersible",
+  title: "Industrial Pumps for RO, HVAC and STP in Bengaluru",
   description:
-    "Browse 16 ISO-certified Berlington pump series including vertical multistage CDL/CDLF, horizontal CHL/CHM, submersible WQ, and pipeline NISO models. Engineered for WTP, HVAC, and heavy industrial use. Distributed by FlowCore Solutions, Bengaluru.",
+    "Centrifugal, multistage, submersible, booster, and fire pumps in Bengaluru for RO plants, HVAC circulation, STP and ETP duty, pressure boosting, and plant utility water.",
   alternates: {
     canonical: "/products",
   },
   openGraph: {
-    title: "Berlington Pump Catalogue — FlowCore Solutions",
+    title: "Industrial Pumps for RO, HVAC and STP in Bengaluru",
     description:
-      "16 ISO-certified pump series for water treatment, HVAC, irrigation, and industrial processing. AISI 304/316 stainless steel construction. Browse specs and request a quote.",
+      "Pump range for water treatment, HVAC, pressure boosting, fire systems, sewage transfer, and factory utilities. Browse the range and get a quote.",
     url: "https://flowcoresolutions.in/products",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Berlington Industrial Pump Catalogue — FlowCore Solutions",
+        alt: "Industrial Pump Range - FlowCore Solutions",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Berlington Pump Catalogue — FlowCore Solutions",
+    title: "Industrial Pumps for RO, HVAC and STP in Bengaluru",
     description:
-      "16 ISO-certified pump series for WTP, HVAC, and industrial applications. Browse technical specs and request a quote.",
+      "Pump range for RO, HVAC, STP, pressure boosting, and utility water duty in Bengaluru.",
     images: ["/og-image.png"],
   },
 };
@@ -42,26 +35,26 @@ export const metadata: Metadata = {
 const productCollectionSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "Berlington Industrial Pump Catalogue",
+  name: "Industrial Pump Range",
   description:
-    "ISO-certified industrial pump series distributed by FlowCore Solutions including vertical multistage, horizontal multistage, submersible, hydro booster, self-priming, and pipeline pumps.",
+    "Pump range from FlowCore Solutions including vertical multistage, horizontal multistage, submersible, booster, self-priming, and pipeline pumps.",
   url: "https://flowcoresolutions.in/products",
   numberOfItems: 16,
   itemListElement: [
     {
       "@type": "ListItem",
       position: 1,
-      name: "CDL / CDLF Series — Vertical Multistage Pump",
+      name: "CDL / CDLF Series - Vertical Multistage Pump",
       description:
-        "Stainless steel vertical multistage pump. Flow rate 0.4–240 m³/h, max head 305 m. Suitable for WTP, HVAC, pressure boosting, and fire fighting.",
+        "Vertical multistage pump for RO feed, pressure boosting, HVAC, and treated water duty.",
       url: "https://flowcoresolutions.in/products",
     },
     {
       "@type": "ListItem",
       position: 2,
-      name: "CHL / CHLF Series — Horizontal Multistage Pump",
+      name: "CHL / CHLF Series - Horizontal Multistage Pump",
       description:
-        "Horizontal multistage pump for clean water applications. Flow rate 0.5–20 m³/h, max head 88 m. Ideal for WTP and pressure boosting.",
+        "Horizontal multistage pump for clean water transfer, treatment lines, and pressure duty.",
       url: "https://flowcoresolutions.in/products",
     },
     {
@@ -69,7 +62,7 @@ const productCollectionSchema = {
       position: 3,
       name: "WQ Submersible Sewage Pump",
       description:
-        "Heavy-duty submersible sewage pump. Flow rate 3–1800 m³/h, max head 66 m. For sewage treatment and industrial wastewater.",
+        "Submersible sewage pump for STP duty, wastewater transfer, and dirty-water handling.",
       url: "https://flowcoresolutions.in/products",
     },
     {
@@ -77,7 +70,7 @@ const productCollectionSchema = {
       position: 4,
       name: "NISO End-Suction Centrifugal Pump",
       description:
-        "Large-capacity end-suction centrifugal pump. Flow rate 3–1200 m³/h, max head 160 m. For WTP, HVAC, fire fighting, and industrial use.",
+        "End-suction centrifugal pump for HVAC circulation, utility transfer, fire duty, and general industrial use.",
       url: "https://flowcoresolutions.in/products",
     },
   ],
@@ -108,58 +101,47 @@ const faqSchema = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "Are Berlington pumps ISO-certified?",
+      name: "What pump types does FlowCore supply?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes, all Berlington industrial pumps supplied by FlowCore Solutions are manufactured to ISO-certified standards. They utilize AISI 304 and 316 stainless steel for extreme durability in harsh industrial environments."
-      }
-    },
-    {
-      "@type": "Question",
-      name: "What pump types does FlowCore Solutions offer?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "We offer a comprehensive range of Berlington pumps including vertical multistage, horizontal multistage, submersible, and centrifugal pumps designed for water treatment plants, HVAC, and industrial infrastructure."
-      }
+        text: "FlowCore supplies centrifugal, multistage, submersible, booster, fire, and chemical-duty pumps for water treatment plants, HVAC circulation, pressure boosting, sewage transfer, and factory utility duty.",
+      },
     },
     {
       "@type": "Question",
       name: "Do you provide pump selection and specification support?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. FlowCore Solutions manages the entire life-cycle of your fluid systems. We provide technical consultancy, MEP specification support, and specialized pump selection to meet your exact flow and head requirements."
-      }
+        text: "Yes. Share the required flow, head, liquid, operating hours, and site condition. FlowCore will help shortlist the pump family for the job.",
+      },
     },
     {
       "@type": "Question",
-      name: "What is Total System Health?",
+      name: "Do you support installation and AMC?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Total System Health is our life-cycle commitment combining on-site technical support for Berlington pumps with Flowchar's chemical synergy audits to proactively prevent equipment failure and ensure 24/7 infrastructure operation."
-      }
-    }
-  ]
+        text: "Yes. FlowCore supports supply, installation planning, AMC discussions, spare parts, and breakdown response.",
+      },
+    },
+  ],
 };
-
-import FAQSection from "@/components/ui/FAQSection";
 
 const PRODUCT_FAQS = [
   {
-    question: "Are Berlington pumps ISO-certified?",
-    answer: "Yes, all Berlington industrial pumps supplied by FlowCore Solutions are manufactured to ISO-certified standards. They utilize AISI 304 and 316 stainless steel for extreme durability in harsh industrial environments."
-  },
-  {
-    question: "What pump types does FlowCore Solutions offer?",
-    answer: "We offer a comprehensive range of Berlington pumps including vertical multistage, horizontal multistage, submersible, and centrifugal pumps designed for water treatment plants, HVAC, and industrial infrastructure."
+    question: "What pump types does FlowCore supply?",
+    answer:
+      "FlowCore supplies centrifugal, multistage, submersible, booster, fire, and chemical-duty pumps for water treatment plants, HVAC circulation, pressure boosting, sewage transfer, and factory utility duty.",
   },
   {
     question: "Do you provide pump selection and specification support?",
-    answer: "Yes. FlowCore Solutions manages the entire life-cycle of your fluid systems. We provide technical consultancy, MEP specification support, and specialized pump selection to meet your exact flow and head requirements."
+    answer:
+      "Yes. Share the required flow, head, liquid, operating hours, and site condition. FlowCore will help shortlist the pump family for the job.",
   },
   {
-    question: "What is Total System Health?",
-    answer: "Total System Health is our life-cycle commitment combining on-site technical support for Berlington pumps with Flowchar's chemical synergy audits to proactively prevent equipment failure and ensure 24/7 infrastructure operation."
-  }
+    question: "Do you support installation and AMC?",
+    answer:
+      "Yes. FlowCore supports supply, installation planning, AMC discussions, spare parts, and breakdown response.",
+  },
 ];
 
 export default function ProductsPage() {
@@ -178,7 +160,7 @@ export default function ProductsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <ProductsClient />
-      <FAQSection faqs={PRODUCT_FAQS} title="Frequently Asked Questions" />
+      <FAQSection faqs={PRODUCT_FAQS} title="Common Questions" />
     </>
   );
 }

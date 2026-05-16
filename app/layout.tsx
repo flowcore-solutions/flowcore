@@ -6,7 +6,6 @@ import Footer from "@/components/layout/Footer";
 import QuoteModalWrapper from "@/components/layout/QuoteModalWrapper";
 import { Analytics } from "@vercel/analytics/react";
 
-// ── Font ──────────────────────────────────────────────────────────────────
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -14,18 +13,17 @@ const poppins = Poppins({
   display: "swap",
 });
 
-// ── Site Metadata ─────────────────────────────────────────────────────────
 export const metadata: Metadata = {
   metadataBase: new URL("https://flowcoresolutions.in"),
   applicationName: "FlowCore Solutions",
 
   title: {
-    default: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
+    default: "Industrial Pumps for RO, HVAC and STP in Bengaluru",
     template: "%s | FlowCore Solutions",
   },
 
   description:
-    "Authorized Berlington Pumps dealer in Bangalore. Industrial pumps, WTP systems & expert service across Karnataka.",
+    "Industrial pumps, water treatment systems, installation support, AMC, and breakdown service in Bengaluru for factories, hospitals, hotels, apartments, and commercial buildings.",
 
   icons: {
     icon: [
@@ -56,9 +54,9 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "FlowCore Solutions",
     url: "https://flowcoresolutions.in",
-    title: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
+    title: "Industrial Pumps for RO, HVAC and STP in Bengaluru",
     description:
-      "Authorized Berlington Pumps dealer in Bangalore. Industrial pumps, WTP systems & expert service across Karnataka.",
+      "Industrial pumps, water treatment systems, installation support, AMC, and breakdown service in Bengaluru.",
     images: [
       {
         url: "/og-image.png",
@@ -71,15 +69,13 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Berlington Pumps Dealer in Bangalore | FlowCore Solutions",
+    title: "Industrial Pumps for RO, HVAC and STP in Bengaluru",
     description:
-      "Authorized Berlington Pumps dealer in Bangalore. Industrial pumps, WTP systems & expert service across Karnataka.",
+      "Industrial pumps, water treatment systems, installation support, AMC, and breakdown service in Bengaluru.",
     images: ["/og-image.png"],
   },
 };
 
-
-// ── Organization Schema ───────────────────────────────────────────────────
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -98,7 +94,6 @@ const organizationSchema = {
   ],
 };
 
-// ── WebSite Schema (VERY IMPORTANT FIX) ───────────────────────────────────
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -106,7 +101,6 @@ const websiteSchema = {
   url: "https://flowcoresolutions.in",
 };
 
-// ── Root Layout ───────────────────────────────────────────────────────────
 export default function RootLayout({
   children,
 }: {
@@ -115,7 +109,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} font-sans`}>
-        {/* Organization Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -123,7 +116,6 @@ export default function RootLayout({
           }}
         />
 
-        {/* WebSite Schema (fixes Google site name) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -132,10 +124,7 @@ export default function RootLayout({
         />
 
         <Navbar />
-
-
         <main className="pt-24">{children}</main>
-
         <Footer />
         <QuoteModalWrapper />
         <Analytics />

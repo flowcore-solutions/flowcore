@@ -82,7 +82,7 @@ const CORE_INDUSTRIES: Industry[] = [
     title: "Industrial Pump Systems for Manufacturing Plants in Karnataka",
     description: "Heavy-duty pump solutions for process cooling, boiler feed, and utility water transfer in Karnataka industrial estates.",
     overview: [
-      "Manufacturing clusters in Peenya, Bidadi, and Hoskote require robust pumping solutions for diverse industrial processes. Whether it's high-temperature boiler feed or high-volume cooling water, the pumps must withstand industrial-grade duty cycles.",
+      "Manufacturing clusters in Peenya, Bidadi, and Hoskote need pumps that can handle high-temperature boiler feed, high-volume cooling water, and long operating hours.",
       "We provide end-suction and multistage pumps that are the backbone of Karnataka's manufacturing utility systems."
     ],
     challenges: [
@@ -116,7 +116,7 @@ const extraIndustries: Industry[] = [
     description: "Pressure booster, HVAC, fire fighting, STP, RO, and utility pump support for hotels in Bangalore, Mysore, Mangalore, and Karnataka.",
     overview: [
       "Hotel pump systems must support guest comfort, hygiene, fire readiness, HVAC performance, and wastewater handling without disrupting daily operations.",
-      "FlowCore helps hotel engineering teams review pressure boosting, HVAC circulation, STP pumps, fire pump packages, and RO/WTP pump requirements as one connected infrastructure system.",
+      "FlowCore helps hotel teams review pressure boosting, HVAC circulation, STP pumps, fire pump packages, and RO/WTP pump requirements as one working utility system.",
     ],
     challenges: [
       "Peak guest water demand during morning and evening use.",

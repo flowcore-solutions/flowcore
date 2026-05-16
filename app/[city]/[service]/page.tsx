@@ -105,7 +105,7 @@ const CITY_PROFILES: Record<string, CityProfile> = {
   mangalore: {
     tag: "COASTAL · CORROSION-AWARE · MARINE",
     heroContext:
-      "Mangalore's coastal environment changes the pump selection equation. Salt-laden air accelerates corrosion in wetted pump components; port-linked industries demand robust materials; STP and ETP systems serve commercial buildings where sea air exposure makes standard carbon steel a liability. Stainless steel wetted parts and coated housings are not a premium option here — they are the practical baseline.",
+      "Mangalore's coastal environment changes the pump selection equation. Salt-laden air accelerates corrosion in wetted pump components; port-linked industries demand corrosion-aware materials; STP and ETP systems serve commercial buildings where sea air exposure makes standard carbon steel a liability. Stainless steel wetted parts and coated housings are not a premium option here — they are the practical baseline.",
     introEmphasis:
       "Mangalore pump selection must account for coastal corrosion risk, salt air exposure, marine industry requirements, and the material compatibility demands of seawater-proximate infrastructure.",
     buyerPriority:
@@ -317,7 +317,7 @@ export default async function LocalServicePage({
   // ── Hero body ────────────────────────────────
   // City profile gives the first sentence; citySpecific context follows.
   const heroBody = cityProfile
-    ? `${cityProfile.heroContext} FlowCore provides application-matched ${mainKeyword} with technical selection, supply guidance, and lifecycle support.`
+    ? `${cityProfile.heroContext} FlowCore provides application-matched ${mainKeyword} with technical selection, supply guidance, and service support.`
     : citySpecific
     ? `${citySpecific.context} FlowCore provides application-matched ${mainKeyword} with technical selection and local supply response.`
     : `FlowCore Solutions provides application-matched ${mainKeyword} for industrial and commercial projects in ${formattedCity}, Karnataka.`;

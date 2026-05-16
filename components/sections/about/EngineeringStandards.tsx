@@ -90,7 +90,7 @@ const STANDARDS = [
     code: "MEP SPEC",
     title: "Precision MEP Specification Support",
     description:
-      "FlowCore's engineering team provides pump selection, sizing calculations, and full MEP specification documentation — from preliminary design through tender submission.",
+      "FlowCore helps with pump selection, sizing calculations, and MEP specification input from preliminary design through tender submission.",
     details: ["Pump selection & sizing", "Tender documentation", "System curve matching"],
     accent: "green" as const,
   },

@@ -343,7 +343,7 @@ function buildHtml(payload: ContactPayload, inquiryId: string, subject: string):
                         </tr>
                         <tr>
                           <td style="padding-top:10px;font-size:12px;line-height:1.8;color:#94a3b8;">
-                            FlowCore Solutions | Bangalore, Karnataka | Authorized Berlington Pump Dealer | Advanced Hydraulic Systems | Flowchar WTP Chemicals
+                            FlowCore Solutions | Bangalore, Karnataka | Industrial Pumps | Water Treatment Support
                           </td>
                         </tr>
                       </table>
@@ -424,7 +424,7 @@ function buildAutoReplyHtml(name: string, inquiryId: string): string {
                   <tr>
                     <td style="padding-top:18px;font-size:13px;line-height:1.8;color:#64748b;">
                       FlowCore Solutions | Bangalore, Karnataka<br>
-                      Authorized Berlington Pump Dealer | Advanced Hydraulic Systems | Flowchar WTP Chemicals<br>
+                      Industrial Pumps | Water Treatment Support<br>
                       <a href="https://flowcoresolutions.in" style="color:#0f5bd8;text-decoration:none;font-weight:700;">flowcoresolutions.in</a>
                     </td>
                   </tr>

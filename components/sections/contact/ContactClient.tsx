@@ -47,7 +47,7 @@ function ContactPanel({ loc }: { loc: OfficeLocation }) {
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary-green" />
           </span>
           <span className="text-[10px] font-black uppercase tracking-[0.25em] text-primary-green">
-            Office — Bengaluru
+            Bengaluru Office
           </span>
         </div>
 
@@ -83,7 +83,7 @@ function ContactPanel({ loc }: { loc: OfficeLocation }) {
               </svg>
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-text-light mb-0.5">Mobile</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-text-light mb-0.5">Call</p>
               <p className="text-sm font-bold text-deep-blue">{loc.phone}</p>
             </div>
             <svg className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity shrink-0" width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -108,7 +108,7 @@ function ContactPanel({ loc }: { loc: OfficeLocation }) {
               </svg>
             </div>
             <div className="min-w-0">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-text-light mb-0.5">Email</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-text-light mb-0.5">Mail</p>
               <p className="text-sm font-bold text-deep-blue truncate">{loc.email}</p>
             </div>
             <svg className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity shrink-0" width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -210,7 +210,7 @@ function MultiProductSelect({
         onClick={() => setIsOpen(!isOpen)}
       >
         {selectedIds.length === 0 && (
-          <span className="text-text-light text-sm">Select products of interest...</span>
+          <span className="text-text-light text-sm">Select pump type or series</span>
         )}
         {selectedIds.map(id => {
           const pump = getPumpById(id);
@@ -364,17 +364,16 @@ function InquiryForm() {
               </svg>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-deep-blue mb-2">Inquiry Received</h3>
+              <h3 className="text-xl font-bold text-deep-blue mb-2">Request Received</h3>
               <p className="text-sm text-text-light max-w-xs">
-                Thank you, <strong className="text-text-dark">{form.name}</strong>. Our
-                engineering team will contact you within 1 business day.
+                Thank you, <strong className="text-text-dark">{form.name}</strong>. We will review the request and get back to you.
               </p>
             </div>
             <button
               onClick={() => { setForm(EMPTY_FORM); setSubmitted(false); }}
               className="text-xs text-text-light underline underline-offset-2 hover:text-text-dark transition-colors"
             >
-              Submit another inquiry
+              Send another request
             </button>
           </div>
         ) : (
@@ -387,7 +386,7 @@ function InquiryForm() {
             aria-label="Industrial inquiry form"
           >
             <div>
-              <h2 className="text-lg font-bold text-deep-blue">Industrial Inquiry</h2>
+              <h2 className="text-lg font-bold text-deep-blue">Get a Quote</h2>
               <p className="mt-1 text-xs text-text-light">
                 Fields marked <span className="text-primary-green font-semibold">*</span> are required.
               </p>
@@ -395,7 +394,7 @@ function InquiryForm() {
 
             {/* Name / Company */}
             <div>
-              <FieldLabel htmlFor="name" required>Name / Company Name</FieldLabel>
+              <FieldLabel htmlFor="name" required>Name / Company</FieldLabel>
               <input
                 id="name"
                 name="name"
@@ -448,7 +447,7 @@ function InquiryForm() {
 
             {/* Product interest */}
             <div>
-              <FieldLabel required>Product / Series of Interest</FieldLabel>
+              <FieldLabel required>Pump Type / Series</FieldLabel>
               <MultiProductSelect 
                 selectedIds={form.pumpIds} 
                 onChange={(ids) => {
@@ -464,14 +463,14 @@ function InquiryForm() {
 
             {/* Message */}
             <div>
-              <FieldLabel htmlFor="message">Message</FieldLabel>
+              <FieldLabel htmlFor="message">Application Details</FieldLabel>
               <textarea
                 id="message"
                 name="message"
                 value={form.message}
                 onChange={handleChange}
                 rows={4}
-                placeholder="Describe your project requirements, flow rate, head, quantity…"
+                placeholder="Share the application, flow, head, quantity, site location, or breakdown issue"
                 className={`${inputClass()} resize-none`}
               />
             </div>
@@ -513,7 +512,7 @@ function InquiryForm() {
                 </>
               ) : (
                 <>
-                  Submit Inquiry
+                  Get a Quote
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -572,7 +571,7 @@ export default function ContactClient() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
             <div className="max-w-2xl">
               <PrecisionReveal variant="fadeSlideLeft" delay={0.07}>
-                <SectionTag>Contact Us</SectionTag>
+                <SectionTag>Contact</SectionTag>
               </PrecisionReveal>
 
               <PrecisionReveal variant="fadeSlideLeft" delay={0.14}>
@@ -581,14 +580,13 @@ export default function ContactClient() {
                   style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
                 >
                   Contact FlowCore <br />
-                  <span className="text-primary-blue">Engineering Team</span>
+                  <span className="text-primary-blue">Pump Support</span>
                 </h1>
               </PrecisionReveal>
 
               <PrecisionReveal variant="fadeSlideLeft" delay={0.21}>
                 <p className="mt-6 text-base leading-relaxed text-text-light font-medium max-w-lg">
-                  Reach out to our Bengaluru office for pan-India industrial
-                  solutions. Explore our <Link href="/products" className="text-primary-blue hover:underline drop-shadow-sm">pump catalogue</Link> or view our <Link href="/applications" className="text-primary-green hover:underline drop-shadow-sm">system applications</Link> before submitting an engineering inquiry below.
+                  Contact our Bengaluru office for pump supply, site visits, AMC, spare parts, and breakdown support. You can review the <Link href="/products" className="text-primary-blue hover:underline drop-shadow-sm">pump range</Link> or check <Link href="/applications" className="text-primary-green hover:underline drop-shadow-sm">application pages</Link> before sending your request.
                 </p>
               </PrecisionReveal>
             </div>

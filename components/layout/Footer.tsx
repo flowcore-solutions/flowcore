@@ -21,7 +21,7 @@ function BrandIdentity() {
       <div className="absolute inset-0 bg-linear-to-tr from-[#6CC24A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       <Image
         src="/assets/logos/flowcore-logo-horizontal.svg"
-        alt="FlowCore Solutions — Industrial Pump Systems & Water Treatment"
+        alt="FlowCore Solutions - Industrial Pumps and Water Treatment"
         width={220}
         height={70}
         className="w-48 lg:w-56 object-contain relative z-10 transition-transform duration-500 group-hover:scale-[1.02]"
@@ -62,11 +62,11 @@ export default function Footer() {
 
               <div className="flex flex-col space-y-4 items-center sm:items-start text-center sm:text-left">
                 <p className="text-base sm:text-lg font-medium text-white/90 leading-relaxed max-w-[320px]">
-                  Authorized Berlington Pumps dealer in Bangalore, Karnataka. Supplying reliable industrial pump systems and comprehensive technical solutions.
+                  Industrial pumps and water treatment support in Bengaluru for RO plants, HVAC, STP, ETP, pressure boosting, and service work.
                 </p>
                 <div className="inline-flex items-center justify-center gap-2.5 border border-white/20 bg-white/5 rounded-full px-4 py-1.5 backdrop-blur-sm shadow-inner">
                    <span className="shrink-0 w-2.5 h-2.5 rounded-full bg-[#6CC24A]" />
-                   <span className="text-[10px] font-black uppercase tracking-[0.15em] text-[#4DA3FF] leading-none pt-px">Engineered For Reliability</span>
+                   <span className="text-[10px] font-black uppercase tracking-[0.15em] text-[#4DA3FF] leading-none pt-px">Supply Installation AMC</span>
                 </div>
               </div>
             </div>
@@ -159,7 +159,7 @@ export default function Footer() {
                     <div>
                       <p className="text-[10px] font-black tracking-widest text-[#6CC24A] uppercase mb-0.5 opacity-80 group-hover:opacity-100 transition-opacity">WhatsApp</p>
                       <span className="font-semibold text-white/90 group-hover:text-white text-xs block">
-                        Chat with sales support
+                        Ask for a quote
                       </span>
                     </div>
                   </a>
@@ -196,7 +196,7 @@ export default function Footer() {
       <div className="relative z-10 bg-[#061A40] border-t border-white/5 py-8">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 flex flex-col md:flex-row justify-between items-center gap-6 text-xs font-semibold">
           <p className="text-white/60">
-            © {year} FlowCore Solutions. <span className="text-white/20 font-normal ml-1">Fluid Infrastructure Engineering.</span>
+            © {year} FlowCore Solutions. <span className="text-white/20 font-normal ml-1">Industrial pumps and water treatment support.</span>
           </p>
           <div className="hidden lg:flex items-center flex-wrap justify-center gap-4 text-white/80">
             <span className="bg-white/5 px-4 py-2 rounded-lg border border-white/10 font-black tracking-widest uppercase text-[9px]">Berlington Industrial Pumps</span>

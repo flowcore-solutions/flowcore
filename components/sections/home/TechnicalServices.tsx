@@ -15,25 +15,25 @@ type SubmitStatus = "idle" | "loading" | "success" | "error";
 
 const REQUIREMENTS = [
   "New Installation",
-  "Repair & Overhaul",
+  "Breakdown Support",
   "Pump Replacement",
-  "Efficiency Audit",
-  "Maintenance",
-  "Custom Fabrication"
+  "Site Visit",
+  "AMC",
+  "Spare Parts"
 ];
 
 const TRUST_ITEMS = [
   {
-    title: "Repair & Overhaul",
-    desc: "Comprehensive pump repair and maintenance services to maximize operational lifespan."
+    title: "Breakdown Support",
+    desc: "Breakdown checks, repair work, and spare replacement for running pump systems."
   },
   {
-    title: "Energy Optimization",
-    desc: "Reduce operational lifecycle costs through highly efficient pump curve matching."
+    title: "Installation Support",
+    desc: "Pump selection, site review, and installation input for new or replacement jobs."
   },
   {
-    title: "Complete System Integration",
-    desc: "Deep compatibility with industrial process controls, VFDs, and sensors."
+    title: "AMC Planning",
+    desc: "Preventive service planning for hotels, hospitals, factories, and apartments."
   }
 ];
 
@@ -99,15 +99,15 @@ export default function TechnicalServices() {
             <div className="mb-8">
               <PrecisionReveal variant="fadeSlideLeft">
                 <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary-blue mb-3 block">
-                  Engineering Support
+                  Service Support
                 </span>
                 <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-deep-blue mb-4">
-                  Request a System Audit
+                  Request a Site Visit
                 </h2>
               </PrecisionReveal>
               <PrecisionReveal variant="fadeSlideLeft" delay={0.1}>
                 <p className="text-slate-600 text-lg max-w-lg leading-relaxed">
-                  Connect with our technical team for custom fluid dynamics computations, lifecycle cost optimization, and precise system sizing.
+                  Tell us the duty, the problem, or the site condition. We will review the pump application and respond with the next step.
                 </p>
               </PrecisionReveal>
             </div>
@@ -116,7 +116,7 @@ export default function TechnicalServices() {
               <form
                 className="space-y-6"
                 onSubmit={handleSubmit}
-                aria-label="System audit request form"
+                aria-label="Site visit request form"
               >
                 {/* Success banner */}
                 {status === "success" && (
@@ -129,7 +129,7 @@ export default function TechnicalServices() {
                       <path d="M5.5 9l2.5 2.5 4.5-4.5" stroke="#2fa84f" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                     <p className="text-sm font-semibold text-dark-green">
-                      Request sent! Our team will respond within 4 hours.
+                      Request sent. Our team will review it and get back to you.
                     </p>
                   </div>
                 )}
@@ -148,7 +148,7 @@ export default function TechnicalServices() {
                 )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label htmlFor="auth-name" className="text-xs font-bold uppercase tracking-wider text-slate-500">Full Name</label>
+                    <label htmlFor="auth-name" className="text-xs font-bold uppercase tracking-wider text-slate-500">Name</label>
                     <input
                       type="text"
                       id="auth-name"
@@ -161,7 +161,7 @@ export default function TechnicalServices() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="auth-company" className="text-xs font-bold uppercase tracking-wider text-slate-500">Company</label>
+                    <label htmlFor="auth-company" className="text-xs font-bold uppercase tracking-wider text-slate-500">Company / Site</label>
                     <input
                       type="text"
                       id="auth-company"
@@ -175,7 +175,7 @@ export default function TechnicalServices() {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="auth-email" className="text-xs font-bold uppercase tracking-wider text-slate-500">Email Address</label>
+                    <label htmlFor="auth-email" className="text-xs font-bold uppercase tracking-wider text-slate-500">Email</label>
                   <input
                     type="email"
                     id="auth-email"
@@ -189,7 +189,7 @@ export default function TechnicalServices() {
                 </div>
 
                 <div className="space-y-3 pt-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Primary Requirements</label>
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500">What do you need?</label>
                   <div className="flex flex-wrap gap-2">
                     {REQUIREMENTS.map((req) => {
                       const isSelected = selectedReqs.includes(req);
@@ -228,7 +228,7 @@ export default function TechnicalServices() {
                       </>
                     ) : (
                       <>
-                        <span className="relative z-10">Request Consultation</span>
+                        <span className="relative z-10">Request a Site Visit</span>
                         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="relative z-10 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
                           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
@@ -265,7 +265,7 @@ export default function TechnicalServices() {
                   </div>
                   
                   <h3 className="text-2xl font-bold mb-6 tracking-tight text-[#4DA3FF]">
-                    Why partner with FlowCore?
+                    How we help
                   </h3>
                 </PrecisionReveal>
                 

@@ -1,9 +1,3 @@
-/**
- * Applications Page (/applications)
- *
- * Refactored to use modular components for better maintainability.
- */
-
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { APPLICATION_ENVIRONMENTS } from "@/lib/application-data";
@@ -20,31 +14,31 @@ const FAQSection = dynamic(() => import("@/components/ui/FAQSection"), {
 });
 
 export const metadata: Metadata = {
-  title: "Industrial Pump Applications — WTP, HVAC & Sewage Treatment | FlowCore",
+  title: "Pump Applications for RO, HVAC and STP in Bengaluru",
   description:
-    "Explore Berlington pump applications for water treatment plants (WTP), HVAC circulation, sewage & wastewater processing, fire fighting systems, and industrial fluid transfer. FlowCore Solutions provides technical integration diagrams and engineering specification support across all environments.",
+    "Pump applications for RO plants, water treatment, HVAC circulation, STP and ETP transfer, fire systems, and industrial utility water in Bengaluru.",
   alternates: {
     canonical: "/applications",
   },
   openGraph: {
-    title: "Industrial Pump Applications — WTP, HVAC & Sewage Systems | FlowCore",
+    title: "Pump Applications for RO, HVAC and STP in Bengaluru",
     description:
-      "Technical integration diagrams for Berlington pumps in water treatment, HVAC, sewage, fire fighting, and industrial applications. ISO-certified systems with Flowchar chemical treatment synergy.",
+      "Application guide for pumps used in water treatment, HVAC, sewage transfer, fire systems, and industrial utility water.",
     url: "https://flowcoresolutions.in/applications",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "FlowCore Solutions — Industrial Pump Application Environments",
+        alt: "FlowCore Solutions - Pump Applications",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Industrial Pump Applications — WTP, HVAC & Sewage | FlowCore",
+    title: "Pump Applications for RO, HVAC and STP in Bengaluru",
     description:
-      "Technical diagrams and specifications for Berlington pump systems across WTP, HVAC, sewage treatment, and industrial applications.",
+      "Application guide for pumps used in RO plants, HVAC lines, STP transfer, and industrial utility water.",
     images: ["/og-image.png"],
   },
 };
@@ -74,69 +68,73 @@ const faqSchema = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "What types of pumps are suitable for Water Treatment Plants (WTP)?",
+      name: "What pumps are used in water treatment plants?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "For water treatment plants, Berlington vertical multistage pumps (CDL/CDLF series) and end-suction centrifugal pumps (NISO series) are most suitable. They handle flow rates from 0.4 to 1200 m³/h with ISO-certified stainless steel construction to prevent contamination. Flowchar scale inhibitors are used alongside these pumps to prevent mineral buildup and extend operational life.",
+        text: "Water treatment plants commonly use vertical multistage pumps for pressure duty, end-suction pumps for transfer duty, and chemical-compatible pumps where dosing or treatment chemicals are involved.",
       },
     },
     {
       "@type": "Question",
-      name: "Which Berlington pumps are used for HVAC circulation systems?",
+      name: "Which pumps are used for HVAC circulation?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "HVAC systems use Berlington CHL/CHLF horizontal multistage pumps and LD vertical inline circulation pumps. These operate at -15°C to +120°C, making them suitable for both chilled water and hot water HVAC circuits. The HYDRO variable speed system is also used for pressure-regulated HVAC applications.",
+        text: "HVAC systems commonly use inline circulation pumps and end-suction pumps for chilled water, condenser water, and cooling tower duty.",
       },
     },
     {
       "@type": "Question",
-      name: "What pump is best for sewage and wastewater applications?",
+      name: "What pump is used for sewage and wastewater?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The Berlington WQ submersible sewage pump is purpose-built for sewage and wastewater. With flow rates up to 1800 m³/h and cast iron/stainless steel construction, it handles solids-laden effluent in municipal and industrial sewage treatment plants. The BT side channel blower is used for aeration in wastewater treatment.",
+        text: "Submersible sewage pumps are commonly used for wastewater transfer, wet wells, and STP duty because they handle dirty water better than clean-water pump types.",
       },
     },
     {
       "@type": "Question",
-      name: "How does FlowCore Solutions support pump lifecycle and maintenance?",
+      name: "Do you support installation, AMC, and breakdown service?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "FlowCore Solutions provides Total System Health services: on-site technical support, rapid repair response, preventive maintenance scheduling, and Flowchar chemical synergy audits. Our relationship with clients continues 24/7 after delivery to ensure infrastructure remains operational and prevent equipment failure through proactive chemical treatment.",
+        text: "Yes. FlowCore supports supply, installation planning, AMC discussions, spare parts, and breakdown response for pump systems.",
       },
     },
     {
       "@type": "Question",
-      name: "Can Berlington pumps handle chemical transfer applications?",
+      name: "Can you help with chemical dosing and chemical-duty pump applications?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. The SZ Fluorine Chemical Pump (FEP/PVDF lined) handles aggressive chemicals at -20°C to +120°C with flow rates up to 60 m³/h. For standard chemical transfer, the ZS single-stage centrifugal pump with stainless steel construction is appropriate. Flowchar chemical compatibility audits are recommended before specifying pump materials.",
+        text: "Yes. FlowCore supports chemical-duty pump selection and dosing-related applications after checking the liquid, concentration, temperature, and material requirement.",
       },
     },
   ],
 };
 
-
 const APPLICATIONS_FAQS = [
   {
-    question: "What types of pumps are suitable for Water Treatment Plants (WTP)?",
-    answer: "For water treatment plants, Berlington vertical multistage pumps (CDL/CDLF series) and end-suction centrifugal pumps (NISO series) are most suitable. They handle flow rates from 0.4 to 1200 m³/h with ISO-certified stainless steel construction to prevent contamination. Flowchar scale inhibitors are used alongside these pumps to prevent mineral buildup and extend operational life."
+    question: "What pumps are used in water treatment plants?",
+    answer:
+      "Water treatment plants commonly use vertical multistage pumps for pressure duty, end-suction pumps for transfer duty, and chemical-compatible pumps where dosing or treatment chemicals are involved.",
   },
   {
-    question: "Which Berlington pumps are used for HVAC circulation systems?",
-    answer: "HVAC systems use Berlington CHL/CHLF horizontal multistage pumps and LD vertical inline circulation pumps. These operate at -15°C to +120°C, making them suitable for both chilled water and hot water HVAC circuits. The HYDRO variable speed system is also used for pressure-regulated HVAC applications."
+    question: "Which pumps are used for HVAC circulation?",
+    answer:
+      "HVAC systems commonly use inline circulation pumps and end-suction pumps for chilled water, condenser water, and cooling tower duty.",
   },
   {
-    question: "What pump is best for sewage and wastewater applications?",
-    answer: "The Berlington WQ submersible sewage pump is purpose-built for sewage and wastewater. With flow rates up to 1800 m³/h and cast iron/stainless steel construction, it handles solids-laden effluent in municipal and industrial sewage treatment plants. The BT side channel blower is used for aeration in wastewater treatment."
+    question: "What pump is used for sewage and wastewater?",
+    answer:
+      "Submersible sewage pumps are commonly used for wastewater transfer, wet wells, and STP duty because they handle dirty water better than clean-water pump types.",
   },
   {
-    question: "How does FlowCore Solutions support pump lifecycle and maintenance?",
-    answer: "FlowCore Solutions provides Total System Health services: on-site technical support, rapid repair response, preventive maintenance scheduling, and Flowchar chemical synergy audits. Our relationship with clients continues 24/7 after delivery to ensure infrastructure remains operational and prevent equipment failure through proactive chemical treatment."
+    question: "Do you support installation, AMC, and breakdown service?",
+    answer:
+      "Yes. FlowCore supports supply, installation planning, AMC discussions, spare parts, and breakdown response for pump systems.",
   },
   {
-    question: "Can Berlington pumps handle chemical transfer applications?",
-    answer: "Yes. The SZ Fluorine Chemical Pump (FEP/PVDF lined) handles aggressive chemicals at -20°C to +120°C with flow rates up to 60 m³/h. For standard chemical transfer, the ZS single-stage centrifugal pump with stainless steel construction is appropriate. Flowchar chemical compatibility audits are recommended before specifying pump materials."
-  }
+    question: "Can you help with chemical dosing and chemical-duty pump applications?",
+    answer:
+      "Yes. FlowCore supports chemical-duty pump selection and dosing-related applications after checking the liquid, concentration, temperature, and material requirement.",
+  },
 ];
 
 export default function ApplicationsPage() {
@@ -154,14 +152,10 @@ export default function ApplicationsPage() {
 
       <main id="main-environments">
         {APPLICATION_ENVIRONMENTS.map((env, i) => (
-          <ApplicationEnvironmentSection
-            key={env.id}
-            env={env}
-            index={i}
-          />
+          <ApplicationEnvironmentSection key={env.id} env={env} index={i} />
         ))}
-        
-        <FAQSection faqs={APPLICATIONS_FAQS} title="Application FAQs" />
+
+        <FAQSection faqs={APPLICATIONS_FAQS} title="Application Questions" />
       </main>
 
       <ApplicationsCTA />

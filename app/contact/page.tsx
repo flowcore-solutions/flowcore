@@ -1,40 +1,32 @@
-/**
- * Contact Page (/contact) — Server Component shell.
- *
- * All interactive form logic lives in ContactClient (a "use client" component).
- * Keeping this file as a Server Component allows Next.js to export `metadata`
- * and serve full HTML to Googlebot without JavaScript execution.
- */
-
 import type { Metadata } from "next";
 import ContactClient from "@/components/sections/contact/ContactClient";
 
 export const metadata: Metadata = {
-  title: "Contact FlowCore Solutions — Industrial Pump Inquiry, Bengaluru",
+  title: "Pump Quotes, AMC and Breakdown Support in Bengaluru",
   description:
-    "Contact FlowCore Solutions at our Bengaluru headquarters for industrial pump selection, MEP specification support, water treatment chemical inquiries, and lifecycle service. Call or email for a rapid engineering response.",
+    "Contact FlowCore Solutions in Bengaluru for pump quotes, site visits, AMC, spare parts, installation support, and breakdown response.",
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
-    title: "Contact FlowCore Solutions — Industrial Pump & Water Treatment Inquiry",
+    title: "Pump Quotes, AMC and Breakdown Support in Bengaluru",
     description:
-      "Reach our Bengaluru engineering team for Berlington pump selection, Flowchar chemical treatment, MEP support, and 24/7 infrastructure servicing. Submit your technical inquiry today.",
+      "Reach FlowCore in Bengaluru for pump supply, site visits, AMC, spare parts, and breakdown response.",
     url: "https://flowcoresolutions.in/contact",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Contact FlowCore Solutions — Bengaluru, India",
+        alt: "Contact FlowCore Solutions - Bengaluru, India",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact FlowCore Solutions — Industrial Pump Inquiry",
+    title: "Pump Quotes, AMC and Breakdown Support in Bengaluru",
     description:
-      "Reach our Bengaluru engineering team for pump selection, MEP support, and water treatment chemical inquiries.",
+      "Reach FlowCore in Bengaluru for pump supply, site visits, AMC, spare parts, and breakdown response.",
     images: ["/og-image.png"],
   },
 };
@@ -48,7 +40,7 @@ const localBusinessSchema = {
   telephone: "+918618885283",
   email: "flowcoresolutionsblr@gmail.com",
   description:
-    "FlowCore Solutions provides industrial pump systems, water treatment chemicals, MEP specification support, and lifecycle pump servicing from our Bengaluru headquarters.",
+    "FlowCore Solutions provides pump supply, water treatment support, installation planning, AMC, and breakdown service from Bengaluru.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "1st Floor, Cheluva Complex, In front of Kottigepalya Bus Stop, Magadi Main Road, Kottingepalya",
