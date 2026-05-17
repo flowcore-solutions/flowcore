@@ -13,6 +13,7 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import type { ApplicationEnvironment, DiagramNode, EquipmentType } from "@/lib/application-data";
+import PumpTooltip from "./PumpTooltip";
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 const T = {
@@ -693,6 +694,11 @@ export default function DiagramSchematic({
     (t) => t !== "pump" && !IGNORED_LEGEND_TYPES.has(t) && env.diagramNodes.some((n) => n.equipmentType === t)
   );
 
+  const activeNode = useMemo(() =>
+    env.diagramNodes.find((dn) => dn.id === activeNodeId) || null,
+    [env.diagramNodes, activeNodeId]
+  );
+
   return (
     <div
       style={{
@@ -704,7 +710,10 @@ export default function DiagramSchematic({
       }}
     >
       {/* ── React Flow canvas ─────────────────────────────────────── */}
-      <div style={{ width: "100%", height: isMobile ? 420 : 360, position: "relative" }}>
+      <div 
+        className="w-full relative h-[340px] md:h-[420px] lg:h-[620px]"
+        style={{ position: "relative" }}
+      >
         {/* Custom dotted grid overlay (behind RF) */}
         <div
           aria-hidden="true"
@@ -742,25 +751,28 @@ export default function DiagramSchematic({
         )}
 
         <ReactFlow
-          key={env.shortName}
+          key={`${env.shortName}-${isMobile ? "mobile" : "desktop"}`}
           nodes={rfNodes}
           edges={rfEdges}
           nodeTypes={NODE_TYPES}
           fitView
-          fitViewOptions={{ padding: 0.18, maxZoom: 1.2 }}
-          onInit={(instance) => setTimeout(() => instance.fitView({ padding: 0.18, maxZoom: 1.2 }), 50)}
+          fitViewOptions={{ padding: 0.08, maxZoom: 1.2 }}
+          onInit={(instance) => {
+            setTimeout(() => instance.fitView({ padding: 0.08, maxZoom: 1.2 }), 50);
+          }}
           nodesDraggable={false}
           nodesConnectable={false}
           elementsSelectable={true}
           zoomOnScroll={false}
           zoomOnPinch={true}
           panOnScroll={false}
-          panOnDrag={isMobile}
-          preventScrolling={isMobile}
+          panOnDrag={true}
+          preventScrolling={false}
           minZoom={0.3}
-          maxZoom={2}
+          maxZoom={2.0}
           onNodeMouseEnter={handleNodeClick}
           onNodeMouseLeave={handlePaneClick}
+          onNodeClick={handleNodeClick}
           onPaneClick={handlePaneClick}
           proOptions={{ hideAttribution: true }}
           style={{ background: "transparent" }}
@@ -775,6 +787,27 @@ export default function DiagramSchematic({
             style={{ background: "transparent" }}
           />
         </ReactFlow>
+
+        {/* Floating tooltip overlay inside canvas container */}
+        {activeNode && (
+          <div
+            className="block"
+            style={{
+              position:      "absolute",
+              zIndex:        40,
+              pointerEvents: "none",
+              left:          isMobile ? 12 : `${activeNode.x}%`,
+              right:         isMobile ? 12 : undefined,
+              bottom:        isMobile ? 12 : undefined,
+              top:           isMobile ? undefined : `${(activeNode.y / 70) * 100}%`,
+              transform:     isMobile
+                ? "none"
+                : `translate(${activeNode.x > 52 ? "calc(-100% - 14px)" : "14px"}, -40%)`,
+            }}
+          >
+            <PumpTooltip node={activeNode} mobile={isMobile} />
+          </div>
+        )}
 
         {/* System label watermark */}
         <div

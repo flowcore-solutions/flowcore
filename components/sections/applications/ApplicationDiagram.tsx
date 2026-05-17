@@ -3,7 +3,6 @@
 import { useState, useLayoutEffect } from "react";
 import type { ApplicationEnvironment, DiagramNode } from "@/lib/application-data";
 import DiagramSchematic from "./DiagramSchematic";
-import PumpTooltip from "./PumpTooltip";
 import EnvironmentInfo from "./EnvironmentInfo";
 
 interface ApplicationDiagramProps {
@@ -42,28 +41,7 @@ export default function ApplicationDiagram({ env, reversed = false }: Applicatio
             isMobile={isMobile}
           />
 
-          {/* Tooltip — React Flow nodes are in an absolute canvas, so
-              we position this relative to the container via percentage.
-              RF canvas is 100% wide × 360px tall.
-              We normalise node.x (0..100) and node.y (0..70) to %.
-          */}
-          {activeNode && (
-            <div
-              className="block"
-              style={{
-                position:      "absolute",
-                zIndex:        40,
-                pointerEvents: "none",
-                left:          isMobile ? "50%" : `${activeNode.x}%`,
-                top:           `${(activeNode.y / 70) * 100}%`,
-                transform:     isMobile
-                  ? "translate(-50%, -50%)"
-                  : `translate(${activeNode.x > 52 ? "calc(-100% - 14px)" : "14px"}, -40%)`,
-              }}
-            >
-              <PumpTooltip node={activeNode} />
-            </div>
-          )}
+
         </div>
 
         {/* ── Info column ────────────────────────────────────────── */}

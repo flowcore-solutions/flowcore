@@ -8,14 +8,9 @@ const ApplicationDiagram = dynamic(() => import("./ApplicationDiagram"), {
   ssr: false,
   loading: () => (
     <div
+      className="w-full h-[340px] md:h-[420px] lg:h-[620px] flex items-center justify-center rounded-2xl border-[1.5px] border-[#dde5ef]"
       style={{
-        height:     360,
         background: "#f4f7fb",
-        border:     "1.5px solid #dde5ef",
-        borderRadius: 16,
-        display:    "flex",
-        alignItems: "center",
-        justifyContent: "center",
       }}
     >
       <span style={{ fontSize: 12, color: "#94a8bc", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>
