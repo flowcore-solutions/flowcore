@@ -476,6 +476,7 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from: "FlowCore Website <noreply@flowcoresolutions.in>",
       to: contactEmail,
+      cc: process.env.CC_EMAIL ? [process.env.CC_EMAIL] : undefined,
       subject,
       html: buildHtml(payload, inquiryId, subject),
       replyTo: payload.email,

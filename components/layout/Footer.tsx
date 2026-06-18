@@ -11,7 +11,7 @@ const FOOTER_LINKS = [
 
 const CONTACT_EMAIL_USER = "flowcoresolutionsblr";
 const CONTACT_EMAIL_DOMAIN = "gmail.com";
-const CONTACT_EMAIL = `${CONTACT_EMAIL_USER}@${CONTACT_EMAIL_DOMAIN}`;
+const CONTACT_EMAIL = "flowcoresolutionsblr@gmail.com";
 const WHATSAPP_LINK = "https://wa.me/918618885283";
 
 function BrandIdentity() {
