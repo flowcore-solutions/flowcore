@@ -102,7 +102,7 @@ const CORE_INDUSTRIES: Industry[] = [
     faqs: [
       {
         question: "What is the best pump for boiler feed applications?",
-        answer: "Vertical multistage pumps (CDLF series) are ideal for boiler feed due to their high pressure capability and thermal range up to 120°C."
+        answer: "Vertical multistage pumps (BDLF series) are ideal for boiler feed due to their high pressure capability and thermal range up to 120°C."
       }
     ]
   }

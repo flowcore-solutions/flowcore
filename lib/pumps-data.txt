@@ -1,6 +1,6 @@
 BERLINGTON PUMPS – STRUCTURED DATA
 
-1. CDL / CDLF
+1. BDL / BDLF
 Type: Vertical Multistage Centrifugal Pump
 Technical Details:
 - Flow Rate: 0.4 – 240 m³/h
@@ -17,7 +17,7 @@ Applications:
 Material: Stainless steel / Cast iron
 
 
-2. CDLF + CDH
+2. BDLF + BDH
 Type: High Pressure Pump Unit
 Technical Details:
 - Flow Rate: 0.4 – 65 m³/h
@@ -32,7 +32,7 @@ Applications:
 Material: Stainless steel / Cast iron
 
 
-3. CDLK / CDLKF
+3. BDLK / BDLKF
 Type: Immersion Type Multistage Centrifugal Pump
 Technical Details:
 - Flow Rate: 0.4 – 65 m³/h
@@ -63,7 +63,7 @@ Applications:
 Material: Stainless steel / Cast iron
 
 
-5. CHL
+5. BHL
 Type: Horizontal Multistage Centrifugal Pump
 Technical Details:
 - Flow Rate: 0.5 – 32 m³/h
@@ -78,7 +78,7 @@ Applications:
 Material: Stainless steel / Cast iron
 
 
-6. CHLF / CHLF(T)
+6. BHLF / BHLF(T)
 Type: Horizontal Multistage Centrifugal Pump
 Technical Details:
 - Flow Rate: 0.5 – 32 m³/h
@@ -93,7 +93,7 @@ Applications:
 Material: Stainless steel / Cast iron
 
 
-7. CHM
+7. BHM
 Type: Horizontal Multistage Centrifugal Pump
 Technical Details:
 - Flow Rate: 0.5 – 32 m³/h
@@ -273,7 +273,7 @@ env.shortName     // "RP", "FF" etc
 env.description   // one paragraph description
 env.diagramNodes  // array of nodes with:
   node.id
-  node.label        // "Raw Tank", "CDLF Feed Pump" etc
+  node.label        // "Raw Tank", "BDLF Feed Pump" etc
   node.role         // engineering description of this component
   node.equipmentType // "pump" | "tank" | "chiller" | "boiler" etc (22 types)
   node.pumpModelId   // "niso" | "wq" | "ld" etc or null if not a pump

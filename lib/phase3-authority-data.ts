@@ -146,9 +146,9 @@ export const TOPICAL_CLUSTERS: ClusterDefinition[] = [
     ],
     localCities: ["bangalore", "mysore", "mangalore", "tumkur"],
     recommendedProducts: [
-      { label: "CDLF / CDH High Pressure Multistage Pump", href: "/products/cdlf-cdh" },
-      { label: "CDL / CDLF Vertical Multistage Pump", href: "/products/cdl-cdlf" },
-      { label: "CHLF Horizontal Multistage Pump", href: "/products/chlf" },
+      { label: "BDLF / BDH High Pressure Multistage Pump", href: "/products/cdlf-cdh" },
+      { label: "BDL / BDLF Vertical Multistage Pump", href: "/products/cdl-cdlf" },
+      { label: "BHLF Horizontal Multistage Pump", href: "/products/chlf" },
     ],
     engineeringAngles: [
       "membrane feed pressure stability",
@@ -203,9 +203,9 @@ export const TOPICAL_CLUSTERS: ClusterDefinition[] = [
     ],
     localCities: ["bangalore", "mysore", "mangalore", "hubli"],
     recommendedProducts: [
-      { label: "CDL / CDLF Vertical Multistage Pump", href: "/products/cdl-cdlf" },
-      { label: "CDLF / CDH High Pressure Unit", href: "/products/cdlf-cdh" },
-      { label: "CDLK / CDLKF Immersion Multistage Pump", href: "/products/cdlk-cdlkf" },
+      { label: "BDL / BDLF Vertical Multistage Pump", href: "/products/cdl-cdlf" },
+      { label: "BDLF / BDH High Pressure Unit", href: "/products/cdlf-cdh" },
+      { label: "BDLK / BDLKF Immersion Multistage Pump", href: "/products/cdlk-cdlkf" },
     ],
     engineeringAngles: [
       "staged pressure development across impellers",
@@ -258,8 +258,8 @@ export const TOPICAL_CLUSTERS: ClusterDefinition[] = [
     ],
     localCities: ["bangalore", "mysore", "mangalore", "tumkur"],
     recommendedProducts: [
-      { label: "CDLF / CDH High Pressure Unit", href: "/products/cdlf-cdh" },
-      { label: "CDL / CDLF Vertical Multistage Pump", href: "/products/cdl-cdlf" },
+      { label: "BDLF / BDH High Pressure Unit", href: "/products/cdlf-cdh" },
+      { label: "BDL / BDLF Vertical Multistage Pump", href: "/products/cdl-cdlf" },
       { label: "NISO End-Suction Centrifugal Pump", href: "/products/niso" },
     ],
     engineeringAngles: [
@@ -372,7 +372,7 @@ export const TOPICAL_CLUSTERS: ClusterDefinition[] = [
     recommendedProducts: [
       { label: "HYDRO Variable Speed Booster System", href: "/products/hydro" },
       { label: "MINI Single Booster Pump", href: "/products/mini" },
-      { label: "CDL / CDLF Vertical Multistage Pump", href: "/products/cdl-cdlf" },
+      { label: "BDL / BDLF Vertical Multistage Pump", href: "/products/cdl-cdlf" },
     ],
     engineeringAngles: [
       "pressure set point and minimum threshold",
@@ -484,7 +484,7 @@ export const TOPICAL_CLUSTERS: ClusterDefinition[] = [
     recommendedProducts: [
       { label: "LD Vertical Inline Circulation Pump", href: "/products/ld" },
       { label: "NISO End-Suction Centrifugal Pump", href: "/products/niso" },
-      { label: "CDLK / CDLKF Immersion Pump", href: "/products/cdlk-cdlkf" },
+      { label: "BDLK / BDLKF Immersion Pump", href: "/products/cdlk-cdlkf" },
     ],
     engineeringAngles: [
       "chilled water loop flow and head",

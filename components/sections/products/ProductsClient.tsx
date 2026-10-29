@@ -25,8 +25,8 @@ type CategoryMeta = {
 };
 
 const CATEGORY_META: Record<PumpCategory, CategoryMeta> = {
-  "Vertical Multistage":   { accent: "blue",  shortLabel: "CDL / CDLF / CDH",  icon: "↑" },
-  "Horizontal Multistage": { accent: "blue",  shortLabel: "CHL / CHM",          icon: "→" },
+  "Vertical Multistage":   { accent: "blue",  shortLabel: "BDL / BDLF / BDH",  icon: "↑" },
+  "Horizontal Multistage": { accent: "blue",  shortLabel: "BHL / BHM",          icon: "→" },
   "Sewage & Submersible":  { accent: "green", shortLabel: "WQ / STP",           icon: "↓" },
   "Hydro & Booster":       { accent: "green", shortLabel: "HYDRO / BT / MINI",  icon: "⟳" },
   "Self-Priming":          { accent: "blue",  shortLabel: "QY(B) / SZ",         icon: "◎" },

@@ -44,7 +44,7 @@ const productCollectionSchema = {
     {
       "@type": "ListItem",
       position: 1,
-      name: "CDL / CDLF Series - Vertical Multistage Pump",
+      name: "BDL / BDLF Series - Vertical Multistage Pump",
       description:
         "Vertical multistage pump for RO feed, pressure boosting, HVAC, and treated water duty.",
       url: "https://flowcoresolutions.in/products",
@@ -52,7 +52,7 @@ const productCollectionSchema = {
     {
       "@type": "ListItem",
       position: 2,
-      name: "CHL / CHLF Series - Horizontal Multistage Pump",
+      name: "BHL / BHLF Series - Horizontal Multistage Pump",
       description:
         "Horizontal multistage pump for clean water transfer, treatment lines, and pressure duty.",
       url: "https://flowcoresolutions.in/products",

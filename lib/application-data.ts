@@ -82,7 +82,7 @@ const CORE_APPLICATIONS: Application[] = [
       "Pump efficiency (VFD control) to reduce operating expenditure."
     ],
     recommendedPumps: [
-      { id: "cdlf-cdh", name: "CDLF HP Series" },
+      { id: "cdlf-cdh", name: "BDLF HP Series" },
       { id: "cdl-cdlf", name: "Standard Vertical Multistage" }
     ],
     industries: ["pharmaceutical", "manufacturing", "water-treatment"],
@@ -168,8 +168,8 @@ const extraApplications: Application[] = [
       "Scaling and water quality impact on pump internals.",
     ],
     recommendedPumps: [
-      { id: "cdlf-cdh", name: "CDLF / CDH High Pressure Unit" },
-      { id: "cdl-cdlf", name: "CDL / CDLF Vertical Multistage" },
+      { id: "cdlf-cdh", name: "BDLF / BDH High Pressure Unit" },
+      { id: "cdl-cdlf", name: "BDL / BDLF Vertical Multistage" },
     ],
     industries: ["manufacturing", "pharmaceutical", "food-and-beverage", "textile", "hotels"],
     faqs: [
@@ -192,8 +192,8 @@ const extraApplications: Application[] = [
       "Maintenance access for contractors and plant operators.",
     ],
     recommendedPumps: [
-      { id: "cdl-cdlf", name: "CDL / CDLF Vertical Multistage" },
-      { id: "chlf", name: "CHLF Horizontal Multistage" },
+      { id: "cdl-cdlf", name: "BDL / BDLF Vertical Multistage" },
+      { id: "chlf", name: "BHLF Horizontal Multistage" },
       { id: "niso", name: "NISO End-Suction" },
     ],
     industries: ["water-treatment-contractors", "manufacturing", "pharmaceutical"],
@@ -212,8 +212,8 @@ const extraApplications: Application[] = [
     ],
     keyConsiderations: ["Filter pressure drop", "Backwash demand", "Water quality", "Continuous operation efficiency"],
     recommendedPumps: [
-      { id: "cdlk-cdlkf", name: "CDLK / CDLKF Multistage" },
-      { id: "chm", name: "CHM Horizontal Multistage" },
+      { id: "cdlk-cdlkf", name: "BDLK / BDLKF Multistage" },
+      { id: "chm", name: "BHM Horizontal Multistage" },
     ],
     industries: ["manufacturing", "water-treatment-contractors"],
     faqs: [
@@ -291,7 +291,7 @@ const extraApplications: Application[] = [
       "FlowCore reviews static height, fixture demand, pressure set points, tanks, VFD logic, and service access.",
     ],
     keyConsiderations: ["Static height", "Pressure zoning", "VFD control", "Tank sizing"],
-    recommendedPumps: [{ id: "hydro", name: "HYDRO Variable Speed Booster" }, { id: "cdl-cdlf", name: "CDL / CDLF Multistage" }],
+    recommendedPumps: [{ id: "hydro", name: "HYDRO Variable Speed Booster" }, { id: "cdl-cdlf", name: "BDL / BDLF Multistage" }],
     industries: ["hospitals", "hotels", "commercial-buildings", "residential-towers"],
     faqs: [{ question: "Which pump is used for high-rise water supply?", answer: "VFD booster systems and vertical multistage pumps are common where stable pressure is required across multiple floors." }],
   },
@@ -403,7 +403,7 @@ const extraApplications: Application[] = [
       "Pump selection should account for fluid temperature, flow stability, operating hours, and maintenance access.",
     ],
     keyConsiderations: ["Temperature control", "Continuous duty", "Flow stability", "Service access"],
-    recommendedPumps: [{ id: "niso", name: "NISO End-Suction" }, { id: "cdlk-cdlkf", name: "CDLK / CDLKF" }],
+    recommendedPumps: [{ id: "niso", name: "NISO End-Suction" }, { id: "cdlk-cdlkf", name: "BDLK / BDLKF" }],
     industries: ["manufacturing", "pharmaceutical", "food-and-beverage"],
     faqs: [{ question: "Which pumps are used for process cooling?", answer: "Centrifugal, inline, and multistage pumps may be used depending on flow, head, and cooling loop design." }],
   },
@@ -431,7 +431,7 @@ const extraApplications: Application[] = [
       "FlowCore reviews the plant utility requirement before recommending a centrifugal, multistage, or transfer pump family.",
     ],
     keyConsiderations: ["Flow stability", "Water quality", "Operating hours", "Material"],
-    recommendedPumps: [{ id: "zs", name: "ZS Single-Stage" }, { id: "niso", name: "NISO End-Suction" }, { id: "chm", name: "CHM Multistage" }],
+    recommendedPumps: [{ id: "zs", name: "ZS Single-Stage" }, { id: "niso", name: "NISO End-Suction" }, { id: "chm", name: "BHM Multistage" }],
     industries: ["manufacturing", "pharmaceutical", "food-and-beverage"],
     faqs: [{ question: "What is process water transfer?", answer: "It is movement of utility or treated water between process stages, tanks, equipment, or distribution points." }],
   },
@@ -448,7 +448,7 @@ const applicationDiagramMap: Record<string, { nodes: DiagramNode[]; pipes: PipeR
   "ro-plants": {
     nodes: [
       { id: "ro-raw-tank",    label: "Raw Tank",   role: "Raw water storage vessel",           equipmentType: "storage-tank",  pumpModelId: null,       x: 18, y: 52 },
-      { id: "ro-feed-pump",   label: "CDLF Feed Pump",  role: "Raw water feed to pre-treatment",    equipmentType: "pump",     pumpModelId: "cdl-cdlf", x: 34, y: 52 },
+      { id: "ro-feed-pump",   label: "BDLF Feed Pump",  role: "Raw water feed to pre-treatment",    equipmentType: "pump",     pumpModelId: "cdl-cdlf", x: 34, y: 52 },
       { id: "ro-sand-filter", label: "Sand Filter",     role: "Pressure sand filtration stage",      equipmentType: "sand-filter", pumpModelId: null,       x: 50, y: 52 },
       { id: "ro-hp-pump",     label: "RO HP Pump",    role: "High pressure RO membrane feed",     equipmentType: "pump",     pumpModelId: "cdlf-cdh", x: 68, y: 52 },
       { id: "ro-membrane",    label: "Membrane",   role: "RO semi-permeable membrane vessels", equipmentType: "ro-vessel", pumpModelId: null,       x: 82, y: 40 },
@@ -502,7 +502,7 @@ const applicationDiagramMap: Record<string, { nodes: DiagramNode[]; pipes: PipeR
   "boiler-feed": {
     nodes: [
       { id: "bf-feed-tank",  label: "Deaerator Tank",  role: "Deaerator boiler feed water tank",  equipmentType: "deaerator", pumpModelId: null,       x: 24, y: 44, customScale: 1.15 },
-      { id: "bf-feed-pump",  label: "CDLF Feed Pump",  role: "High pressure boiler feed pump",    equipmentType: "pump", pumpModelId: "cdlf-cdh", x: 42, y: 26 },
+      { id: "bf-feed-pump",  label: "BDLF Feed Pump",  role: "High pressure boiler feed pump",    equipmentType: "pump", pumpModelId: "cdlf-cdh", x: 42, y: 26 },
       { id: "bf-boiler",     label: "Boiler",     role: "Steam boiler vessel",               equipmentType: "boiler", pumpModelId: null,       x: 58, y: 44 },
       { id: "bf-condensate", label: "Condensate", role: "Condensate return pump",            equipmentType: "pump", pumpModelId: "cdl-cdlf", x: 72, y: 22 },
     ],

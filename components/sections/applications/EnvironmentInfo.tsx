@@ -77,16 +77,16 @@ const EQUIPMENT_LABELS: Record<EquipmentType, string> = {
 };
 
 const PUMP_MODEL_LABELS: Record<string, string> = {
-  "cdl-cdlf":  "CDL / CDLF Multistage",
-  "cdlf-cdh":  "CDLF / CDH HP",
+  "cdl-cdlf":  "BDL / BDLF Multistage",
+  "cdlf-cdh":  "BDLF / BDH HP",
   "niso":      "NISO End-Suction",
   "wq":        "WQ Sewage",
   "mini":      "MINI Jockey",
   "ld":        "LD Inline",
   "hydro":     "HYDRO Booster",
   "bt":        "BT Blower",
-  "chlf":      "CHLF / CHLF-T",
-  "chm":       "CHM Multistage",
+  "chlf":      "BHLF / BHLF-T",
+  "chm":       "BHM Multistage",
   "zs":        "ZS Single-Stage",
   "qy-b":      "QY(B) Self-Prime",
 };

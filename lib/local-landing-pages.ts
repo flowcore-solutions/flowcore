@@ -109,7 +109,7 @@ export const berlingtonLandingConfig: LandingConfig = {
     title: "Berlington Pump Specifications - Models Stocked in Bangalore",
     columns: ["Model", "Flow Rate", "Head", "Power", "Application"],
     rows: [
-      ["CDL / CDLF", "0.4 - 240 m3/h", "4 - 305 m", "0.37 - 45 kW", "WTP / HVAC / Fire"],
+      ["BDL / BDLF", "0.4 - 240 m3/h", "4 - 305 m", "0.37 - 45 kW", "WTP / HVAC / Fire"],
       ["NISO", "3 - 1200 m3/h", "4 - 160 m", "3 - 250 kW", "Industrial / Utility"],
       ["WQ", "3 - 1800 m3/h", "2 - 66 m", "0.75 - 200 kW", "Sewage / Drainage"],
       ["HYDRO", "2 - 500 m3/h", "4 - 200 m", "0.75 - 22 kW", "Pressure boosting"],

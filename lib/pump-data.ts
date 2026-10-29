@@ -28,7 +28,7 @@ export type ApplicationTag =
 export type PumpModel = {
   /** Unique slug used as React key and URL param */
   id: string;
-  /** Short series identifier, e.g. "CDL / CDLF" */
+  /** Short series identifier, e.g. "BDL / BDLF" */
   seriesCode: string;
   /** Full display name */
   fullName: string;
@@ -61,8 +61,8 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
 
   {
     id: "cdl-cdlf",
-    seriesCode: "CDL / CDLF",
-    fullName: "CDL / CDLF Series",
+    seriesCode: "BDL / BDLF",
+    fullName: "BDL / BDLF Series",
     category: "Vertical Multistage",
     imagePath: "/assets/pumps/berlington-cdl-cdlf-vertical-multistage-pump.webp",
     flowRate: "0.4 – 240 m³/h",
@@ -77,7 +77,7 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
   },
   {
     id: "cdlf-cdh",
-    seriesCode: "HP (CDLF / CDH)",
+    seriesCode: "HP (BDLF / BDH)",
     fullName: "HP Series — High Pressure Unit",
     category: "Vertical Multistage",
     imagePath: "/assets/pumps/berlington-cdlf-cdh-high-pressure-multistage-pump.webp",
@@ -93,8 +93,8 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
   },
   {
     id: "cdlk-cdlkf",
-    seriesCode: "CDLK / CDLKF",
-    fullName: "CDLK / CDLKF Series",
+    seriesCode: "BDLK / BDLKF",
+    fullName: "BDLK / BDLKF Series",
     category: "Vertical Multistage",
     imagePath: "/assets/pumps/berlington-cdlk-cdlkf-vertical-multistage-pump.webp",
     flowRate: "0.4 – 65 m³/h",
@@ -112,8 +112,8 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
 
   {
     id: "chl",
-    seriesCode: "CHL",
-    fullName: "CHL Series",
+    seriesCode: "BHL",
+    fullName: "BHL Series",
     category: "Horizontal Multistage",
     imagePath: "/assets/pumps/berlington-chl-horizontal-multistage-pump.webp",
     flowRate: "0.5 – 8 m³/h",
@@ -128,8 +128,8 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
   },
   {
     id: "chlf",
-    seriesCode: "CHLF / CHLF-T",
-    fullName: "CHLF / CHLF-T Series",
+    seriesCode: "BHLF / BHLF-T",
+    fullName: "BHLF / BHLF-T Series",
     category: "Horizontal Multistage",
     imagePath: "/assets/pumps/berlington-chlf-chlf-t-horizontal-multistage-pump.webp",
     flowRate: "0.5 – 20 m³/h",
@@ -144,8 +144,8 @@ export const PUMP_CATALOG: readonly PumpModel[] = [
   },
   {
     id: "chm",
-    seriesCode: "CHM",
-    fullName: "CHM Series",
+    seriesCode: "BHM",
+    fullName: "BHM Series",
     category: "Horizontal Multistage",
     imagePath: "/assets/pumps/berlington-chm-horizontal-multistage-pump.webp",
     flowRate: "1 – 32 m³/h",
